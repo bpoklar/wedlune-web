@@ -10,11 +10,16 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/fonts": "0.14.0",
+    "@nuxt/image": "2.0.0",
     "@nuxtjs/seo": "3.4.0",
     "@tailwindcss/vite": "^4.2.1",
+    "@vee-validate/nuxt": "^4.15.1",
+    "@vee-validate/zod": "^4.15.1",
     "nuxt": "^4.4.2",
     "tailwindcss": "^4.2.1",
     "vue": "^3.5.30",
-    "vue-router": "^5.0.3"
+    "vue-router": "^5.0.3",
+    "zod": "^4.3.6"
   }
 }
