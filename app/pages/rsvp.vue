@@ -47,6 +47,25 @@
               : `Thank you for letting us know, ${guestName}. We'll miss you!`
           }}
         </p>
+        <!-- +1 summary -->
+        <div v-if="plusOneGuests.length > 0" class="mt-4 space-y-1">
+          <p
+            v-for="po in plusOneGuests"
+            :key="po.id"
+            class="text-warm-gray text-sm"
+          >
+            {{ po.name }} —
+            <span
+              :class="
+                po.rsvpStatus === 'accepted'
+                  ? 'text-sage-green'
+                  : 'text-blush-rose'
+              "
+            >
+              {{ po.rsvpStatus === "accepted" ? "Attending" : "Not attending" }}
+            </span>
+          </p>
+        </div>
         <p
           v-if="coupleName"
           class="text-champagne-gold font-accent text-xl mt-4"
@@ -74,7 +93,7 @@
         </div>
 
         <form @submit="onSubmit" class="space-y-6">
-          <!-- RSVP Status -->
+          <!-- Main guest RSVP Status -->
           <fieldset>
             <legend class="text-charcoal font-semibold text-sm mb-3">
               Will you attend? <span class="text-dusty-crimson">*</span>
@@ -120,7 +139,7 @@
             </p>
           </fieldset>
 
-          <!-- Meal preference (only if accepted) -->
+          <!-- Main guest meal / dietary (only if accepted) -->
           <div v-if="rsvpStatusField === 'accepted'" class="space-y-6">
             <div>
               <label
@@ -168,6 +187,95 @@
               </p>
             </div>
           </div>
+
+          <!-- +1 Guest sections -->
+          <template v-for="(po, idx) in plusOneGuests" :key="po.id">
+            <div class="border-t border-linen pt-6">
+              <h2 class="font-display text-xl text-charcoal mb-4">
+                {{ po.name }}
+              </h2>
+
+              <!-- +1 RSVP Status -->
+              <fieldset>
+                <legend class="text-charcoal font-semibold text-sm mb-3">
+                  Will {{ po.name }} attend?
+                  <span class="text-dusty-crimson">*</span>
+                </legend>
+                <div class="grid grid-cols-2 gap-3">
+                  <label
+                    :class="[
+                      'flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
+                      po.rsvpStatus === 'accepted'
+                        ? 'border-sage-green bg-sage-green/10 text-sage-green'
+                        : 'border-linen text-warm-gray hover:border-sage-green/50',
+                    ]"
+                  >
+                    <input
+                      v-model="po.rsvpStatus"
+                      type="radio"
+                      :name="`rsvpStatus_${idx}`"
+                      value="accepted"
+                      class="sr-only"
+                    />
+                    <span>✓</span> Attending
+                  </label>
+                  <label
+                    :class="[
+                      'flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
+                      po.rsvpStatus === 'declined'
+                        ? 'border-blush-rose bg-blush-rose/10 text-blush-rose'
+                        : 'border-linen text-warm-gray hover:border-blush-rose/50',
+                    ]"
+                  >
+                    <input
+                      v-model="po.rsvpStatus"
+                      type="radio"
+                      :name="`rsvpStatus_${idx}`"
+                      value="declined"
+                      class="sr-only"
+                    />
+                    <span>✗</span> Not Attending
+                  </label>
+                </div>
+              </fieldset>
+
+              <!-- +1 meal / dietary (only if accepted) -->
+              <div v-if="po.rsvpStatus === 'accepted'" class="space-y-4 mt-4">
+                <div>
+                  <label
+                    :for="`meal_${idx}`"
+                    class="block text-charcoal font-semibold text-sm mb-2"
+                  >
+                    Meal Preference
+                  </label>
+                  <input
+                    :id="`meal_${idx}`"
+                    v-model="po.mealPreference"
+                    type="text"
+                    placeholder="e.g., Chicken, Fish, Vegetarian"
+                    maxlength="500"
+                    class="w-full px-4 py-3 rounded-xl border border-linen bg-ivory-cream text-charcoal text-sm placeholder:text-pearl-gray focus:outline-none focus:border-champagne-gold focus:ring-1 focus:ring-champagne-gold/30 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label
+                    :for="`dietary_${idx}`"
+                    class="block text-charcoal font-semibold text-sm mb-2"
+                  >
+                    Dietary Requirements
+                  </label>
+                  <textarea
+                    :id="`dietary_${idx}`"
+                    v-model="po.dietaryNotes"
+                    rows="2"
+                    placeholder="Allergies, intolerances, or special requests"
+                    maxlength="500"
+                    class="w-full px-4 py-3 rounded-xl border border-linen bg-ivory-cream text-charcoal text-sm placeholder:text-pearl-gray focus:outline-none focus:border-champagne-gold focus:ring-1 focus:ring-champagne-gold/30 transition-colors resize-none"
+                  />
+                </div>
+              </div>
+            </div>
+          </template>
 
           <!-- Submit -->
           <button
@@ -229,6 +337,16 @@ const submitError = ref<string | null>(null);
 const guestName = ref("");
 const coupleName = ref<string | null>(null);
 
+// +1 guest data (reactive array)
+interface PlusOneGuest {
+  id: string;
+  name: string;
+  rsvpStatus: string;
+  mealPreference: string;
+  dietaryNotes: string;
+}
+const plusOneGuests = ref<PlusOneGuest[]>([]);
+
 // Zod schema
 const rsvpSchema = toTypedSchema(
   z.object({
@@ -273,6 +391,13 @@ onMounted(async () => {
       mealPreference: string | null;
       dietaryNotes: string | null;
       coupleName: string | null;
+      plusOnes?: Array<{
+        id: string;
+        name: string;
+        rsvpStatus: string;
+        mealPreference: string | null;
+        dietaryNotes: string | null;
+      }>;
     }>(edgeFunctionUrl.value, {
       params: { token: token.value },
       headers: {
@@ -282,6 +407,17 @@ onMounted(async () => {
 
     guestName.value = data.name;
     coupleName.value = data.coupleName;
+
+    // Populate +1 guests
+    if (data.plusOnes && data.plusOnes.length > 0) {
+      plusOneGuests.value = data.plusOnes.map((po) => ({
+        id: po.id,
+        name: po.name,
+        rsvpStatus: po.rsvpStatus === "pending" ? "" : po.rsvpStatus,
+        mealPreference: po.mealPreference ?? "",
+        dietaryNotes: po.dietaryNotes ?? "",
+      }));
+    }
 
     // Pre-fill form if guest already responded
     if (data.rsvpStatus !== "pending") {
@@ -308,6 +444,15 @@ onMounted(async () => {
 });
 
 const onSubmit = handleSubmit(async (values) => {
+  // Validate +1 guests have a response selected
+  const missingPlusOne = plusOneGuests.value.find(
+    (po) => !po.rsvpStatus || !["accepted", "declined"].includes(po.rsvpStatus),
+  );
+  if (missingPlusOne) {
+    submitError.value = `Please select a response for ${missingPlusOne.name}.`;
+    return;
+  }
+
   submitting.value = true;
   submitError.value = null;
 
@@ -323,6 +468,12 @@ const onSubmit = handleSubmit(async (values) => {
         rsvpStatus: values.rsvpStatus,
         mealPreference: values.mealPreference || null,
         dietaryNotes: values.dietaryNotes || null,
+        guests: plusOneGuests.value.map((po) => ({
+          id: po.id,
+          rsvpStatus: po.rsvpStatus,
+          mealPreference: po.mealPreference || null,
+          dietaryNotes: po.dietaryNotes || null,
+        })),
       },
     });
 
