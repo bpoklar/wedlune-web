@@ -33,7 +33,8 @@
           </li>
           <li>
             <strong>Usage data:</strong> Anonymous analytics about app
-            interactions to improve our service.
+            interactions to improve our service. You can opt out of this
+            collection in the app's Settings.
           </li>
           <li>
             <strong>Device information:</strong> Device type, operating system,
@@ -104,7 +105,23 @@
       </section>
 
       <section>
-        <h2>8. Data Retention</h2>
+        <h2>8. Usage Analytics</h2>
+        <p>
+          We collect anonymous usage analytics within the app — such as which
+          screens you visit, features you use, and task completion rates — to
+          improve the app experience. This data is stored in our own database
+          and is never shared with third-party analytics services. We do not use
+          any external tracking, advertising, or crash-reporting SDKs.
+        </p>
+        <p>
+          You can opt out of usage analytics at any time from the app's Settings
+          → Usage Analytics. When opted out, no analytics data is collected or
+          transmitted.
+        </p>
+      </section>
+
+      <section>
+        <h2>9. Data Retention</h2>
         <p>
           We retain your data for as long as your account is active. When you
           delete your account, all personal data and wedding planning
@@ -113,7 +130,7 @@
       </section>
 
       <section>
-        <h2>9. Contact Us</h2>
+        <h2>10. Contact Us</h2>
         <p>
           For privacy-related questions, please contact us at
           <a
@@ -128,7 +145,7 @@
 </template>
 
 <script setup lang="ts">
-const lastUpdated = "March 18, 2026";
+const lastUpdated = "April 13, 2026";
 
 useHead({
   title: "Privacy Policy — Wedlune",

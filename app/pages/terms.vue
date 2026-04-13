@@ -126,7 +126,7 @@
 </template>
 
 <script setup lang="ts">
-const lastUpdated = "March 18, 2026";
+const lastUpdated = "April 13, 2026";
 
 useHead({
   title: "Terms of Service — Wedlune",
