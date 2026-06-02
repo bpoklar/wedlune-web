@@ -143,25 +143,38 @@
           <div v-if="rsvpStatusField === 'accepted'" class="space-y-6">
             <div>
               <label
-                for="mealPreference"
+                for="plateSelect"
                 class="block text-charcoal font-semibold text-sm mb-2"
               >
                 Meal Preference
               </label>
-              <input
-                id="mealPreference"
-                v-model="mealPreferenceField"
-                type="text"
-                placeholder="e.g., Chicken, Fish, Vegetarian"
-                maxlength="500"
-                class="w-full px-4 py-3 rounded-xl border border-linen bg-ivory-cream text-charcoal text-sm placeholder:text-pearl-gray focus:outline-none focus:border-champagne-gold focus:ring-1 focus:ring-champagne-gold/30 transition-colors"
-              />
-              <p
-                v-if="mealPreferenceError"
-                class="text-dusty-crimson text-xs mt-1"
-              >
-                {{ mealPreferenceError }}
-              </p>
+              <template v-if="plates.length > 0">
+                <select
+                  id="plateSelect"
+                  v-model="selectedPlateId"
+                  class="w-full px-4 py-3 rounded-xl border border-linen bg-ivory-cream text-charcoal text-sm focus:outline-none focus:border-champagne-gold focus:ring-1 focus:ring-champagne-gold/30 transition-colors appearance-none"
+                >
+                  <option :value="null">—</option>
+                  <option
+                    v-for="p in plates"
+                    :key="p.id"
+                    :value="p.id"
+                  >
+                    {{ p.label }}{{ p.category ? ` (${p.category})` : '' }}
+                  </option>
+                </select>
+              </template>
+              <template v-else>
+                <p class="text-warm-gray text-sm italic">
+                  No meal options have been added yet.
+                </p>
+                <p
+                  v-if="mealPreferenceField && !selectedPlateId"
+                  class="text-warm-gray text-xs mt-1"
+                >
+                  Previous selection: {{ mealPreferenceField }}
+                </p>
+              </template>
             </div>
 
             <div>
@@ -248,14 +261,34 @@
                   >
                     Meal Preference
                   </label>
-                  <input
-                    :id="`meal_${idx}`"
-                    v-model="po.mealPreference"
-                    type="text"
-                    placeholder="e.g., Chicken, Fish, Vegetarian"
-                    maxlength="500"
-                    class="w-full px-4 py-3 rounded-xl border border-linen bg-ivory-cream text-charcoal text-sm placeholder:text-pearl-gray focus:outline-none focus:border-champagne-gold focus:ring-1 focus:ring-champagne-gold/30 transition-colors"
-                  />
+                  <template v-if="plates.length > 0">
+                    <select
+                      :id="`plate_${idx}`"
+                      v-model="po.plateId"
+                      @change="onPlusOnePlateChange(po)"
+                      class="w-full px-4 py-3 rounded-xl border border-linen bg-ivory-cream text-charcoal text-sm focus:outline-none focus:border-champagne-gold focus:ring-1 focus:ring-champagne-gold/30 transition-colors appearance-none"
+                    >
+                      <option :value="null">—</option>
+                      <option
+                        v-for="p in plates"
+                        :key="p.id"
+                        :value="p.id"
+                      >
+                        {{ p.label }}{{ p.category ? ` (${p.category})` : '' }}
+                      </option>
+                    </select>
+                  </template>
+                  <template v-else>
+                    <p class="text-warm-gray text-sm italic">
+                      No meal options have been added yet.
+                    </p>
+                    <p
+                      v-if="po.mealPreference"
+                      class="text-warm-gray text-xs mt-1"
+                    >
+                      Previous selection: {{ po.mealPreference }}
+                    </p>
+                  </template>
                 </div>
                 <div>
                   <label
@@ -344,8 +377,13 @@ interface PlusOneGuest {
   rsvpStatus: string;
   mealPreference: string;
   dietaryNotes: string;
+  plateId: string | null;
 }
 const plusOneGuests = ref<PlusOneGuest[]>([]);
+
+// Plates data for dropdown
+const plates = ref<{ id: string; label: string; category: string }[]>([]);
+const selectedPlateId = ref<string | null>(null);
 
 // Zod schema
 const rsvpSchema = toTypedSchema(
@@ -375,6 +413,30 @@ const edgeFunctionUrl = computed(() => {
   return `${supabaseUrl}/functions/v1/handle-guest-rsvp`;
 });
 
+// Auto-fill mealPreference when a plus-one plate changes
+function onPlusOnePlateChange(po: PlusOneGuest) {
+  if (po.plateId) {
+    const matched = plates.value.find((p) => p.id === po.plateId);
+    if (matched) {
+      po.mealPreference = matched.label;
+    }
+  } else {
+    po.mealPreference = "";
+  }
+}
+
+// Auto-fill mealPreference when guest selects a plate
+watch(selectedPlateId, (newVal) => {
+  if (newVal) {
+    const matched = plates.value.find((p) => p.id === newVal);
+    if (matched) {
+      mealPreferenceField.value = matched.label;
+    }
+  } else {
+    mealPreferenceField.value = "";
+  }
+});
+
 // Fetch guest data on mount
 onMounted(async () => {
   if (!token.value) {
@@ -390,13 +452,20 @@ onMounted(async () => {
       rsvpStatus: string;
       mealPreference: string | null;
       dietaryNotes: string | null;
+      plateId: string | null;
       coupleName: string | null;
+      plates: Array<{
+        id: string;
+        label: string;
+        category: string;
+      }>;
       plusOnes?: Array<{
         id: string;
         name: string;
         rsvpStatus: string;
         mealPreference: string | null;
         dietaryNotes: string | null;
+        plateId: string | null;
       }>;
     }>(edgeFunctionUrl.value, {
       params: { token: token.value },
@@ -407,6 +476,8 @@ onMounted(async () => {
 
     guestName.value = data.name;
     coupleName.value = data.coupleName;
+    plates.value = data.plates ?? [];
+    selectedPlateId.value = data.plateId ?? null;
 
     // Populate +1 guests
     if (data.plusOnes && data.plusOnes.length > 0) {
@@ -416,15 +487,21 @@ onMounted(async () => {
         rsvpStatus: po.rsvpStatus === "pending" ? "" : po.rsvpStatus,
         mealPreference: po.mealPreference ?? "",
         dietaryNotes: po.dietaryNotes ?? "",
+        plateId: po.plateId ?? null,
       }));
     }
 
     // Pre-fill form if guest already responded
     if (data.rsvpStatus !== "pending") {
+      selectedPlateId.value = data.plateId ?? null;
+      const matched = data.plateId
+        ? (data.plates ?? []).find((p) => p.id === data.plateId)
+        : null;
+      const label = matched ? matched.label : (data.mealPreference ?? "");
       resetForm({
         values: {
           rsvpStatus: data.rsvpStatus as "accepted" | "declined",
-          mealPreference: data.mealPreference ?? "",
+          mealPreference: label,
           dietaryNotes: data.dietaryNotes ?? "",
         },
       });
@@ -466,11 +543,13 @@ const onSubmit = handleSubmit(async (values) => {
       body: {
         token: token.value,
         rsvpStatus: values.rsvpStatus,
+        plateId: selectedPlateId.value,
         mealPreference: values.mealPreference || null,
         dietaryNotes: values.dietaryNotes || null,
         guests: plusOneGuests.value.map((po) => ({
           id: po.id,
           rsvpStatus: po.rsvpStatus,
+          plateId: po.plateId || null,
           mealPreference: po.mealPreference || null,
           dietaryNotes: po.dietaryNotes || null,
         })),
