@@ -42,7 +42,7 @@ const steps = [
       "Our smart questionnaire learns your preferences across venues, food, attire, transport, and vendors.",
   },
   {
-    title: "Get Your AI Plan",
+    title: "Get Your Plan",
     description:
       "Receive personalized recommendations, an automatic timeline, and a complete planning dashboard — all tailored to you.",
   },

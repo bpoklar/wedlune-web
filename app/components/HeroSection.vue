@@ -10,12 +10,11 @@
           <h1
             class="font-display text-4xl md:text-5xl lg:text-6xl text-charcoal leading-tight mb-6"
           >
-            AI-Powered Wedding Planning for Couples
+            Plan your perfect day, together
           </h1>
           <p class="text-warm-gray text-lg leading-relaxed mb-8 max-w-lg">
-            From venue selection to vendor booking, Wedlune uses smart AI to
-            give you personalized recommendations, automatic timelines, and
-            budget tracking — so you can focus on what matters most.
+            Manage vendors, budgets, and timelines in one place — plus helpful
+            recommendations to simplify every step.
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
             <NuxtLink
