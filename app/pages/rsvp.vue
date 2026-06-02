@@ -143,33 +143,46 @@
           <div v-if="rsvpStatusField === 'accepted'" class="space-y-6">
             <div>
               <label
-                for="plateSelect"
+                for="menuSelect"
                 class="block text-charcoal font-semibold text-sm mb-2"
               >
                 Meal Preference
               </label>
-              <template v-if="plates.length > 0">
+              <template v-if="menus.length > 0">
                 <select
-                  id="plateSelect"
-                  v-model="selectedPlateId"
+                  id="menuSelect"
+                  v-model="selectedMenuId"
                   class="w-full px-4 py-3 rounded-xl border border-linen bg-ivory-cream text-charcoal text-sm focus:outline-none focus:border-champagne-gold focus:ring-1 focus:ring-champagne-gold/30 transition-colors appearance-none"
                 >
                   <option :value="null">—</option>
                   <option
-                    v-for="p in plates"
-                    :key="p.id"
-                    :value="p.id"
+                    v-for="m in menus"
+                    :key="m.id"
+                    :value="m.id"
                   >
-                    {{ p.label }}{{ p.category ? ` (${p.category})` : '' }}
+                    {{ m.label }}{{ m.category ? ` (${m.category})` : '' }}
                   </option>
                 </select>
+                <!-- Show courses for selected menu -->
+                <div
+                  v-if="selectedMenuId"
+                  class="mt-2 space-y-1"
+                >
+                  <p
+                    v-for="c in selectedMenuCourses"
+                    :key="c.id"
+                    class="text-pearl-gray text-xs"
+                  >
+                    {{ c.label }}
+                  </p>
+                </div>
               </template>
               <template v-else>
                 <p class="text-warm-gray text-sm italic">
                   No meal options have been added yet.
                 </p>
                 <p
-                  v-if="mealPreferenceField && !selectedPlateId"
+                  v-if="mealPreferenceField && !selectedMenuId"
                   class="text-warm-gray text-xs mt-1"
                 >
                   Previous selection: {{ mealPreferenceField }}
@@ -261,22 +274,35 @@
                   >
                     Meal Preference
                   </label>
-                  <template v-if="plates.length > 0">
+                  <template v-if="menus.length > 0">
                     <select
-                      :id="`plate_${idx}`"
-                      v-model="po.plateId"
-                      @change="onPlusOnePlateChange(po)"
+                      :id="`menu_${idx}`"
+                      v-model="po.menuId"
+                      @change="onPlusOneMenuChange(po)"
                       class="w-full px-4 py-3 rounded-xl border border-linen bg-ivory-cream text-charcoal text-sm focus:outline-none focus:border-champagne-gold focus:ring-1 focus:ring-champagne-gold/30 transition-colors appearance-none"
                     >
                       <option :value="null">—</option>
                       <option
-                        v-for="p in plates"
-                        :key="p.id"
-                        :value="p.id"
+                        v-for="m in menus"
+                        :key="m.id"
+                        :value="m.id"
                       >
-                        {{ p.label }}{{ p.category ? ` (${p.category})` : '' }}
+                        {{ m.label }}{{ m.category ? ` (${m.category})` : '' }}
                       </option>
                     </select>
+                    <!-- Show courses for selected +1 menu -->
+                    <div
+                      v-if="po.menuId"
+                      class="mt-2 space-y-1"
+                    >
+                      <p
+                        v-for="c in plusOneCourses(po)"
+                        :key="c.id"
+                        class="text-pearl-gray text-xs"
+                      >
+                        {{ c.label }}
+                      </p>
+                    </div>
                   </template>
                   <template v-else>
                     <p class="text-warm-gray text-sm italic">
@@ -371,19 +397,45 @@ const guestName = ref("");
 const coupleName = ref<string | null>(null);
 
 // +1 guest data (reactive array)
+interface MenuCourse {
+  id: string;
+  label: string;
+  description: string | null;
+  sortOrder: number;
+}
+
+interface Menu {
+  id: string;
+  label: string;
+  category: string;
+  courses: MenuCourse[];
+}
+
 interface PlusOneGuest {
   id: string;
   name: string;
   rsvpStatus: string;
   mealPreference: string;
   dietaryNotes: string;
-  plateId: string | null;
+  menuId: string | null;
 }
 const plusOneGuests = ref<PlusOneGuest[]>([]);
 
-// Plates data for dropdown
-const plates = ref<{ id: string; label: string; category: string }[]>([]);
-const selectedPlateId = ref<string | null>(null);
+// Menus data for dropdown
+const menus = ref<Menu[]>([]);
+const selectedMenuId = ref<string | null>(null);
+
+const selectedMenuCourses = computed(() => {
+  if (!selectedMenuId.value) return [];
+  const menu = menus.value.find((m) => m.id === selectedMenuId.value);
+  return menu?.courses ?? [];
+});
+
+function plusOneCourses(po: PlusOneGuest): MenuCourse[] {
+  if (!po.menuId) return [];
+  const menu = menus.value.find((m) => m.id === po.menuId);
+  return menu?.courses ?? [];
+}
 
 // Zod schema
 const rsvpSchema = toTypedSchema(
@@ -413,10 +465,10 @@ const edgeFunctionUrl = computed(() => {
   return `${supabaseUrl}/functions/v1/handle-guest-rsvp`;
 });
 
-// Auto-fill mealPreference when a plus-one plate changes
-function onPlusOnePlateChange(po: PlusOneGuest) {
-  if (po.plateId) {
-    const matched = plates.value.find((p) => p.id === po.plateId);
+// Auto-fill mealPreference when a plus-one menu changes
+function onPlusOneMenuChange(po: PlusOneGuest) {
+  if (po.menuId) {
+    const matched = menus.value.find((m) => m.id === po.menuId);
     if (matched) {
       po.mealPreference = matched.label;
     }
@@ -425,10 +477,10 @@ function onPlusOnePlateChange(po: PlusOneGuest) {
   }
 }
 
-// Auto-fill mealPreference when guest selects a plate
-watch(selectedPlateId, (newVal) => {
+// Auto-fill mealPreference when guest selects a menu
+watch(selectedMenuId, (newVal) => {
   if (newVal) {
-    const matched = plates.value.find((p) => p.id === newVal);
+    const matched = menus.value.find((m) => m.id === newVal);
     if (matched) {
       mealPreferenceField.value = matched.label;
     }
@@ -452,12 +504,18 @@ onMounted(async () => {
       rsvpStatus: string;
       mealPreference: string | null;
       dietaryNotes: string | null;
-      plateId: string | null;
+      menuId: string | null;
       coupleName: string | null;
-      plates: Array<{
+      menus: Array<{
         id: string;
         label: string;
         category: string;
+        courses: Array<{
+          id: string;
+          label: string;
+          description: string | null;
+          sortOrder: number;
+        }>;
       }>;
       plusOnes?: Array<{
         id: string;
@@ -465,7 +523,7 @@ onMounted(async () => {
         rsvpStatus: string;
         mealPreference: string | null;
         dietaryNotes: string | null;
-        plateId: string | null;
+        menuId: string | null;
       }>;
     }>(edgeFunctionUrl.value, {
       params: { token: token.value },
@@ -476,8 +534,8 @@ onMounted(async () => {
 
     guestName.value = data.name;
     coupleName.value = data.coupleName;
-    plates.value = data.plates ?? [];
-    selectedPlateId.value = data.plateId ?? null;
+    menus.value = data.menus ?? [];
+    selectedMenuId.value = data.menuId ?? null;
 
     // Populate +1 guests
     if (data.plusOnes && data.plusOnes.length > 0) {
@@ -487,15 +545,15 @@ onMounted(async () => {
         rsvpStatus: po.rsvpStatus === "pending" ? "" : po.rsvpStatus,
         mealPreference: po.mealPreference ?? "",
         dietaryNotes: po.dietaryNotes ?? "",
-        plateId: po.plateId ?? null,
+        menuId: po.menuId ?? null,
       }));
     }
 
     // Pre-fill form if guest already responded
     if (data.rsvpStatus !== "pending") {
-      selectedPlateId.value = data.plateId ?? null;
-      const matched = data.plateId
-        ? (data.plates ?? []).find((p) => p.id === data.plateId)
+      selectedMenuId.value = data.menuId ?? null;
+      const matched = data.menuId
+        ? (data.menus ?? []).find((m) => m.id === data.menuId)
         : null;
       const label = matched ? matched.label : (data.mealPreference ?? "");
       resetForm({
@@ -543,13 +601,13 @@ const onSubmit = handleSubmit(async (values) => {
       body: {
         token: token.value,
         rsvpStatus: values.rsvpStatus,
-        plateId: selectedPlateId.value,
+        menuId: selectedMenuId.value,
         mealPreference: values.mealPreference || null,
         dietaryNotes: values.dietaryNotes || null,
         guests: plusOneGuests.value.map((po) => ({
           id: po.id,
           rsvpStatus: po.rsvpStatus,
-          plateId: po.plateId || null,
+          menuId: po.menuId || null,
           mealPreference: po.mealPreference || null,
           dietaryNotes: po.dietaryNotes || null,
         })),
