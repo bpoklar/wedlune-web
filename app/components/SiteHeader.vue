@@ -9,30 +9,30 @@
 
       <!-- Desktop nav -->
       <div class="hidden md:flex items-center gap-8">
-        <a
-          href="#features"
+        <NuxtLink
+          to="/#features"
           class="text-warm-gray hover:text-champagne-gold transition-colors text-sm font-semibold"
         >
           Features
-        </a>
-        <a
-          href="#how-it-works"
+        </NuxtLink>
+        <NuxtLink
+          to="/#how-it-works"
           class="text-warm-gray hover:text-champagne-gold transition-colors text-sm font-semibold"
         >
           How It Works
-        </a>
+        </NuxtLink>
         <NuxtLink
           to="/privacy"
           class="text-warm-gray hover:text-champagne-gold transition-colors text-sm font-semibold"
         >
           Privacy
         </NuxtLink>
-        <a
-          href="#download"
+        <NuxtLink
+          to="/#download"
           class="bg-champagne-gold text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-deep-gold transition-colors"
         >
           Download App
-        </a>
+        </NuxtLink>
       </div>
 
       <!-- Mobile menu button -->
@@ -70,20 +70,20 @@
       v-if="mobileOpen"
       class="md:hidden border-t border-linen bg-ivory-cream px-6 pb-4 space-y-3"
     >
-      <a
-        href="#features"
+      <NuxtLink
+        to="/#features"
         class="block text-warm-gray hover:text-champagne-gold text-sm font-semibold py-2"
         @click="mobileOpen = false"
       >
         Features
-      </a>
-      <a
-        href="#how-it-works"
+      </NuxtLink>
+      <NuxtLink
+        to="/#how-it-works"
         class="block text-warm-gray hover:text-champagne-gold text-sm font-semibold py-2"
         @click="mobileOpen = false"
       >
         How It Works
-      </a>
+      </NuxtLink>
       <NuxtLink
         to="/privacy"
         class="block text-warm-gray hover:text-champagne-gold text-sm font-semibold py-2"
@@ -91,13 +91,13 @@
       >
         Privacy
       </NuxtLink>
-      <a
-        href="#download"
+      <NuxtLink
+        to="/#download"
         class="inline-block bg-champagne-gold text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-deep-gold transition-colors"
         @click="mobileOpen = false"
       >
         Download App
-      </a>
+      </NuxtLink>
     </div>
   </header>
 </template>

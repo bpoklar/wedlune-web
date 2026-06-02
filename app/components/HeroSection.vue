@@ -18,18 +18,18 @@
             budget tracking — so you can focus on what matters most.
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
-            <a
-              href="#download"
+            <NuxtLink
+              to="/#download"
               class="inline-flex items-center justify-center bg-champagne-gold text-white px-8 py-3 rounded-full font-bold text-base hover:bg-deep-gold transition-colors shadow-lg shadow-champagne-gold/20"
             >
               Get Started Free
-            </a>
-            <a
-              href="#features"
+            </NuxtLink>
+            <NuxtLink
+              to="/#features"
               class="inline-flex items-center justify-center border-2 border-champagne-gold text-champagne-gold px-8 py-3 rounded-full font-bold text-base hover:bg-champagne-gold hover:text-white transition-colors"
             >
               See Features
-            </a>
+            </NuxtLink>
           </div>
         </div>
 
