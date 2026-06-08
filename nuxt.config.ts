@@ -26,7 +26,13 @@ export default defineNuxtConfig({
     defaultLocale: "en",
   },
 
-  ogImage: { enabled: false },
+  sitemap: {
+    enabled: true,
+  },
+
+  robots: {
+    sitemap: "https://wedlune.com/sitemap.xml",
+  },
 
   runtimeConfig: {
     public: {

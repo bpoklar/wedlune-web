@@ -367,16 +367,14 @@ import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm, useField } from "vee-validate";
 
-useHead({
+useSeoMeta({
   title: "RSVP — Wedlune",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Respond to your wedding invitation. Let the couple know if you can attend.",
-    },
-    { name: "robots", content: "noindex, nofollow" },
-  ],
+  description:
+    "Respond to your wedding invitation. Let the couple know if you can attend.",
+  robots: "noindex, nofollow",
+  ogTitle: "RSVP — Wedlune",
+  ogDescription:
+    "Respond to your wedding invitation. Let the couple know if you can attend.",
 });
 
 const route = useRoute();

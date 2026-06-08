@@ -8,15 +8,19 @@
 </template>
 
 <script setup lang="ts">
-useHead({
+useSeoMeta({
   title: "Wedlune — AI Wedding Planning Assistant for Couples",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Plan your dream wedding with AI-powered recommendations. Wedlune helps couples find venues, manage vendors, track budgets, and build timelines — all in one elegant app.",
-    },
-  ],
+  description:
+    "Plan your dream wedding with AI-powered recommendations. Wedlune helps couples find venues, manage vendors, track budgets, and build timelines — all in one elegant app.",
+  ogTitle: "Wedlune — AI Wedding Planning Assistant for Couples",
+  ogDescription:
+    "Plan your dream wedding with AI-powered recommendations. Wedlune helps couples find venues, manage vendors, track budgets, and build timelines — all in one elegant app.",
+  ogUrl: "https://wedlune.com",
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: "Wedlune — AI Wedding Planning Assistant for Couples",
+  twitterDescription:
+    "Plan your dream wedding with AI-powered recommendations. Wedlune helps couples find venues, manage vendors, track budgets, and build timelines — all in one elegant app.",
 });
 
 useSchemaOrg([

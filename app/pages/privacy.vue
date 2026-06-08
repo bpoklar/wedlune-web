@@ -147,14 +147,20 @@
 <script setup lang="ts">
 const lastUpdated = "April 13, 2026";
 
-useHead({
+useSeoMeta({
   title: "Privacy Policy — Wedlune",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Wedlune Privacy Policy — how we collect, use, and protect your wedding planning data.",
-    },
-  ],
+  description:
+    "Wedlune Privacy Policy — how we collect, use, and protect your wedding planning data.",
+  ogTitle: "Privacy Policy — Wedlune",
+  ogDescription:
+    "Wedlune Privacy Policy — how we collect, use, and protect your wedding planning data.",
 });
+
+useSchemaOrg([
+  defineWebPage({
+    name: "Privacy Policy — Wedlune",
+    description:
+      "Wedlune Privacy Policy — how we collect, use, and protect your wedding planning data.",
+  }),
+]);
 </script>

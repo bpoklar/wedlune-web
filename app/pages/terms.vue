@@ -128,14 +128,20 @@
 <script setup lang="ts">
 const lastUpdated = "April 13, 2026";
 
-useHead({
+useSeoMeta({
   title: "Terms of Service — Wedlune",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Wedlune Terms of Service — rules and guidelines for using our AI wedding planning app.",
-    },
-  ],
+  description:
+    "Wedlune Terms of Service — rules and guidelines for using our AI wedding planning app.",
+  ogTitle: "Terms of Service — Wedlune",
+  ogDescription:
+    "Wedlune Terms of Service — rules and guidelines for using our AI wedding planning app.",
 });
+
+useSchemaOrg([
+  defineWebPage({
+    name: "Terms of Service — Wedlune",
+    description:
+      "Wedlune Terms of Service — rules and guidelines for using our AI wedding planning app.",
+  }),
+]);
 </script>
