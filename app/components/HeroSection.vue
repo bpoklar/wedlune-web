@@ -10,11 +10,11 @@
           <h1
             class="font-display text-4xl md:text-5xl lg:text-6xl text-charcoal leading-tight mb-6"
           >
-            Plan your perfect day, together
+            Wedlune — Your Elegant AI Wedding Planner
           </h1>
           <p class="text-warm-gray text-lg leading-relaxed mb-8 max-w-lg">
-            Manage vendors, budgets, and timelines in one place — plus helpful
-            recommendations to simplify every step.
+            Budgets, RSVPs, smart timelines, and AI recommendations. Your entire
+            wedding, beautifully organized in one app.
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
             <NuxtLink

@@ -9,18 +9,18 @@
 
 <script setup lang="ts">
 useSeoMeta({
-  title: "Wedlune — AI Wedding Planning Assistant for Couples",
+  title: "Wedlune — Your Elegant AI Wedding Planner",
   description:
-    "Plan your dream wedding with AI-powered recommendations. Wedlune helps couples find venues, manage vendors, track budgets, and build timelines — all in one elegant app.",
-  ogTitle: "Wedlune — AI Wedding Planning Assistant for Couples",
+    "Budgets, RSVPs, smart timelines, and AI recommendations. Your entire wedding, beautifully organized in one app.",
+  ogTitle: "Wedlune — Your Elegant AI Wedding Planner",
   ogDescription:
-    "Plan your dream wedding with AI-powered recommendations. Wedlune helps couples find venues, manage vendors, track budgets, and build timelines — all in one elegant app.",
+    "Budgets, RSVPs, smart timelines, and AI recommendations. Your entire wedding, beautifully organized in one app.",
   ogUrl: "https://wedlune.com",
   ogType: "website",
   twitterCard: "summary_large_image",
-  twitterTitle: "Wedlune — AI Wedding Planning Assistant for Couples",
+  twitterTitle: "Wedlune — Your Elegant AI Wedding Planner",
   twitterDescription:
-    "Plan your dream wedding with AI-powered recommendations. Wedlune helps couples find venues, manage vendors, track budgets, and build timelines — all in one elegant app.",
+    "Budgets, RSVPs, smart timelines, and AI recommendations. Your entire wedding, beautifully organized in one app.",
 });
 
 useSchemaOrg([
@@ -29,7 +29,7 @@ useSchemaOrg([
     operatingSystem: "Android, iOS",
     applicationCategory: "LifestyleApplication",
     description:
-      "AI-powered wedding planning assistant that helps couples find venues, manage vendors, track budgets, and build smart timelines.",
+      "Budgets, RSVPs, smart timelines, and AI recommendations. Your entire wedding, beautifully organized in one app.",
     offers: {
       "@type": "Offer",
       price: "0",

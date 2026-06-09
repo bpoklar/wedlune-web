@@ -22,7 +22,7 @@ export default defineNuxtConfig({
     url: "https://wedlune.com",
     name: "Wedlune",
     description:
-      "AI-powered wedding planning assistant for couples. Smart timelines, vendor management, budget tracking, and personalized recommendations — all in one elegant app.",
+      "Budgets, RSVPs, smart timelines, and AI recommendations. Your entire wedding, beautifully organized in one app.",
     defaultLocale: "en",
   },
 
