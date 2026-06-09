@@ -46,7 +46,11 @@
       <div
         class="border-t border-warm-gray/20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
       >
-        <p class="font-accent text-champagne-gold text-2xl">Wedlune</p>
+        <NuxtImg
+          src="/img/wedlune-logo-light.png"
+          alt="Wedlune"
+          class="h-4 w-auto"
+        />
         <div class="flex gap-6 text-sm">
           <NuxtLink
             to="/privacy"

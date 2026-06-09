@@ -4,7 +4,11 @@
   >
     <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
       <NuxtLink to="/" class="font-accent text-3xl text-champagne-gold">
-        Wedlune
+        <NuxtImg
+          src="/img/wedlune-logo-dark.png"
+          alt="Wedlune"
+          class="h-7 w-auto"
+        />
       </NuxtLink>
 
       <!-- Desktop nav -->

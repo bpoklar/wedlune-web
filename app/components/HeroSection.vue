@@ -4,9 +4,6 @@
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <!-- Text content -->
         <div>
-          <p class="font-accent text-champagne-gold text-2xl mb-3">
-            Your perfect day, planned perfectly
-          </p>
           <h1
             class="font-display text-4xl md:text-5xl lg:text-6xl text-charcoal leading-tight mb-6"
           >
