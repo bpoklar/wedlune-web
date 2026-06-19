@@ -1,26 +1,45 @@
 import PhotoSwipeLightbox from "photoswipe/lightbox";
 import "photoswipe/style.css";
 
+export interface PhotoSwipeImage {
+  src: string;
+  w: number;
+  h: number;
+  title?: string;
+}
+
 /**
  * Composable that initializes and manages a PhotoSwipe lightbox instance.
  *
- * Usage (DOM-based — PhotoSwipe reads <a> children from the gallery element):
+ * Usage:
  * ```ts
  * const { init, destroy } = usePhotoSwipe()
+ * // DOM-based (reads <a> children from the gallery element):
  * onMounted(() => init('#my-gallery'))
+ * // dataSource-based (provides dimensions upfront):
+ * onMounted(() => init('#my-gallery', images))
  * onUnmounted(() => destroy())
  * ```
  */
 export function usePhotoSwipe() {
   let lightbox: PhotoSwipeLightbox | null = null;
 
-  function init(gallerySelector: string) {
+  function init(
+    gallerySelector: string,
+    images?: PhotoSwipeImage[],
+  ) {
     destroy();
 
     lightbox = new PhotoSwipeLightbox({
       gallery: gallerySelector,
       children: "a",
       pswpModule: () => import("photoswipe"),
+      dataSource: images?.map((img) => ({
+        src: img.src,
+        w: img.w,
+        h: img.h,
+        title: img.title ?? "",
+      })),
       showHideAnimationType: "zoom",
       bgOpacity: 0.95,
       loop: false,

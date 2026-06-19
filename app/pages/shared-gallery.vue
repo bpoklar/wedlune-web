@@ -206,18 +206,40 @@ function formatDate(dateStr: string): string {
   }
 }
 
-// Initialize PhotoSwipe on the single gallery container
+// Initialize PhotoSwipe — preload images to get natural dimensions
 watch(
   () => data.value?.shotList,
-  (shotList) => {
-    if (shotList && shotList.length > 0) {
-      nextTick(() => {
-        const hasImages = shotList.some((g) => g.items.some((i) => i.src));
-        if (hasImages) {
-          initPhotoSwipe("#gallery");
+  async (shotList) => {
+    if (!shotList || shotList.length === 0) return;
+    const hasImages = shotList.some((g) => g.items.some((i) => i.src));
+    if (!hasImages) return;
+
+    const loaded: { src: string; w: number; h: number; title?: string }[] = [];
+    for (const group of shotList) {
+      for (const item of group.items) {
+        if (item.src) {
+          const img = new Image();
+          img.src = item.src;
+          try {
+            await img.decode();
+            loaded.push({
+              src: item.src,
+              w: img.naturalWidth,
+              h: img.naturalHeight,
+              title: item.title,
+            });
+          } catch {
+            loaded.push({ src: item.src, w: 1200, h: 900, title: item.title });
+          }
         }
-      });
+      }
     }
+
+    nextTick(() => {
+      if (loaded.length > 0) {
+        initPhotoSwipe("#gallery", loaded);
+      }
+    });
   },
   { immediate: true },
 );
