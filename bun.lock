@@ -8,14 +8,15 @@
         "@nuxt/fonts": "0.14.0",
         "@nuxt/image": "2.0.0",
         "@nuxtjs/seo": "3.4.0",
-        "@tailwindcss/vite": "^4.2.1",
+        "@tailwindcss/vite": "^4.3.0",
         "@vee-validate/nuxt": "^4.15.1",
         "@vee-validate/zod": "^4.15.1",
-        "nuxt": "^4.4.2",
-        "tailwindcss": "^4.2.1",
-        "vue": "^3.5.30",
-        "vue-router": "^5.0.3",
-        "zod": "^4.3.6",
+        "nuxt": "^4.4.6",
+        "photoswipe": "^5.4.4",
+        "tailwindcss": "^4.3.0",
+        "vue": "^3.5.35",
+        "vue-router": "^5.1.0",
+        "zod": "^4.4.3",
       },
     },
   },
@@ -1231,6 +1232,8 @@
     "pathe": ["pathe@2.0.3", "", {}, "sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w=="],
 
     "perfect-debounce": ["perfect-debounce@2.1.0", "", {}, "sha512-LjgdTytVFXeUgtHZr9WYViYSM/g8MkcTPYDlPa3cDqMirHjKiSZPYd6DoL7pK8AJQr+uWkQvCjHNdiMqsrJs+g=="],
+
+    "photoswipe": ["photoswipe@5.4.4", "", {}, "sha512-WNFHoKrkZNnvFFhbHL93WDkW3ifwVOXSW3w1UuZZelSmgXpIGiZSNlZJq37rR8YejqME2rHs9EhH9ZvlvFH2NA=="],
 
     "picocolors": ["picocolors@1.1.1", "", {}, "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA=="],
 

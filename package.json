@@ -17,6 +17,7 @@
     "@vee-validate/nuxt": "^4.15.1",
     "@vee-validate/zod": "^4.15.1",
     "nuxt": "^4.4.6",
+    "photoswipe": "^5.4.4",
     "tailwindcss": "^4.3.0",
     "vue": "^3.5.35",
     "vue-router": "^5.1.0",
