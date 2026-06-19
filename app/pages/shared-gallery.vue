@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen px-4 py-12 md:py-16">
-    <div class="mx-auto max-w-4xl">
+  <div class="min-h-screen px-4 pt-24 pb-16">
+    <div class="mx-auto max-w-4xl px-6">
       <!-- Loading state -->
       <div v-if="loading" class="flex flex-col items-center justify-center py-24 space-y-4">
         <div class="w-12 h-12 border-4 border-champagne-gold/30 border-t-champagne-gold rounded-full animate-spin" />
-        <p class="text-warm-gray text-sm">Loading gallery...</p>
+        <p class="text-warm-gray text-sm">Loading shoot list...</p>
       </div>
 
       <!-- Error state -->
@@ -14,7 +14,7 @@
       >
         <div class="text-5xl mb-4">📷</div>
         <h1 class="font-display text-2xl text-charcoal mb-3">
-          Gallery Not Found
+          Shoot List Not Found
         </h1>
         <p class="text-warm-gray text-sm leading-relaxed">
           {{ errorMessage }}
@@ -32,7 +32,7 @@
         <!-- Header -->
         <div class="text-center mb-10">
           <h1 class="font-display text-3xl md:text-4xl text-charcoal mb-2">
-            {{ data.coupleName }}'s Wedding Gallery
+            {{ data.coupleName }}'s Shoot List
           </h1>
           <p v-if="data.weddingDate" class="font-accent text-champagne-gold text-2xl">
             {{ formatDate(data.weddingDate) }}
@@ -42,28 +42,64 @@
         <!-- Shot List Section -->
         <section v-if="data.shotList?.length" class="mb-12">
           <div class="bg-white rounded-2xl border border-linen p-6 md:p-8 shadow-sm">
-            <h2 class="font-display text-xl text-charcoal mb-6">Shot List</h2>
+            <h2 class="font-display text-xl text-charcoal mb-6">Shoot List</h2>
 
-            <div v-for="group in data.shotList" :key="group.category" class="mb-6 last:mb-0">
-              <h3 class="font-accent text-champagne-gold text-lg mb-2">
-                {{ categoryLabel(group.category) }}
-              </h3>
-              <ul class="space-y-1.5">
-                <li
-                  v-for="item in group.items"
-                  :key="item.title"
-                  class="flex items-start gap-2 text-sm"
-                  :class="item.isMustHave ? 'text-charcoal' : 'text-warm-gray'"
-                >
-                  <span
-                    v-if="item.isMustHave"
-                    class="text-champagne-gold shrink-0 mt-0.5"
-                    aria-label="Must have"
-                  >★</span>
-                  <span v-else class="w-4 shrink-0" />
-                  {{ item.title }}
-                </li>
-              </ul>
+            <!-- Single gallery container for all images — PhotoSwipe picks up <a> children -->
+            <div id="gallery">
+              <div v-for="group in data.shotList" :key="group.category" class="mb-8 last:mb-0">
+                <h3 class="font-accent text-champagne-gold text-lg mb-3">
+                  {{ categoryLabel(group.category) }}
+                </h3>
+
+                <div class="space-y-3">
+                  <template v-for="item in group.items" :key="item.title">
+                    <a
+                      v-if="item.src"
+                      :href="item.src"
+                      target="_blank"
+                      class="flex items-start gap-3 no-underline text-inherit"
+                    >
+                      <img
+                        :src="item.src"
+                        :alt="item.title"
+                        class="shrink-0 w-16 h-16 rounded-lg object-cover"
+                        loading="lazy"
+                      />
+                      <div class="min-w-0 flex-1 pt-1">
+                        <p
+                          class="text-sm"
+                          :class="item.isMustHave ? 'text-charcoal font-semibold' : 'text-warm-gray'"
+                        >
+                          <span
+                            v-if="item.isMustHave"
+                            class="text-champagne-gold mr-1"
+                            aria-label="Must have"
+                          >★</span>
+                          {{ item.title }}
+                        </p>
+                      </div>
+                    </a>
+                    <div
+                      v-else
+                      class="flex items-start gap-3 px-2 py-1"
+                    >
+                      <div class="min-w-0 flex-1 pt-1">
+                        <p
+                          class="text-sm"
+                          :class="item.isMustHave ? 'text-charcoal font-semibold' : 'text-warm-gray'"
+                        >
+                          <span
+                            v-if="item.isMustHave"
+                            class="text-champagne-gold mr-1"
+                            aria-label="Must have"
+                          >★</span>
+                          {{ item.title }}
+                        </p>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div>
             </div>
 
             <p v-if="data.shotList.every((g) => g.items.length === 0)" class="text-warm-gray text-sm italic">
@@ -72,53 +108,9 @@
           </div>
         </section>
 
-        <!-- Photo Gallery Section -->
-        <section v-if="data.photos?.length" class="mb-12">
-          <div class="bg-white rounded-2xl border border-linen p-6 md:p-8 shadow-sm">
-            <h2 class="font-display text-xl text-charcoal mb-6">
-              Photos
-              <span class="text-warm-gray text-sm font-body font-normal">
-                ({{ data.photos.length }})
-              </span>
-            </h2>
-
-            <div
-              :id="galleryId"
-              class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-3"
-            >
-              <a
-                v-for="(photo, index) in data.photos"
-                :key="photo.id"
-                :href="photo.src"
-                :data-pswp-width="photo.width || 1200"
-                :data-pswp-height="photo.height || 900"
-                data-cropped="true"
-                target="_blank"
-                class="group relative block overflow-hidden rounded-lg bg-linen aspect-square"
-                @click.prevent="openPhoto(index)"
-              >
-                <NuxtImg
-                  :src="photo.src"
-                  :alt="photo.caption || 'Wedding photo'"
-                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                  format="webp"
-                  densities="1x"
-                />
-                <div
-                  v-if="photo.caption"
-                  class="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/60 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                >
-                  <p class="text-white text-xs truncate">{{ photo.caption }}</p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <!-- Both empty -->
+        <!-- No content at all -->
         <div
-          v-if="(!data.shotList?.length || data.shotList.every((g) => g.items.length === 0)) && !data.photos?.length"
+          v-if="!data.shotList?.length || data.shotList.every((g) => g.items.length === 0)"
           class="bg-white rounded-2xl border border-linen p-10 text-center shadow-sm max-w-lg mx-auto"
         >
           <div class="text-5xl mb-4">✨</div>
@@ -126,7 +118,7 @@
             Nothing here yet
           </h2>
           <p class="text-warm-gray text-sm">
-            The gallery is empty. Check back later!
+            The shoot list is empty. Check back later!
           </p>
         </div>
 
@@ -143,11 +135,9 @@
 </template>
 
 <script setup lang="ts">
-import type { PhotoSwipeImage } from "~/composables/usePhotoSwipe";
-
 useSeoMeta({
-  title: "Wedding Gallery — Wedlune",
-  description: "View a shared wedding gallery with shot list and photos.",
+  title: "Wedding Shoot List — Wedlune",
+  description: "View a shared wedding shoot list with photos.",
   robots: "noindex, nofollow",
 });
 
@@ -165,6 +155,7 @@ interface ShotListItem {
   title: string;
   isMustHave: boolean;
   sortOrder: number;
+  src: string | null;
 }
 
 interface ShotListGroup {
@@ -172,20 +163,10 @@ interface ShotListGroup {
   items: ShotListItem[];
 }
 
-interface GalleryPhoto {
-  id: string;
-  src: string;
-  width: number | null;
-  height: number | null;
-  caption: string | null;
-  category: string | null;
-}
-
 interface GalleryData {
   coupleName: string;
   weddingDate: string | null;
   shotList: ShotListGroup[];
-  photos: GalleryPhoto[];
 }
 
 const data = ref<GalleryData | null>(null);
@@ -196,15 +177,7 @@ const edgeFunctionUrl = computed(() => {
   return `${supabaseUrl}/functions/v1/serve-gallery`;
 });
 
-// Unique gallery ID for PhotoSwipe
-const galleryId = `gallery-${Math.random().toString(36).slice(2, 8)}`;
-
-const { init: initPhotoSwipe, destroy: destroyPhotoSwipe, open: openPhotoSwipe } = usePhotoSwipe();
-
-// Open photo at index
-function openPhoto(index: number) {
-  openPhotoSwipe(index);
-}
+const { init: initPhotoSwipe, destroy: destroyPhotoSwipe } = usePhotoSwipe();
 
 // Category labels
 const categoryLabels: Record<string, string> = {
@@ -233,21 +206,16 @@ function formatDate(dateStr: string): string {
   }
 }
 
-// Initialize PhotoSwipe when photos are ready
+// Initialize PhotoSwipe on the single gallery container
 watch(
-  () => data.value?.photos,
-  (photos) => {
-    if (photos && photos.length > 0) {
+  () => data.value?.shotList,
+  (shotList) => {
+    if (shotList && shotList.length > 0) {
       nextTick(() => {
-        const images: PhotoSwipeImage[] = photos.map((p) => ({
-          id: p.id,
-          src: p.src,
-          width: p.width,
-          height: p.height,
-          caption: p.caption,
-          category: p.category,
-        }));
-        initPhotoSwipe(`#${galleryId}`, images);
+        const hasImages = shotList.some((g) => g.items.some((i) => i.src));
+        if (hasImages) {
+          initPhotoSwipe("#gallery");
+        }
       });
     }
   },
