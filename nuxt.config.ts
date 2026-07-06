@@ -25,6 +25,12 @@ export default defineNuxtConfig({
         "Referrer-Policy": "no-referrer",
       },
     },
+    "/shared-gallery": {
+      headers: {
+        "Cache-Control": "no-store",
+        "Referrer-Policy": "no-referrer",
+      },
+    },
   },
 
   site: {

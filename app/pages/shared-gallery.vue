@@ -141,10 +141,16 @@ useSeoMeta({
   robots: "noindex, nofollow",
 });
 
+useHead({
+  meta: [{ name: "referrer", content: "no-referrer" }],
+});
+
 const route = useRoute();
 const config = useRuntimeConfig();
 
-const token = computed(() => route.query.token as string | undefined);
+const token = computed(() =>
+  typeof route.query.token === "string" ? route.query.token : undefined,
+);
 
 // UI state
 const loading = ref(true);
@@ -248,7 +254,8 @@ onUnmounted(() => destroyPhotoSwipe());
 
 // Fetch gallery data on mount
 onMounted(async () => {
-  if (!token.value) {
+  const shareToken = token.value;
+  if (!shareToken) {
     errorMessage.value =
       "This gallery link is missing a token. Please check the link you received.";
     loading.value = false;
@@ -257,9 +264,10 @@ onMounted(async () => {
 
   try {
     const result = await $fetch<GalleryData>(edgeFunctionUrl.value, {
-      params: { token: token.value },
+      cache: "no-store",
       headers: {
         apikey: config.public.supabaseAnonKey as string,
+        "x-share-token": shareToken,
       },
     });
 
