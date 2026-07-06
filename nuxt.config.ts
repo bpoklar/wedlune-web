@@ -18,6 +18,15 @@ export default defineNuxtConfig({
     },
   },
 
+  routeRules: {
+    "/rsvp": {
+      headers: {
+        "Cache-Control": "no-store",
+        "Referrer-Policy": "no-referrer",
+      },
+    },
+  },
+
   site: {
     url: "https://wedlune.com",
     name: "Wedlune",

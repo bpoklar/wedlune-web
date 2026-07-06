@@ -377,10 +377,18 @@ useSeoMeta({
     "Respond to your wedding invitation. Let the couple know if you can attend.",
 });
 
+// RSVP URLs contain bearer capability tokens. Never send the full page URL as
+// a referrer when a guest follows an external link.
+useHead({
+  meta: [{ name: "referrer", content: "no-referrer" }],
+});
+
 const route = useRoute();
 const config = useRuntimeConfig();
 
-const token = computed(() => route.query.token as string | undefined);
+const token = computed(() =>
+  typeof route.query.token === "string" ? route.query.token : undefined,
+);
 
 // UI state
 const loading = ref(true);
@@ -489,7 +497,8 @@ watch(selectedMenuId, (newVal) => {
 
 // Fetch guest data on mount
 onMounted(async () => {
-  if (!token.value) {
+  const rsvpToken = token.value;
+  if (!rsvpToken) {
     errorMessage.value =
       "This RSVP link is missing a token. Please check the link you received.";
     loading.value = false;
@@ -524,9 +533,10 @@ onMounted(async () => {
         menuId: string | null;
       }>;
     }>(edgeFunctionUrl.value, {
-      params: { token: token.value },
+      cache: "no-store",
       headers: {
         apikey: config.public.supabaseAnonKey as string,
+        "x-rsvp-token": rsvpToken,
       },
     });
 
@@ -577,6 +587,13 @@ onMounted(async () => {
 });
 
 const onSubmit = handleSubmit(async (values) => {
+  const rsvpToken = token.value;
+  if (!rsvpToken) {
+    submitError.value =
+      "This RSVP link is missing a token. Please check the link you received.";
+    return;
+  }
+
   // Validate +1 guests have a response selected
   const missingPlusOne = plusOneGuests.value.find(
     (po) => !po.rsvpStatus || !["accepted", "declined"].includes(po.rsvpStatus),
@@ -595,9 +612,9 @@ const onSubmit = handleSubmit(async (values) => {
       headers: {
         apikey: config.public.supabaseAnonKey as string,
         "Content-Type": "application/json",
+        "x-rsvp-token": rsvpToken,
       },
       body: {
-        token: token.value,
         rsvpStatus: values.rsvpStatus,
         menuId: selectedMenuId.value,
         mealPreference: values.mealPreference || null,
