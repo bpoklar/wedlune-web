@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center px-4 py-16">
+  <div class="soft-page-bg min-h-screen flex items-center justify-center px-4 py-16">
     <div class="w-full max-w-lg">
       <!-- Loading state -->
       <div v-if="loading" class="text-center space-y-4">
@@ -12,7 +12,7 @@
       <!-- Error state -->
       <div
         v-else-if="errorMessage"
-        class="bg-white rounded-2xl border border-linen p-10 text-center shadow-sm"
+        class="card-surface p-10 text-center"
       >
         <div class="text-5xl mb-4">💌</div>
         <h1 class="font-display text-2xl text-charcoal mb-3">
@@ -32,7 +32,7 @@
       <!-- Success state (after submission) -->
       <div
         v-else-if="submitted"
-        class="bg-white rounded-2xl border border-linen p-10 text-center shadow-sm"
+        class="card-surface p-10 text-center"
       >
         <div class="text-5xl mb-4">
           {{ submittedStatus === "accepted" ? "🎉" : "💐" }}
@@ -77,11 +77,11 @@
       <!-- RSVP Form -->
       <div
         v-else
-        class="bg-white rounded-2xl border border-linen p-8 md:p-10 shadow-sm"
+        class="card-surface overflow-hidden"
       >
         <!-- Header -->
-        <div class="text-center mb-8">
-          <p class="font-accent text-champagne-gold text-2xl mb-1">
+        <div class="text-center bg-soft-champagne px-8 py-9 border-b border-linen">
+          <p class="font-accent text-champagne-gold text-3xl mb-1">
             You're Invited
           </p>
           <h1 class="font-display text-3xl text-charcoal mb-2">
@@ -92,7 +92,7 @@
           </p>
         </div>
 
-        <form @submit="onSubmit" class="space-y-6">
+        <form @submit="onSubmit" class="space-y-6 p-8 md:p-10">
           <!-- Main guest RSVP Status -->
           <fieldset>
             <legend class="text-charcoal font-semibold text-sm mb-3">
@@ -101,7 +101,7 @@
             <div class="grid grid-cols-2 gap-3">
               <label
                 :class="[
-                  'flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
+                  'flex min-h-14 items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
                   rsvpStatusField === 'accepted'
                     ? 'border-sage-green bg-sage-green/10 text-sage-green'
                     : 'border-linen text-warm-gray hover:border-sage-green/50',
@@ -118,7 +118,7 @@
               </label>
               <label
                 :class="[
-                  'flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
+                  'flex min-h-14 items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
                   rsvpStatusField === 'declined'
                     ? 'border-blush-rose bg-blush-rose/10 text-blush-rose'
                     : 'border-linen text-warm-gray hover:border-blush-rose/50',
@@ -166,7 +166,7 @@
                 <!-- Show courses for selected menu -->
                 <div
                   v-if="selectedMenuId"
-                  class="mt-2 space-y-1"
+                  class="mt-3 rounded-xl bg-soft-champagne/70 border border-linen p-3 space-y-1"
                 >
                   <p
                     v-for="c in selectedMenuCourses"
@@ -216,7 +216,7 @@
 
           <!-- +1 Guest sections -->
           <template v-for="(po, idx) in plusOneGuests" :key="po.id">
-            <div class="border-t border-linen pt-6">
+            <div class="rounded-2xl border border-linen bg-ivory-cream/70 p-5">
               <h2 class="font-display text-xl text-charcoal mb-4">
                 {{ po.name }}
               </h2>
@@ -230,7 +230,7 @@
                 <div class="grid grid-cols-2 gap-3">
                   <label
                     :class="[
-                      'flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
+                      'flex min-h-14 items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
                       po.rsvpStatus === 'accepted'
                         ? 'border-sage-green bg-sage-green/10 text-sage-green'
                         : 'border-linen text-warm-gray hover:border-sage-green/50',
@@ -247,7 +247,7 @@
                   </label>
                   <label
                     :class="[
-                      'flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
+                      'flex min-h-14 items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
                       po.rsvpStatus === 'declined'
                         ? 'border-blush-rose bg-blush-rose/10 text-blush-rose'
                         : 'border-linen text-warm-gray hover:border-blush-rose/50',
@@ -293,7 +293,7 @@
                     <!-- Show courses for selected +1 menu -->
                     <div
                       v-if="po.menuId"
-                      class="mt-2 space-y-1"
+                      class="mt-3 rounded-xl bg-soft-champagne/70 border border-linen p-3 space-y-1"
                     >
                       <p
                         v-for="c in plusOneCourses(po)"
@@ -340,7 +340,7 @@
           <button
             type="submit"
             :disabled="submitting"
-            class="w-full bg-champagne-gold text-white py-3 rounded-xl font-bold text-sm hover:bg-deep-gold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            class="w-full bg-champagne-gold text-white py-3.5 rounded-xl font-bold text-sm hover:bg-deep-gold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {{ submitting ? "Sending..." : "Send RSVP" }}
           </button>

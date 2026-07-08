@@ -1,13 +1,9 @@
 <template>
   <section id="how-it-works" class="py-20">
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="section-shell">
       <div class="text-center mb-16">
-        <p class="font-accent text-champagne-gold text-2xl mb-2">
-          Simple & elegant
-        </p>
-        <h2 class="font-display text-3xl md:text-4xl text-charcoal">
-          How Wedlune Works
-        </h2>
+        <p class="section-kicker">Simple & elegant</p>
+        <h2 class="section-title">How Wedlune Works</h2>
       </div>
 
       <div class="grid md:grid-cols-3 gap-12">

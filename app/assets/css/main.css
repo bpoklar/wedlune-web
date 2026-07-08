@@ -1,17 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ivory-cream: #fdf8f2;
-  --color-soft-champagne: #faf3e8;
-  --color-champagne-gold: #c9a96e;
-  --color-deep-gold: #8b6914;
-  --color-blush-rose: #e8b4b8;
-  --color-charcoal: #2c2c2c;
-  --color-warm-gray: #7a7068;
-  --color-pearl-gray: #b8afa8;
-  --color-linen: #ede4d8;
-  --color-sage-green: #7daa84;
-  --color-dusty-crimson: #c0392b;
+  --color-warm-white: #fffdf9;
+  --color-ivory-cream: #fff8ef;
+  --color-soft-champagne: #f6eadc;
+  --color-champagne-gold: #b88a4a;
+  --color-deep-gold: #6f4f22;
+  --color-blush-rose: #d99aa2;
+  --color-charcoal: #28231f;
+  --color-warm-gray: #6f625a;
+  --color-pearl-gray: #b9ada3;
+  --color-linen: #e6d7c6;
+  --color-sage-green: #6f9b79;
+  --color-dusty-crimson: #a9443f;
 
   --font-display: "Playfair Display", serif;
   --font-body: "Nunito", sans-serif;
@@ -26,6 +27,49 @@
   body {
     font-family: var(--font-body);
     color: var(--color-charcoal);
-    background-color: var(--color-ivory-cream);
+    background-color: var(--color-warm-white);
+  }
+
+  :focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--color-deep-gold) 58%, transparent);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .section-shell {
+    @apply max-w-6xl mx-auto px-6;
+  }
+
+  .section-kicker {
+    @apply font-accent text-deep-gold text-2xl md:text-3xl mb-2;
+  }
+
+  .section-title {
+    @apply font-display text-3xl md:text-4xl text-charcoal leading-tight;
+  }
+
+  .section-subtitle {
+    @apply text-warm-gray text-base md:text-lg leading-relaxed max-w-2xl;
+  }
+
+  .card-surface {
+    @apply bg-warm-white/95 rounded-3xl border border-linen shadow-sm;
+    box-shadow: 0 18px 50px rgb(40 35 31 / 0.06);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-champagne-gold px-7 py-3 text-sm font-bold text-white shadow-lg shadow-champagne-gold/20 transition-colors hover:bg-deep-gold;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-deep-gold px-7 py-3 text-sm font-bold text-deep-gold transition-colors hover:bg-deep-gold hover:text-warm-white;
+  }
+
+  .soft-page-bg {
+    background:
+      radial-gradient(circle at 10% 8%, rgb(217 154 162 / 0.18), transparent 28rem),
+      radial-gradient(circle at 86% 4%, rgb(184 138 74 / 0.14), transparent 26rem),
+      linear-gradient(180deg, var(--color-ivory-cream) 0%, var(--color-warm-white) 55%, var(--color-soft-champagne) 100%);
   }
 }

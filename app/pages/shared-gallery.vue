@@ -1,20 +1,20 @@
 <template>
-  <div class="min-h-screen px-4 pt-24 pb-16">
+  <div class="soft-page-bg min-h-screen px-4 pt-24 pb-16">
     <div class="mx-auto max-w-4xl px-6">
       <!-- Loading state -->
       <div v-if="loading" class="flex flex-col items-center justify-center py-24 space-y-4">
         <div class="w-12 h-12 border-4 border-champagne-gold/30 border-t-champagne-gold rounded-full animate-spin" />
-        <p class="text-warm-gray text-sm">Loading shoot list...</p>
+        <p class="text-warm-gray text-sm">Loading shot list...</p>
       </div>
 
       <!-- Error state -->
       <div
         v-else-if="errorMessage"
-        class="bg-white rounded-2xl border border-linen p-10 text-center shadow-sm max-w-lg mx-auto"
+        class="card-surface p-10 text-center max-w-lg mx-auto"
       >
         <div class="text-5xl mb-4">📷</div>
         <h1 class="font-display text-2xl text-charcoal mb-3">
-          Shoot List Not Found
+          Shot List Not Found
         </h1>
         <p class="text-warm-gray text-sm leading-relaxed">
           {{ errorMessage }}
@@ -31,25 +31,56 @@
       <template v-else-if="data">
         <!-- Header -->
         <div class="text-center mb-10">
+          <p class="section-kicker">Wedding photography</p>
           <h1 class="font-display text-3xl md:text-4xl text-charcoal mb-2">
-            {{ data.coupleName }}'s Shoot List
+            {{ data.coupleName }}'s Shot List
           </h1>
           <p v-if="data.weddingDate" class="font-accent text-champagne-gold text-2xl">
             {{ formatDate(data.weddingDate) }}
           </p>
+          <div
+            v-if="totalShots > 0"
+            class="mt-6 grid grid-cols-3 gap-3 max-w-md mx-auto"
+          >
+            <div class="card-surface p-3">
+              <p class="font-display text-2xl text-charcoal">{{ totalShots }}</p>
+              <p class="text-xs text-warm-gray">shots</p>
+            </div>
+            <div class="card-surface p-3">
+              <p class="font-display text-2xl text-charcoal">
+                {{ mustHaveShots }}
+              </p>
+              <p class="text-xs text-warm-gray">must-have</p>
+            </div>
+            <div class="card-surface p-3">
+              <p class="font-display text-2xl text-charcoal">
+                {{ data.shotList.length }}
+              </p>
+              <p class="text-xs text-warm-gray">groups</p>
+            </div>
+          </div>
         </div>
 
         <!-- Shot List Section -->
         <section v-if="data.shotList?.length" class="mb-12">
-          <div class="bg-white rounded-2xl border border-linen p-6 md:p-8 shadow-sm">
-            <h2 class="font-display text-xl text-charcoal mb-6">Shoot List</h2>
+          <div class="card-surface p-6 md:p-8">
+            <h2 class="font-display text-xl text-charcoal mb-6">Shot List</h2>
 
             <!-- Single gallery container for all images — PhotoSwipe picks up <a> children -->
             <div id="gallery">
-              <div v-for="group in data.shotList" :key="group.category" class="mb-8 last:mb-0">
-                <h3 class="font-accent text-champagne-gold text-lg mb-3">
-                  {{ categoryLabel(group.category) }}
-                </h3>
+              <div
+                v-for="group in data.shotList"
+                :key="group.category"
+                class="mb-6 last:mb-0 rounded-2xl border border-linen bg-ivory-cream/70 p-4"
+              >
+                <div class="mb-4 flex items-center justify-between gap-3">
+                  <h3 class="font-display text-lg text-charcoal">
+                    {{ categoryLabel(group.category) }}
+                  </h3>
+                  <span class="rounded-full bg-warm-white px-3 py-1 text-xs font-bold text-warm-gray">
+                    {{ group.items.length }} shots
+                  </span>
+                </div>
 
                 <div class="space-y-3">
                   <template v-for="item in group.items" :key="item.title">
@@ -57,12 +88,12 @@
                       v-if="item.src"
                       :href="item.src"
                       target="_blank"
-                      class="flex items-start gap-3 no-underline text-inherit"
+                      class="flex items-start gap-4 rounded-xl bg-warm-white p-3 no-underline text-inherit transition-shadow hover:shadow-sm"
                     >
                       <img
                         :src="item.src"
                         :alt="item.title"
-                        class="shrink-0 w-16 h-16 rounded-lg object-cover"
+                        class="shrink-0 w-20 h-20 rounded-xl object-cover"
                         loading="lazy"
                       />
                       <div class="min-w-0 flex-1 pt-1">
@@ -72,17 +103,21 @@
                         >
                           <span
                             v-if="item.isMustHave"
-                            class="text-champagne-gold mr-1"
+                            class="mr-2 rounded-full bg-champagne-gold/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-deep-gold"
                             aria-label="Must have"
-                          >★</span>
+                          >Must-have</span>
                           {{ item.title }}
                         </p>
                       </div>
                     </a>
                     <div
                       v-else
-                      class="flex items-start gap-3 px-2 py-1"
+                      class="flex items-start gap-3 rounded-xl bg-warm-white/80 px-3 py-3"
                     >
+                      <div
+                        class="mt-0.5 h-5 w-5 shrink-0 rounded-full border border-champagne-gold/60"
+                        aria-hidden="true"
+                      />
                       <div class="min-w-0 flex-1 pt-1">
                         <p
                           class="text-sm"
@@ -90,9 +125,9 @@
                         >
                           <span
                             v-if="item.isMustHave"
-                            class="text-champagne-gold mr-1"
+                            class="mr-2 rounded-full bg-champagne-gold/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-deep-gold"
                             aria-label="Must have"
-                          >★</span>
+                          >Must-have</span>
                           {{ item.title }}
                         </p>
                       </div>
@@ -111,14 +146,14 @@
         <!-- No content at all -->
         <div
           v-if="!data.shotList?.length || data.shotList.every((g) => g.items.length === 0)"
-          class="bg-white rounded-2xl border border-linen p-10 text-center shadow-sm max-w-lg mx-auto"
+          class="card-surface p-10 text-center max-w-lg mx-auto"
         >
           <div class="text-5xl mb-4">✨</div>
           <h2 class="font-display text-xl text-charcoal mb-2">
             Nothing here yet
           </h2>
           <p class="text-warm-gray text-sm">
-            The shoot list is empty. Check back later!
+            The shot list is empty. Check back later!
           </p>
         </div>
 
@@ -136,8 +171,8 @@
 
 <script setup lang="ts">
 useSeoMeta({
-  title: "Wedding Shoot List — Wedlune",
-  description: "View a shared wedding shoot list with photos.",
+  title: "Wedding Shot List — Wedlune",
+  description: "View a shared wedding shot list with photos.",
   robots: "noindex, nofollow",
 });
 
@@ -176,6 +211,21 @@ interface GalleryData {
 }
 
 const data = ref<GalleryData | null>(null);
+
+const totalShots = computed(
+  () =>
+    data.value?.shotList.reduce((sum, group) => sum + group.items.length, 0) ??
+    0,
+);
+
+const mustHaveShots = computed(
+  () =>
+    data.value?.shotList.reduce(
+      (sum, group) =>
+        sum + group.items.filter((item) => item.isMustHave).length,
+      0,
+    ) ?? 0,
+);
 
 // Build Edge Function URL
 const edgeFunctionUrl = computed(() => {

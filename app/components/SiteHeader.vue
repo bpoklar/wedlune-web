@@ -1,13 +1,18 @@
 <template>
   <header
-    class="fixed top-0 left-0 right-0 z-50 bg-ivory-cream/90 backdrop-blur-sm border-b border-linen"
+    class="fixed top-0 left-0 right-0 z-50 bg-ivory-cream/90 backdrop-blur-md border-b border-linen/80"
   >
-    <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      <NuxtLink to="/" class="font-accent text-3xl text-champagne-gold">
+    <nav
+      class="section-shell h-16 flex items-center justify-between"
+      aria-label="Primary navigation"
+    >
+      <NuxtLink to="/" class="inline-flex items-center">
         <NuxtImg
           src="/img/wedlune-logo-dark.png"
           alt="Wedlune"
           class="h-7 w-auto"
+          width="142"
+          height="28"
         />
       </NuxtLink>
 
@@ -26,16 +31,22 @@
           How It Works
         </NuxtLink>
         <NuxtLink
-          to="/privacy"
+          to="/#pricing"
+          class="text-warm-gray hover:text-champagne-gold transition-colors text-sm font-semibold"
+        >
+          Pricing
+        </NuxtLink>
+        <NuxtLink
+          to="/#trust"
           class="text-warm-gray hover:text-champagne-gold transition-colors text-sm font-semibold"
         >
           Privacy
         </NuxtLink>
         <NuxtLink
           to="/#download"
-          class="bg-champagne-gold text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-deep-gold transition-colors"
+          class="btn-primary px-5 py-2"
         >
-          Download App
+          Get Wedlune
         </NuxtLink>
       </div>
 
@@ -43,6 +54,8 @@
       <button
         class="md:hidden p-2 text-charcoal"
         :aria-label="mobileOpen ? 'Close menu' : 'Open menu'"
+        :aria-expanded="mobileOpen"
+        aria-controls="mobile-menu"
         @click="mobileOpen = !mobileOpen"
       >
         <svg
@@ -72,6 +85,7 @@
     <!-- Mobile nav -->
     <div
       v-if="mobileOpen"
+      id="mobile-menu"
       class="md:hidden border-t border-linen bg-ivory-cream px-6 pb-4 space-y-3"
     >
       <NuxtLink
@@ -89,7 +103,14 @@
         How It Works
       </NuxtLink>
       <NuxtLink
-        to="/privacy"
+        to="/#pricing"
+        class="block text-warm-gray hover:text-champagne-gold text-sm font-semibold py-2"
+        @click="mobileOpen = false"
+      >
+        Pricing
+      </NuxtLink>
+      <NuxtLink
+        to="/#trust"
         class="block text-warm-gray hover:text-champagne-gold text-sm font-semibold py-2"
         @click="mobileOpen = false"
       >
@@ -97,10 +118,10 @@
       </NuxtLink>
       <NuxtLink
         to="/#download"
-        class="inline-block bg-champagne-gold text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-deep-gold transition-colors"
+        class="btn-primary px-5 py-2"
         @click="mobileOpen = false"
       >
-        Download App
+        Get Wedlune
       </NuxtLink>
     </div>
   </header>
@@ -108,4 +129,13 @@
 
 <script setup lang="ts">
 const mobileOpen = ref(false);
+
+const route = useRoute();
+
+watch(
+  () => route.fullPath,
+  () => {
+    mobileOpen.value = false;
+  },
+);
 </script>

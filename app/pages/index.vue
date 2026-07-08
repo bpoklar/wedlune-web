@@ -2,7 +2,9 @@
   <div>
     <HeroSection />
     <FeaturesSection />
+    <TrustSection id="trust" />
     <HowItWorksSection />
+    <PricingTeaserSection />
     <TestimonialsSection />
   </div>
 </template>

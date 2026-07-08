@@ -2,7 +2,7 @@
   <section class="py-20 bg-soft-champagne">
     <div class="max-w-4xl mx-auto px-6">
       <div class="text-center mb-12">
-        <p class="font-accent text-champagne-gold text-2xl mb-2">
+        <p class="section-kicker">
           Loved by couples
         </p>
         <h2 class="font-display text-3xl md:text-4xl text-charcoal">
@@ -14,7 +14,7 @@
         <blockquote
           v-for="testimonial in testimonials"
           :key="testimonial.name"
-          class="bg-white rounded-2xl p-8 border border-linen"
+          class="card-surface p-8"
         >
           <div class="flex gap-1 mb-4">
             <span v-for="n in 5" :key="n" class="text-champagne-gold text-lg"
