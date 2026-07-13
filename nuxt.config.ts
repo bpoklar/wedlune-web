@@ -7,6 +7,13 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: [
+        "@unhead/schema-org/vue",
+        "@vue/devtools-core",
+        "@vue/devtools-kit",
+      ],
+    },
   },
 
   modules: ["@nuxtjs/seo", "@nuxt/fonts", "@nuxt/image", "@vee-validate/nuxt"],
