@@ -36,20 +36,45 @@
 </template>
 
 <script setup lang="ts">
-const CalendarIcon = {
-  template:
-    '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/></svg>',
-};
+import { defineComponent, h } from "vue";
 
-const UsersIcon = {
-  template:
-    '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11a4 4 0 1 0-8 0m8 0a4 4 0 0 1-8 0m8 0c2.5.8 4 2.5 4 5v1H4v-1c0-2.5 1.5-4.2 4-5m10-3a3 3 0 0 1 0 6M6 8a3 3 0 0 0 0 6"/></svg>',
-};
+const makeIcon = (path: string) =>
+  defineComponent({
+    inheritAttrs: false,
+    setup(_, { attrs }) {
+      return () =>
+        h(
+          "svg",
+          {
+            ...attrs,
+            fill: "none",
+            stroke: "currentColor",
+            viewBox: "0 0 24 24",
+            "aria-hidden": "true",
+          },
+          [
+            h("path", {
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+              "stroke-width": "1.8",
+              d: path,
+            }),
+          ],
+        );
+    },
+  });
 
-const ShieldIcon = {
-  template:
-    '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3 5 6v5c0 4.5 2.8 8.4 7 10 4.2-1.6 7-5.5 7-10V6l-7-3Zm-3 9 2 2 4-4"/></svg>',
-};
+const CalendarIcon = makeIcon(
+  "M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z",
+);
+
+const UsersIcon = makeIcon(
+  "M16 11a4 4 0 1 0-8 0m8 0a4 4 0 0 1-8 0m8 0c2.5.8 4 2.5 4 5v1H4v-1c0-2.5 1.5-4.2 4-5m10-3a3 3 0 0 1 0 6M6 8a3 3 0 0 0 0 6",
+);
+
+const ShieldIcon = makeIcon(
+  "M12 3 5 6v5c0 4.5 2.8 8.4 7 10 4.2-1.6 7-5.5 7-10V6l-7-3Zm-3 9 2 2 4-4",
+);
 
 const trustItems = [
   {
