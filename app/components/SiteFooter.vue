@@ -36,7 +36,7 @@
       <div
         class="border-t border-warm-gray/20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
       >
-        <NuxtImg
+        <img
           src="/img/wedlune-logo-light.png"
           alt="Wedlune"
           class="h-4 w-auto"

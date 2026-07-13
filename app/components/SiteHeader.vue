@@ -7,7 +7,7 @@
       aria-label="Primary navigation"
     >
       <NuxtLink to="/" class="inline-flex items-center">
-        <NuxtImg
+        <img
           src="/img/wedlune-logo-dark.png"
           alt="Wedlune"
           class="h-7 w-auto"

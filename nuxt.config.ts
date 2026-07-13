@@ -16,7 +16,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxtjs/seo", "@nuxt/fonts", "@nuxt/image", "@vee-validate/nuxt"],
+  modules: ["@nuxtjs/seo", "@nuxt/fonts", "@vee-validate/nuxt"],
 
   app: {
     head: {
@@ -50,6 +50,10 @@ export default defineNuxtConfig({
 
   sitemap: {
     enabled: true,
+  },
+
+  ogImage: {
+    enabled: false,
   },
 
   robots: {
