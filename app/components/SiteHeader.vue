@@ -36,16 +36,7 @@
         >
           Pricing
         </NuxtLink>
-        <NuxtLink
-          to="/#trust"
-          class="text-warm-gray hover:text-champagne-gold transition-colors text-sm font-semibold"
-        >
-          Privacy
-        </NuxtLink>
-        <NuxtLink
-          to="/#download"
-          class="btn-primary px-5 py-2"
-        >
+        <NuxtLink to="/#download" class="btn-primary px-5 py-2">
           Get Wedlune
         </NuxtLink>
       </div>
