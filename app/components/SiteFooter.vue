@@ -15,7 +15,7 @@
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="mailto:support@wedlune.app?subject=Wedlune%20waitlist"
+            href="mailto:hi@wedlune.com?subject=Wedlune%20waitlist"
             class="btn-primary"
           >
             Join the waitlist
@@ -67,6 +67,12 @@
             class="hover:text-champagne-gold transition-colors"
           >
             Terms of Service
+          </NuxtLink>
+          <NuxtLink
+            to="/delete-account"
+            class="hover:text-champagne-gold transition-colors"
+          >
+            Delete Account
           </NuxtLink>
         </div>
         <p class="text-sm text-warm-gray">

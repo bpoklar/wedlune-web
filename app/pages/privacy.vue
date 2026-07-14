@@ -9,134 +9,201 @@
       <p class="text-warm-gray text-sm mb-6">Last updated: {{ lastUpdated }}</p>
 
       <section>
-        <h2>1. Introduction</h2>
+        <h2>1. Controller And Contact</h2>
         <p>
-          Wedlune ("we", "our", or "us") is committed to protecting your
-          personal data. This Privacy Policy explains how we collect, use, and
-          safeguard your information when you use our mobile application and
-          website.
+          Wedlune ("we", "our", or "us") provides the Wedlune mobile app and
+          website. For privacy requests, contact us at
+          <a
+            href="mailto:hi@wedlune.com"
+            class="text-champagne-gold hover:text-deep-gold"
+            >hi@wedlune.com</a
+          >. If a company address, data-protection officer, or EU
+          representative is appointed before launch, those details will be
+          published here.
         </p>
       </section>
 
       <section>
         <h2>2. Information We Collect</h2>
-        <p>We collect the following types of information:</p>
+        <p>We collect information you provide or create in the app:</p>
         <ul>
           <li>
-            <strong>Account information:</strong> Email address and name when
-            you register.
+            <strong>Account information:</strong> email address, name, partner
+            name, authentication identifiers, language, currency, theme,
+            subscription status, and partner-invitation details.
           </li>
           <li>
-            <strong>Wedding planning data:</strong> Questionnaire answers,
-            preferences, guest lists, budget entries, vendor contacts, and
-            timeline tasks you create within the app.
+            <strong>Wedding details:</strong> wedding date, venue style,
+            location, ceremony preferences, budget range, guest count,
+            questionnaire answers, notes, and recommendation preferences.
           </li>
           <li>
-            <strong>Usage data:</strong> Anonymous analytics about app
-            interactions to improve our service. You can opt out of this
-            collection in the app's Settings.
+            <strong>Planning data:</strong> guests and RSVP details, meal and
+            dietary notes, seating, budgets, vendors, venues, accommodation,
+            transport, attire, legal documents, timelines, checklists, payment
+            milestones, message templates, photos, and shared gallery links.
           </li>
           <li>
-            <strong>Device information:</strong> Device type, operating system,
-            and app version for compatibility purposes.
+            <strong>Technical data:</strong> device/app metadata, local sync
+            state, error logs, security logs, and timestamps needed to operate
+            and protect the service.
+          </li>
+          <li>
+            <strong>Optional analytics:</strong> limited usage events only if
+            you explicitly enable analytics in the app's Settings.
           </li>
         </ul>
       </section>
 
       <section>
         <h2>3. How We Use Your Information</h2>
+        <p>
+          We use personal data to provide and secure the app, authenticate
+          users, sync and back up planning data, enable partner collaboration,
+          generate AI recommendations, process subscriptions, provide customer
+          support, prevent abuse, comply with legal obligations, and improve the
+          service when analytics are enabled.
+        </p>
+        <p>
+          GDPR legal bases include contract performance for core app features,
+          consent for optional analytics and device permissions, legitimate
+          interests for security and service improvement, and legal obligations
+          for tax, accounting, and compliance records. We do not sell your
+          wedding-planning data.
+        </p>
+      </section>
+
+      <section>
+        <h2>4. Storage, Security, And Transfers</h2>
+        <p>
+          Cloud data is stored with Supabase using authentication, Row-Level
+          Security, per-wedding access controls, and encrypted transport (TLS).
+          Uploaded photos and documents are stored in Supabase Storage with
+          access controls.
+        </p>
+        <p>
+          Some providers may process data outside the EEA. Where GDPR requires
+          it, transfers rely on adequacy decisions, Standard Contractual
+          Clauses, or equivalent safeguards.
+        </p>
+      </section>
+
+      <section>
+        <h2>5. Local Data And Notifications</h2>
+        <p>
+          The app stores secure session tokens, "remember me" state,
+          preferences, offline cache, pending offline changes, and local
+          notification schedules on your device. Notifications are generated
+          locally and may include task titles and due-date timing.
+        </p>
+      </section>
+
+      <section>
+        <h2>6. AI Features</h2>
+        <p>
+          When you use AI-powered features, relevant planning context such as
+          questionnaire answers, budget range, venue type, country/city,
+          preferences, and existing plan items is sent to secure Supabase Edge
+          Functions. These functions may send necessary prompts to configured AI
+          providers, currently including Google Gemini, to generate suggestions.
+          We avoid sending email, passwords, payment details, and guest contact
+          details unless a feature explicitly requires that context.
+        </p>
+        <p>
+          AI output can be inaccurate. Always verify vendor, pricing, legal,
+          and scheduling information before relying on it.
+        </p>
+      </section>
+
+      <section>
+        <h2>7. Third-Party Services</h2>
+        <p>We use the following services:</p>
         <ul>
-          <li>To provide personalized AI wedding planning recommendations.</li>
-          <li>
-            To generate and manage your wedding timeline, budget, and guest
-            list.
-          </li>
-          <li>To improve our app and develop new features.</li>
-          <li>
-            To send essential service communications (e.g., password resets).
-          </li>
+          <li><strong>Supabase:</strong> authentication, database, storage, and Edge Functions.</li>
+          <li><strong>Google Play and RevenueCat:</strong> subscription status, product identifiers, expiry dates, and transaction metadata. We do not receive full payment-card details.</li>
+          <li><strong>Google AdMob:</strong> free-tier banner ads, which may collect device identifiers, approximate location, ad interactions, and diagnostics under Google's policies. Premium users do not see ads.</li>
+          <li><strong>AI providers:</strong> generation of recommendations and planning suggestions.</li>
         </ul>
       </section>
 
       <section>
-        <h2>4. Data Storage &amp; Security</h2>
+        <h2>8. Partner Collaboration And Guest Data</h2>
         <p>
-          Your data is stored securely using Supabase infrastructure with
-          row-level security (RLS) policies. All data is encrypted in transit
-          via TLS. Only you can access your wedding planning data through your
-          authenticated account.
+          Wedlune lets you invite a partner to a shared wedding plan. We store
+          invitation emails, invitation status, partner permissions, and
+          activity entries. Depending on the selected role, a partner may view
+          or edit shared data such as guests, budget, vendors, timeline, photos,
+          and documents.
+        </p>
+        <p>
+          Do not add third-party personal data, including guest contact or
+          dietary information, unless you have a lawful reason to do so and can
+          share this privacy information with them if needed.
         </p>
       </section>
 
       <section>
-        <h2>5. AI Processing</h2>
+        <h2>9. Usage Analytics</h2>
         <p>
-          When you request AI recommendations, your questionnaire answers and
-          preferences are sent to our AI processing service to generate
-          personalized suggestions. This data is not used to train AI models and
-          is not shared with third parties beyond what is necessary for
-          generating your recommendations.
+          Usage analytics are off by default. If you turn them on in Settings,
+          we collect limited in-app events such as sign-up, sign-in,
+          questionnaire completion, recommendation generation, task actions, and
+          aggregated screen/session counts. Events may be linked to your
+          account so we can improve the product and understand feature adoption.
+          You can turn analytics off at any time; doing so stops collection and
+          clears locally queued analytics.
         </p>
+        <p>We do not use an external crash-reporting SDK.</p>
       </section>
 
       <section>
-        <h2>6. Third-Party Services</h2>
-        <p>We use the following third-party services:</p>
-        <ul>
-          <li>
-            <strong>Supabase:</strong> Authentication and database hosting.
-          </li>
-          <li>
-            <strong>AI providers:</strong> For generating wedding
-            recommendations (data is processed, not stored).
-          </li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>7. Your Rights</h2>
-        <p>You have the right to:</p>
-        <ul>
-          <li>Access your personal data.</li>
-          <li>Request correction of inaccurate data.</li>
-          <li>Request deletion of your account and all associated data.</li>
-          <li>Export your wedding planning data.</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>8. Usage Analytics</h2>
+        <h2>10. Retention And Deletion</h2>
         <p>
-          We collect anonymous usage analytics within the app — such as which
-          screens you visit, features you use, and task completion rates — to
-          improve the app experience. This data is stored in our own database
-          and is never shared with third-party analytics services. We do not use
-          any external tracking, advertising, or crash-reporting SDKs.
-        </p>
-        <p>
-          You can opt out of usage analytics at any time from the app's Settings
-          → Usage Analytics. When opted out, no analytics data is collected or
-          transmitted.
-        </p>
-      </section>
-
-      <section>
-        <h2>9. Data Retention</h2>
-        <p>
-          We retain your data for as long as your account is active. When you
-          delete your account, all personal data and wedding planning
-          information is permanently removed within 30 days.
-        </p>
-      </section>
-
-      <section>
-        <h2>10. Contact Us</h2>
-        <p>
-          For privacy-related questions, please contact us at
-          <a
-            href="mailto:privacy@wedlune.com"
+          We keep account and planning data while your account is active. You
+          can delete your account in the app under Settings → Delete Account or
+          through our
+          <NuxtLink
+            to="/delete-account"
             class="text-champagne-gold hover:text-deep-gold"
-            >privacy@wedlune.com</a
+            >account deletion page</NuxtLink
+          >. Deletion removes profile, questionnaire, planning, guest, vendor,
+          budget, photos, legal documents, timelines, AI recommendations, and
+          related storage where technically possible.
+        </p>
+        <p>
+          We may retain limited records when required for security, fraud
+          prevention, tax/accounting, dispute handling, or legal compliance.
+        </p>
+      </section>
+
+      <section>
+        <h2>11. Your Rights</h2>
+        <p>
+          If GDPR applies, you may request access, correction, deletion,
+          restriction, portability, objection to processing based on legitimate
+          interests, and withdrawal of consent where processing is based on
+          consent. You may also lodge a complaint with your local EU/EEA
+          data-protection authority.
+        </p>
+      </section>
+
+      <section>
+        <h2>12. Children</h2>
+        <p>
+          Wedlune is not intended for children. Users must be at least 16 years
+          old, or the minimum digital-consent age in their country, to create an
+          account.
+        </p>
+      </section>
+
+      <section>
+        <h2>13. Contact Us</h2>
+        <p>
+          For privacy-related questions or requests, contact
+          <a
+            href="mailto:hi@wedlune.com"
+            class="text-champagne-gold hover:text-deep-gold"
+            >hi@wedlune.com</a
           >.
         </p>
       </section>
@@ -145,7 +212,7 @@
 </template>
 
 <script setup lang="ts">
-const lastUpdated = "April 13, 2026";
+const lastUpdated = "July 14, 2026";
 
 useSeoMeta({
   title: "Privacy Policy — Wedlune",
