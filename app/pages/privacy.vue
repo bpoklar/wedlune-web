@@ -14,9 +14,9 @@
           Wedlune ("we", "our", or "us") provides the Wedlune mobile app and
           website. For privacy requests, contact us at
           <a
-            href="mailto:hi@wedlune.com"
+            href="mailto:support@wedlune.com"
             class="text-champagne-gold hover:text-deep-gold"
-            >hi@wedlune.com</a
+            >support@wedlune.com</a
           >. If a company address, data-protection officer, or EU
           representative is appointed before launch, those details will be
           published here.
@@ -201,9 +201,9 @@
         <p>
           For privacy-related questions or requests, contact
           <a
-            href="mailto:hi@wedlune.com"
+            href="mailto:support@wedlune.com"
             class="text-champagne-gold hover:text-deep-gold"
-            >hi@wedlune.com</a
+            >support@wedlune.com</a
           >.
         </p>
       </section>

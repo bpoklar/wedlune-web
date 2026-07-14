@@ -152,9 +152,9 @@
         <p>
           For questions about these terms, contact
           <a
-            href="mailto:hi@wedlune.com"
+            href="mailto:support@wedlune.com"
             class="text-champagne-gold hover:text-deep-gold"
-            >hi@wedlune.com</a
+            >support@wedlune.com</a
           >.
         </p>
       </section>

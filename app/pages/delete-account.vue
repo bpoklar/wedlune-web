@@ -26,9 +26,9 @@
         <p>
           If you cannot access the app, email
           <a
-            href="mailto:hi@wedlune.com?subject=Wedlune%20account%20deletion%20request"
+            href="mailto:support@wedlune.com?subject=Wedlune%20account%20deletion%20request"
             class="text-champagne-gold hover:text-deep-gold"
-            >hi@wedlune.com</a
+            >support@wedlune.com</a
           >
           from the email address used for your Wedlune account and include
           "Account deletion request" in the subject. We may ask you to verify
