@@ -5,15 +5,14 @@
         <div class="grid lg:grid-cols-[0.9fr_1.1fr]">
           <div class="p-8 md:p-10 bg-charcoal text-warm-white">
             <p class="font-accent text-champagne-gold text-2xl md:text-3xl mb-2">
-              Free to start
+              Get started free
             </p>
             <h2 class="font-display text-3xl md:text-4xl leading-tight mb-4">
-              Plan now. Upgrade only when you need more.
+              Build your plan first. Upgrade only when the wedding grows.
             </h2>
             <p class="text-pearl-gray leading-relaxed">
-              Wedlune is designed to be useful from the first checklist item,
-              with Premium for larger weddings, collaboration, export, and
-              advanced planning tools.
+              Start with the planning essentials, then unlock more capacity and
+              advanced tools when you need deeper collaboration and detail.
             </p>
           </div>
 
@@ -59,14 +58,14 @@
 
 <script setup lang="ts">
 const freeItems = [
-  "Core timeline and checklist",
-  "Starter guest, vendor, and budget limits",
-  "Banner-supported planning",
+  "AI-built timeline and checklist",
+  "Starter guests, vendors, and budget tracking",
+  "Enough structure to leave spreadsheets behind",
 ];
 
 const premiumItems = [
-  "Unlimited planning items",
-  "Ad-free experience",
-  "Shot list, exports, month view, and collaboration",
+  "More room for growing guest lists and vendor shortlists",
+  "Advanced views, exports, and planning tools",
+  "A quieter, more complete planning experience",
 ];
 </script>

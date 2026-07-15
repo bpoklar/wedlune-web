@@ -2,13 +2,13 @@
   <section id="features" class="py-20 bg-soft-champagne">
     <div class="section-shell">
       <div class="text-center mb-16">
-        <p class="section-kicker">Everything you need</p>
+        <p class="section-kicker">One calm planning space</p>
         <h2 class="section-title">
-          Smart Features for Every Detail
+          Everything that used to live in tabs, notes, chats, and spreadsheets.
         </h2>
         <p class="section-subtitle mx-auto mt-4">
-          From first ideas to the final guest count, Wedlune keeps each decision
-          connected to the rest of your wedding plan.
+          Wedlune keeps every moving part connected, so one decision never gets
+          lost from the rest of your wedding.
         </p>
       </div>
 
@@ -87,42 +87,42 @@ const features = [
     icon: SparkleIcon,
     title: "AI Recommendations",
     description:
-      "Get personalized venue, catering, vendor, and attire suggestions powered by AI — tailored to your style, budget, and location.",
+      "Get next-step suggestions based on your date, budget, guest count, style, and what is still missing.",
     bgClass: "bg-champagne-gold/10",
   },
   {
     icon: CalendarIcon,
     title: "Smart Timeline",
     description:
-      "An automatic wedding timeline generated from your answers. Track tasks, set due dates, and never miss a deadline.",
+      "Turn a huge wedding plan into a clear sequence of tasks, dates, reminders, and decisions.",
     bgClass: "bg-blush-rose/15",
   },
   {
     icon: GuestsIcon,
     title: "Guest Management",
     description:
-      "Manage your guest list with RSVP tracking, dietary preferences, meal choices, table assignments, and plus-one handling.",
+      "Track RSVPs, dietary needs, meal choices, plus-ones, and table details without losing context.",
     bgClass: "bg-sage-green/15",
   },
   {
     icon: BudgetIcon,
     title: "Budget Tracker",
     description:
-      "Keep your spending on track with category breakdowns, vendor quotes, payment tracking, and real-time budget insights.",
+      "See where money is going, compare quotes, track payments, and spot overspending before it grows.",
     bgClass: "bg-champagne-gold/10",
   },
   {
     icon: VendorIcon,
     title: "Vendor Hub",
     description:
-      "Find photographers, DJs, florists, and more. Compare options, track booking status, and store contact details in one place.",
+      "Keep quotes, booking status, contacts, and notes together while you choose the right people.",
     bgClass: "bg-blush-rose/15",
   },
   {
     icon: CameraIcon,
     title: "Photo Gallery",
     description:
-      "Collect inspiration, save mood boards, and upload photos from fittings and venue visits to keep everything organized.",
+      "Save inspiration, venue photos, fitting shots, and gallery links beside the plan they belong to.",
     bgClass: "bg-sage-green/15",
   },
 ];

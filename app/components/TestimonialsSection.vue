@@ -3,61 +3,56 @@
     <div class="max-w-4xl mx-auto px-6">
       <div class="text-center mb-12">
         <p class="section-kicker">
-          Loved by couples
+          Designed for couples
         </p>
         <h2 class="font-display text-3xl md:text-4xl text-charcoal">
-          What Couples Say
+          When planning starts to feel bigger than the wedding.
         </h2>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
-        <blockquote
-          v-for="testimonial in testimonials"
-          :key="testimonial.name"
+        <article
+          v-for="item in coupleNeeds"
+          :key="item.title"
           class="card-surface p-8"
         >
-          <div class="flex gap-1 mb-4">
-            <span v-for="n in 5" :key="n" class="text-champagne-gold text-lg"
-              >★</span
-            >
-          </div>
-          <p class="text-warm-gray text-sm leading-relaxed mb-6 italic">
-            "{{ testimonial.quote }}"
-          </p>
-          <footer class="flex items-center gap-3">
+          <div class="flex items-center gap-3 mb-5">
             <div
               class="w-10 h-10 rounded-full bg-blush-rose/20 flex items-center justify-center text-blush-rose font-bold text-sm"
             >
-              {{ testimonial.initials }}
+              {{ item.initials }}
             </div>
             <div>
               <p class="text-charcoal font-semibold text-sm">
-                {{ testimonial.name }}
+                {{ item.title }}
               </p>
-              <p class="text-pearl-gray text-xs">{{ testimonial.detail }}</p>
+              <p class="text-pearl-gray text-xs">{{ item.detail }}</p>
             </div>
-          </footer>
-        </blockquote>
+          </div>
+          <p class="text-warm-gray text-sm leading-relaxed">
+            {{ item.description }}
+          </p>
+        </article>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-const testimonials = [
+const coupleNeeds = [
   {
-    quote:
-      "Wedlune made planning our wedding so much easier. The AI recommendations were spot-on and saved us weeks of research.",
-    name: "Ana & Luka",
-    initials: "AL",
-    detail: "Married June 2025",
+    title: "The plan lives in too many places",
+    initials: "01",
+    detail: "Notes, chats, tabs, and spreadsheets",
+    description:
+      "Bring scattered research, costs, guests, RSVPs, and deadlines into one shared view before details start slipping.",
   },
   {
-    quote:
-      "The automatic timeline was a game changer. We always knew what to do next and never missed a deadline.",
-    name: "Sara & Matic",
-    initials: "SM",
-    detail: "Married September 2025",
+    title: "Nobody knows what to do next",
+    initials: "02",
+    detail: "Too many decisions, not enough clarity",
+    description:
+      "Let Wedlune surface the next useful action, from vendor follow-ups to RSVP reminders and budget checks.",
   },
 ];
 </script>

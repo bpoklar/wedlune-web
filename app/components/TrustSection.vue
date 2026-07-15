@@ -3,13 +3,13 @@
     <div class="section-shell">
       <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-10 items-center">
         <div>
-          <p class="section-kicker">Why couples choose it</p>
+          <p class="section-kicker">Built for the messy middle</p>
           <h2 class="section-title">
-            Less spreadsheet chaos. More calm decisions.
+            Less mental load. More shared clarity.
           </h2>
           <p class="section-subtitle mt-4">
-            Wedlune brings the moving parts of wedding planning into one shared
-            place, so both partners can see what matters next.
+            Wedding planning gets noisy fast. Wedlune helps both partners see
+            what matters, what is done, and what needs attention next.
           </p>
         </div>
 
@@ -81,19 +81,19 @@ const trustItems = [
     icon: CalendarIcon,
     title: "Clear next steps",
     description:
-      "Your timeline turns a big plan into manageable tasks and deadlines.",
+      "Your timeline turns scattered decisions into manageable tasks and deadlines.",
   },
   {
     icon: UsersIcon,
     title: "Built for two",
     description:
-      "Plan together with shared guests, budgets, vendors, and decisions.",
+      "Both partners can follow the same guests, budget, vendors, and open decisions.",
   },
   {
     icon: ShieldIcon,
     title: "Private by design",
     description:
-      "Guest-facing RSVP and gallery links are token-based and noindexed.",
+      "Guest-facing RSVP and gallery links stay private, token-based, and noindexed.",
   },
 ];
 </script>

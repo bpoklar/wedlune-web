@@ -7,29 +7,30 @@
           <p
             class="inline-flex items-center gap-2 rounded-full border border-champagne-gold/30 bg-warm-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-deep-gold mb-6"
           >
-            AI wedding planning app
+            AI wedding planner for couples
           </p>
           <h1
             class="font-display text-4xl md:text-5xl lg:text-6xl text-charcoal leading-[1.04] mb-6"
           >
-            Plan your wedding beautifully, together.
+            Your whole wedding plan, finally in one calm place.
           </h1>
           <p class="text-warm-gray text-lg leading-relaxed mb-8 max-w-lg">
-            Wedlune brings your timeline, guests, budget, vendors, RSVPs, and
-            AI recommendations into one calm planning space for both partners.
+            Wedlune turns your timeline, guests, budget, vendors, RSVPs, and
+            next decisions into one AI-guided plan you can share with your
+            partner.
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
             <NuxtLink
               to="/#download"
               class="btn-primary"
             >
-              Get Started Free
+              Get started free
             </NuxtLink>
             <NuxtLink
-              to="/#features"
+              to="/#how-it-works"
               class="btn-secondary"
             >
-              See Features
+              See how it works
             </NuxtLink>
           </div>
           <div
@@ -62,12 +63,16 @@
                 <p class="font-accent text-3xl text-champagne-gold">
                   Ana & Luka
                 </p>
-                <p class="text-xs text-warm-gray">Next best action</p>
+                <p class="text-xs text-warm-gray">
+                  AI suggests what to do next
+                </p>
               </div>
 
               <div class="card-surface p-4 mb-4">
                 <div class="flex items-center justify-between mb-3">
-                  <p class="font-display text-lg text-charcoal">Timeline</p>
+                  <p class="font-display text-lg text-charcoal">
+                    Next best action
+                  </p>
                   <span class="text-xs font-bold text-sage-green">72%</span>
                 </div>
                 <div class="h-2 rounded-full bg-linen overflow-hidden">
@@ -78,18 +83,18 @@
                     <span class="mt-1 h-2.5 w-2.5 rounded-full bg-sage-green" />
                     <div>
                       <p class="text-sm font-bold text-charcoal">
-                        Confirm photographer
+                        Send RSVP reminder
                       </p>
-                      <p class="text-xs text-warm-gray">Due this week</p>
+                      <p class="text-xs text-warm-gray">18 guests pending</p>
                     </div>
                   </div>
                   <div class="flex gap-3">
                     <span class="mt-1 h-2.5 w-2.5 rounded-full bg-blush-rose" />
                     <div>
                       <p class="text-sm font-bold text-charcoal">
-                        Finalize menu
+                        Choose florist quote
                       </p>
-                      <p class="text-xs text-warm-gray">30 days before</p>
+                      <p class="text-xs text-warm-gray">Vendor decision</p>
                     </div>
                   </div>
                 </div>
@@ -97,21 +102,22 @@
 
               <div class="grid grid-cols-2 gap-3">
                 <div class="card-surface p-4">
-                  <p class="text-xs text-warm-gray">Guests</p>
-                  <p class="font-display text-2xl text-charcoal">84</p>
+                  <p class="text-xs text-warm-gray">Budget</p>
+                  <p class="font-display text-2xl text-charcoal">+8%</p>
                 </div>
                 <div class="card-surface p-4">
-                  <p class="text-xs text-warm-gray">Budget</p>
-                  <p class="font-display text-2xl text-charcoal">68%</p>
+                  <p class="text-xs text-warm-gray">RSVPs</p>
+                  <p class="font-display text-2xl text-charcoal">84</p>
                 </div>
               </div>
 
               <div class="mt-4 rounded-2xl bg-champagne-gold/10 p-4">
                 <p class="text-xs font-bold text-deep-gold">
-                  AI suggestion
+                  Budget warning
                 </p>
                 <p class="text-sm text-warm-gray">
-                  Add missing RSVP reminder task.
+                  Catering is trending over plan. Review guest count before
+                  deposit.
                 </p>
               </div>
             </div>
@@ -124,8 +130,8 @@
 
 <script setup lang="ts">
 const stats = [
-  { value: "1", label: "shared plan" },
-  { value: "10+", label: "planning tools" },
-  { value: "0", label: "spreadsheet chaos" },
+  { value: "AI", label: "built timeline" },
+  { value: "1", label: "shared partner plan" },
+  { value: "All", label: "guests, vendors, budget, RSVPs" },
 ];
 </script>

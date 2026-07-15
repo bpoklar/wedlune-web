@@ -2,7 +2,7 @@
   <section id="how-it-works" class="py-20">
     <div class="section-shell">
       <div class="text-center mb-16">
-        <p class="section-kicker">Simple & elegant</p>
+        <p class="section-kicker">From overwhelmed to organized</p>
         <h2 class="section-title">How Wedlune Works</h2>
       </div>
 
@@ -30,17 +30,17 @@ const steps = [
   {
     title: "Create Your Profile",
     description:
-      "Sign up as a couple and tell us about your wedding vision — date, location, style, and budget.",
-  },
-  {
-    title: "Answer a Few Questions",
-    description:
-      "Our smart questionnaire learns your preferences across venues, food, attire, transport, and vendors.",
+      "Tell Wedlune your wedding date, location, guest count, style, budget, and priorities.",
   },
   {
     title: "Get Your Plan",
     description:
-      "Receive personalized recommendations, an automatic timeline, and a complete planning dashboard — all tailored to you.",
+      "Receive an AI-built timeline with the tasks, reminders, and decisions that matter next.",
+  },
+  {
+    title: "Plan Together",
+    description:
+      "Share guests, vendors, RSVPs, budget, and progress so both partners stay in sync.",
   },
 ];
 </script>
