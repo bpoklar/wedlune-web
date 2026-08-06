@@ -143,26 +143,77 @@
           <div v-if="rsvpStatusField === 'accepted'" class="space-y-6">
             <div>
               <label
-                for="menuSelect"
+                id="menuSelectLabel"
                 class="block text-charcoal font-semibold text-sm mb-2"
               >
                 Meal Preference
               </label>
               <template v-if="menus.length > 0">
-                <select
+                <div
                   id="menuSelect"
-                  v-model="selectedMenuId"
-                  class="w-full px-4 py-3 rounded-xl border border-linen bg-ivory-cream text-charcoal text-sm focus:outline-none focus:border-champagne-gold focus:ring-1 focus:ring-champagne-gold/30 transition-colors appearance-none"
+                  class="grid gap-3 sm:grid-cols-2"
+                  role="radiogroup"
+                  aria-labelledby="menuSelectLabel"
                 >
-                  <option :value="null">—</option>
-                  <option
+                  <label
+                    :class="[
+                      'flex min-h-24 items-center justify-center rounded-xl border-2 bg-ivory-cream px-4 text-center cursor-pointer transition-all',
+                      selectedMenuId === null
+                        ? 'border-champagne-gold ring-2 ring-champagne-gold/20'
+                        : 'border-linen hover:border-champagne-gold/50',
+                    ]"
+                  >
+                    <input
+                      v-model="selectedMenuId"
+                      type="radio"
+                      name="menuSelect"
+                      :value="null"
+                      class="sr-only"
+                    />
+                    <span class="text-warm-gray text-sm">No preference</span>
+                  </label>
+                  <label
                     v-for="m in menus"
                     :key="m.id"
-                    :value="m.id"
+                    :class="[
+                      'overflow-hidden rounded-xl border-2 bg-ivory-cream cursor-pointer transition-all',
+                      selectedMenuId === m.id
+                        ? 'border-champagne-gold ring-2 ring-champagne-gold/20'
+                        : 'border-linen hover:border-champagne-gold/50',
+                    ]"
                   >
-                    {{ m.label }}{{ m.category ? ` (${m.category})` : '' }}
-                  </option>
-                </select>
+                    <input
+                      v-model="selectedMenuId"
+                      type="radio"
+                      name="menuSelect"
+                      :value="m.id"
+                      class="sr-only"
+                    />
+                    <div class="h-28 bg-soft-champagne/70">
+                      <img
+                        v-if="m.coverImageUrl"
+                        :src="m.coverImageUrl"
+                        :alt="m.label"
+                        class="h-full w-full object-cover"
+                      />
+                      <div
+                        v-else
+                        class="flex h-full items-center justify-center text-3xl text-champagne-gold"
+                        aria-hidden="true"
+                      >
+                        🍽️
+                      </div>
+                    </div>
+                    <div class="p-3">
+                      <p class="font-semibold text-charcoal text-sm">
+                        {{ m.label }}
+                      </p>
+                      <p v-if="m.category" class="text-warm-gray text-xs mt-0.5">
+                        {{ m.category }}
+                      </p>
+                    </div>
+                  </label>
+                </div>
                 <!-- Show courses for selected menu -->
                 <div
                   v-if="selectedMenuId"
@@ -269,27 +320,79 @@
               <div v-if="po.rsvpStatus === 'accepted'" class="space-y-4 mt-4">
                 <div>
                   <label
-                    :for="`meal_${idx}`"
+                    :id="`meal_${idx}`"
                     class="block text-charcoal font-semibold text-sm mb-2"
                   >
                     Meal Preference
                   </label>
                   <template v-if="menus.length > 0">
-                    <select
+                    <div
                       :id="`menu_${idx}`"
-                      v-model="po.menuId"
-                      @change="onPlusOneMenuChange(po)"
-                      class="w-full px-4 py-3 rounded-xl border border-linen bg-ivory-cream text-charcoal text-sm focus:outline-none focus:border-champagne-gold focus:ring-1 focus:ring-champagne-gold/30 transition-colors appearance-none"
+                      class="grid gap-3 sm:grid-cols-2"
+                      role="radiogroup"
+                      :aria-labelledby="`meal_${idx}`"
                     >
-                      <option :value="null">—</option>
-                      <option
+                      <label
+                        :class="[
+                          'flex min-h-20 items-center justify-center rounded-xl border-2 bg-white px-3 text-center cursor-pointer transition-all',
+                          po.menuId === null
+                            ? 'border-champagne-gold ring-2 ring-champagne-gold/20'
+                            : 'border-linen hover:border-champagne-gold/50',
+                        ]"
+                      >
+                        <input
+                          v-model="po.menuId"
+                          type="radio"
+                          :name="`menu_${idx}`"
+                          :value="null"
+                          class="sr-only"
+                          @change="onPlusOneMenuChange(po)"
+                        />
+                        <span class="text-warm-gray text-sm">No preference</span>
+                      </label>
+                      <label
                         v-for="m in menus"
                         :key="m.id"
-                        :value="m.id"
+                        :class="[
+                          'overflow-hidden rounded-xl border-2 bg-white cursor-pointer transition-all',
+                          po.menuId === m.id
+                            ? 'border-champagne-gold ring-2 ring-champagne-gold/20'
+                            : 'border-linen hover:border-champagne-gold/50',
+                        ]"
                       >
-                        {{ m.label }}{{ m.category ? ` (${m.category})` : '' }}
-                      </option>
-                    </select>
+                        <input
+                          v-model="po.menuId"
+                          type="radio"
+                          :name="`menu_${idx}`"
+                          :value="m.id"
+                          class="sr-only"
+                          @change="onPlusOneMenuChange(po)"
+                        />
+                        <div class="flex min-h-20 items-center gap-3 p-3">
+                          <img
+                            v-if="m.coverImageUrl"
+                            :src="m.coverImageUrl"
+                            :alt="m.label"
+                            class="h-16 w-20 shrink-0 rounded-lg object-cover"
+                          />
+                          <div
+                            v-else
+                            class="flex h-16 w-20 shrink-0 items-center justify-center rounded-lg bg-soft-champagne/70 text-2xl"
+                            aria-hidden="true"
+                          >
+                            🍽️
+                          </div>
+                          <div>
+                            <p class="font-semibold text-charcoal text-sm">
+                              {{ m.label }}
+                            </p>
+                            <p v-if="m.category" class="text-warm-gray text-xs">
+                              {{ m.category }}
+                            </p>
+                          </div>
+                        </div>
+                      </label>
+                    </div>
                     <!-- Show courses for selected +1 menu -->
                     <div
                       v-if="po.menuId"
@@ -414,6 +517,7 @@ interface Menu {
   id: string;
   label: string;
   category: string;
+  coverImageUrl: string | null;
   courses: MenuCourse[];
 }
 
@@ -517,6 +621,7 @@ onMounted(async () => {
         id: string;
         label: string;
         category: string;
+        coverImageUrl: string | null;
         courses: Array<{
           id: string;
           label: string;
