@@ -1,5 +1,8 @@
 <template>
-  <div class="soft-page-bg relative min-h-screen overflow-hidden px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
+  <div
+    :class="['soft-page-bg rsvp-themed relative min-h-screen overflow-hidden px-4 py-8 sm:px-6 sm:py-12 lg:py-16', `rsvp-template-${rsvpDesign.template}`]"
+    :style="rsvpThemeStyle"
+  >
     <div
       class="pointer-events-none absolute -left-20 top-28 h-56 w-56 rounded-full border border-blush-rose/20 sm:h-72 sm:w-72"
       aria-hidden="true"
@@ -17,6 +20,20 @@
         />
         <p class="mt-5 font-display text-xl text-charcoal">Opening your invitation</p>
         <p class="mt-1 text-sm text-warm-gray">Just a moment while we gather the details…</p>
+      </div>
+
+      <!-- Premium unavailable state -->
+      <div
+        v-else-if="premiumUnavailable"
+        class="card-surface mx-auto max-w-lg px-6 py-10 text-center sm:p-12"
+      >
+        <div class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-soft-champagne text-3xl">💌</div>
+        <h1 class="mb-3 font-display text-2xl text-charcoal sm:text-3xl">
+          RSVP Currently Unavailable
+        </h1>
+        <p class="text-warm-gray text-sm leading-relaxed">
+          This invitation cannot accept responses right now. Please contact the couple directly.
+        </p>
       </div>
 
       <!-- Error state -->
@@ -58,6 +75,12 @@
               ? `Thank you, ${guestName}! Your RSVP has been recorded. We can't wait to celebrate with you.`
               : `Thank you for letting us know, ${guestName}. We'll miss you!`
           }}
+        </p>
+        <p
+          v-if="rsvpDesign.confirmationMessage"
+          class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-warm-gray sm:text-base"
+        >
+          {{ rsvpDesign.confirmationMessage }}
         </p>
         <!-- +1 summary -->
         <div v-if="plusOneGuests.length > 0" class="mx-auto mt-6 max-w-sm divide-y divide-linen rounded-2xl border border-linen bg-ivory-cream/70 px-4">
@@ -111,16 +134,22 @@
         class="card-surface overflow-hidden"
       >
         <!-- Header -->
-        <div class="relative overflow-hidden border-b border-linen bg-soft-champagne px-5 py-8 text-center sm:px-8 sm:py-11">
+        <div class="rsvp-invitation-header relative overflow-hidden border-b border-linen bg-soft-champagne px-5 py-8 text-center sm:px-8 sm:py-11">
           <div class="absolute inset-x-0 top-0 h-1.5 bg-champagne-gold" />
+          <img
+            v-if="rsvpDesign.heroImageUrl"
+            :src="rsvpDesign.heroImageUrl"
+            alt=""
+            class="rsvp-hero-image mx-auto mb-6 h-52 w-full rounded-2xl object-cover sm:h-72"
+          />
           <p class="mb-1 font-accent text-3xl text-champagne-gold sm:text-4xl">
-            You're Invited
+            {{ rsvpDesign.invitationHeading }}
           </p>
           <h1 class="mb-2 font-display text-3xl text-charcoal sm:text-4xl">
             {{ guestName }}
           </h1>
           <p v-if="coupleName" class="mx-auto max-w-md text-sm leading-relaxed text-warm-gray sm:text-base">
-            {{ coupleName }} would love for you to celebrate with them
+            {{ rsvpDesign.welcomeMessage || `${coupleName} would love for you to celebrate with them` }}
           </p>
         </div>
 
@@ -530,6 +559,12 @@
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm, useField } from "vee-validate";
+import {
+  defaultRsvpDesign,
+  readableTextColor,
+  resolveRsvpDesign,
+  type RsvpDesign,
+} from "~/utils/rsvpDesign";
 
 useSeoMeta({
   title: "RSVP — Wedlune",
@@ -562,6 +597,7 @@ const submittedStatus = ref<string>("");
 const hasExistingResponse = ref(false);
 const submitting = ref(false);
 const submitError = ref<string | null>(null);
+const premiumUnavailable = ref(false);
 
 // Guest data from API
 const guestName = ref("");
@@ -613,6 +649,14 @@ interface Wishlist {
   message: string | null;
   items: WishlistItem[];
 }
+const rsvpDesign = ref<RsvpDesign>({ ...defaultRsvpDesign });
+const rsvpThemeStyle = computed(() => ({
+  "--rsvp-accent": rsvpDesign.value.accentColor,
+  "--rsvp-background": rsvpDesign.value.backgroundColor,
+  "--rsvp-surface": rsvpDesign.value.surfaceColor,
+  "--rsvp-text": readableTextColor(rsvpDesign.value.surfaceColor),
+  "--rsvp-on-accent": readableTextColor(rsvpDesign.value.accentColor),
+}));
 const plusOneGuests = ref<PlusOneGuest[]>([]);
 const wishlist = ref<Wishlist | null>(null);
 
@@ -723,6 +767,7 @@ onMounted(async () => {
         menuId: string | null;
       }>;
       wishlist?: Wishlist | null;
+      rsvpDesign?: RsvpDesign | null;
     }>(edgeFunctionUrl.value, {
       cache: "no-store",
       headers: {
@@ -734,6 +779,7 @@ onMounted(async () => {
     guestName.value = data.name;
     coupleName.value = data.coupleName;
     wishlist.value = data.wishlist ?? null;
+    rsvpDesign.value = resolveRsvpDesign(data.rsvpDesign);
     menus.value = data.menus ?? [];
     selectedMenuId.value = data.menuId ?? null;
 
@@ -766,8 +812,10 @@ onMounted(async () => {
       });
     }
   } catch (err: unknown) {
-    const fetchError = err as { data?: { error?: string }; status?: number };
-    if (fetchError.status === 404) {
+    const fetchError = err as { data?: { error?: string; code?: string }; status?: number };
+    if (fetchError.status === 403 && fetchError.data?.code === "premium_required") {
+      premiumUnavailable.value = true;
+    } else if (fetchError.status === 404) {
       errorMessage.value =
         "This RSVP link is invalid or has expired. Please contact the couple for a new link.";
     } else {
@@ -825,11 +873,75 @@ const onSubmit = handleSubmit(async (values) => {
     submittedStatus.value = values.rsvpStatus;
     hasExistingResponse.value = true;
     submitted.value = true;
-  } catch {
-    submitError.value =
-      "Failed to send your RSVP. Please check your connection and try again.";
+  } catch (err: unknown) {
+    const fetchError = err as { data?: { code?: string }; status?: number };
+    if (fetchError.status === 403 && fetchError.data?.code === "premium_required") {
+      premiumUnavailable.value = true;
+      submitted.value = false;
+    } else {
+      submitError.value =
+        "Failed to send your RSVP. Please check your connection and try again.";
+    }
   } finally {
     submitting.value = false;
   }
 });
 </script>
+
+<style scoped>
+.rsvp-themed {
+  background: var(--rsvp-background);
+}
+
+.rsvp-themed :deep(.card-surface) {
+  background-color: var(--rsvp-surface);
+}
+
+.rsvp-themed :deep(.bg-champagne-gold) {
+  background-color: var(--rsvp-accent);
+}
+
+.rsvp-themed :deep(.text-champagne-gold),
+.rsvp-themed :deep(.text-deep-gold) {
+  color: var(--rsvp-accent);
+}
+
+.rsvp-themed :deep(.text-charcoal),
+.rsvp-themed :deep(.text-warm-gray),
+.rsvp-themed :deep(.text-pearl-gray) {
+  color: var(--rsvp-text);
+}
+
+.rsvp-themed :deep(.bg-champagne-gold.text-white) {
+  color: var(--rsvp-on-accent);
+}
+
+.rsvp-themed :deep(.border-champagne-gold),
+.rsvp-themed :deep(.border-deep-gold) {
+  border-color: var(--rsvp-accent);
+}
+
+.rsvp-template-botanical .rsvp-invitation-header {
+  border-radius: 0 0 45% 45% / 0 0 10% 10%;
+}
+
+.rsvp-template-botanical .rsvp-hero-image {
+  border-radius: 999px 999px 1.5rem 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .rsvp-template-modern .rsvp-invitation-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 2rem;
+    text-align: left;
+  }
+
+  .rsvp-template-modern .rsvp-hero-image {
+    grid-row: 1 / span 3;
+    height: 20rem;
+    margin: 0;
+  }
+}
+</style>

@@ -38,8 +38,8 @@
             questionnaire answers, notes, and recommendation preferences.
           </li>
           <li>
-            <strong>Planning data:</strong> guests and RSVP details, wishlists,
-            wishlist images, private gift reservations, meal and dietary notes,
+            <strong>Planning data:</strong> guests and RSVP details, RSVP page
+            designs and images, wishlists, wishlist images, private gift reservations, meal and dietary notes,
             seating, budgets, vendors, venues, accommodation, transport, attire,
             legal documents, timelines, checklists, payment milestones, message
             templates, photos, and shared gallery links. For a reservation, we
@@ -82,7 +82,7 @@
         <p>
           Cloud data is stored with Supabase using authentication, Row-Level
           Security, per-wedding access controls, and encrypted transport (TLS).
-          Uploaded photos, wishlist images, and documents are stored in Supabase Storage with
+          Uploaded photos, RSVP design images, wishlist images, and documents are stored in Supabase Storage with
           access controls.
         </p>
         <p>

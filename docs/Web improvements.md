@@ -8,7 +8,10 @@
 
 Marketing landing site + RSVP tool built with Nuxt 4, Vue 3, Tailwind CSS v4.
 
-**Existing pages:** Homepage (hero, features, how-it-works, testimonials), Privacy, Terms, RSVP (token-based guest response form).
+**Existing pages:** Homepage (hero, features, how-it-works, testimonials),
+Privacy, Terms, and a Premium token-based RSVP experience with Classic,
+Botanical, and Modern published designs, custom copy/colors/images, wishlist,
+confirmation, and a neutral Premium-unavailable state.
 
 **Existing SEO:** Basic `useHead` + `useSeoMeta` + one `defineSoftwareApp` schema on homepage. No blog, no sitemap config, no structured FAQ, no breadcrumbs, no internal linking depth.
 

@@ -21,7 +21,7 @@
         <p>
           Wedlune is a wedding planning app that provides questionnaire-based
           planning, AI-powered recommendations, timeline management, local task
-          reminders, guest tracking with RSVP, gift wishlists and reservations, budget management, vendor contact
+          reminders, premium RSVP page publishing and design, gift wishlists and reservations, budget management, vendor contact
           management, seating arrangements, attire and transport tracking,
           legal-document storage, photo gallery, and partner collaboration.
           Some features may be limited under the free plan and require a
