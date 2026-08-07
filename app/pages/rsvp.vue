@@ -1,6 +1,6 @@
 <template>
   <div class="soft-page-bg min-h-screen flex items-center justify-center px-4 py-16">
-    <div class="w-full max-w-lg">
+    <div class="w-full max-w-3xl">
       <!-- Loading state -->
       <div v-if="loading" class="text-center space-y-4">
         <div
@@ -454,6 +454,12 @@
         </form>
       </div>
 
+      <WishlistSection
+        v-if="!loading && !errorMessage && wishlist && token"
+        :token="token"
+        :wishlist="wishlist"
+      />
+
       <!-- Branding -->
       <p class="text-center text-pearl-gray text-xs mt-8">
         Powered by
@@ -529,7 +535,30 @@ interface PlusOneGuest {
   dietaryNotes: string;
   menuId: string | null;
 }
+
+interface WishlistItem {
+  id: string;
+  title: string;
+  description: string | null;
+  productUrl: string | null;
+  priceAmount: number | string | null;
+  currency: string | null;
+  category: string | null;
+  desiredQuantity: number;
+  reservedQuantity: number;
+  remainingQuantity: number;
+  isPriority: boolean;
+  imageUrl: string | null;
+  reservedByYou: number;
+}
+
+interface Wishlist {
+  title: string;
+  message: string | null;
+  items: WishlistItem[];
+}
 const plusOneGuests = ref<PlusOneGuest[]>([]);
+const wishlist = ref<Wishlist | null>(null);
 
 // Menus data for dropdown
 const menus = ref<Menu[]>([]);
@@ -637,6 +666,7 @@ onMounted(async () => {
         dietaryNotes: string | null;
         menuId: string | null;
       }>;
+      wishlist?: Wishlist | null;
     }>(edgeFunctionUrl.value, {
       cache: "no-store",
       headers: {
@@ -647,6 +677,7 @@ onMounted(async () => {
 
     guestName.value = data.name;
     coupleName.value = data.coupleName;
+    wishlist.value = data.wishlist ?? null;
     menus.value = data.menus ?? [];
     selectedMenuId.value = data.menuId ?? null;
 

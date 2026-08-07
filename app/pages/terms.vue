@@ -21,7 +21,7 @@
         <p>
           Wedlune is a wedding planning app that provides questionnaire-based
           planning, AI-powered recommendations, timeline management, local task
-          reminders, guest tracking with RSVP, budget management, vendor contact
+          reminders, guest tracking with RSVP, gift wishlists and reservations, budget management, vendor contact
           management, seating arrangements, attire and transport tracking,
           legal-document storage, photo gallery, and partner collaboration.
           Some features may be limited under the free plan and require a
@@ -42,6 +42,14 @@
           directly with the relevant people. Your agreements with third parties
           and your mandatory legal rights control if they conflict with
           information shown in the app.
+        </p>
+        <p>
+          Wishlists are an organizational feature only. Wedlune does not sell
+          gifts, process gift payments, verify purchases, arrange shipping, or
+          guarantee retailer availability, pricing, delivery, quality, returns,
+          or refunds. A reservation records an RSVP party's stated intention
+          and is not proof that a gift was purchased. Product links lead to
+          independent third-party sites whose terms and privacy practices apply.
         </p>
       </section>
 
@@ -209,7 +217,7 @@
 </template>
 
 <script setup lang="ts">
-const lastUpdated = "July 28, 2026";
+const lastUpdated = "August 7, 2026";
 
 useSeoMeta({
   title: "Terms of Service — Wedlune",

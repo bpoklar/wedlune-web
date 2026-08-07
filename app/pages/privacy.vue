@@ -38,10 +38,14 @@
             questionnaire answers, notes, and recommendation preferences.
           </li>
           <li>
-            <strong>Planning data:</strong> guests and RSVP details, meal and
-            dietary notes, seating, budgets, vendors, venues, accommodation,
-            transport, attire, legal documents, timelines, checklists, payment
-            milestones, message templates, photos, and shared gallery links.
+            <strong>Planning data:</strong> guests and RSVP details, wishlists,
+            wishlist images, private gift reservations, meal and dietary notes,
+            seating, budgets, vendors, venues, accommodation, transport, attire,
+            legal documents, timelines, checklists, payment milestones, message
+            templates, photos, and shared gallery links. For a reservation, we
+            retain the wishlist item, quantity, and minimal RSVP-party reference
+            needed to let that party change or cancel it. The couple and other
+            guests are shown quantities, not the reserving party's identity.
           </li>
           <li>
             <strong>Technical data:</strong> device/app metadata, local sync
@@ -78,7 +82,7 @@
         <p>
           Cloud data is stored with Supabase using authentication, Row-Level
           Security, per-wedding access controls, and encrypted transport (TLS).
-          Uploaded photos and documents are stored in Supabase Storage with
+          Uploaded photos, wishlist images, and documents are stored in Supabase Storage with
           access controls.
         </p>
         <p>
@@ -140,6 +144,13 @@
           dietary information, unless you have a lawful reason to do so and can
           share this privacy information with them if needed.
         </p>
+        <p>
+          A guest who opens a valid RSVP link can view a published wishlist and
+          reserve quantities regardless of RSVP response. The reservation-party
+          association is used to prevent duplicates and allow that same party to
+          edit or cancel its reservation; it is not exposed in couple-facing or
+          guest-facing responses.
+        </p>
       </section>
 
       <section>
@@ -167,8 +178,9 @@
             class="text-champagne-gold hover:text-deep-gold"
             >account deletion page</NuxtLink
           >. Deletion removes profile, questionnaire, planning, guest, vendor,
-          budget, photos, legal documents, timelines, AI recommendations, and
-          related storage where technically possible.
+          budget, wishlist items and reservations, wishlist images, photos,
+          legal documents, timelines, AI recommendations, and related storage
+          where technically possible.
         </p>
         <p>
           We may retain limited records when required for security, fraud
@@ -212,7 +224,7 @@
 </template>
 
 <script setup lang="ts">
-const lastUpdated = "July 14, 2026";
+const lastUpdated = "August 7, 2026";
 
 useSeoMeta({
   title: "Privacy Policy — Wedlune",

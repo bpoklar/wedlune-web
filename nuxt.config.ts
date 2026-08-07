@@ -30,6 +30,7 @@ export default defineNuxtConfig({
       headers: {
         "Cache-Control": "no-store",
         "Referrer-Policy": "no-referrer",
+        "X-Robots-Tag": "noindex, nofollow",
       },
     },
     "/shared-gallery": {
