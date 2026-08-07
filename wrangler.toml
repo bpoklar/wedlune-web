@@ -1,5 +1,5 @@
 name = "wedlune-web"
-pages_build_output_dir = "./dist"
+pages_build_output_dir = "./.output/public"
 compatibility_date = "2026-08-07"
 
 # Preserve variables and secrets managed in the Cloudflare dashboard when

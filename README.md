@@ -91,6 +91,9 @@ redeploy:
 Do not rely on the local `.env` file for Cloudflare builds; it is intentionally
 excluded from source control.
 
+Use `npm run generate` as the Cloudflare build command. Wrangler publishes the
+generated `.output/public` directory.
+
 ## RSVP and wishlist safety
 
 - Never log, persist, or include the RSVP bearer token in outbound retailer URLs.
