@@ -1,6 +1,6 @@
 name = "wedlune-web"
-pages_build_output_dir = "./.output/public"
 compatibility_date = "2026-08-07"
+compatibility_flags = ["nodejs_compat"]
 
 # Preserve variables and secrets managed in the Cloudflare dashboard when
 # Wrangler publishes a new build. Without this, deploys can replace the remote

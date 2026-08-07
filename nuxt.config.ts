@@ -5,6 +5,16 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
 
+  nitro: {
+    preset: "cloudflare_module",
+    cloudflare: {
+      // Generate the Worker entrypoint/assets config that `wrangler deploy`
+      // consumes. Dashboard variables are retained by keep_vars in
+      // wrangler.toml.
+      deployConfig: true,
+    },
+  },
+
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {

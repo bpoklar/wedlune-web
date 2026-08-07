@@ -78,12 +78,11 @@ yarn preview
 bun run preview
 ```
 
-### Cloudflare Pages environment
+### Cloudflare Workers environment
 
 `wrangler.toml` preserves dashboard-managed variables during deployments.
-Configure the following values under **Workers & Pages → wedlune-web →
-Settings → Variables and Secrets** for both Production and Preview, then
-redeploy:
+Configure the following values for the `wedlune-web` Worker in both its build
+environment and runtime Variables and Secrets, then redeploy:
 
 - `NUXT_PUBLIC_SUPABASE_URL`
 - `NUXT_PUBLIC_SUPABASE_ANON_KEY`
@@ -91,8 +90,12 @@ redeploy:
 Do not rely on the local `.env` file for Cloudflare builds; it is intentionally
 excluded from source control.
 
-Use `npm run generate` as the Cloudflare build command. Wrangler publishes the
-generated `.output/public` directory.
+Use `npm run build` as the Cloudflare build command and `npx wrangler deploy`
+as the deploy command. The Nuxt Cloudflare Worker preset generates the
+redirected Worker configuration, entrypoint, and static-assets binding under
+`.output/server`. Do not add `pages_build_output_dir` to `wrangler.toml`; that
+turns the deployment into a Pages configuration, where the generated `ASSETS`
+binding conflicts with Pages' reserved binding.
 
 ## RSVP and wishlist safety
 
