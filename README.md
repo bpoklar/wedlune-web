@@ -78,6 +78,19 @@ yarn preview
 bun run preview
 ```
 
+### Cloudflare Pages environment
+
+`wrangler.toml` preserves dashboard-managed variables during deployments.
+Configure the following values under **Workers & Pages → wedlune-web →
+Settings → Variables and Secrets** for both Production and Preview, then
+redeploy:
+
+- `NUXT_PUBLIC_SUPABASE_URL`
+- `NUXT_PUBLIC_SUPABASE_ANON_KEY`
+
+Do not rely on the local `.env` file for Cloudflare builds; it is intentionally
+excluded from source control.
+
 ## RSVP and wishlist safety
 
 - Never log, persist, or include the RSVP bearer token in outbound retailer URLs.
