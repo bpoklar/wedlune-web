@@ -1,21 +1,31 @@
 <template>
-  <div class="soft-page-bg min-h-screen flex items-center justify-center px-4 py-16">
-    <div class="w-full max-w-3xl">
+  <div class="soft-page-bg relative min-h-screen overflow-hidden px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
+    <div
+      class="pointer-events-none absolute -left-20 top-28 h-56 w-56 rounded-full border border-blush-rose/20 sm:h-72 sm:w-72"
+      aria-hidden="true"
+    />
+    <div
+      class="pointer-events-none absolute -right-24 top-8 h-64 w-64 rounded-full border border-champagne-gold/20 sm:h-96 sm:w-96"
+      aria-hidden="true"
+    />
+
+    <main class="relative mx-auto w-full max-w-3xl">
       <!-- Loading state -->
-      <div v-if="loading" class="text-center space-y-4">
+      <div v-if="loading" class="card-surface mx-auto max-w-lg px-6 py-14 text-center sm:px-10">
         <div
-          class="w-12 h-12 border-4 border-champagne-gold/30 border-t-champagne-gold rounded-full animate-spin mx-auto"
+          class="mx-auto h-11 w-11 animate-spin rounded-full border-4 border-champagne-gold/25 border-t-champagne-gold"
         />
-        <p class="text-warm-gray text-sm">Loading your invitation...</p>
+        <p class="mt-5 font-display text-xl text-charcoal">Opening your invitation</p>
+        <p class="mt-1 text-sm text-warm-gray">Just a moment while we gather the details…</p>
       </div>
 
       <!-- Error state -->
       <div
         v-else-if="errorMessage"
-        class="card-surface p-10 text-center"
+        class="card-surface mx-auto max-w-lg px-6 py-10 text-center sm:p-12"
       >
-        <div class="text-5xl mb-4">💌</div>
-        <h1 class="font-display text-2xl text-charcoal mb-3">
+        <div class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-soft-champagne text-3xl">💌</div>
+        <h1 class="mb-3 font-display text-2xl text-charcoal sm:text-3xl">
           Invitation Not Found
         </h1>
         <p class="text-warm-gray text-sm leading-relaxed">
@@ -30,17 +40,19 @@
       </div>
 
       <!-- Success state (after submission) -->
-      <div
-        v-else-if="submitted"
-        class="card-surface p-10 text-center"
-      >
-        <div class="text-5xl mb-4">
+      <div v-else-if="submitted" class="card-surface mx-auto max-w-xl overflow-hidden text-center">
+        <div class="h-1.5 bg-champagne-gold" />
+        <div class="px-6 py-9 sm:px-12 sm:py-12">
+        <div class="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-soft-champagne text-4xl shadow-inner">
           {{ submittedStatus === "accepted" ? "🎉" : "💐" }}
         </div>
-        <h1 class="font-display text-2xl text-charcoal mb-3">
+        <p class="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-champagne-gold">
+          RSVP confirmed
+        </p>
+        <h1 class="mb-3 font-display text-3xl text-charcoal sm:text-4xl">
           {{ submittedStatus === "accepted" ? "See You There!" : "Thank You" }}
         </h1>
-        <p class="text-warm-gray text-sm leading-relaxed">
+        <p class="mx-auto max-w-md text-sm leading-relaxed text-warm-gray sm:text-base">
           {{
             submittedStatus === "accepted"
               ? `Thank you, ${guestName}! Your RSVP has been recorded. We can't wait to celebrate with you.`
@@ -48,13 +60,13 @@
           }}
         </p>
         <!-- +1 summary -->
-        <div v-if="plusOneGuests.length > 0" class="mt-4 space-y-1">
+        <div v-if="plusOneGuests.length > 0" class="mx-auto mt-6 max-w-sm divide-y divide-linen rounded-2xl border border-linen bg-ivory-cream/70 px-4">
           <p
             v-for="po in plusOneGuests"
             :key="po.id"
-            class="text-warm-gray text-sm"
+            class="flex items-center justify-between gap-3 py-3 text-left text-sm text-warm-gray"
           >
-            {{ po.name }} —
+            <span class="font-semibold text-charcoal">{{ po.name }}</span>
             <span
               :class="
                 po.rsvpStatus === 'accepted'
@@ -68,10 +80,29 @@
         </div>
         <p
           v-if="coupleName"
-          class="text-champagne-gold font-accent text-xl mt-4"
+          class="mt-6 font-accent text-2xl text-champagne-gold"
         >
           With love, {{ coupleName }}
         </p>
+        <div class="mt-7 rounded-2xl border border-linen bg-soft-champagne/60 p-4 text-left sm:p-5">
+          <div class="flex gap-3">
+            <span class="mt-0.5 text-lg" aria-hidden="true">🔗</span>
+            <div>
+              <p class="text-sm font-bold text-charcoal">Plans changed?</p>
+              <p class="mt-1 text-sm leading-relaxed text-warm-gray">
+                Keep this private link. You can return at any time to review or update your RSVP.
+              </p>
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="mt-5 min-h-12 w-full rounded-full border-2 border-deep-gold px-6 text-sm font-bold text-deep-gold transition-colors hover:bg-deep-gold hover:text-white"
+          @click="submitted = false"
+        >
+          Update my response
+        </button>
+        </div>
       </div>
 
       <!-- RSVP Form -->
@@ -80,28 +111,45 @@
         class="card-surface overflow-hidden"
       >
         <!-- Header -->
-        <div class="text-center bg-soft-champagne px-8 py-9 border-b border-linen">
-          <p class="font-accent text-champagne-gold text-3xl mb-1">
+        <div class="relative overflow-hidden border-b border-linen bg-soft-champagne px-5 py-8 text-center sm:px-8 sm:py-11">
+          <div class="absolute inset-x-0 top-0 h-1.5 bg-champagne-gold" />
+          <p class="mb-1 font-accent text-3xl text-champagne-gold sm:text-4xl">
             You're Invited
           </p>
-          <h1 class="font-display text-3xl text-charcoal mb-2">
+          <h1 class="mb-2 font-display text-3xl text-charcoal sm:text-4xl">
             {{ guestName }}
           </h1>
-          <p v-if="coupleName" class="text-warm-gray text-sm">
+          <p v-if="coupleName" class="mx-auto max-w-md text-sm leading-relaxed text-warm-gray sm:text-base">
             {{ coupleName }} would love for you to celebrate with them
           </p>
         </div>
 
-        <form @submit="onSubmit" class="space-y-6 p-8 md:p-10">
+        <form @submit="onSubmit" class="space-y-8 p-5 sm:p-8 md:p-10">
+          <div
+            v-if="hasExistingResponse"
+            class="flex gap-3 rounded-2xl border border-champagne-gold/30 bg-soft-champagne/55 p-4"
+          >
+            <span aria-hidden="true">✓</span>
+            <p class="text-sm leading-relaxed text-warm-gray">
+              Your saved response is shown below. You can update it and submit again whenever your plans change.
+            </p>
+          </div>
+
           <!-- Main guest RSVP Status -->
           <fieldset>
-            <legend class="text-charcoal font-semibold text-sm mb-3">
-              Will you attend? <span class="text-dusty-crimson">*</span>
+            <legend class="mb-4 w-full">
+              <span class="flex items-center gap-3">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-soft-champagne text-xs font-bold text-deep-gold">1</span>
+                <span>
+                  <span class="block text-base font-bold text-charcoal">Will you attend? <span class="text-dusty-crimson">*</span></span>
+                  <span class="mt-0.5 block text-xs font-normal text-warm-gray">Choose the response that feels right for you.</span>
+                </span>
+              </span>
             </legend>
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid gap-3 sm:grid-cols-2">
               <label
                 :class="[
-                  'flex min-h-14 items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
+                  'flex min-h-16 items-center justify-center gap-2 rounded-2xl border-2 px-4 py-3 text-center text-sm font-semibold cursor-pointer transition-all',
                   rsvpStatusField === 'accepted'
                     ? 'border-sage-green bg-sage-green/10 text-sage-green'
                     : 'border-linen text-warm-gray hover:border-sage-green/50',
@@ -118,7 +166,7 @@
               </label>
               <label
                 :class="[
-                  'flex min-h-14 items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
+                  'flex min-h-16 items-center justify-center gap-2 rounded-2xl border-2 px-4 py-3 text-center text-sm font-semibold cursor-pointer transition-all',
                   rsvpStatusField === 'declined'
                     ? 'border-blush-rose bg-blush-rose/10 text-blush-rose'
                     : 'border-linen text-warm-gray hover:border-blush-rose/50',
@@ -140,7 +188,14 @@
           </fieldset>
 
           <!-- Main guest meal / dietary (only if accepted) -->
-          <div v-if="rsvpStatusField === 'accepted'" class="space-y-6">
+          <div v-if="rsvpStatusField === 'accepted'" class="space-y-6 border-t border-linen pt-8">
+            <div class="flex items-center gap-3">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-soft-champagne text-xs font-bold text-deep-gold">2</span>
+              <div>
+                <h2 class="text-base font-bold text-charcoal">Your details</h2>
+                <p class="text-xs text-warm-gray">Tell the couple what you’ll need on the day.</p>
+              </div>
+            </div>
             <div>
               <label
                 id="menuSelectLabel"
@@ -267,7 +322,7 @@
 
           <!-- +1 Guest sections -->
           <template v-for="(po, idx) in plusOneGuests" :key="po.id">
-            <div class="rounded-2xl border border-linen bg-ivory-cream/70 p-5">
+            <div class="rounded-3xl border border-linen bg-ivory-cream/70 p-4 sm:p-6">
               <h2 class="font-display text-xl text-charcoal mb-4">
                 {{ po.name }}
               </h2>
@@ -278,7 +333,7 @@
                   Will {{ po.name }} attend?
                   <span class="text-dusty-crimson">*</span>
                 </legend>
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid gap-3 sm:grid-cols-2">
                   <label
                     :class="[
                       'flex min-h-14 items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
@@ -443,7 +498,7 @@
           <button
             type="submit"
             :disabled="submitting"
-            class="w-full bg-champagne-gold text-white py-3.5 rounded-xl font-bold text-sm hover:bg-deep-gold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            class="min-h-14 w-full rounded-full bg-champagne-gold px-6 text-sm font-bold text-white shadow-lg shadow-champagne-gold/20 transition-all hover:-translate-y-0.5 hover:bg-deep-gold disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
           >
             {{ submitting ? "Sending..." : "Send RSVP" }}
           </button>
@@ -455,19 +510,19 @@
       </div>
 
       <WishlistSection
-        v-if="!loading && !errorMessage && wishlist && token"
+        v-if="!loading && !errorMessage && !submitted && wishlist && token"
         :token="token"
         :wishlist="wishlist"
       />
 
       <!-- Branding -->
-      <p class="text-center text-pearl-gray text-xs mt-8">
+      <p class="mt-7 text-center text-xs text-pearl-gray sm:mt-8">
         Powered by
         <NuxtLink to="/" class="text-champagne-gold hover:text-deep-gold">
           Wedlune
         </NuxtLink>
       </p>
-    </div>
+    </main>
   </div>
 </template>
 
@@ -504,6 +559,7 @@ const loading = ref(true);
 const errorMessage = ref<string | null>(null);
 const submitted = ref(false);
 const submittedStatus = ref<string>("");
+const hasExistingResponse = ref(false);
 const submitting = ref(false);
 const submitError = ref<string | null>(null);
 
@@ -695,6 +751,7 @@ onMounted(async () => {
 
     // Pre-fill form if guest already responded
     if (data.rsvpStatus !== "pending") {
+      hasExistingResponse.value = true;
       selectedMenuId.value = data.menuId ?? null;
       const matched = data.menuId
         ? (data.menus ?? []).find((m) => m.id === data.menuId)
@@ -766,6 +823,7 @@ const onSubmit = handleSubmit(async (values) => {
     });
 
     submittedStatus.value = values.rsvpStatus;
+    hasExistingResponse.value = true;
     submitted.value = true;
   } catch {
     submitError.value =
