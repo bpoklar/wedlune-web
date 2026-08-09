@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['soft-page-bg rsvp-themed relative min-h-screen overflow-hidden px-4 py-8 sm:px-6 sm:py-12 lg:py-16', `rsvp-template-${rsvpDesign.template}`]"
+    :class="['soft-page-bg rsvp-themed relative min-h-screen overflow-hidden px-4 pb-8 pt-0 sm:px-6 sm:pb-12 lg:pb-16', `rsvp-template-${rsvpDesign.template}`]"
     :style="rsvpThemeStyle"
   >
     <div
@@ -134,7 +134,12 @@
         class="card-surface overflow-hidden"
       >
         <!-- Header -->
-        <div class="rsvp-invitation-header relative overflow-hidden border-b border-linen bg-soft-champagne px-5 py-8 text-center sm:px-8 sm:py-11">
+        <div
+          :class="[
+            'rsvp-invitation-header relative overflow-hidden border-b border-linen bg-soft-champagne px-5 pb-8 text-center sm:px-8 sm:pb-11',
+            rsvpDesign.heroImageUrl ? 'pt-8 sm:pt-11' : 'pt-2',
+          ]"
+        >
           <div class="absolute inset-x-0 top-0 h-1.5 bg-champagne-gold" />
           <img
             v-if="rsvpDesign.heroImageUrl"
@@ -295,21 +300,26 @@
                       <p v-if="m.category" class="text-warm-gray text-xs mt-0.5">
                         {{ m.category }}
                       </p>
+                      <div
+                        v-if="hasMenuCourses(m.courses)"
+                        class="mt-3 space-y-1 border-t border-linen pt-3 text-left"
+                      >
+                        <p
+                          v-for="c in m.courses"
+                          :key="c.id"
+                          class="text-warm-gray text-xs"
+                        >
+                          {{ c.label }}
+                        </p>
+                      </div>
+                      <p
+                        v-else
+                        class="mt-3 border-t border-linen pt-3 text-left text-xs italic text-warm-gray"
+                      >
+                        No dishes have been provided for this menu.
+                      </p>
                     </div>
                   </label>
-                </div>
-                <!-- Show courses for selected menu -->
-                <div
-                  v-if="selectedMenuId"
-                  class="mt-3 rounded-xl bg-soft-champagne/70 border border-linen p-3 space-y-1"
-                >
-                  <p
-                    v-for="c in selectedMenuCourses"
-                    :key="c.id"
-                    class="text-pearl-gray text-xs"
-                  >
-                    {{ c.label }}
-                  </p>
                 </div>
               </template>
               <template v-else>
@@ -466,29 +476,34 @@
                           >
                             🍽️
                           </div>
-                          <div>
+                          <div class="min-w-0 grow text-left">
                             <p class="font-semibold text-charcoal text-sm">
                               {{ m.label }}
                             </p>
                             <p v-if="m.category" class="text-warm-gray text-xs">
                               {{ m.category }}
                             </p>
+                            <div
+                              v-if="hasMenuCourses(m.courses)"
+                              class="mt-2 space-y-1 border-t border-linen pt-2"
+                            >
+                              <p
+                                v-for="c in m.courses"
+                                :key="c.id"
+                                class="text-warm-gray text-xs"
+                              >
+                                {{ c.label }}
+                              </p>
+                            </div>
+                            <p
+                              v-else
+                              class="mt-2 border-t border-linen pt-2 text-xs italic text-warm-gray"
+                            >
+                              No dishes have been provided for this menu.
+                            </p>
                           </div>
                         </div>
                       </label>
-                    </div>
-                    <!-- Show courses for selected +1 menu -->
-                    <div
-                      v-if="po.menuId"
-                      class="mt-3 rounded-xl bg-soft-champagne/70 border border-linen p-3 space-y-1"
-                    >
-                      <p
-                        v-for="c in plusOneCourses(po)"
-                        :key="c.id"
-                        class="text-pearl-gray text-xs"
-                      >
-                        {{ c.label }}
-                      </p>
                     </div>
                   </template>
                   <template v-else>
@@ -559,6 +574,7 @@
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm, useField } from "vee-validate";
+import { hasMenuCourses } from "~/utils/rsvpMenu";
 import {
   defaultRsvpDesign,
   readableTextColor,
@@ -663,18 +679,6 @@ const wishlist = ref<Wishlist | null>(null);
 // Menus data for dropdown
 const menus = ref<Menu[]>([]);
 const selectedMenuId = ref<string | null>(null);
-
-const selectedMenuCourses = computed(() => {
-  if (!selectedMenuId.value) return [];
-  const menu = menus.value.find((m) => m.id === selectedMenuId.value);
-  return menu?.courses ?? [];
-});
-
-function plusOneCourses(po: PlusOneGuest): MenuCourse[] {
-  if (!po.menuId) return [];
-  const menu = menus.value.find((m) => m.id === po.menuId);
-  return menu?.courses ?? [];
-}
 
 // Zod schema
 const rsvpSchema = toTypedSchema(

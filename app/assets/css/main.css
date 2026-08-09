@@ -42,7 +42,7 @@
   }
 
   .section-kicker {
-    @apply font-accent text-deep-gold text-2xl md:text-3xl mb-2;
+    @apply mb-3 font-body text-sm font-bold uppercase tracking-[0.18em] text-deep-gold md:text-base;
   }
 
   .section-title {
