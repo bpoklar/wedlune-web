@@ -174,12 +174,17 @@
           ]"
         >
           <div class="absolute inset-x-0 top-0 h-1.5 bg-champagne-gold" />
-          <img
+          <div
             v-if="rsvpDesign.heroImageUrl"
-            :src="rsvpDesign.heroImageUrl"
-            alt=""
-            class="rsvp-hero-image mx-auto mb-6 aspect-16/10 w-full rounded-2xl object-cover sm:aspect-video"
-          />
+            class="rsvp-hero-frame mx-auto mb-6 w-full overflow-hidden rounded-2xl"
+          >
+            <img
+              :src="rsvpDesign.heroImageUrl"
+              :style="rsvpHeroImageStyle"
+              alt=""
+              class="rsvp-hero-image h-full w-full object-cover"
+            >
+          </div>
           <p
             class="mb-1 wrap-break-word font-accent text-3xl leading-tight text-champagne-gold sm:text-4xl"
           >
@@ -646,6 +651,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { useForm, useField } from "vee-validate";
 import { hasMenuCourses } from "~/utils/rsvpMenu";
 import {
+  createHeroImageStyle,
   createRsvpTheme,
   defaultRsvpDesign,
   resolveRsvpDesign,
@@ -738,6 +744,7 @@ interface Wishlist {
 }
 const rsvpDesign = ref<RsvpDesign>({ ...defaultRsvpDesign });
 const rsvpThemeStyle = computed(() => createRsvpTheme(rsvpDesign.value));
+const rsvpHeroImageStyle = computed(() => createHeroImageStyle(rsvpDesign.value));
 const plusOneGuests = ref<PlusOneGuest[]>([]);
 const wishlist = ref<Wishlist | null>(null);
 
@@ -1099,8 +1106,17 @@ const onSubmit = handleSubmit(async (values) => {
   border-radius: 0 0 45% 45% / 0 0 8% 8%;
 }
 
-.rsvp-template-botanical .rsvp-hero-image {
+.rsvp-hero-frame {
+  aspect-ratio: 16 / 9;
+}
+
+.rsvp-template-botanical .rsvp-hero-frame {
+  aspect-ratio: 4 / 3;
   border-radius: 999px 999px 1.5rem 1.5rem;
+}
+
+.rsvp-template-modern .rsvp-hero-frame {
+  aspect-ratio: 4 / 3;
 }
 
 @media (min-width: 640px) {
@@ -1113,14 +1129,13 @@ const onSubmit = handleSubmit(async (values) => {
     text-align: left;
   }
 
-  .rsvp-template-modern .rsvp-modern-has-hero .rsvp-hero-image {
+  .rsvp-template-modern .rsvp-modern-has-hero .rsvp-hero-frame {
     grid-row: 1 / span 3;
-    height: clamp(17rem, 38vw, 20rem);
-    aspect-ratio: auto;
+    aspect-ratio: 6 / 5;
     margin: 0;
   }
 
-  .rsvp-template-modern .rsvp-modern-has-hero > :not(.rsvp-hero-image) {
+  .rsvp-template-modern .rsvp-modern-has-hero > :not(.rsvp-hero-frame) {
     margin-left: 0;
     margin-right: 0;
     text-align: left;

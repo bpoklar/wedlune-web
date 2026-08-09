@@ -5,6 +5,9 @@ export interface RsvpDesign {
   backgroundColor: string;
   surfaceColor: string;
   heroImageUrl: string | null;
+  heroImageFocalX: number;
+  heroImageFocalY: number;
+  heroImageZoom: number;
   invitationHeading: string;
   welcomeMessage: string | null;
   confirmationMessage: string | null;
@@ -17,6 +20,9 @@ export const defaultRsvpDesign: RsvpDesign = {
   backgroundColor: "#FAF7F2",
   surfaceColor: "#FFFFFF",
   heroImageUrl: null,
+  heroImageFocalX: 0.5,
+  heroImageFocalY: 0.5,
+  heroImageZoom: 1,
   invitationHeading: "You're Invited",
   welcomeMessage: null,
   confirmationMessage: null,
@@ -29,6 +35,13 @@ export function resolveRsvpDesign(value: unknown): RsvpDesign {
     return { ...defaultRsvpDesign };
   }
   const design = value as Partial<RsvpDesign>;
+  const focalX = hasOwn(design, "heroImageFocalX")
+    ? design.heroImageFocalX
+    : 0.5;
+  const focalY = hasOwn(design, "heroImageFocalY")
+    ? design.heroImageFocalY
+    : 0.5;
+  const zoom = hasOwn(design, "heroImageZoom") ? design.heroImageZoom : 1;
   if (
     design.version !== 1 ||
     !["classic", "botanical", "modern"].includes(design.template ?? "") ||
@@ -36,7 +49,10 @@ export function resolveRsvpDesign(value: unknown): RsvpDesign {
     !hexColor.test(design.backgroundColor ?? "") ||
     !hexColor.test(design.surfaceColor ?? "") ||
     typeof design.invitationHeading !== "string" ||
-    design.invitationHeading.trim().length === 0
+    design.invitationHeading.trim().length === 0 ||
+    !numberInRange(focalX, 0, 1) ||
+    !numberInRange(focalY, 0, 1) ||
+    !numberInRange(zoom, 1, 3)
   ) return { ...defaultRsvpDesign };
 
   return {
@@ -46,6 +62,9 @@ export function resolveRsvpDesign(value: unknown): RsvpDesign {
     heroImageUrl: typeof design.heroImageUrl === "string"
       ? design.heroImageUrl
       : null,
+    heroImageFocalX: focalX,
+    heroImageFocalY: focalY,
+    heroImageZoom: zoom,
     welcomeMessage: typeof design.welcomeMessage === "string"
       ? design.welcomeMessage
       : null,
@@ -53,6 +72,26 @@ export function resolveRsvpDesign(value: unknown): RsvpDesign {
       ? design.confirmationMessage
       : null,
   } as RsvpDesign;
+}
+
+function numberInRange(value: unknown, minimum: number, maximum: number) {
+  return typeof value === "number" &&
+    Number.isFinite(value) &&
+    value >= minimum &&
+    value <= maximum;
+}
+
+function hasOwn(value: object, key: string) {
+  return Object.prototype.hasOwnProperty.call(value, key);
+}
+
+export function createHeroImageStyle(design: RsvpDesign) {
+  const position = `${design.heroImageFocalX * 100}% ${design.heroImageFocalY * 100}%`;
+  return {
+    objectPosition: position,
+    transform: `scale(${design.heroImageZoom})`,
+    transformOrigin: position,
+  } as const;
 }
 
 export function readableTextColor(hex: string): "#111827" | "#FFFFFF" {

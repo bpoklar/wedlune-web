@@ -150,13 +150,14 @@ const route = useRoute();
 const localePath = useLocalePath();
 const switchLocalePath = useSwitchLocalePath();
 const { locale, t } = useI18n();
+type SupportedLocale = "en" | "sl";
 const localeOptions = computed(() => [
   { code: "en", short: "EN", label: t("nav.english") },
   { code: "sl", short: "SL", label: t("nav.slovenian") },
-]);
+] as const);
 
 const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
-const switchTo = (code: string) => ({
+const switchTo = (code: SupportedLocale) => ({
   path: switchLocalePath(code),
   query: route.query,
   hash: route.hash,
