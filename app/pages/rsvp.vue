@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['soft-page-bg rsvp-themed relative min-h-screen overflow-hidden px-4 pb-8 pt-0 sm:px-6 sm:pb-12 lg:pb-16', `rsvp-template-${rsvpDesign.template}`]"
+    :class="['soft-page-bg rsvp-themed relative mt-16 min-h-[calc(100vh-4rem)] overflow-hidden px-4 pb-8 pt-0 sm:px-6 sm:pb-12 lg:pb-16', `rsvp-template-${rsvpDesign.template}`]"
     :style="rsvpThemeStyle"
   >
     <div
