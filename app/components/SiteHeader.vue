@@ -4,9 +4,9 @@
   >
     <nav
       class="section-shell h-16 flex items-center justify-between"
-      aria-label="Primary navigation"
+      :aria-label="$t('nav.primary')"
     >
-      <NuxtLink to="/" class="inline-flex items-center">
+      <NuxtLink :to="localePath('/')" class="inline-flex items-center">
         <img
           src="/img/wedlune-logo-dark.png"
           alt="Wedlune"
@@ -19,32 +19,45 @@
       <!-- Desktop nav -->
       <div class="hidden md:flex items-center gap-8">
         <NuxtLink
-          to="/#features"
+          :to="homeLink('features')"
           class="text-warm-gray hover:text-champagne-gold transition-colors text-sm font-semibold"
         >
-          Features
+          {{ $t("nav.features") }}
         </NuxtLink>
         <NuxtLink
-          to="/#how-it-works"
+          :to="homeLink('how-it-works')"
           class="text-warm-gray hover:text-champagne-gold transition-colors text-sm font-semibold"
         >
-          How It Works
+          {{ $t("nav.howItWorks") }}
         </NuxtLink>
         <NuxtLink
-          to="/#pricing"
+          :to="homeLink('pricing')"
           class="text-warm-gray hover:text-champagne-gold transition-colors text-sm font-semibold"
         >
-          Pricing
+          {{ $t("nav.pricing") }}
         </NuxtLink>
-        <NuxtLink to="/#download" class="btn-primary px-5 py-2">
-          Get Wedlune
+        <NuxtLink :to="homeLink('download')" class="btn-primary px-5 py-2">
+          {{ $t("nav.getWedlune") }}
         </NuxtLink>
+        <div class="flex items-center gap-1" :aria-label="$t('nav.language')">
+          <NuxtLink
+            v-for="option in localeOptions"
+            :key="option.code"
+            :to="switchTo(option.code)"
+            class="rounded-full px-2 py-1 text-xs font-bold transition-colors"
+            :class="locale === option.code ? 'bg-champagne-gold text-white' : 'text-warm-gray hover:text-champagne-gold'"
+            :lang="option.code"
+            :aria-current="locale === option.code ? 'page' : undefined"
+          >
+            {{ option.short }}
+          </NuxtLink>
+        </div>
       </div>
 
       <!-- Mobile menu button -->
       <button
         class="md:hidden p-2 text-charcoal"
-        :aria-label="mobileOpen ? 'Close menu' : 'Open menu'"
+        :aria-label="mobileOpen ? $t('nav.closeMenu') : $t('nav.openMenu')"
         :aria-expanded="mobileOpen"
         aria-controls="mobile-menu"
         @click="mobileOpen = !mobileOpen"
@@ -80,48 +93,74 @@
       class="md:hidden border-t border-linen bg-ivory-cream px-6 pb-4 space-y-3"
     >
       <NuxtLink
-        to="/#features"
+        :to="homeLink('features')"
         class="block text-warm-gray hover:text-champagne-gold text-sm font-semibold py-2"
         @click="mobileOpen = false"
       >
-        Features
+        {{ $t("nav.features") }}
       </NuxtLink>
       <NuxtLink
-        to="/#how-it-works"
+        :to="homeLink('how-it-works')"
         class="block text-warm-gray hover:text-champagne-gold text-sm font-semibold py-2"
         @click="mobileOpen = false"
       >
-        How It Works
+        {{ $t("nav.howItWorks") }}
       </NuxtLink>
       <NuxtLink
-        to="/#pricing"
+        :to="homeLink('pricing')"
         class="block text-warm-gray hover:text-champagne-gold text-sm font-semibold py-2"
         @click="mobileOpen = false"
       >
-        Pricing
+        {{ $t("nav.pricing") }}
       </NuxtLink>
       <NuxtLink
-        to="/#trust"
+        :to="homeLink('trust')"
         class="block text-warm-gray hover:text-champagne-gold text-sm font-semibold py-2"
         @click="mobileOpen = false"
       >
-        Privacy
+        {{ $t("nav.privacy") }}
       </NuxtLink>
       <NuxtLink
-        to="/#download"
+        :to="homeLink('download')"
         class="btn-primary px-5 py-2"
         @click="mobileOpen = false"
       >
-        Get Wedlune
+        {{ $t("nav.getWedlune") }}
       </NuxtLink>
+      <div class="flex items-center gap-2 pt-2" :aria-label="$t('nav.language')">
+        <NuxtLink
+          v-for="option in localeOptions"
+          :key="option.code"
+          :to="switchTo(option.code)"
+          class="rounded-full border border-linen px-3 py-2 text-sm font-semibold"
+          :class="locale === option.code ? 'bg-champagne-gold text-white' : 'text-warm-gray'"
+          :lang="option.code"
+          @click="mobileOpen = false"
+        >
+          {{ option.label }}
+        </NuxtLink>
+      </div>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
 const mobileOpen = ref(false);
-
 const route = useRoute();
+const localePath = useLocalePath();
+const switchLocalePath = useSwitchLocalePath();
+const { locale, t } = useI18n();
+const localeOptions = computed(() => [
+  { code: "en", short: "EN", label: t("nav.english") },
+  { code: "sl", short: "SL", label: t("nav.slovenian") },
+]);
+
+const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
+const switchTo = (code: string) => ({
+  path: switchLocalePath(code),
+  query: route.query,
+  hash: route.hash,
+});
 
 watch(
   () => route.fullPath,

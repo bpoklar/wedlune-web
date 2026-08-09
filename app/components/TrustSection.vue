@@ -3,13 +3,12 @@
     <div class="section-shell">
       <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-10 items-center">
         <div>
-          <p class="section-kicker">Built for the messy middle</p>
+          <p class="section-kicker">{{ $t("home.trust.kicker") }}</p>
           <h2 class="section-title">
-            Less mental load. More shared clarity.
+            {{ $t("home.trust.title") }}
           </h2>
           <p class="section-subtitle mt-4">
-            Wedding planning gets noisy fast. Wedlune helps both partners see
-            what matters, what is done, and what needs attention next.
+            {{ $t("home.trust.subtitle") }}
           </p>
         </div>
 
@@ -76,24 +75,20 @@ const ShieldIcon = makeIcon(
   "M12 3 5 6v5c0 4.5 2.8 8.4 7 10 4.2-1.6 7-5.5 7-10V6l-7-3Zm-3 9 2 2 4-4",
 );
 
-const trustItems = [
+const trustDefinitions = [
   {
     icon: CalendarIcon,
-    title: "Clear next steps",
-    description:
-      "Your timeline turns scattered decisions into manageable tasks and deadlines.",
   },
   {
     icon: UsersIcon,
-    title: "Built for two",
-    description:
-      "Both partners can follow the same guests, budget, vendors, and open decisions.",
   },
   {
     icon: ShieldIcon,
-    title: "Private by design",
-    description:
-      "Guest-facing RSVP and gallery links stay private, token-based, and noindexed.",
   },
 ];
+const { tm } = useI18n();
+const trustItems = computed(() => {
+  const copy = tm("home.trust.items") as Array<{ title: string; description: string }>;
+  return trustDefinitions.map((definition, index) => ({ ...definition, ...copy[index] }));
+});
 </script>

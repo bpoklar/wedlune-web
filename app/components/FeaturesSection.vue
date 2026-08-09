@@ -2,13 +2,12 @@
   <section id="features" class="py-20 bg-soft-champagne">
     <div class="section-shell">
       <div class="text-center mb-16">
-        <p class="section-kicker">One calm planning space</p>
+        <p class="section-kicker">{{ $t("home.features.kicker") }}</p>
         <h2 class="section-title">
-          Everything that used to live in tabs, notes, chats, and spreadsheets.
+          {{ $t("home.features.title") }}
         </h2>
         <p class="section-subtitle mx-auto mt-4">
-          Wedlune keeps every moving part connected, so one decision never gets
-          lost from the rest of your wedding.
+          {{ $t("home.features.subtitle") }}
         </p>
       </div>
 
@@ -82,48 +81,35 @@ const CameraIcon = makeIcon(
   "M4 8h4l1.5-2h5L16 8h4v11H4V8Zm8 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z",
 );
 
-const features = [
+const featureDefinitions = [
   {
     icon: SparkleIcon,
-    title: "AI Recommendations",
-    description:
-      "Get next-step suggestions based on your date, budget, guest count, style, and what is still missing.",
     bgClass: "bg-champagne-gold/10",
   },
   {
     icon: CalendarIcon,
-    title: "Smart Timeline",
-    description:
-      "Turn a huge wedding plan into a clear sequence of tasks, dates, reminders, and decisions.",
     bgClass: "bg-blush-rose/15",
   },
   {
     icon: GuestsIcon,
-    title: "Guest Management",
-    description:
-      "Track RSVPs, dietary needs, meal choices, plus-ones, and table details without losing context.",
     bgClass: "bg-sage-green/15",
   },
   {
     icon: BudgetIcon,
-    title: "Budget Tracker",
-    description:
-      "See where money is going, compare quotes, track payments, and spot overspending before it grows.",
     bgClass: "bg-champagne-gold/10",
   },
   {
     icon: VendorIcon,
-    title: "Vendor Hub",
-    description:
-      "Keep quotes, booking status, contacts, and notes together while you choose the right people.",
     bgClass: "bg-blush-rose/15",
   },
   {
     icon: CameraIcon,
-    title: "Photo Gallery",
-    description:
-      "Save inspiration, venue photos, fitting shots, and gallery links beside the plan they belong to.",
     bgClass: "bg-sage-green/15",
   },
 ];
+const { tm } = useI18n();
+const features = computed(() => {
+  const copy = tm("home.features.items") as Array<{ title: string; description: string }>;
+  return featureDefinitions.map((definition, index) => ({ ...definition, ...copy[index] }));
+});
 </script>

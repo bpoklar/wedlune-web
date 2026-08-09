@@ -1,6 +1,9 @@
 <template>
   <div
-    :class="['soft-page-bg rsvp-themed relative mt-16 min-h-[calc(100vh-4rem)] overflow-hidden px-4 pb-8 pt-0 sm:px-6 sm:pb-12 lg:pb-16', `rsvp-template-${rsvpDesign.template}`]"
+    :class="[
+      'soft-page-bg rsvp-themed relative mt-16 min-h-[calc(100vh-4rem)] overflow-hidden px-4 pb-8 pt-0 sm:px-6 sm:pb-12 lg:pb-16',
+      `rsvp-template-${rsvpDesign.template}`,
+    ]"
     :style="rsvpThemeStyle"
   >
     <div
@@ -12,14 +15,18 @@
       aria-hidden="true"
     />
 
-    <main class="relative mx-auto w-full max-w-3xl">
+    <main class="relative mx-auto w-full max-w-3xl mt-6">
       <!-- Loading state -->
-      <div v-if="loading" class="card-surface mx-auto max-w-lg px-6 py-12 text-center sm:px-10 sm:py-14" role="status">
+      <div
+        v-if="loading"
+        class="card-surface mx-auto max-w-lg px-6 py-12 text-center sm:px-10 sm:py-14"
+        role="status"
+      >
         <div
           class="mx-auto h-11 w-11 animate-spin rounded-full border-4 border-champagne-gold/25 border-t-champagne-gold"
         />
-        <p class="mt-5 font-display text-xl text-charcoal">Opening your invitation</p>
-        <p class="mt-1 text-sm text-warm-gray">Just a moment while we gather the details…</p>
+        <p class="mt-5 font-display text-xl text-charcoal">{{ $t("rsvp.opening") }}</p>
+        <p class="mt-1 text-sm text-warm-gray">{{ $t("rsvp.openingDetail") }}</p>
       </div>
 
       <!-- Premium unavailable state -->
@@ -27,12 +34,16 @@
         v-else-if="premiumUnavailable"
         class="card-surface mx-auto max-w-lg px-6 py-10 text-center sm:p-12"
       >
-        <div class="rsvp-muted-panel mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full text-3xl">💌</div>
+        <div
+          class="rsvp-muted-panel mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full text-3xl"
+        >
+          💌
+        </div>
         <h1 class="mb-3 font-display text-2xl text-charcoal sm:text-3xl">
-          RSVP Currently Unavailable
+          {{ $t("rsvp.unavailableTitle") }}
         </h1>
         <p class="text-warm-gray text-sm leading-relaxed">
-          This invitation cannot accept responses right now. Please contact the couple directly.
+          {{ $t("rsvp.unavailableBody") }}
         </p>
       </div>
 
@@ -41,104 +52,125 @@
         v-else-if="errorMessage"
         class="card-surface mx-auto max-w-lg px-6 py-10 text-center sm:p-12"
       >
-        <div class="rsvp-muted-panel mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full text-3xl">💌</div>
+        <div
+          class="rsvp-muted-panel mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full text-3xl"
+        >
+          💌
+        </div>
         <h1 class="mb-3 font-display text-2xl text-charcoal sm:text-3xl">
-          Invitation Not Found
+          {{ $t("rsvp.notFoundTitle") }}
         </h1>
         <p class="text-warm-gray text-sm leading-relaxed">
           {{ errorMessage }}
         </p>
         <NuxtLink
-          to="/"
+          :to="localePath('/')"
           class="inline-block mt-6 text-champagne-gold hover:text-deep-gold text-sm font-semibold"
         >
-          Go to Wedlune &rarr;
+          {{ $t("common.goToWedlune") }}
         </NuxtLink>
       </div>
 
       <!-- Success state (after submission) -->
-      <div v-else-if="submitted" class="card-surface mx-auto max-w-xl overflow-hidden text-center">
+      <div
+        v-else-if="submitted"
+        class="card-surface mx-auto max-w-xl overflow-hidden text-center"
+      >
         <div class="h-1.5 bg-champagne-gold" />
         <div class="px-6 py-9 sm:px-12 sm:py-12">
-        <div class="rsvp-muted-panel mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full text-4xl shadow-inner">
-          {{ submittedStatus === "accepted" ? "🎉" : "💐" }}
-        </div>
-        <p class="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-champagne-gold">
-          RSVP confirmed
-        </p>
-        <h1 class="mb-3 font-display text-3xl text-charcoal sm:text-4xl">
-          {{ submittedStatus === "accepted" ? "See You There!" : "Thank You" }}
-        </h1>
-        <p class="mx-auto max-w-md text-sm leading-relaxed text-warm-gray sm:text-base">
-          {{
-            submittedStatus === "accepted"
-              ? `Thank you, ${guestName}! Your RSVP has been recorded. We can't wait to celebrate with you.`
-              : `Thank you for letting us know, ${guestName}. We'll miss you!`
-          }}
-        </p>
-        <p
-          v-if="rsvpDesign.confirmationMessage"
-          class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-warm-gray sm:text-base"
-        >
-          {{ rsvpDesign.confirmationMessage }}
-        </p>
-        <!-- +1 summary -->
-        <div v-if="plusOneGuests.length > 0" class="rsvp-input-panel mx-auto mt-6 max-w-sm divide-y rounded-2xl border px-4">
-          <p
-            v-for="po in plusOneGuests"
-            :key="po.id"
-            class="flex items-center justify-between gap-3 py-3 text-left text-sm text-warm-gray"
+          <div
+            class="rsvp-muted-panel mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full text-4xl shadow-inner"
           >
-            <span class="font-semibold text-charcoal">{{ po.name }}</span>
-            <span
-              :class="
-                po.rsvpStatus === 'accepted'
-                  ? 'text-sage-green'
-                  : 'text-blush-rose'
-              "
-            >
-              {{ po.rsvpStatus === "accepted" ? "Attending" : "Not attending" }}
-            </span>
+            {{ submittedStatus === "accepted" ? "🎉" : "💐" }}
+          </div>
+          <p
+            class="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-champagne-gold"
+          >
+            {{ $t("rsvp.confirmed") }}
           </p>
-        </div>
-        <p
-          v-if="coupleName"
-          class="mt-6 font-accent text-2xl text-champagne-gold"
-        >
-          With love, {{ coupleName }}
-        </p>
-        <div class="rsvp-muted-panel mt-7 rounded-2xl border p-4 text-left sm:p-5">
-          <div class="flex gap-3">
-            <span class="mt-0.5 text-lg" aria-hidden="true">🔗</span>
-            <div>
-              <p class="text-sm font-bold text-charcoal">Plans changed?</p>
-              <p class="mt-1 text-sm leading-relaxed text-warm-gray">
-                Keep this private link. You can return at any time to review or update your RSVP.
-              </p>
+          <h1 class="mb-3 font-display text-3xl text-charcoal sm:text-4xl">
+            {{
+              submittedStatus === "accepted" ? $t("rsvp.acceptedTitle") : $t("rsvp.declinedTitle")
+            }}
+          </h1>
+          <p
+            class="mx-auto max-w-md text-sm leading-relaxed text-warm-gray sm:text-base"
+          >
+            {{
+              submittedStatus === "accepted"
+                ? $t("rsvp.acceptedBody", { name: guestName })
+                : $t("rsvp.declinedBody", { name: guestName })
+            }}
+          </p>
+          <p
+            v-if="rsvpDesign.confirmationMessage"
+            class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-warm-gray sm:text-base"
+          >
+            {{ rsvpDesign.confirmationMessage }}
+          </p>
+          <!-- +1 summary -->
+          <div
+            v-if="plusOneGuests.length > 0"
+            class="rsvp-input-panel mx-auto mt-6 max-w-sm divide-y rounded-2xl border px-4"
+          >
+            <p
+              v-for="po in plusOneGuests"
+              :key="po.id"
+              class="flex items-center justify-between gap-3 py-3 text-left text-sm text-warm-gray"
+            >
+              <span class="font-semibold text-charcoal">{{ po.name }}</span>
+              <span
+                :class="
+                  po.rsvpStatus === 'accepted'
+                    ? 'text-sage-green'
+                    : 'text-blush-rose'
+                "
+              >
+                {{
+                  po.rsvpStatus === "accepted" ? $t("rsvp.attending") : $t("rsvp.notAttending")
+                }}
+              </span>
+            </p>
+          </div>
+          <p
+            v-if="coupleName"
+            class="mt-6 font-accent text-2xl text-champagne-gold"
+          >
+            {{ $t("rsvp.withLove", { name: coupleName }) }}
+          </p>
+          <div
+            class="rsvp-muted-panel mt-7 rounded-2xl border p-4 text-left sm:p-5"
+          >
+            <div class="flex gap-3">
+              <span class="mt-0.5 text-lg" aria-hidden="true">🔗</span>
+              <div>
+                <p class="text-sm font-bold text-charcoal">{{ $t("rsvp.plansChanged") }}</p>
+                <p class="mt-1 text-sm leading-relaxed text-warm-gray">
+                  {{ $t("rsvp.plansChangedBody") }}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        <button
-          type="button"
-          class="rsvp-outline-button mt-5 min-h-12 w-full rounded-full border-2 px-6 text-sm font-bold transition-colors"
-          @click="submitted = false"
-        >
-          Update my response
-        </button>
+          <button
+            type="button"
+            class="rsvp-outline-button mt-5 min-h-12 w-full rounded-full border-2 px-6 text-sm font-bold transition-colors"
+            @click="submitted = false"
+          >
+            {{ $t("rsvp.updateResponse") }}
+          </button>
         </div>
       </div>
 
       <!-- RSVP Form -->
-      <div
-        v-else
-        class="card-surface overflow-hidden"
-      >
+      <div v-else class="card-surface overflow-hidden">
         <!-- Header -->
         <div
           :class="[
             'rsvp-invitation-header rsvp-muted-panel relative overflow-hidden border-b px-5 pb-8 text-center sm:px-8 sm:pb-10',
             rsvpDesign.heroImageUrl ? 'pt-8 sm:pt-10' : 'pt-8 sm:pt-10',
-            rsvpDesign.template === 'modern' && rsvpDesign.heroImageUrl ? 'rsvp-modern-has-hero' : '',
+            rsvpDesign.template === 'modern' && rsvpDesign.heroImageUrl
+              ? 'rsvp-modern-has-hero'
+              : '',
           ]"
         >
           <div class="absolute inset-x-0 top-0 h-1.5 bg-champagne-gold" />
@@ -146,16 +178,26 @@
             v-if="rsvpDesign.heroImageUrl"
             :src="rsvpDesign.heroImageUrl"
             alt=""
-            class="rsvp-hero-image mx-auto mb-6 aspect-[16/10] w-full rounded-2xl object-cover sm:aspect-[16/9]"
+            class="rsvp-hero-image mx-auto mb-6 aspect-16/10 w-full rounded-2xl object-cover sm:aspect-video"
           />
-          <p class="mb-1 break-words font-accent text-3xl leading-tight text-champagne-gold sm:text-4xl">
+          <p
+            class="mb-1 wrap-break-word font-accent text-3xl leading-tight text-champagne-gold sm:text-4xl"
+          >
             {{ rsvpDesign.invitationHeading }}
           </p>
-          <h1 class="mb-2 break-words font-display text-3xl leading-tight text-charcoal sm:text-4xl">
+          <h1
+            class="mb-2 wrap-break-word font-display text-3xl leading-tight text-charcoal sm:text-4xl"
+          >
             {{ guestName }}
           </h1>
-          <p v-if="coupleName" class="mx-auto max-w-md text-sm leading-relaxed text-warm-gray sm:text-base">
-            {{ rsvpDesign.welcomeMessage || `${coupleName} would love for you to celebrate with them` }}
+          <p
+            v-if="coupleName"
+            class="mx-auto max-w-md text-sm leading-relaxed text-warm-gray sm:text-base"
+          >
+            {{
+              rsvpDesign.welcomeMessage ||
+              $t("rsvp.coupleWelcome", { name: coupleName })
+            }}
           </p>
         </div>
 
@@ -166,7 +208,7 @@
           >
             <span aria-hidden="true">✓</span>
             <p class="text-sm leading-relaxed text-warm-gray">
-              Your saved response is shown below. You can update it and submit again whenever your plans change.
+              {{ $t("rsvp.savedResponse") }}
             </p>
           </div>
 
@@ -174,10 +216,18 @@
           <fieldset>
             <legend class="mb-4 w-full">
               <span class="flex items-center gap-3">
-                <span class="rsvp-muted-panel flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-deep-gold">1</span>
+                <span
+                  class="rsvp-muted-panel flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-deep-gold"
+                  >1</span
+                >
                 <span>
-                  <span class="block text-base font-bold text-charcoal">Will you attend? <span class="text-dusty-crimson">*</span></span>
-                  <span class="mt-0.5 block text-xs font-normal text-warm-gray">Choose the response that feels right for you.</span>
+                  <span class="block text-base font-bold text-charcoal"
+                    >{{ $t("rsvp.willYouAttend") }}
+                    <span class="text-dusty-crimson">*</span></span
+                  >
+                  <span class="mt-0.5 block text-xs font-normal text-warm-gray"
+                    >{{ $t("rsvp.chooseResponse") }}</span
+                  >
                 </span>
               </span>
             </legend>
@@ -197,7 +247,7 @@
                   value="accepted"
                   class="sr-only"
                 />
-                <span>✓</span> Joyfully Accept
+                <span>✓</span> {{ $t("rsvp.accept") }}
               </label>
               <label
                 :class="[
@@ -214,21 +264,31 @@
                   value="declined"
                   class="sr-only"
                 />
-                <span>✗</span> Regretfully Decline
+                <span>✗</span> {{ $t("rsvp.decline") }}
               </label>
             </div>
-            <p v-if="rsvpStatusError" class="mt-2 text-xs text-dusty-crimson" role="alert">
+            <p
+              v-if="rsvpStatusError"
+              class="mt-2 text-xs text-dusty-crimson"
+              role="alert"
+            >
               {{ rsvpStatusError }}
             </p>
           </fieldset>
 
           <!-- Main guest meal / dietary (only if accepted) -->
-          <div v-if="rsvpStatusField === 'accepted'" class="space-y-6 border-t border-linen pt-8">
+          <div
+            v-if="rsvpStatusField === 'accepted'"
+            class="space-y-6 border-t border-linen pt-8"
+          >
             <div class="flex items-center gap-3">
-              <span class="rsvp-muted-panel flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-deep-gold">2</span>
+              <span
+                class="rsvp-muted-panel flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-deep-gold"
+                >2</span
+              >
               <div>
-                <h2 class="text-base font-bold text-charcoal">Your details</h2>
-                <p class="text-xs text-warm-gray">Tell the couple what you’ll need on the day.</p>
+                <h2 class="text-base font-bold text-charcoal">{{ $t("rsvp.detailsTitle") }}</h2>
+                <p class="text-xs text-warm-gray">{{ $t("rsvp.detailsBody") }}</p>
               </div>
             </div>
             <div>
@@ -236,7 +296,7 @@
                 id="menuSelectLabel"
                 class="block text-charcoal font-semibold text-sm mb-2"
               >
-                Meal Preference
+                {{ $t("rsvp.mealPreference") }}
               </label>
               <template v-if="menus.length > 0">
                 <div
@@ -260,7 +320,7 @@
                       :value="null"
                       class="sr-only"
                     />
-                    <span class="text-warm-gray text-sm">No preference</span>
+                    <span class="text-warm-gray text-sm">{{ $t("rsvp.noPreference") }}</span>
                   </label>
                   <label
                     v-for="m in menus"
@@ -298,7 +358,10 @@
                       <p class="font-semibold text-charcoal text-sm">
                         {{ m.label }}
                       </p>
-                      <p v-if="m.category" class="text-warm-gray text-xs mt-0.5">
+                      <p
+                        v-if="m.category"
+                        class="text-warm-gray text-xs mt-0.5"
+                      >
                         {{ m.category }}
                       </p>
                       <div
@@ -317,7 +380,7 @@
                         v-else
                         class="mt-3 border-t border-linen pt-3 text-left text-xs italic text-warm-gray"
                       >
-                        No dishes have been provided for this menu.
+                        {{ $t("rsvp.noDishes") }}
                       </p>
                     </div>
                   </label>
@@ -325,13 +388,13 @@
               </template>
               <template v-else>
                 <p class="text-warm-gray text-sm italic">
-                  No meal options have been added yet.
+                  {{ $t("rsvp.noMealOptions") }}
                 </p>
                 <p
                   v-if="mealPreferenceField && !selectedMenuId"
                   class="text-warm-gray text-xs mt-1"
                 >
-                  Previous selection: {{ mealPreferenceField }}
+                  {{ $t("rsvp.previousSelection", { value: mealPreferenceField }) }}
                 </p>
               </template>
             </div>
@@ -341,13 +404,13 @@
                 for="dietaryNotes"
                 class="block text-charcoal font-semibold text-sm mb-2"
               >
-                Dietary Requirements
+                {{ $t("rsvp.dietaryRequirements") }}
               </label>
               <textarea
                 id="dietaryNotes"
                 v-model="dietaryNotesField"
                 rows="3"
-                placeholder="Allergies, intolerances, or special requests"
+                :placeholder="$t('rsvp.dietaryPlaceholder')"
                 maxlength="500"
                 class="rsvp-input-panel w-full rounded-xl border px-4 py-3 text-sm transition-colors resize-none focus:outline-none focus:ring-2"
               />
@@ -370,7 +433,7 @@
               <!-- +1 RSVP Status -->
               <fieldset>
                 <legend class="text-charcoal font-semibold text-sm mb-3">
-                  Will {{ po.name }} attend?
+                  {{ $t("rsvp.willGuestAttend", { name: po.name }) }}
                   <span class="text-dusty-crimson">*</span>
                 </legend>
                 <div class="grid gap-3 sm:grid-cols-2">
@@ -389,7 +452,7 @@
                       value="accepted"
                       class="sr-only"
                     />
-                    <span>✓</span> Attending
+                    <span>✓</span> {{ $t("rsvp.attending") }}
                   </label>
                   <label
                     :class="[
@@ -406,7 +469,7 @@
                       value="declined"
                       class="sr-only"
                     />
-                    <span>✗</span> Not Attending
+                    <span>✗</span> {{ $t("rsvp.notAttending") }}
                   </label>
                 </div>
               </fieldset>
@@ -418,7 +481,7 @@
                     :id="`meal_${idx}`"
                     class="block text-charcoal font-semibold text-sm mb-2"
                   >
-                    Meal Preference
+                    {{ $t("rsvp.mealPreference") }}
                   </label>
                   <template v-if="menus.length > 0">
                     <div
@@ -443,7 +506,9 @@
                           class="sr-only"
                           @change="onPlusOneMenuChange(po)"
                         />
-                        <span class="text-warm-gray text-sm">No preference</span>
+                        <span class="text-warm-gray text-sm"
+                          >{{ $t("rsvp.noPreference") }}</span
+                        >
                       </label>
                       <label
                         v-for="m in menus"
@@ -500,7 +565,7 @@
                               v-else
                               class="mt-2 border-t border-linen pt-2 text-xs italic text-warm-gray"
                             >
-                              No dishes have been provided for this menu.
+                              {{ $t("rsvp.noDishes") }}
                             </p>
                           </div>
                         </div>
@@ -509,13 +574,13 @@
                   </template>
                   <template v-else>
                     <p class="text-warm-gray text-sm italic">
-                      No meal options have been added yet.
+                      {{ $t("rsvp.noMealOptions") }}
                     </p>
                     <p
                       v-if="po.mealPreference"
                       class="text-warm-gray text-xs mt-1"
                     >
-                      Previous selection: {{ po.mealPreference }}
+                      {{ $t("rsvp.previousSelection", { value: po.mealPreference }) }}
                     </p>
                   </template>
                 </div>
@@ -524,13 +589,13 @@
                     :for="`dietary_${idx}`"
                     class="block text-charcoal font-semibold text-sm mb-2"
                   >
-                    Dietary Requirements
+                    {{ $t("rsvp.dietaryRequirements") }}
                   </label>
                   <textarea
                     :id="`dietary_${idx}`"
                     v-model="po.dietaryNotes"
                     rows="2"
-                    placeholder="Allergies, intolerances, or special requests"
+                    :placeholder="$t('rsvp.dietaryPlaceholder')"
                     maxlength="500"
                     class="rsvp-surface-panel w-full rounded-xl border px-4 py-3 text-sm transition-colors resize-none focus:outline-none focus:ring-2"
                   />
@@ -545,10 +610,14 @@
             :disabled="submitting"
             class="rsvp-accent-button min-h-14 w-full rounded-full bg-champagne-gold px-6 text-sm font-bold text-white shadow-lg shadow-champagne-gold/20 transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
           >
-            {{ submitting ? "Sending..." : "Send RSVP" }}
+            {{ submitting ? $t("rsvp.sending") : $t("rsvp.send") }}
           </button>
 
-          <p v-if="submitError" class="text-center text-xs text-dusty-crimson" role="alert">
+          <p
+            v-if="submitError"
+            class="text-center text-xs text-dusty-crimson"
+            role="alert"
+          >
             {{ submitError }}
           </p>
         </form>
@@ -562,8 +631,8 @@
 
       <!-- Branding -->
       <p class="mt-7 text-center text-xs text-pearl-gray sm:mt-8">
-        Powered by
-        <NuxtLink to="/" class="text-champagne-gold hover:text-deep-gold">
+        {{ $t("common.poweredBy") }}
+        <NuxtLink :to="localePath('/')" class="text-champagne-gold hover:text-deep-gold">
           Wedlune
         </NuxtLink>
       </p>
@@ -583,14 +652,15 @@ import {
   type RsvpDesign,
 } from "~/utils/rsvpDesign";
 
+const { t } = useI18n();
+const localePath = useLocalePath();
+
 useSeoMeta({
-  title: "RSVP — Wedlune",
-  description:
-    "Respond to your wedding invitation. Let the couple know if you can attend.",
+  title: () => t("rsvp.seoTitle"),
+  description: () => t("rsvp.seoDescription"),
   robots: "noindex, nofollow",
-  ogTitle: "RSVP — Wedlune",
-  ogDescription:
-    "Respond to your wedding invitation. Let the couple know if you can attend.",
+  ogTitle: () => t("rsvp.seoTitle"),
+  ogDescription: () => t("rsvp.seoDescription"),
 });
 
 // RSVP URLs contain bearer capability tokens. Never send the full page URL as
@@ -679,7 +749,7 @@ const selectedMenuId = ref<string | null>(null);
 const rsvpSchema = toTypedSchema(
   z.object({
     rsvpStatus: z.enum(["accepted", "declined"], {
-      message: "Please select your response",
+      message: t("rsvp.validationResponse"),
     }),
     mealPreference: z.string().max(500).optional(),
     dietaryNotes: z.string().max(500).optional(),
@@ -731,8 +801,7 @@ watch(selectedMenuId, (newVal) => {
 onMounted(async () => {
   const rsvpToken = token.value;
   if (!rsvpToken) {
-    errorMessage.value =
-      "This RSVP link is missing a token. Please check the link you received.";
+    errorMessage.value = t("rsvp.missingToken");
     loading.value = false;
     return;
   }
@@ -811,15 +880,19 @@ onMounted(async () => {
       });
     }
   } catch (err: unknown) {
-    const fetchError = err as { data?: { error?: string; code?: string }; status?: number };
-    if (fetchError.status === 403 && fetchError.data?.code === "premium_required") {
+    const fetchError = err as {
+      data?: { error?: string; code?: string };
+      status?: number;
+    };
+    if (
+      fetchError.status === 403 &&
+      fetchError.data?.code === "premium_required"
+    ) {
       premiumUnavailable.value = true;
     } else if (fetchError.status === 404) {
-      errorMessage.value =
-        "This RSVP link is invalid or has expired. Please contact the couple for a new link.";
+      errorMessage.value = t("rsvp.invalidToken");
     } else {
-      errorMessage.value =
-        "Something went wrong loading your invitation. Please try again later.";
+      errorMessage.value = t("rsvp.loadError");
     }
   } finally {
     loading.value = false;
@@ -829,8 +902,7 @@ onMounted(async () => {
 const onSubmit = handleSubmit(async (values) => {
   const rsvpToken = token.value;
   if (!rsvpToken) {
-    submitError.value =
-      "This RSVP link is missing a token. Please check the link you received.";
+    submitError.value = t("rsvp.missingToken");
     return;
   }
 
@@ -839,7 +911,9 @@ const onSubmit = handleSubmit(async (values) => {
     (po) => !po.rsvpStatus || !["accepted", "declined"].includes(po.rsvpStatus),
   );
   if (missingPlusOne) {
-    submitError.value = `Please select a response for ${missingPlusOne.name}.`;
+    submitError.value = t("rsvp.missingGuestResponse", {
+      name: missingPlusOne.name,
+    });
     return;
   }
 
@@ -874,12 +948,14 @@ const onSubmit = handleSubmit(async (values) => {
     submitted.value = true;
   } catch (err: unknown) {
     const fetchError = err as { data?: { code?: string }; status?: number };
-    if (fetchError.status === 403 && fetchError.data?.code === "premium_required") {
+    if (
+      fetchError.status === 403 &&
+      fetchError.data?.code === "premium_required"
+    ) {
       premiumUnavailable.value = true;
       submitted.value = false;
     } else {
-      submitError.value =
-        "Failed to send your RSVP. Please check your connection and try again.";
+      submitError.value = t("rsvp.submitError");
     }
   } finally {
     submitting.value = false;

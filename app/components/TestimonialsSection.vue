@@ -3,10 +3,10 @@
     <div class="max-w-4xl mx-auto px-6">
       <div class="text-center mb-12">
         <p class="section-kicker">
-          Designed for couples
+          {{ $t("home.couples.kicker") }}
         </p>
         <h2 class="font-display text-3xl md:text-4xl text-charcoal">
-          When planning starts to feel bigger than the wedding.
+          {{ $t("home.couples.title") }}
         </h2>
       </div>
 
@@ -39,20 +39,11 @@
 </template>
 
 <script setup lang="ts">
-const coupleNeeds = [
-  {
-    title: "The plan lives in too many places",
-    initials: "01",
-    detail: "Notes, chats, tabs, and spreadsheets",
-    description:
-      "Bring scattered research, costs, guests, RSVPs, and deadlines into one shared view before details start slipping.",
-  },
-  {
-    title: "Nobody knows what to do next",
-    initials: "02",
-    detail: "Too many decisions, not enough clarity",
-    description:
-      "Let Wedlune surface the next useful action, from vendor follow-ups to RSVP reminders and budget checks.",
-  },
-];
+const { tm } = useI18n();
+const coupleNeeds = computed(() => tm("home.couples.items") as Array<{
+  title: string;
+  initials: string;
+  detail: string;
+  description: string;
+}>);
 </script>

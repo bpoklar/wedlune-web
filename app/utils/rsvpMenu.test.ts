@@ -6,10 +6,13 @@ describe("RSVP menu presentation", () => {
     expect(hasMenuCourses([{ id: "starter" }])).toBe(true);
   });
 
-  it.each([undefined, null, []])(
-    "uses the empty-menu note for %s courses",
-    (courses) => {
+  for (const [label, courses] of [
+    ["undefined", undefined],
+    ["null", null],
+    ["empty", []],
+  ] as const) {
+    it(`uses the empty-menu note for ${label} courses`, () => {
       expect(hasMenuCourses(courses)).toBe(false);
-    },
-  );
+    });
+  }
 });

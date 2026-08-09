@@ -1,238 +1,80 @@
 <template>
   <div class="pt-24 pb-16">
-    <article
-      class="max-w-3xl mx-auto px-6 [&_h2]:font-display [&_h2]:text-[1.375rem] [&_h2]:text-charcoal [&_h2]:mt-8 [&_h2]:mb-3 [&_p]:text-[0.9375rem] [&_p]:leading-[1.7] [&_p]:text-warm-gray [&_p]:mb-3 [&_li]:text-[0.9375rem] [&_li]:leading-[1.7] [&_li]:text-warm-gray [&_li]:mb-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_section]:mb-6"
-    >
-      <h1 class="font-display text-3xl md:text-4xl text-charcoal mb-8">
-        Terms of Service
-      </h1>
-      <p class="text-warm-gray text-sm mb-6">Last updated: {{ lastUpdated }}</p>
+    <article class="max-w-3xl mx-auto px-6 [&_h2]:font-display [&_h2]:text-[1.375rem] [&_h2]:text-charcoal [&_h2]:mt-8 [&_h2]:mb-3 [&_p]:text-[0.9375rem] [&_p]:leading-[1.7] [&_p]:text-warm-gray [&_p]:mb-3 [&_li]:text-[0.9375rem] [&_li]:leading-[1.7] [&_li]:text-warm-gray [&_li]:mb-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_section]:mb-6">
+      <h1 class="font-display text-3xl md:text-4xl text-charcoal mb-8">{{ $t("terms.title") }}</h1>
+      <p class="text-warm-gray text-sm mb-6">{{ $t("common.lastUpdated", { date: $t("terms.date") }) }}</p>
 
-      <section>
-        <h2>1. Acceptance of Terms</h2>
-        <p>
-          By downloading, installing, or using Wedlune, you agree to these
-          Terms of Service. If you do not agree, please do not use the app.
-        </p>
+      <section v-for="section in singleSections" :key="section.key">
+        <h2>{{ $t(`${section.key}Title`) }}</h2>
+        <p>{{ $t(`${section.key}Body`) }}</p>
       </section>
 
       <section>
-        <h2>2. Description of Service</h2>
-        <p>
-          Wedlune is a wedding planning app that provides questionnaire-based
-          planning, AI-powered recommendations, timeline management, local task
-          reminders, premium RSVP page publishing and design, gift wishlists and reservations, budget management, vendor contact
-          management, seating arrangements, attire and transport tracking,
-          legal-document storage, photo gallery, and partner collaboration.
-          Some features may be limited under the free plan and require a
-          premium subscription. Free-tier users may see Google AdMob banner ads.
-        </p>
+        <h2>{{ $t("terms.s3Title") }}</h2>
+        <p v-for="paragraph in s3Paragraphs" :key="paragraph">{{ paragraph }}</p>
+      </section>
+      <section>
+        <h2>{{ $t("terms.s4Title") }}</h2>
+        <p>{{ $t("terms.s4Body") }}</p>
+      </section>
+      <section>
+        <h2>{{ $t("terms.s5Title") }}</h2>
+        <ul><li v-for="item in s5Items" :key="item">{{ item }}</li></ul>
       </section>
 
-      <section>
-        <h2>3. Planning Tool Only</h2>
-        <p>
-          Wedlune is an organizational aid, not a professional wedding planner,
-          event coordinator, vendor, legal or financial adviser, or emergency
-          service. Wedlune does not enter into, monitor, or perform your
-          agreements with venues, vendors, guests, or other third parties. You
-          remain responsible for your decisions and for reviewing contracts and
-          independently confirming bookings, dates, times, prices, payments,
-          legal requirements, accessibility and dietary needs, and instructions
-          directly with the relevant people. Your agreements with third parties
-          and your mandatory legal rights control if they conflict with
-          information shown in the app.
-        </p>
-        <p>
-          Wishlists are an organizational feature only. Wedlune does not sell
-          gifts, process gift payments, verify purchases, arrange shipping, or
-          guarantee retailer availability, pricing, delivery, quality, returns,
-          or refunds. A reservation records an RSVP party's stated intention
-          and is not proof that a gift was purchased. Product links lead to
-          independent third-party sites whose terms and privacy practices apply.
-        </p>
+      <section v-for="section in middleSingleSections" :key="section.key">
+        <h2>{{ $t(`${section.key}Title`) }}</h2>
+        <p>{{ $t(`${section.key}Body`) }}</p>
       </section>
-
       <section>
-        <h2>4. Time-Critical Information and Backups</h2>
+        <h2>{{ $t("terms.s8Title") }}</h2>
+        <p>{{ $t("terms.s8Intro") }}</p>
+        <ul><li v-for="item in s8Items" :key="item">{{ item }}</li></ul>
+      </section>
+      <section>
+        <h2>{{ $t("terms.s9Title") }}</h2>
+        <p>{{ $t("terms.s9Body") }}</p>
+      </section>
+      <section>
+        <h2>{{ $t("terms.s10Title") }}</h2>
+        <p>{{ $t("terms.s10Body") }}</p>
+      </section>
+      <section>
+        <h2>{{ $t("terms.s11Title") }}</h2>
         <p>
-          Do not use Wedlune as the only record or source of information needed
-          on your wedding day or for another fixed deadline. Before the event,
-          independently confirm all critical details and keep accessible backup
-          copies of schedules, contacts, addresses, contracts, payment records,
-          transport plans, and health, allergy, or dietary information. App
-          reminders and notifications may be delayed or missed because of
-          device settings, battery restrictions, connectivity, operating-system
-          behavior, or technical errors. Arrange appropriate human coordination
-          and a backup communication plan for the event.
+          {{ $t("terms.s11BeforeDelete") }}
+          <NuxtLink :to="localePath('/delete-account')" class="text-champagne-gold hover:text-deep-gold">{{ $t("terms.s11DeleteLink") }}</NuxtLink>.
+          {{ $t("terms.s11Middle") }}
+          <NuxtLink :to="localePath('/privacy')" class="text-champagne-gold hover:text-deep-gold">{{ $t("terms.s11PrivacyLink") }}</NuxtLink>.
         </p>
       </section>
-
-      <section>
-        <h2>5. User Accounts</h2>
-        <ul>
-          <li>
-            You must be at least 16 years old, or the minimum digital-consent
-            age in your country, to create an account.
-          </li>
-          <li>
-            You must provide a valid email address and accurate information.
-          </li>
-          <li>
-            You are responsible for keeping your login credentials confidential
-            and for activity under your account.
-          </li>
-          <li>
-            You may invite your partner to share a wedding plan. Shared data is
-            visible according to the partner permissions you choose.
-          </li>
-        </ul>
+      <section v-for="section in finalSections" :key="section.key">
+        <h2>{{ $t(`${section.key}Title`) }}</h2>
+        <p>{{ $t(`${section.key}Body`) }}</p>
       </section>
-
       <section>
-        <h2>6. User Content</h2>
-        <p>
-          You retain ownership of content you upload or create, including
-          photos, guest information, legal documents, and wedding details. You
-          grant us a limited license to store, process, display, and sync that
-          content solely to provide the service. If you collaborate with a
-          partner, content is shared according to the selected permissions.
-        </p>
-      </section>
-
-      <section>
-        <h2>7. AI-Generated Content</h2>
-        <p>
-          Recommendations and timelines generated by AI features are suggestions
-          only and may include inaccurate information such as incorrect vendor
-          details, pricing, contact information, legal requirements, or
-          scheduling assumptions. You are responsible for independently
-          verifying all AI-generated suggestions before acting on them.
-        </p>
-      </section>
-
-      <section>
-        <h2>8. Acceptable Use</h2>
-        <p>You agree not to:</p>
-        <ul>
-          <li>Use Wedlune for any unlawful purpose.</li>
-          <li>Upload offensive, harmful, infringing, or unlawful content.</li>
-          <li>Attempt to access another user's data or bypass access controls.</li>
-          <li>Reverse-engineer, decompile, or disassemble the app.</li>
-          <li>Use automated tools to scrape or misuse the service.</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>9. Subscriptions</h2>
-        <p>
-          Premium features may be offered through in-app purchases and
-          subscriptions processed by Google Play and managed through RevenueCat.
-          Subscription cancellation and billing management are handled by the
-          relevant app store. Deleting your Wedlune account does not by itself
-          cancel an active app-store subscription.
-        </p>
-      </section>
-
-      <section>
-        <h2>10. Service Availability</h2>
-        <p>
-          We strive to maintain reliable service, but we do not guarantee that
-          Wedlune will be uninterrupted, error-free, or available at any
-          particular time, including on your wedding day. Maintenance, updates,
-          technical failures, third-party service failures, network or device
-          problems, and events beyond our reasonable control may interrupt the
-          app or delay synchronization and notifications. Online, synchronized,
-          locally stored, or cached data may sometimes be delayed, incomplete,
-          unavailable, or lost. These statements do not reduce any service or
-          conformity rights that cannot be excluded under applicable consumer
-          law.
-        </p>
-      </section>
-
-      <section>
-        <h2>11. Termination And Account Deletion</h2>
-        <p>
-          You may delete your account at any time from Settings → Delete
-          Account in the app or request deletion through our
-          <NuxtLink
-            to="/delete-account"
-            class="text-champagne-gold hover:text-deep-gold"
-            >account deletion page</NuxtLink
-          >. We may suspend or terminate accounts that violate these terms.
-          Upon termination, your data will be deleted or retained only as
-          described in our
-          <NuxtLink
-            to="/privacy"
-            class="text-champagne-gold hover:text-deep-gold"
-            >Privacy Policy</NuxtLink
-          >.
-        </p>
-      </section>
-
-      <section>
-        <h2>12. Limitation of Liability</h2>
-        <p>
-          To the fullest extent permitted by law, Wedlune is provided "as is"
-          and "as available", without warranties that may lawfully be excluded.
-          We do not control and are not responsible for the acts, omissions,
-          availability, products, or services of venues, vendors, guests, app
-          stores, network operators, or other third parties. To the fullest
-          extent permitted by law, we are not liable for indirect, incidental,
-          special, or consequential loss arising from use of or inability to
-          use Wedlune, including loss or corruption of data, missed deadlines or
-          appointments, planning errors, vendor failures, additional event
-          costs, event disruption or cancellation, or reliance on reminders,
-          notifications, AI output, or third-party information. Nothing in
-          these terms excludes or limits liability, remedies, guarantees, or
-          consumer rights that cannot legally be excluded or limited, including
-          liability for fraud, wilful misconduct, gross negligence, or death or
-          personal injury where applicable.
-        </p>
-      </section>
-
-      <section>
-        <h2>13. Changes to Terms</h2>
-        <p>
-          We may update these terms from time to time. Material changes will be
-          communicated through the app or by email before they take effect where
-          required. If you do not agree to updated terms, stop using the app and
-          you may delete your account.
-        </p>
-      </section>
-
-      <section>
-        <h2>14. Contact</h2>
-        <p>
-          For questions about these terms, contact
-          <a
-            href="mailto:support@wedlune.com"
-            class="text-champagne-gold hover:text-deep-gold"
-            >support@wedlune.com</a
-          >.
-        </p>
+        <h2>{{ $t("terms.s14Title") }}</h2>
+        <p>{{ $t("terms.s14Before") }} <a href="mailto:support@wedlune.com" class="text-champagne-gold hover:text-deep-gold">support@wedlune.com</a>.</p>
       </section>
     </article>
   </div>
 </template>
 
 <script setup lang="ts">
-const lastUpdated = "August 7, 2026";
+const { t, tm } = useI18n();
+const localePath = useLocalePath();
+const singleSections = [{ key: "terms.s1" }, { key: "terms.s2" }];
+const middleSingleSections = [{ key: "terms.s6" }, { key: "terms.s7" }];
+const finalSections = [{ key: "terms.s12" }, { key: "terms.s13" }];
+const s3Paragraphs = computed(() => tm("terms.s3Paragraphs") as string[]);
+const s5Items = computed(() => tm("terms.s5Items") as string[]);
+const s8Items = computed(() => tm("terms.s8Items") as string[]);
 
 useSeoMeta({
-  title: "Terms of Service — Wedlune",
-  description:
-    "Wedlune Terms of Service — rules and guidelines for using our AI wedding planning app.",
-  ogTitle: "Terms of Service — Wedlune",
-  ogDescription:
-    "Wedlune Terms of Service — rules and guidelines for using our AI wedding planning app.",
+  title: () => t("terms.seoTitle"),
+  description: () => t("terms.seoDescription"),
+  ogTitle: () => t("terms.seoTitle"),
+  ogDescription: () => t("terms.seoDescription"),
 });
-
-useSchemaOrg([
-  defineWebPage({
-    name: "Terms of Service — Wedlune",
-    description:
-      "Wedlune Terms of Service — rules and guidelines for using our AI wedding planning app.",
-  }),
-]);
+useSchemaOrg(() => [defineWebPage({ name: t("terms.seoTitle"), description: t("terms.seoDescription") })]);
 </script>

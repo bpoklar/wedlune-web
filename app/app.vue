@@ -8,12 +8,21 @@
 </template>
 
 <script setup lang="ts">
-useSchemaOrg([
+const { t } = useI18n();
+const i18nHead = useLocaleHead();
+
+useHead(() => ({
+  titleTemplate: "%s",
+  htmlAttrs: i18nHead.value.htmlAttrs,
+  link: i18nHead.value.link,
+  meta: i18nHead.value.meta,
+}));
+
+useSchemaOrg(() => [
   defineOrganization({
     name: "Wedlune",
     url: "https://wedlune.com",
-    description:
-      "AI-powered wedding planning assistant that helps couples find venues, manage vendors, track budgets, and build smart timelines.",
+    description: t("home.organizationDescription"),
   }),
 ]);
 </script>

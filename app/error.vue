@@ -6,26 +6,26 @@
           <div v-if="error?.statusCode === 404" class="space-y-6">
             <h1 class="font-display text-6xl text-champagne-gold">404</h1>
             <h2 class="font-display text-2xl text-charcoal">
-              Page Not Found
+              {{ $t("error.notFound") }}
             </h2>
             <p class="text-warm-gray text-sm">
-              The page you're looking for doesn't exist or has been moved.
+              {{ $t("error.notFoundBody") }}
             </p>
           </div>
           <div v-else class="space-y-6">
-            <h1 class="font-display text-6xl text-champagne-gold">Oops</h1>
+            <h1 class="font-display text-6xl text-champagne-gold">{{ $t("error.oops") }}</h1>
             <h2 class="font-display text-2xl text-charcoal">
-              Something went wrong
+              {{ $t("error.title") }}
             </h2>
             <p class="text-warm-gray text-sm">
-              {{ error?.message || error?.statusMessage || "An unexpected error occurred." }}
+              {{ error?.message || error?.statusMessage || $t("error.body") }}
             </p>
           </div>
           <NuxtLink
-            to="/"
+            :to="localePath('/')"
             class="inline-block mt-8 bg-champagne-gold text-white px-8 py-3 rounded-full font-bold hover:bg-deep-gold transition-colors"
           >
-            Go Home
+            {{ $t("common.goHome") }}
           </NuxtLink>
         </div>
       </div>
@@ -35,11 +35,11 @@
 
 <script setup lang="ts">
 const error = useError();
+const { t } = useI18n();
+const localePath = useLocalePath();
 
 useSeoMeta({
-  title: error.value?.statusCode === 404
-    ? "Page Not Found — Wedlune"
-    : "Error — Wedlune",
+  title: () => error.value?.statusCode === 404 ? t("error.notFoundSeo") : t("error.seo"),
   robots: "noindex",
 });
 </script>

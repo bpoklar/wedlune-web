@@ -26,11 +26,10 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxtjs/seo", "@nuxt/fonts", "@vee-validate/nuxt"],
+  modules: ["@nuxtjs/seo", "@nuxt/fonts", "@vee-validate/nuxt", "@nuxtjs/i18n"],
 
   app: {
     head: {
-      htmlAttrs: { lang: "en" },
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
   },
@@ -47,8 +46,34 @@ export default defineNuxtConfig({
       headers: {
         "Cache-Control": "no-store",
         "Referrer-Policy": "no-referrer",
+        "X-Robots-Tag": "noindex, nofollow",
       },
     },
+    "/sl/rsvp": {
+      headers: {
+        "Cache-Control": "no-store",
+        "Referrer-Policy": "no-referrer",
+        "X-Robots-Tag": "noindex, nofollow",
+      },
+    },
+    "/sl/shared-gallery": {
+      headers: {
+        "Cache-Control": "no-store",
+        "Referrer-Policy": "no-referrer",
+        "X-Robots-Tag": "noindex, nofollow",
+      },
+    },
+  },
+
+  i18n: {
+    baseUrl: "https://wedlune.com",
+    defaultLocale: "en",
+    strategy: "prefix_except_default",
+    detectBrowserLanguage: false,
+    locales: [
+      { code: "en", name: "English", language: "en", file: "en.json" },
+      { code: "sl", name: "Slovenščina", language: "sl", file: "sl.json" },
+    ],
   },
 
   site: {
@@ -61,6 +86,7 @@ export default defineNuxtConfig({
 
   sitemap: {
     enabled: true,
+    exclude: ["/rsvp", "/shared-gallery", "/sl/rsvp", "/sl/shared-gallery"],
   },
 
   ogImage: {

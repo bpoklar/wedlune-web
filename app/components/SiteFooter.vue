@@ -4,31 +4,30 @@
       <!-- CTA banner -->
       <div class="text-center mb-16">
         <p class="font-accent text-champagne-gold text-3xl mb-4">
-          Start your journey
+          {{ $t("footer.kicker") }}
         </p>
         <h2 class="font-display text-3xl md:text-4xl text-white mb-4">
-          Plan Your Dream Wedding
+          {{ $t("footer.title") }}
         </h2>
         <p class="text-pearl-gray max-w-xl mx-auto mb-8">
-          Wedlune is preparing for store launch. Join the waitlist or replace
-          this block with live store links when your listings are ready.
+          {{ $t("footer.body") }}
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="mailto:hi@wedlune.com?subject=Wedlune%20waitlist"
             class="btn-primary"
           >
-            Join the waitlist
+            {{ $t("footer.waitlist") }}
           </a>
           <NuxtLink
-            to="/#features"
+            :to="homeLink('features')"
             class="inline-flex items-center justify-center rounded-full border border-pearl-gray px-7 py-3 text-sm font-bold text-white transition-colors hover:bg-white/10"
           >
-            Explore features
+            {{ $t("footer.explore") }}
           </NuxtLink>
         </div>
         <p class="text-sm text-warm-gray mt-4">
-          Coming soon to iOS and Android
+          {{ $t("footer.comingSoon") }}
         </p>
       </div>
 
@@ -45,40 +44,45 @@
         />
         <div class="flex flex-wrap justify-center gap-6 text-sm">
           <NuxtLink
-            to="/#features"
+            :to="homeLink('features')"
             class="hover:text-champagne-gold transition-colors"
           >
-            Features
+            {{ $t("nav.features") }}
           </NuxtLink>
           <NuxtLink
-            to="/#pricing"
+            :to="homeLink('pricing')"
             class="hover:text-champagne-gold transition-colors"
           >
-            Pricing
+            {{ $t("nav.pricing") }}
           </NuxtLink>
           <NuxtLink
-            to="/privacy"
+            :to="localePath('/privacy')"
             class="hover:text-champagne-gold transition-colors"
           >
-            Privacy Policy
+            {{ $t("footer.privacyPolicy") }}
           </NuxtLink>
           <NuxtLink
-            to="/terms"
+            :to="localePath('/terms')"
             class="hover:text-champagne-gold transition-colors"
           >
-            Terms of Service
+            {{ $t("footer.terms") }}
           </NuxtLink>
           <NuxtLink
-            to="/delete-account"
+            :to="localePath('/delete-account')"
             class="hover:text-champagne-gold transition-colors"
           >
-            Delete Account
+            {{ $t("footer.deleteAccount") }}
           </NuxtLink>
         </div>
         <p class="text-sm text-warm-gray">
-          &copy; {{ new Date().getFullYear() }} Wedlune. All rights reserved.
+          {{ $t("footer.rights", { year: new Date().getFullYear() }) }}
         </p>
       </div>
     </div>
   </footer>
 </template>
+
+<script setup lang="ts">
+const localePath = useLocalePath();
+const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
+</script>

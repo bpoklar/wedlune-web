@@ -7,35 +7,33 @@
           <p
             class="inline-flex items-center gap-2 rounded-full border border-champagne-gold/30 bg-warm-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-deep-gold mb-6"
           >
-            AI wedding planner for couples
+            {{ $t("home.hero.badge") }}
           </p>
           <h1
             class="font-display text-4xl md:text-5xl lg:text-6xl text-charcoal leading-[1.04] mb-6"
           >
-            Your whole wedding plan, finally in one calm place.
+            {{ $t("home.hero.title") }}
           </h1>
           <p class="text-warm-gray text-lg leading-relaxed mb-8 max-w-lg">
-            Wedlune turns your timeline, guests, budget, vendors, RSVPs, and
-            next decisions into one AI-guided plan you can share with your
-            partner.
+            {{ $t("home.hero.body") }}
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
             <NuxtLink
-              to="/#download"
+              :to="homeLink('download')"
               class="btn-primary"
             >
-              Get started free
+              {{ $t("home.hero.primary") }}
             </NuxtLink>
             <NuxtLink
-              to="/#how-it-works"
+              :to="homeLink('how-it-works')"
               class="btn-secondary"
             >
-              See how it works
+              {{ $t("home.hero.secondary") }}
             </NuxtLink>
           </div>
           <div
             class="mt-8 grid grid-cols-3 gap-4 max-w-lg text-center sm:text-left"
-            aria-label="Wedlune highlights"
+            :aria-label="$t('home.hero.highlights')"
           >
             <div v-for="stat in stats" :key="stat.label">
               <p class="font-display text-2xl text-charcoal">{{ stat.value }}</p>
@@ -64,14 +62,14 @@
                   Ana & Luka
                 </p>
                 <p class="text-xs text-warm-gray">
-                  AI suggests what to do next
+                  {{ $t("home.hero.suggestion") }}
                 </p>
               </div>
 
               <div class="card-surface p-4 mb-4">
                 <div class="flex items-center justify-between mb-3">
                   <p class="font-display text-lg text-charcoal">
-                    Next best action
+                    {{ $t("home.hero.nextAction") }}
                   </p>
                   <span class="text-xs font-bold text-sage-green">72%</span>
                 </div>
@@ -83,18 +81,18 @@
                     <span class="mt-1 h-2.5 w-2.5 rounded-full bg-sage-green" />
                     <div>
                       <p class="text-sm font-bold text-charcoal">
-                        Send RSVP reminder
+                        {{ $t("home.hero.rsvpReminder") }}
                       </p>
-                      <p class="text-xs text-warm-gray">18 guests pending</p>
+                      <p class="text-xs text-warm-gray">{{ $t("home.hero.pendingGuests") }}</p>
                     </div>
                   </div>
                   <div class="flex gap-3">
                     <span class="mt-1 h-2.5 w-2.5 rounded-full bg-blush-rose" />
                     <div>
                       <p class="text-sm font-bold text-charcoal">
-                        Choose florist quote
+                        {{ $t("home.hero.floristQuote") }}
                       </p>
-                      <p class="text-xs text-warm-gray">Vendor decision</p>
+                      <p class="text-xs text-warm-gray">{{ $t("home.hero.vendorDecision") }}</p>
                     </div>
                   </div>
                 </div>
@@ -102,22 +100,21 @@
 
               <div class="grid grid-cols-2 gap-3">
                 <div class="card-surface p-4">
-                  <p class="text-xs text-warm-gray">Budget</p>
+                  <p class="text-xs text-warm-gray">{{ $t("home.hero.budget") }}</p>
                   <p class="font-display text-2xl text-charcoal">+8%</p>
                 </div>
                 <div class="card-surface p-4">
-                  <p class="text-xs text-warm-gray">RSVPs</p>
+                  <p class="text-xs text-warm-gray">{{ $t("home.hero.rsvps") }}</p>
                   <p class="font-display text-2xl text-charcoal">84</p>
                 </div>
               </div>
 
               <div class="mt-4 rounded-2xl bg-champagne-gold/10 p-4">
                 <p class="text-xs font-bold text-deep-gold">
-                  Budget warning
+                  {{ $t("home.hero.budgetWarning") }}
                 </p>
                 <p class="text-sm text-warm-gray">
-                  Catering is trending over plan. Review guest count before
-                  deposit.
+                  {{ $t("home.hero.budgetWarningBody") }}
                 </p>
               </div>
             </div>
@@ -129,9 +126,8 @@
 </template>
 
 <script setup lang="ts">
-const stats = [
-  { value: "AI", label: "built timeline" },
-  { value: "1", label: "shared partner plan" },
-  { value: "All", label: "guests, vendors, budget, RSVPs" },
-];
+const { tm } = useI18n();
+const localePath = useLocalePath();
+const stats = computed(() => tm("home.hero.stats") as Array<{ value: string; label: string }>);
+const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
 </script>

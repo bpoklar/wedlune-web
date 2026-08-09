@@ -4,7 +4,7 @@
       <!-- Loading state -->
       <div v-if="loading" class="flex flex-col items-center justify-center py-24 space-y-4">
         <div class="w-12 h-12 border-4 border-champagne-gold/30 border-t-champagne-gold rounded-full animate-spin" />
-        <p class="text-warm-gray text-sm">Loading shot list...</p>
+        <p class="text-warm-gray text-sm">{{ $t("gallery.loading") }}</p>
       </div>
 
       <!-- Error state -->
@@ -14,16 +14,16 @@
       >
         <div class="text-5xl mb-4">📷</div>
         <h1 class="font-display text-2xl text-charcoal mb-3">
-          Shot List Not Found
+          {{ $t("gallery.notFoundTitle") }}
         </h1>
         <p class="text-warm-gray text-sm leading-relaxed">
           {{ errorMessage }}
         </p>
         <NuxtLink
-          to="/"
+          :to="localePath('/')"
           class="inline-block mt-6 text-champagne-gold hover:text-deep-gold text-sm font-semibold"
         >
-          Go to Wedlune &rarr;
+          {{ $t("common.goToWedlune") }}
         </NuxtLink>
       </div>
 
@@ -31,9 +31,9 @@
       <template v-else-if="data">
         <!-- Header -->
         <div class="text-center mb-10">
-          <p class="section-kicker">Wedding photography</p>
+          <p class="section-kicker">{{ $t("gallery.kicker") }}</p>
           <h1 class="font-display text-3xl md:text-4xl text-charcoal mb-2">
-            {{ data.coupleName }}'s Shot List
+            {{ $t("gallery.title", { name: data.coupleName }) }}
           </h1>
           <p v-if="data.weddingDate" class="font-accent text-champagne-gold text-2xl">
             {{ formatDate(data.weddingDate) }}
@@ -44,19 +44,19 @@
           >
             <div class="card-surface p-3">
               <p class="font-display text-2xl text-charcoal">{{ totalShots }}</p>
-              <p class="text-xs text-warm-gray">shots</p>
+              <p class="text-xs text-warm-gray">{{ $t("gallery.shots") }}</p>
             </div>
             <div class="card-surface p-3">
               <p class="font-display text-2xl text-charcoal">
                 {{ mustHaveShots }}
               </p>
-              <p class="text-xs text-warm-gray">must-have</p>
+              <p class="text-xs text-warm-gray">{{ $t("gallery.mustHave") }}</p>
             </div>
             <div class="card-surface p-3">
               <p class="font-display text-2xl text-charcoal">
                 {{ data.shotList.length }}
               </p>
-              <p class="text-xs text-warm-gray">groups</p>
+              <p class="text-xs text-warm-gray">{{ $t("gallery.groups") }}</p>
             </div>
           </div>
         </div>
@@ -64,7 +64,7 @@
         <!-- Shot List Section -->
         <section v-if="data.shotList?.length" class="mb-12">
           <div class="card-surface p-6 md:p-8">
-            <h2 class="font-display text-xl text-charcoal mb-6">Shot List</h2>
+            <h2 class="font-display text-xl text-charcoal mb-6">{{ $t("gallery.shotList") }}</h2>
 
             <!-- Single gallery container for all images — PhotoSwipe picks up <a> children -->
             <div id="gallery">
@@ -78,7 +78,7 @@
                     {{ categoryLabel(group.category) }}
                   </h3>
                   <span class="rounded-full bg-warm-white px-3 py-1 text-xs font-bold text-warm-gray">
-                    {{ group.items.length }} shots
+                    {{ $t("gallery.shotCount", { count: group.items.length }) }}
                   </span>
                 </div>
 
@@ -104,8 +104,8 @@
                           <span
                             v-if="item.isMustHave"
                             class="mr-2 rounded-full bg-champagne-gold/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-deep-gold"
-                            aria-label="Must have"
-                          >Must-have</span>
+                            :aria-label="$t('gallery.mustHaveLabel')"
+                          >{{ $t("gallery.mustHaveBadge") }}</span>
                           {{ item.title }}
                         </p>
                       </div>
@@ -126,8 +126,8 @@
                           <span
                             v-if="item.isMustHave"
                             class="mr-2 rounded-full bg-champagne-gold/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-deep-gold"
-                            aria-label="Must have"
-                          >Must-have</span>
+                            :aria-label="$t('gallery.mustHaveLabel')"
+                          >{{ $t("gallery.mustHaveBadge") }}</span>
                           {{ item.title }}
                         </p>
                       </div>
@@ -138,7 +138,7 @@
             </div>
 
             <p v-if="data.shotList.every((g) => g.items.length === 0)" class="text-warm-gray text-sm italic">
-              No shots have been added to this list yet.
+              {{ $t("gallery.noShots") }}
             </p>
           </div>
         </section>
@@ -150,17 +150,17 @@
         >
           <div class="text-5xl mb-4">✨</div>
           <h2 class="font-display text-xl text-charcoal mb-2">
-            Nothing here yet
+            {{ $t("gallery.emptyTitle") }}
           </h2>
           <p class="text-warm-gray text-sm">
-            The shot list is empty. Check back later!
+            {{ $t("gallery.emptyBody") }}
           </p>
         </div>
 
         <!-- Branding -->
         <p class="text-center text-pearl-gray text-xs mt-8">
-          Powered by
-          <NuxtLink to="/" class="text-champagne-gold hover:text-deep-gold">
+          {{ $t("common.poweredBy") }}
+          <NuxtLink :to="localePath('/')" class="text-champagne-gold hover:text-deep-gold">
             Wedlune
           </NuxtLink>
         </p>
@@ -170,9 +170,12 @@
 </template>
 
 <script setup lang="ts">
+const { t, locale } = useI18n();
+const localePath = useLocalePath();
+
 useSeoMeta({
-  title: "Wedding Shot List — Wedlune",
-  description: "View a shared wedding shot list with photos.",
+  title: () => t("gallery.seoTitle"),
+  description: () => t("gallery.seoDescription"),
   robots: "noindex, nofollow",
 });
 
@@ -236,23 +239,16 @@ const edgeFunctionUrl = computed(() => {
 const { init: initPhotoSwipe, destroy: destroyPhotoSwipe } = usePhotoSwipe();
 
 // Category labels
-const categoryLabels: Record<string, string> = {
-  details: "Details",
-  getting_ready: "Getting Ready",
-  ceremony: "Ceremony",
-  family: "Family",
-  reception: "Reception",
-};
-
 function categoryLabel(cat: string): string {
-  return categoryLabels[cat] ?? cat;
+  const key = `gallery.categories.${cat}`;
+  return t(key) === key ? cat : t(key);
 }
 
 // Date formatting
 function formatDate(dateStr: string): string {
   try {
     const d = new Date(dateStr);
-    return d.toLocaleDateString("en-US", {
+    return d.toLocaleDateString(locale.value, {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -306,8 +302,7 @@ onUnmounted(() => destroyPhotoSwipe());
 onMounted(async () => {
   const shareToken = token.value;
   if (!shareToken) {
-    errorMessage.value =
-      "This gallery link is missing a token. Please check the link you received.";
+    errorMessage.value = t("gallery.missingToken");
     loading.value = false;
     return;
   }
@@ -325,13 +320,11 @@ onMounted(async () => {
   } catch (err: unknown) {
     const fetchError = err as { data?: { error?: string }; status?: number };
     if (fetchError.status === 403) {
-      errorMessage.value =
-        "This gallery link is no longer active. The couple may have disabled sharing or regenerated the link.";
+      errorMessage.value = t("gallery.inactive");
     } else if (fetchError.status === 400) {
-      errorMessage.value = "Invalid gallery link.";
+      errorMessage.value = t("gallery.invalid");
     } else {
-      errorMessage.value =
-        "Something went wrong loading the gallery. Please try again later.";
+      errorMessage.value = t("gallery.loadError");
     }
   } finally {
     loading.value = false;

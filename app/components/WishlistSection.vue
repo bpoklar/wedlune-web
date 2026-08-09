@@ -1,7 +1,7 @@
 <template>
   <section class="mt-8 card-surface overflow-hidden sm:mt-10" aria-labelledby="wishlist-heading">
     <header class="rsvp-muted-panel border-b px-5 py-7 text-center sm:px-8 sm:py-8">
-      <p class="font-accent text-champagne-gold text-2xl mb-1">Gifts</p>
+      <p class="font-accent text-champagne-gold text-2xl mb-1">{{ $t("wishlist.gifts") }}</p>
       <h2 id="wishlist-heading" class="font-display text-2xl text-charcoal">
         {{ wishlist.title }}
       </h2>
@@ -16,12 +16,12 @@
         :key="item.id"
         class="rsvp-input-panel flex flex-col overflow-hidden rounded-2xl border"
       >
-        <div v-if="item.imageUrl" class="aspect-[4/3] bg-soft-champagne overflow-hidden">
+        <div v-if="item.imageUrl" class="aspect-4/3 bg-soft-champagne overflow-hidden">
           <img :src="item.imageUrl" :alt="item.title" class="h-full w-full object-cover" loading="lazy" />
         </div>
         <div class="flex grow flex-col p-4 sm:p-5">
           <div class="flex items-start gap-2">
-            <span v-if="item.isPriority" class="text-dusty-crimson" aria-label="Most wanted">♥</span>
+            <span v-if="item.isPriority" class="text-dusty-crimson" :aria-label="$t('wishlist.mostWanted')">♥</span>
             <h3 class="font-display text-xl text-charcoal leading-tight">{{ item.title }}</h3>
           </div>
           <p v-if="item.description" class="text-warm-gray text-sm leading-relaxed mt-2">
@@ -32,9 +32,9 @@
           </p>
           <p class="text-xs text-warm-gray mt-2">
             <template v-if="item.remainingQuantity > 0">
-              {{ item.remainingQuantity }} of {{ item.desiredQuantity }} available
+              {{ $t("wishlist.available", { remaining: item.remainingQuantity, desired: item.desiredQuantity }) }}
             </template>
-            <template v-else>Fully reserved</template>
+            <template v-else>{{ $t("wishlist.fullyReserved") }}</template>
           </p>
 
           <div class="mt-auto pt-5 space-y-3">
@@ -46,12 +46,12 @@
               referrerpolicy="no-referrer"
               class="rsvp-outline-button flex min-h-12 items-center justify-center rounded-xl border font-semibold text-sm transition-colors"
             >
-              Open shop ↗
+              {{ $t("wishlist.openShop") }}
             </a>
 
             <div v-if="item.reservedByYou > 0" class="space-y-2">
               <p class="text-sage-green text-sm font-semibold text-center">
-                You reserved {{ item.reservedByYou }}
+                {{ $t("wishlist.reservedByYou", { count: item.reservedByYou }) }}
               </p>
               <button
                 type="button"
@@ -59,14 +59,14 @@
                 :disabled="savingItemId === item.id"
                 @click="setReservation(item, 0)"
               >
-                {{ savingItemId === item.id ? "Updating..." : "Cancel reservation" }}
+                {{ savingItemId === item.id ? $t("wishlist.updating") : $t("wishlist.cancel") }}
               </button>
             </div>
             <div v-else-if="item.remainingQuantity > 0" class="flex gap-2">
               <select
                 v-if="item.remainingQuantity > 1"
                 v-model.number="quantities[item.id]"
-                :aria-label="`Quantity for ${item.title}`"
+                :aria-label="$t('wishlist.quantityFor', { title: item.title })"
                 class="rsvp-surface-panel min-h-12 rounded-xl border px-3"
               >
                 <option v-for="quantity in item.remainingQuantity" :key="quantity" :value="quantity">
@@ -79,10 +79,10 @@
                 :disabled="savingItemId === item.id"
                 @click="setReservation(item, quantities[item.id] || 1)"
               >
-                {{ savingItemId === item.id ? "Reserving..." : "Reserve gift" }}
+                {{ savingItemId === item.id ? $t("wishlist.reserving") : $t("wishlist.reserve") }}
               </button>
             </div>
-            <p v-else class="text-center text-warm-gray text-sm py-2">No longer available</p>
+            <p v-else class="text-center text-warm-gray text-sm py-2">{{ $t("wishlist.unavailable") }}</p>
             <p v-if="errors[item.id]" class="text-dusty-crimson text-xs text-center" role="alert">
               {{ errors[item.id] }}
             </p>
@@ -119,6 +119,7 @@ export interface Wishlist {
 
 const props = defineProps<{ token: string; wishlist: Wishlist }>();
 const config = useRuntimeConfig();
+const { t, locale } = useI18n();
 const savingItemId = ref<string | null>(null);
 const quantities = reactive<Record<string, number>>({});
 const errors = reactive<Record<string, string>>({});
@@ -129,7 +130,7 @@ for (const item of props.wishlist.items) quantities[item.id] = 1;
 function formatPrice(value: number | string, currency: string | null) {
   const amount = typeof value === "number" ? value : Number(value);
   try {
-    return new Intl.NumberFormat(undefined, {
+    return new Intl.NumberFormat(locale.value, {
       style: "currency",
       currency: currency || "EUR",
       maximumFractionDigits: 2,
@@ -161,11 +162,11 @@ async function setReservation(item: WishlistItem, quantity: number) {
     item.reservedByYou = response.reservedByYou;
     quantities[item.id] = 1;
     liveMessage.value = quantity === 0
-      ? `Reservation cancelled for ${item.title}.`
-      : `${item.title} reserved successfully.`;
+      ? t("wishlist.cancelled", { title: item.title })
+      : t("wishlist.success", { title: item.title });
   } catch (error: unknown) {
     const fetchError = error as { data?: { error?: string } };
-    errors[item.id] = fetchError.data?.error || "Could not update this reservation. Please try again.";
+    errors[item.id] = fetchError.data?.error || t("wishlist.error");
   } finally {
     savingItemId.value = null;
   }
