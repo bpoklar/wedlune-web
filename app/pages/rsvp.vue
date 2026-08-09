@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['soft-page-bg rsvp-themed relative min-h-screen overflow-hidden px-4 pb-8 pt-0 sm:px-6 sm:pb-12 lg:pb-16', `rsvp-template-${rsvpDesign.template}`]"
+    :class="['soft-page-bg rsvp-themed relative min-h-screen overflow-hidden px-4 py-6 sm:px-6 sm:py-10 lg:py-14', `rsvp-template-${rsvpDesign.template}`]"
     :style="rsvpThemeStyle"
   >
     <div
@@ -14,7 +14,7 @@
 
     <main class="relative mx-auto w-full max-w-3xl">
       <!-- Loading state -->
-      <div v-if="loading" class="card-surface mx-auto max-w-lg px-6 py-14 text-center sm:px-10">
+      <div v-if="loading" class="card-surface mx-auto max-w-lg px-6 py-12 text-center sm:px-10 sm:py-14" role="status">
         <div
           class="mx-auto h-11 w-11 animate-spin rounded-full border-4 border-champagne-gold/25 border-t-champagne-gold"
         />
@@ -27,7 +27,7 @@
         v-else-if="premiumUnavailable"
         class="card-surface mx-auto max-w-lg px-6 py-10 text-center sm:p-12"
       >
-        <div class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-soft-champagne text-3xl">💌</div>
+        <div class="rsvp-muted-panel mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full text-3xl">💌</div>
         <h1 class="mb-3 font-display text-2xl text-charcoal sm:text-3xl">
           RSVP Currently Unavailable
         </h1>
@@ -41,7 +41,7 @@
         v-else-if="errorMessage"
         class="card-surface mx-auto max-w-lg px-6 py-10 text-center sm:p-12"
       >
-        <div class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-soft-champagne text-3xl">💌</div>
+        <div class="rsvp-muted-panel mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full text-3xl">💌</div>
         <h1 class="mb-3 font-display text-2xl text-charcoal sm:text-3xl">
           Invitation Not Found
         </h1>
@@ -60,7 +60,7 @@
       <div v-else-if="submitted" class="card-surface mx-auto max-w-xl overflow-hidden text-center">
         <div class="h-1.5 bg-champagne-gold" />
         <div class="px-6 py-9 sm:px-12 sm:py-12">
-        <div class="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-soft-champagne text-4xl shadow-inner">
+        <div class="rsvp-muted-panel mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full text-4xl shadow-inner">
           {{ submittedStatus === "accepted" ? "🎉" : "💐" }}
         </div>
         <p class="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-champagne-gold">
@@ -83,7 +83,7 @@
           {{ rsvpDesign.confirmationMessage }}
         </p>
         <!-- +1 summary -->
-        <div v-if="plusOneGuests.length > 0" class="mx-auto mt-6 max-w-sm divide-y divide-linen rounded-2xl border border-linen bg-ivory-cream/70 px-4">
+        <div v-if="plusOneGuests.length > 0" class="rsvp-input-panel mx-auto mt-6 max-w-sm divide-y rounded-2xl border px-4">
           <p
             v-for="po in plusOneGuests"
             :key="po.id"
@@ -107,7 +107,7 @@
         >
           With love, {{ coupleName }}
         </p>
-        <div class="mt-7 rounded-2xl border border-linen bg-soft-champagne/60 p-4 text-left sm:p-5">
+        <div class="rsvp-muted-panel mt-7 rounded-2xl border p-4 text-left sm:p-5">
           <div class="flex gap-3">
             <span class="mt-0.5 text-lg" aria-hidden="true">🔗</span>
             <div>
@@ -120,7 +120,7 @@
         </div>
         <button
           type="button"
-          class="mt-5 min-h-12 w-full rounded-full border-2 border-deep-gold px-6 text-sm font-bold text-deep-gold transition-colors hover:bg-deep-gold hover:text-white"
+          class="rsvp-outline-button mt-5 min-h-12 w-full rounded-full border-2 px-6 text-sm font-bold transition-colors"
           @click="submitted = false"
         >
           Update my response
@@ -136,8 +136,9 @@
         <!-- Header -->
         <div
           :class="[
-            'rsvp-invitation-header relative overflow-hidden border-b border-linen bg-soft-champagne px-5 pb-8 text-center sm:px-8 sm:pb-11',
-            rsvpDesign.heroImageUrl ? 'pt-8 sm:pt-11' : 'pt-2',
+            'rsvp-invitation-header rsvp-muted-panel relative overflow-hidden border-b px-5 pb-8 text-center sm:px-8 sm:pb-10',
+            rsvpDesign.heroImageUrl ? 'pt-8 sm:pt-10' : 'pt-8 sm:pt-10',
+            rsvpDesign.template === 'modern' && rsvpDesign.heroImageUrl ? 'rsvp-modern-has-hero' : '',
           ]"
         >
           <div class="absolute inset-x-0 top-0 h-1.5 bg-champagne-gold" />
@@ -145,12 +146,12 @@
             v-if="rsvpDesign.heroImageUrl"
             :src="rsvpDesign.heroImageUrl"
             alt=""
-            class="rsvp-hero-image mx-auto mb-6 h-52 w-full rounded-2xl object-cover sm:h-72"
+            class="rsvp-hero-image mx-auto mb-6 aspect-[16/10] w-full rounded-2xl object-cover sm:aspect-[16/9]"
           />
-          <p class="mb-1 font-accent text-3xl text-champagne-gold sm:text-4xl">
+          <p class="mb-1 break-words font-accent text-3xl leading-tight text-champagne-gold sm:text-4xl">
             {{ rsvpDesign.invitationHeading }}
           </p>
-          <h1 class="mb-2 font-display text-3xl text-charcoal sm:text-4xl">
+          <h1 class="mb-2 break-words font-display text-3xl leading-tight text-charcoal sm:text-4xl">
             {{ guestName }}
           </h1>
           <p v-if="coupleName" class="mx-auto max-w-md text-sm leading-relaxed text-warm-gray sm:text-base">
@@ -158,10 +159,10 @@
           </p>
         </div>
 
-        <form @submit="onSubmit" class="space-y-8 p-5 sm:p-8 md:p-10">
+        <form @submit="onSubmit" class="rsvp-form p-5 sm:p-8 md:p-10">
           <div
             v-if="hasExistingResponse"
-            class="flex gap-3 rounded-2xl border border-champagne-gold/30 bg-soft-champagne/55 p-4"
+            class="rsvp-muted-panel flex gap-3 rounded-2xl border p-4"
           >
             <span aria-hidden="true">✓</span>
             <p class="text-sm leading-relaxed text-warm-gray">
@@ -173,7 +174,7 @@
           <fieldset>
             <legend class="mb-4 w-full">
               <span class="flex items-center gap-3">
-                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-soft-champagne text-xs font-bold text-deep-gold">1</span>
+                <span class="rsvp-muted-panel flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-deep-gold">1</span>
                 <span>
                   <span class="block text-base font-bold text-charcoal">Will you attend? <span class="text-dusty-crimson">*</span></span>
                   <span class="mt-0.5 block text-xs font-normal text-warm-gray">Choose the response that feels right for you.</span>
@@ -216,7 +217,7 @@
                 <span>✗</span> Regretfully Decline
               </label>
             </div>
-            <p v-if="rsvpStatusError" class="text-dusty-crimson text-xs mt-1">
+            <p v-if="rsvpStatusError" class="mt-2 text-xs text-dusty-crimson" role="alert">
               {{ rsvpStatusError }}
             </p>
           </fieldset>
@@ -224,7 +225,7 @@
           <!-- Main guest meal / dietary (only if accepted) -->
           <div v-if="rsvpStatusField === 'accepted'" class="space-y-6 border-t border-linen pt-8">
             <div class="flex items-center gap-3">
-              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-soft-champagne text-xs font-bold text-deep-gold">2</span>
+              <span class="rsvp-muted-panel flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-deep-gold">2</span>
               <div>
                 <h2 class="text-base font-bold text-charcoal">Your details</h2>
                 <p class="text-xs text-warm-gray">Tell the couple what you’ll need on the day.</p>
@@ -246,7 +247,7 @@
                 >
                   <label
                     :class="[
-                      'flex min-h-24 items-center justify-center rounded-xl border-2 bg-ivory-cream px-4 text-center cursor-pointer transition-all',
+                      'rsvp-input-panel flex min-h-24 items-center justify-center rounded-xl border-2 px-4 text-center cursor-pointer transition-all',
                       selectedMenuId === null
                         ? 'border-champagne-gold ring-2 ring-champagne-gold/20'
                         : 'border-linen hover:border-champagne-gold/50',
@@ -265,7 +266,7 @@
                     v-for="m in menus"
                     :key="m.id"
                     :class="[
-                      'overflow-hidden rounded-xl border-2 bg-ivory-cream cursor-pointer transition-all',
+                      'rsvp-input-panel overflow-hidden rounded-xl border-2 cursor-pointer transition-all',
                       selectedMenuId === m.id
                         ? 'border-champagne-gold ring-2 ring-champagne-gold/20'
                         : 'border-linen hover:border-champagne-gold/50',
@@ -348,7 +349,7 @@
                 rows="3"
                 placeholder="Allergies, intolerances, or special requests"
                 maxlength="500"
-                class="w-full px-4 py-3 rounded-xl border border-linen bg-ivory-cream text-charcoal text-sm placeholder:text-pearl-gray focus:outline-none focus:border-champagne-gold focus:ring-1 focus:ring-champagne-gold/30 transition-colors resize-none"
+                class="rsvp-input-panel w-full rounded-xl border px-4 py-3 text-sm transition-colors resize-none focus:outline-none focus:ring-2"
               />
               <p
                 v-if="dietaryNotesError"
@@ -361,7 +362,7 @@
 
           <!-- +1 Guest sections -->
           <template v-for="(po, idx) in plusOneGuests" :key="po.id">
-            <div class="rounded-3xl border border-linen bg-ivory-cream/70 p-4 sm:p-6">
+            <div class="rsvp-input-panel rounded-3xl border p-4 sm:p-6">
               <h2 class="font-display text-xl text-charcoal mb-4">
                 {{ po.name }}
               </h2>
@@ -428,7 +429,7 @@
                     >
                       <label
                         :class="[
-                          'flex min-h-20 items-center justify-center rounded-xl border-2 bg-white px-3 text-center cursor-pointer transition-all',
+                          'rsvp-surface-panel flex min-h-20 items-center justify-center rounded-xl border-2 px-3 text-center cursor-pointer transition-all',
                           po.menuId === null
                             ? 'border-champagne-gold ring-2 ring-champagne-gold/20'
                             : 'border-linen hover:border-champagne-gold/50',
@@ -448,7 +449,7 @@
                         v-for="m in menus"
                         :key="m.id"
                         :class="[
-                          'overflow-hidden rounded-xl border-2 bg-white cursor-pointer transition-all',
+                          'rsvp-surface-panel overflow-hidden rounded-xl border-2 cursor-pointer transition-all',
                           po.menuId === m.id
                             ? 'border-champagne-gold ring-2 ring-champagne-gold/20'
                             : 'border-linen hover:border-champagne-gold/50',
@@ -531,7 +532,7 @@
                     rows="2"
                     placeholder="Allergies, intolerances, or special requests"
                     maxlength="500"
-                    class="w-full px-4 py-3 rounded-xl border border-linen bg-ivory-cream text-charcoal text-sm placeholder:text-pearl-gray focus:outline-none focus:border-champagne-gold focus:ring-1 focus:ring-champagne-gold/30 transition-colors resize-none"
+                    class="rsvp-surface-panel w-full rounded-xl border px-4 py-3 text-sm transition-colors resize-none focus:outline-none focus:ring-2"
                   />
                 </div>
               </div>
@@ -542,12 +543,12 @@
           <button
             type="submit"
             :disabled="submitting"
-            class="min-h-14 w-full rounded-full bg-champagne-gold px-6 text-sm font-bold text-white shadow-lg shadow-champagne-gold/20 transition-all hover:-translate-y-0.5 hover:bg-deep-gold disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
+            class="rsvp-accent-button min-h-14 w-full rounded-full bg-champagne-gold px-6 text-sm font-bold text-white shadow-lg shadow-champagne-gold/20 transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
           >
             {{ submitting ? "Sending..." : "Send RSVP" }}
           </button>
 
-          <p v-if="submitError" class="text-dusty-crimson text-xs text-center">
+          <p v-if="submitError" class="text-center text-xs text-dusty-crimson" role="alert">
             {{ submitError }}
           </p>
         </form>
@@ -576,8 +577,8 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { useForm, useField } from "vee-validate";
 import { hasMenuCourses } from "~/utils/rsvpMenu";
 import {
+  createRsvpTheme,
   defaultRsvpDesign,
-  readableTextColor,
   resolveRsvpDesign,
   type RsvpDesign,
 } from "~/utils/rsvpDesign";
@@ -666,13 +667,7 @@ interface Wishlist {
   items: WishlistItem[];
 }
 const rsvpDesign = ref<RsvpDesign>({ ...defaultRsvpDesign });
-const rsvpThemeStyle = computed(() => ({
-  "--rsvp-accent": rsvpDesign.value.accentColor,
-  "--rsvp-background": rsvpDesign.value.backgroundColor,
-  "--rsvp-surface": rsvpDesign.value.surfaceColor,
-  "--rsvp-text": readableTextColor(rsvpDesign.value.surfaceColor),
-  "--rsvp-on-accent": readableTextColor(rsvpDesign.value.accentColor),
-}));
+const rsvpThemeStyle = computed(() => createRsvpTheme(rsvpDesign.value));
 const plusOneGuests = ref<PlusOneGuest[]>([]);
 const wishlist = ref<Wishlist | null>(null);
 
@@ -895,10 +890,50 @@ const onSubmit = handleSubmit(async (values) => {
 <style scoped>
 .rsvp-themed {
   background: var(--rsvp-background);
+  --rsvp-section-gap: clamp(1.5rem, 3vw, 2rem);
+  --rsvp-card-gap: clamp(1rem, 2vw, 1.5rem);
 }
 
 .rsvp-themed :deep(.card-surface) {
   background-color: var(--rsvp-surface);
+  border-color: var(--rsvp-border);
+}
+
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rsvp-section-gap);
+}
+
+.rsvp-muted-panel,
+.rsvp-themed :deep(.rsvp-muted-panel),
+.rsvp-themed :deep([class*="bg-soft-champagne"]) {
+  color: var(--rsvp-muted-text);
+  background-color: var(--rsvp-muted-surface);
+  border-color: var(--rsvp-border);
+}
+
+.rsvp-input-panel,
+.rsvp-themed :deep(.rsvp-input-panel),
+.rsvp-themed :deep([class*="bg-ivory-cream"]) {
+  color: var(--rsvp-input-text);
+  background-color: var(--rsvp-input-surface);
+  border-color: var(--rsvp-border);
+}
+
+.rsvp-surface-panel,
+.rsvp-themed :deep(.rsvp-surface-panel) {
+  color: var(--rsvp-text);
+  background-color: var(--rsvp-surface);
+  border-color: var(--rsvp-border);
+}
+
+.rsvp-themed :deep(.border-linen) {
+  border-color: var(--rsvp-border);
+}
+
+.rsvp-themed :deep(.divide-linen > :not(:last-child)) {
+  border-color: var(--rsvp-border);
 }
 
 .rsvp-themed :deep(.bg-champagne-gold) {
@@ -916,8 +951,67 @@ const onSubmit = handleSubmit(async (values) => {
   color: var(--rsvp-text);
 }
 
+.rsvp-muted-panel :deep(.text-charcoal),
+.rsvp-muted-panel :deep(.text-warm-gray),
+.rsvp-muted-panel :deep(.text-pearl-gray),
+.rsvp-themed :deep(.rsvp-muted-panel .text-charcoal),
+.rsvp-themed :deep(.rsvp-muted-panel .text-warm-gray),
+.rsvp-themed :deep(.rsvp-muted-panel .text-pearl-gray),
+.rsvp-themed :deep([class*="bg-soft-champagne"] .text-charcoal),
+.rsvp-themed :deep([class*="bg-soft-champagne"] .text-warm-gray),
+.rsvp-themed :deep([class*="bg-soft-champagne"] .text-pearl-gray) {
+  color: var(--rsvp-muted-text);
+}
+
+.rsvp-input-panel :deep(.text-charcoal),
+.rsvp-input-panel :deep(.text-warm-gray),
+.rsvp-input-panel :deep(.text-pearl-gray),
+.rsvp-themed :deep(.rsvp-input-panel .text-charcoal),
+.rsvp-themed :deep(.rsvp-input-panel .text-warm-gray),
+.rsvp-themed :deep(.rsvp-input-panel .text-pearl-gray),
+.rsvp-themed :deep([class*="bg-ivory-cream"] .text-charcoal),
+.rsvp-themed :deep([class*="bg-ivory-cream"] .text-warm-gray),
+.rsvp-themed :deep([class*="bg-ivory-cream"] .text-pearl-gray) {
+  color: var(--rsvp-input-text);
+}
+
+.rsvp-input-panel::placeholder,
+.rsvp-surface-panel::placeholder {
+  color: color-mix(in srgb, currentColor 55%, transparent);
+}
+
+.rsvp-input-panel:focus,
+.rsvp-surface-panel:focus {
+  border-color: var(--rsvp-accent);
+  --tw-ring-color: color-mix(in srgb, var(--rsvp-accent) 32%, transparent);
+}
+
 .rsvp-themed :deep(.bg-champagne-gold.text-white) {
   color: var(--rsvp-on-accent);
+}
+
+.rsvp-accent-button,
+.rsvp-themed :deep(.rsvp-accent-button) {
+  color: var(--rsvp-on-accent);
+  background-color: var(--rsvp-accent);
+}
+
+.rsvp-accent-button:hover,
+.rsvp-themed :deep(.rsvp-accent-button:hover) {
+  background-color: var(--rsvp-accent);
+  filter: brightness(0.93);
+}
+
+.rsvp-outline-button,
+.rsvp-themed :deep(.rsvp-outline-button) {
+  color: var(--rsvp-accent);
+  border-color: var(--rsvp-accent);
+}
+
+.rsvp-outline-button:hover,
+.rsvp-themed :deep(.rsvp-outline-button:hover) {
+  color: var(--rsvp-on-accent);
+  background-color: var(--rsvp-accent);
 }
 
 .rsvp-themed :deep(.border-champagne-gold),
@@ -926,7 +1020,7 @@ const onSubmit = handleSubmit(async (values) => {
 }
 
 .rsvp-template-botanical .rsvp-invitation-header {
-  border-radius: 0 0 45% 45% / 0 0 10% 10%;
+  border-radius: 0 0 45% 45% / 0 0 8% 8%;
 }
 
 .rsvp-template-botanical .rsvp-hero-image {
@@ -934,18 +1028,37 @@ const onSubmit = handleSubmit(async (values) => {
 }
 
 @media (min-width: 640px) {
-  .rsvp-template-modern .rsvp-invitation-header {
+  .rsvp-template-modern .rsvp-invitation-header.rsvp-modern-has-hero {
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
     align-items: center;
-    gap: 2rem;
+    column-gap: clamp(1.5rem, 4vw, 2.5rem);
+    row-gap: 0.35rem;
     text-align: left;
   }
 
-  .rsvp-template-modern .rsvp-hero-image {
+  .rsvp-template-modern .rsvp-modern-has-hero .rsvp-hero-image {
     grid-row: 1 / span 3;
-    height: 20rem;
+    height: clamp(17rem, 38vw, 20rem);
+    aspect-ratio: auto;
     margin: 0;
+  }
+
+  .rsvp-template-modern .rsvp-modern-has-hero > :not(.rsvp-hero-image) {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rsvp-themed *,
+  .rsvp-themed *::before,
+  .rsvp-themed *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <section class="mt-8 card-surface overflow-hidden" aria-labelledby="wishlist-heading">
-    <header class="bg-soft-champagne px-6 py-7 text-center border-b border-linen">
+  <section class="mt-8 card-surface overflow-hidden sm:mt-10" aria-labelledby="wishlist-heading">
+    <header class="rsvp-muted-panel border-b px-5 py-7 text-center sm:px-8 sm:py-8">
       <p class="font-accent text-champagne-gold text-2xl mb-1">Gifts</p>
       <h2 id="wishlist-heading" class="font-display text-2xl text-charcoal">
         {{ wishlist.title }}
@@ -10,16 +10,16 @@
       </p>
     </header>
 
-    <div class="grid gap-5 p-6 sm:grid-cols-2">
+    <div class="grid gap-4 p-4 sm:grid-cols-2 sm:gap-5 sm:p-6">
       <article
         v-for="item in wishlist.items"
         :key="item.id"
-        class="rounded-2xl border border-linen bg-ivory-cream overflow-hidden flex flex-col"
+        class="rsvp-input-panel flex flex-col overflow-hidden rounded-2xl border"
       >
         <div v-if="item.imageUrl" class="aspect-[4/3] bg-soft-champagne overflow-hidden">
           <img :src="item.imageUrl" :alt="item.title" class="h-full w-full object-cover" loading="lazy" />
         </div>
-        <div class="p-5 flex flex-col grow">
+        <div class="flex grow flex-col p-4 sm:p-5">
           <div class="flex items-start gap-2">
             <span v-if="item.isPriority" class="text-dusty-crimson" aria-label="Most wanted">♥</span>
             <h3 class="font-display text-xl text-charcoal leading-tight">{{ item.title }}</h3>
@@ -44,7 +44,7 @@
               target="_blank"
               rel="noopener noreferrer"
               referrerpolicy="no-referrer"
-              class="flex min-h-11 items-center justify-center rounded-xl border border-champagne-gold text-champagne-gold font-semibold text-sm hover:bg-soft-champagne transition-colors"
+              class="rsvp-outline-button flex min-h-12 items-center justify-center rounded-xl border font-semibold text-sm transition-colors"
             >
               Open shop ↗
             </a>
@@ -55,7 +55,7 @@
               </p>
               <button
                 type="button"
-                class="w-full min-h-11 rounded-xl border border-linen text-warm-gray text-sm font-semibold hover:border-blush-rose disabled:opacity-50"
+                class="rsvp-surface-panel min-h-12 w-full rounded-xl border text-sm font-semibold disabled:opacity-50"
                 :disabled="savingItemId === item.id"
                 @click="setReservation(item, 0)"
               >
@@ -67,7 +67,7 @@
                 v-if="item.remainingQuantity > 1"
                 v-model.number="quantities[item.id]"
                 :aria-label="`Quantity for ${item.title}`"
-                class="min-h-11 rounded-xl border border-linen bg-white px-3 text-charcoal"
+                class="rsvp-surface-panel min-h-12 rounded-xl border px-3"
               >
                 <option v-for="quantity in item.remainingQuantity" :key="quantity" :value="quantity">
                   {{ quantity }}
@@ -75,7 +75,7 @@
               </select>
               <button
                 type="button"
-                class="grow min-h-11 rounded-xl bg-champagne-gold text-white text-sm font-semibold hover:bg-deep-gold disabled:opacity-50"
+                class="rsvp-accent-button min-h-12 grow rounded-xl text-sm font-semibold disabled:opacity-50"
                 :disabled="savingItemId === item.id"
                 @click="setReservation(item, quantities[item.id] || 1)"
               >
@@ -171,4 +171,3 @@ async function setReservation(item: WishlistItem, quantity: number) {
   }
 }
 </script>
-
