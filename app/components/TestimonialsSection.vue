@@ -39,11 +39,19 @@
 </template>
 
 <script setup lang="ts">
-const { tm } = useI18n();
-const coupleNeeds = computed(() => tm("home.couples.items") as Array<{
-  title: string;
-  initials: string;
-  detail: string;
-  description: string;
-}>);
+const { tm, rt } = useI18n();
+const coupleNeeds = computed(() => {
+  const messages = tm("home.couples.items") as Array<{
+    title: string;
+    initials: string;
+    detail: string;
+    description: string;
+  }>;
+  return messages.map(({ title, initials, detail, description }) => ({
+    title: rt(title),
+    initials: rt(initials),
+    detail: rt(detail),
+    description: rt(description),
+  }));
+});
 </script>

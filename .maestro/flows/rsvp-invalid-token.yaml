@@ -1,0 +1,13 @@
+url: ${WEB_URL}/rsvp?token=invalid-token
+name: rsvp-invalid-token
+tags:
+  - web
+  - regression
+---
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: rsvp-error
+    timeout: 20000
+- assertVisible:
+    id: rsvp-page

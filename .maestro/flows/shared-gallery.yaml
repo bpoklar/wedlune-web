@@ -1,0 +1,14 @@
+url: ${WEB_URL}/shared-gallery?token=${GALLERY_TOKEN}
+name: shared-gallery
+tags:
+  - web
+  - regression
+  - gallery
+---
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: shared-gallery-content
+    timeout: 30000
+- assertVisible:
+    id: shared-gallery-page

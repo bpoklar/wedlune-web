@@ -1,0 +1,37 @@
+url: ${WEB_URL}/rsvp?token=${RSVP_TOKEN}
+name: rsvp-and-wishlist
+tags:
+  - web
+  - regression
+  - rsvp
+  - wishlist
+---
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: rsvp-page
+    timeout: 30000
+- scrollUntilVisible:
+    element:
+      id: wishlist-section
+    direction: DOWN
+- assertVisible:
+    id: wishlist-section
+- tapOn:
+    id: wishlist-reserve-${WISHLIST_ITEM_ID}
+- extendedWaitUntil:
+    visible:
+      id: wishlist-cancel-${WISHLIST_ITEM_ID}
+    timeout: 20000
+- scrollUntilVisible:
+    element:
+      id: rsvp-decline
+    direction: UP
+- tapOn:
+    id: rsvp-decline
+- tapOn:
+    id: rsvp-submit
+- extendedWaitUntil:
+    visible:
+      id: rsvp-confirmation
+    timeout: 30000

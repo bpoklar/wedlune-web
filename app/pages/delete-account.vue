@@ -56,9 +56,11 @@
 </template>
 
 <script setup lang="ts">
-const { t, tm } = useI18n();
+const { t, tm, rt } = useI18n();
 const localePath = useLocalePath();
-const deletionSteps = computed(() => tm("deleteAccount.steps") as string[]);
+const deletionSteps = computed(() =>
+  (tm("deleteAccount.steps") as string[]).map((step) => rt(step)),
+);
 const deletionEmail = computed(
   () => `mailto:support@wedlune.com?subject=${encodeURIComponent(t("deleteAccount.emailSubject"))}`,
 );

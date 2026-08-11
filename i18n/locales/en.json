@@ -43,9 +43,9 @@
       "secondary": "See how it works",
       "highlights": "Wedlune highlights",
       "stats": [
-        { "value": "AI", "label": "built timeline" },
-        { "value": "1", "label": "shared partner plan" },
-        { "value": "All", "label": "guests, vendors, budget, RSVPs" }
+        { "value": "AI", "label": "smart timeline" },
+        { "value": "1", "label": "shared planning" },
+        { "value": "All", "label": "planning tools" }
       ],
       "suggestion": "AI suggests what to do next",
       "nextAction": "Next best action",
@@ -56,7 +56,18 @@
       "budget": "Budget",
       "rsvps": "RSVPs",
       "budgetWarning": "Budget warning",
-      "budgetWarningBody": "Catering is trending over plan. Review guest count before deposit."
+      "budgetWarningBody": "Catering is trending over plan. Review guest count before deposit.",
+      "slider": {
+        "label": "Wedlune app preview",
+        "slides": {
+          "homeTitle": "Your plan at a glance",
+          "homeAlt": "Wedlune mobile app home screen showing wedding summary and planning sections",
+          "budgetTitle": "A budget that stays clear",
+          "budgetAlt": "Wedlune mobile app budget screen showing estimated, actual, and paid wedding costs",
+          "guestsTitle": "Every guest, beautifully organized",
+          "guestsAlt": "Wedlune mobile app guest list showing RSVP statuses, meal choices, and seating"
+        }
+      }
     },
     "features": {
       "kicker": "One calm planning space",

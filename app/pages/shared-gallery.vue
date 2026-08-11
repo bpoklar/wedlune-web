@@ -1,8 +1,8 @@
 <template>
-  <div class="soft-page-bg min-h-screen px-4 pt-24 pb-16">
+  <div id="shared-gallery-page" class="soft-page-bg min-h-screen px-4 pt-24 pb-16">
     <div class="mx-auto max-w-4xl px-6">
       <!-- Loading state -->
-      <div v-if="loading" class="flex flex-col items-center justify-center py-24 space-y-4">
+      <div id="shared-gallery-loading" v-if="loading" class="flex flex-col items-center justify-center py-24 space-y-4">
         <div class="w-12 h-12 border-4 border-champagne-gold/30 border-t-champagne-gold rounded-full animate-spin" />
         <p class="text-warm-gray text-sm">{{ $t("gallery.loading") }}</p>
       </div>
@@ -10,6 +10,7 @@
       <!-- Error state -->
       <div
         v-else-if="errorMessage"
+        id="shared-gallery-error"
         class="card-surface p-10 text-center max-w-lg mx-auto"
       >
         <div class="text-5xl mb-4">📷</div>
@@ -28,7 +29,7 @@
       </div>
 
       <!-- Gallery content -->
-      <template v-else-if="data">
+      <div v-else-if="data" id="shared-gallery-content">
         <!-- Header -->
         <div class="text-center mb-10">
           <p class="section-kicker">{{ $t("gallery.kicker") }}</p>
@@ -164,7 +165,7 @@
             Wedlune
           </NuxtLink>
         </p>
-      </template>
+      </div>
     </div>
   </div>
 </template>

@@ -56,7 +56,8 @@
 </template>
 
 <script setup lang="ts">
-const { tm } = useI18n();
-const freeItems = computed(() => tm("home.pricing.freeItems") as string[]);
-const premiumItems = computed(() => tm("home.pricing.premiumItems") as string[]);
+const { tm, rt } = useI18n();
+const resolveList = (key: string) => (tm(key) as string[]).map((item) => rt(item));
+const freeItems = computed(() => resolveList("home.pricing.freeItems"));
+const premiumItems = computed(() => resolveList("home.pricing.premiumItems"));
 </script>

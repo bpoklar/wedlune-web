@@ -107,9 +107,13 @@ const featureDefinitions = [
     bgClass: "bg-sage-green/15",
   },
 ];
-const { tm } = useI18n();
+const { tm, rt } = useI18n();
 const features = computed(() => {
   const copy = tm("home.features.items") as Array<{ title: string; description: string }>;
-  return featureDefinitions.map((definition, index) => ({ ...definition, ...copy[index] }));
+  return featureDefinitions.map((definition, index) => ({
+    ...definition,
+    title: rt(copy[index].title),
+    description: rt(copy[index].description),
+  }));
 });
 </script>

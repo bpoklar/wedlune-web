@@ -86,9 +86,13 @@ const trustDefinitions = [
     icon: ShieldIcon,
   },
 ];
-const { tm } = useI18n();
+const { tm, rt } = useI18n();
 const trustItems = computed(() => {
   const copy = tm("home.trust.items") as Array<{ title: string; description: string }>;
-  return trustDefinitions.map((definition, index) => ({ ...definition, ...copy[index] }));
+  return trustDefinitions.map((definition, index) => ({
+    ...definition,
+    title: rt(copy[index].title),
+    description: rt(copy[index].description),
+  }));
 });
 </script>

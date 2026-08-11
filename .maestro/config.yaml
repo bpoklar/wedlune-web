@@ -1,0 +1,9 @@
+flows:
+  - "flows/*.yaml"
+testOutputDir: ../.output/maestro
+executionOrder:
+  continueOnFailure: false
+  flowsOrder:
+    - rsvp-invalid-token
+    - rsvp-and-wishlist
+    - shared-gallery

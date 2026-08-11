@@ -61,14 +61,15 @@
 </template>
 
 <script setup lang="ts">
-const { t, tm } = useI18n();
+const { t, tm, rt } = useI18n();
 const localePath = useLocalePath();
 const singleSections = [{ key: "terms.s1" }, { key: "terms.s2" }];
 const middleSingleSections = [{ key: "terms.s6" }, { key: "terms.s7" }];
 const finalSections = [{ key: "terms.s12" }, { key: "terms.s13" }];
-const s3Paragraphs = computed(() => tm("terms.s3Paragraphs") as string[]);
-const s5Items = computed(() => tm("terms.s5Items") as string[]);
-const s8Items = computed(() => tm("terms.s8Items") as string[]);
+const resolveList = (key: string) => (tm(key) as string[]).map((item) => rt(item));
+const s3Paragraphs = computed(() => resolveList("terms.s3Paragraphs"));
+const s5Items = computed(() => resolveList("terms.s5Items"));
+const s8Items = computed(() => resolveList("terms.s8Items"));
 
 useSeoMeta({
   title: () => t("terms.seoTitle"),

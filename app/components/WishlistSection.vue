@@ -1,5 +1,5 @@
 <template>
-  <section class="mt-8 card-surface overflow-hidden sm:mt-10" aria-labelledby="wishlist-heading">
+  <section id="wishlist-section" class="mt-8 card-surface overflow-hidden sm:mt-10" aria-labelledby="wishlist-heading">
     <header class="rsvp-muted-panel border-b px-5 py-7 text-center sm:px-8 sm:py-8">
       <p class="font-accent text-champagne-gold text-2xl mb-1">{{ $t("wishlist.gifts") }}</p>
       <h2 id="wishlist-heading" class="font-display text-2xl text-charcoal">
@@ -14,6 +14,7 @@
       <article
         v-for="item in wishlist.items"
         :key="item.id"
+        :id="`wishlist-item-${item.id}`"
         class="rsvp-input-panel flex flex-col overflow-hidden rounded-2xl border"
       >
         <div v-if="item.imageUrl" class="aspect-4/3 bg-soft-champagne overflow-hidden">
@@ -54,6 +55,7 @@
                 {{ $t("wishlist.reservedByYou", { count: item.reservedByYou }) }}
               </p>
               <button
+                :id="`wishlist-cancel-${item.id}`"
                 type="button"
                 class="rsvp-surface-panel min-h-12 w-full rounded-xl border text-sm font-semibold disabled:opacity-50"
                 :disabled="savingItemId === item.id"
@@ -74,6 +76,7 @@
                 </option>
               </select>
               <button
+                :id="`wishlist-reserve-${item.id}`"
                 type="button"
                 class="rsvp-accent-button min-h-12 grow rounded-xl text-sm font-semibold disabled:opacity-50"
                 :disabled="savingItemId === item.id"

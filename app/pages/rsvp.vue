@@ -1,5 +1,6 @@
 <template>
   <div
+    id="rsvp-page"
     :class="[
       'soft-page-bg rsvp-themed relative mt-16 min-h-[calc(100vh-4rem)] overflow-hidden px-4 pb-8 pt-0 sm:px-6 sm:pb-12 lg:pb-16',
       `rsvp-template-${rsvpDesign.template}`,
@@ -19,6 +20,7 @@
       <!-- Loading state -->
       <div
         v-if="loading"
+        id="rsvp-loading"
         class="card-surface mx-auto max-w-lg px-6 py-12 text-center sm:px-10 sm:py-14"
         role="status"
       >
@@ -32,6 +34,7 @@
       <!-- Premium unavailable state -->
       <div
         v-else-if="premiumUnavailable"
+        id="rsvp-premium-unavailable"
         class="card-surface mx-auto max-w-lg px-6 py-10 text-center sm:p-12"
       >
         <div
@@ -50,6 +53,7 @@
       <!-- Error state -->
       <div
         v-else-if="errorMessage"
+        id="rsvp-error"
         class="card-surface mx-auto max-w-lg px-6 py-10 text-center sm:p-12"
       >
         <div
@@ -74,6 +78,7 @@
       <!-- Success state (after submission) -->
       <div
         v-else-if="submitted"
+        id="rsvp-confirmation"
         class="card-surface mx-auto max-w-xl overflow-hidden text-center"
       >
         <div class="h-1.5 bg-champagne-gold" />
@@ -246,6 +251,7 @@
                 ]"
               >
                 <input
+                  id="rsvp-accept"
                   v-model="rsvpStatusField"
                   type="radio"
                   name="rsvpStatus"
@@ -263,6 +269,7 @@
                 ]"
               >
                 <input
+                  id="rsvp-decline"
                   v-model="rsvpStatusField"
                   type="radio"
                   name="rsvpStatus"
@@ -611,6 +618,7 @@
 
           <!-- Submit -->
           <button
+            id="rsvp-submit"
             type="submit"
             :disabled="submitting"
             class="rsvp-accent-button min-h-14 w-full rounded-full bg-champagne-gold px-6 text-sm font-bold text-white shadow-lg shadow-champagne-gold/20 transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"

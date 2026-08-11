@@ -26,6 +26,12 @@
 </template>
 
 <script setup lang="ts">
-const { tm } = useI18n();
-const steps = computed(() => tm("home.how.steps") as Array<{ title: string; description: string }>);
+const { tm, rt } = useI18n();
+const steps = computed(() => {
+  const messages = tm("home.how.steps") as Array<{ title: string; description: string }>;
+  return messages.map(({ title, description }) => ({
+    title: rt(title),
+    description: rt(description),
+  }));
+});
 </script>

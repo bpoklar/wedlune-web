@@ -43,9 +43,9 @@
       "secondary": "Poglej, kako deluje",
       "highlights": "Prednosti aplikacije Wedlune",
       "stats": [
-        { "value": "AI", "label": "izdelana časovnica" },
-        { "value": "1", "label": "skupni načrt za par" },
-        { "value": "Vse", "label": "gostje, ponudniki, proračun, RSVP" }
+        { "value": "AI", "label": "pametna časovnica" },
+        { "value": "1", "label": "skupno načrtovanje" },
+        { "value": "Vse", "label": "orodja za poroko" }
       ],
       "suggestion": "AI predlaga naslednji korak",
       "nextAction": "Najboljši naslednji korak",
@@ -56,7 +56,18 @@
       "budget": "Proračun",
       "rsvps": "Odgovori RSVP",
       "budgetWarning": "Opozorilo proračuna",
-      "budgetWarningBody": "Stroški cateringa presegajo načrt. Pred plačilom preglejta število gostov."
+      "budgetWarningBody": "Stroški cateringa presegajo načrt. Pred plačilom preglejta število gostov.",
+      "slider": {
+        "label": "Predogled aplikacije Wedlune",
+        "slides": {
+          "homeTitle": "Celoten načrt na enem mestu",
+          "homeAlt": "Začetni zaslon mobilne aplikacije Wedlune s povzetkom poroke in področji načrtovanja",
+          "budgetTitle": "Vedno pregleden proračun",
+          "budgetAlt": "Zaslon proračuna v mobilni aplikaciji Wedlune z ocenjenimi, dejanskimi in plačanimi stroški",
+          "guestsTitle": "Vsi gostje lepo urejeni",
+          "guestsAlt": "Seznam gostov v mobilni aplikaciji Wedlune s statusi RSVP, izbiro jedi in sedežnim redom"
+        }
+      }
     },
     "features": {
       "kicker": "En miren prostor za načrtovanje",

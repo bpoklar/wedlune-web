@@ -72,19 +72,20 @@
 </template>
 
 <script setup lang="ts">
-const { t, tm } = useI18n();
+const { t, tm, rt } = useI18n();
 const localePath = useLocalePath();
-const stringArray = (key: string) => computed(() => tm(key) as string[]);
+const resolveList = (key: string) => (tm(key) as string[]).map((item) => rt(item));
+const stringArray = (key: string) => computed(() => resolveList(key));
 const s2Items = stringArray("privacy.s2Items");
 const s7Items = stringArray("privacy.s7Items");
 const paragraphSections = computed(() => [
-  { key: "privacy.s3", paragraphs: tm("privacy.s3Paragraphs") as string[] },
-  { key: "privacy.s4", paragraphs: tm("privacy.s4Paragraphs") as string[] },
+  { key: "privacy.s3", paragraphs: resolveList("privacy.s3Paragraphs") },
+  { key: "privacy.s4", paragraphs: resolveList("privacy.s4Paragraphs") },
 ]);
-const s6Paragraphs = computed(() => tm("privacy.s6Paragraphs") as string[]);
+const s6Paragraphs = computed(() => resolveList("privacy.s6Paragraphs"));
 const laterParagraphSections = computed(() => [
-  { key: "privacy.s8", paragraphs: tm("privacy.s8Paragraphs") as string[] },
-  { key: "privacy.s9", paragraphs: tm("privacy.s9Paragraphs") as string[] },
+  { key: "privacy.s8", paragraphs: resolveList("privacy.s8Paragraphs") },
+  { key: "privacy.s9", paragraphs: resolveList("privacy.s9Paragraphs") },
 ]);
 
 useSeoMeta({
