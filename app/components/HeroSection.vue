@@ -21,7 +21,7 @@
       <div class="relative min-h-[34rem] sm:min-h-[42rem]" :aria-label="$t('home.hero.slider.label')">
         <div class="absolute inset-x-8 top-0 h-[31rem] overflow-hidden rounded-[2.5rem] shadow-2xl sm:inset-x-12 sm:h-[38rem] lg:inset-x-0 lg:left-16">
           <EditorialPicture name="rings" :alt="$t('home.hero.photoAlt')" :width="1440" :height="1800" eager sizes="(min-width: 1024px) 42vw, 85vw" />
-          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/20 via-transparent to-white/5" />
+          <div class="absolute inset-0 bg-linear-to-t from-charcoal/20 via-transparent to-white/5" />
         </div>
 
         <div class="absolute bottom-0 left-0 w-[13.5rem] rounded-[2.4rem] border-[8px] border-charcoal bg-charcoal shadow-2xl sm:left-4 sm:w-[16rem] lg:-left-3">

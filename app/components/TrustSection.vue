@@ -7,7 +7,7 @@
         <p class="section-subtitle mx-auto mt-6">{{ $t("home.trust.subtitle") }}</p>
       </div>
       <div class="mt-14 grid gap-5 md:grid-cols-3">
-        <article v-for="item in items" :key="item.title" class="rounded-[2rem] border border-linen bg-warm-white p-7 sm:p-8">
+        <article v-for="item in items" :key="item.title" class="rounded-4xl border border-linen bg-warm-white p-7 sm:p-8">
           <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-sage-green/10 text-sage-green" aria-hidden="true">✓</span>
           <h3 class="mt-7 font-display text-2xl text-charcoal">{{ item.title }}</h3>
           <p class="mt-4 text-sm leading-7 text-warm-gray">{{ item.description }}</p>

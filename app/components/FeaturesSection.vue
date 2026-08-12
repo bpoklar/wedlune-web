@@ -14,7 +14,7 @@
           v-for="(feature, index) in features"
           :key="feature.title"
           class="group card-surface relative overflow-hidden p-7 sm:p-8"
-          :class="index < 2 ? 'lg:col-span-6 lg:min-h-[21rem]' : 'lg:col-span-3'"
+          :class="index < 2 ? 'lg:col-span-6 lg:min-h-84' : 'lg:col-span-3'"
         >
           <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-soft-champagne text-deep-gold" aria-hidden="true">
             <component :is="feature.icon" class="h-6 w-6" />
@@ -27,9 +27,9 @@
       </div>
 
       <div class="mt-16 grid overflow-hidden rounded-[2.5rem] bg-soft-champagne lg:grid-cols-[0.9fr_1.1fr]">
-        <div class="relative min-h-[22rem] lg:min-h-[32rem]">
+        <div class="relative min-h-88 lg:min-h-128">
           <EditorialPicture name="roses" :alt="$t('home.features.photoAlt')" :width="1440" :height="1080" sizes="(min-width: 1024px) 45vw, 100vw" />
-          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/20 to-transparent" />
+          <div class="absolute inset-0 bg-linear-to-t from-charcoal/20 to-transparent" />
         </div>
         <div class="flex items-center p-8 sm:p-12 lg:p-16">
           <div>
