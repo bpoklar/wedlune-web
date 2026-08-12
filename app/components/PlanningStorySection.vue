@@ -7,7 +7,7 @@
         <p class="mt-6 max-w-lg text-base leading-8 text-white/70 sm:text-lg">{{ $t("home.problem.body") }}</p>
       </div>
       <div class="space-y-4">
-        <article v-for="(item, index) in items" :key="item.title" class="rounded-4xl border border-white/15 bg-white/[0.05] p-6 sm:p-8">
+        <article v-for="(item, index) in items" :key="item.title" class="rounded-4xl border border-white/15 bg-white/5 p-6 sm:p-8">
           <div class="flex items-start gap-5">
             <span class="font-display text-3xl text-soft-champagne" aria-hidden="true">0{{ index + 1 }}</span>
             <div>
