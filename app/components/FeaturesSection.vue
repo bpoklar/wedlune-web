@@ -1,35 +1,48 @@
 <template>
-  <section id="features" class="py-20 bg-soft-champagne">
+  <section id="features" class="py-20 sm:py-28">
     <div class="section-shell">
-      <div class="text-center mb-16">
-        <p class="section-kicker">{{ $t("home.features.kicker") }}</p>
-        <h2 class="section-title">
-          {{ $t("home.features.title") }}
-        </h2>
-        <p class="section-subtitle mx-auto mt-4">
-          {{ $t("home.features.subtitle") }}
-        </p>
+      <div class="grid gap-7 lg:grid-cols-[1fr_0.85fr] lg:items-end">
+        <div>
+          <p class="section-kicker">{{ $t("home.features.kicker") }}</p>
+          <h2 class="section-title">{{ $t("home.features.title") }}</h2>
+        </div>
+        <p class="section-subtitle lg:justify-self-end">{{ $t("home.features.subtitle") }}</p>
       </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-12">
         <article
-          v-for="feature in features"
+          v-for="(feature, index) in features"
           :key="feature.title"
-          class="card-surface p-8 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+          class="group card-surface relative overflow-hidden p-7 sm:p-8"
+          :class="index < 2 ? 'lg:col-span-6 lg:min-h-[21rem]' : 'lg:col-span-3'"
         >
-          <div
-            class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
-            :class="feature.bgClass"
-          >
-            <component :is="feature.icon" class="w-6 h-6" />
+          <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-soft-champagne text-deep-gold" aria-hidden="true">
+            <component :is="feature.icon" class="h-6 w-6" />
           </div>
-          <h3 class="font-display text-xl text-charcoal mb-3">
-            {{ feature.title }}
-          </h3>
-          <p class="text-warm-gray text-sm leading-relaxed">
-            {{ feature.description }}
-          </p>
+          <p class="mt-9 text-xs font-extrabold uppercase tracking-[0.15em] text-pearl-gray">{{ String(index + 1).padStart(2, "0") }}</p>
+          <h3 class="mt-3 font-display text-2xl leading-tight text-charcoal">{{ feature.title }}</h3>
+          <p class="mt-4 text-sm leading-7 text-warm-gray">{{ feature.description }}</p>
+          <div v-if="index < 2" class="absolute -bottom-14 -right-14 h-40 w-40 rounded-full bg-blush-rose/10 transition-transform group-hover:-translate-x-2 group-hover:-translate-y-2" aria-hidden="true" />
         </article>
+      </div>
+
+      <div class="mt-16 grid overflow-hidden rounded-[2.5rem] bg-soft-champagne lg:grid-cols-[0.9fr_1.1fr]">
+        <div class="relative min-h-[22rem] lg:min-h-[32rem]">
+          <EditorialPicture name="roses" :alt="$t('home.features.photoAlt')" :width="1440" :height="1080" sizes="(min-width: 1024px) 45vw, 100vw" />
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/20 to-transparent" />
+        </div>
+        <div class="flex items-center p-8 sm:p-12 lg:p-16">
+          <div>
+            <p class="section-kicker">{{ $t("home.connected.kicker") }}</p>
+            <h3 class="font-display text-3xl leading-tight text-charcoal sm:text-4xl">{{ $t("home.connected.title") }}</h3>
+            <p class="mt-5 text-base leading-8 text-warm-gray">{{ $t("home.connected.body") }}</p>
+            <ul class="mt-7 space-y-4">
+              <li v-for="item in connectedItems" :key="item" class="flex gap-3 text-sm font-bold text-charcoal">
+                <span class="mt-0.5 text-sage-green" aria-hidden="true">✓</span>{{ item }}
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -38,82 +51,29 @@
 <script setup lang="ts">
 import { defineComponent, h } from "vue";
 
-const makeIcon = (path: string) =>
-  defineComponent({
-    inheritAttrs: false,
-    setup(_, { attrs }) {
-      return () =>
-        h(
-          "svg",
-          {
-            ...attrs,
-            fill: "none",
-            stroke: "currentColor",
-            viewBox: "0 0 24 24",
-            "aria-hidden": "true",
-          },
-          [
-            h("path", {
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round",
-              "stroke-width": "1.8",
-              d: path,
-            }),
-          ],
-        );
-    },
-  });
-
-const SparkleIcon = makeIcon(
-  "m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Zm6 11 .9 2.6 2.6.9-2.6.9L18 21l-.9-2.6-2.6-.9 2.6-.9L18 14Z",
-);
-const CalendarIcon = makeIcon(
-  "M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z",
-);
-const GuestsIcon = makeIcon(
-  "M16 11a4 4 0 1 0-8 0m8 0a4 4 0 0 1-8 0m8 0c2.5.8 4 2.5 4 5v1H4v-1c0-2.5 1.5-4.2 4-5",
-);
-const BudgetIcon = makeIcon(
-  "M12 6v12m4-8c0-1.7-1.8-3-4-3s-4 1.3-4 3 1.8 2.4 4 2.4 4 .7 4 2.3-1.8 3-4 3-4-1.3-4-3",
-);
-const VendorIcon = makeIcon("M7 8h10M7 12h10M9 16h6M5 4h14v16H5z");
-const CameraIcon = makeIcon(
-  "M4 8h4l1.5-2h5L16 8h4v11H4V8Zm8 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z",
-);
-
-const featureDefinitions = [
-  {
-    icon: SparkleIcon,
-    bgClass: "bg-champagne-gold/10",
+const makeIcon = (path: string) => defineComponent({
+  inheritAttrs: false,
+  setup(_, { attrs }) {
+    return () => h("svg", { ...attrs, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", "aria-hidden": "true" }, [
+      h("path", { "stroke-linecap": "round", "stroke-linejoin": "round", "stroke-width": "1.8", d: path }),
+    ]);
   },
-  {
-    icon: CalendarIcon,
-    bgClass: "bg-blush-rose/15",
-  },
-  {
-    icon: GuestsIcon,
-    bgClass: "bg-sage-green/15",
-  },
-  {
-    icon: BudgetIcon,
-    bgClass: "bg-champagne-gold/10",
-  },
-  {
-    icon: VendorIcon,
-    bgClass: "bg-blush-rose/15",
-  },
-  {
-    icon: CameraIcon,
-    bgClass: "bg-sage-green/15",
-  },
-];
-const { tm, rt } = useI18n();
-const features = computed(() => {
-  const copy = tm("home.features.items") as Array<{ title: string; description: string }>;
-  return featureDefinitions.map((definition, index) => ({
-    ...definition,
-    title: rt(copy[index].title),
-    description: rt(copy[index].description),
-  }));
 });
+
+const definitions = [
+  makeIcon("M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"),
+  makeIcon("M16 11a4 4 0 1 0-8 0m8 0a4 4 0 0 1-8 0m8 0c2.5.8 4 2.5 4 5v1H4v-1c0-2.5 1.5-4.2 4-5"),
+  makeIcon("M12 6v12m4-8c0-1.7-1.8-3-4-3s-4 1.3-4 3 1.8 2.4 4 2.4 4 .7 4 2.3-1.8 3-4 3-4-1.3-4-3"),
+  makeIcon("M7 8h10M7 12h10M9 16h6M5 4h14v16H5z"),
+  makeIcon("M4 8h4l1.5-2h5L16 8h4v11H4V8Zm8 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"),
+  makeIcon("m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Zm6 11 .9 2.6 2.6.9-2.6.9L18 21l-.9-2.6-2.6-.9 2.6-.9L18 14Z"),
+];
+
+const { tm, rt } = useI18n();
+const features = computed(() => (tm("home.features.items") as Array<{ title: string; description: string }>).map((item, index) => ({
+  icon: definitions[index],
+  title: rt(item.title),
+  description: rt(item.description),
+})));
+const connectedItems = computed(() => (tm("home.connected.items") as string[]).map((item) => rt(item)));
 </script>

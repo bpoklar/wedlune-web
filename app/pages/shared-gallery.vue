@@ -1,9 +1,9 @@
 <template>
-  <div id="shared-gallery-page" class="soft-page-bg min-h-screen px-4 pt-24 pb-16">
+  <main id="main-content" tabindex="-1" class="soft-page-bg min-h-[calc(100vh-4rem)] px-4 pb-16 pt-10 sm:pt-14">
     <div class="mx-auto max-w-4xl px-6">
       <!-- Loading state -->
-      <div id="shared-gallery-loading" v-if="loading" class="flex flex-col items-center justify-center py-24 space-y-4">
-        <div class="w-12 h-12 border-4 border-champagne-gold/30 border-t-champagne-gold rounded-full animate-spin" />
+      <div id="shared-gallery-loading" v-if="loading" class="flex flex-col items-center justify-center py-24 space-y-4" role="status" aria-live="polite">
+        <div class="w-12 h-12 border-4 border-champagne-gold/30 border-t-champagne-gold rounded-full animate-spin" aria-hidden="true" />
         <p class="text-warm-gray text-sm">{{ $t("gallery.loading") }}</p>
       </div>
 
@@ -12,6 +12,7 @@
         v-else-if="errorMessage"
         id="shared-gallery-error"
         class="card-surface p-10 text-center max-w-lg mx-auto"
+        role="alert"
       >
         <div class="text-5xl mb-4">📷</div>
         <h1 class="font-display text-2xl text-charcoal mb-3">
@@ -89,6 +90,8 @@
                       v-if="item.src"
                       :href="item.src"
                       target="_blank"
+                      rel="noopener noreferrer"
+                      referrerpolicy="no-referrer"
                       class="flex items-start gap-4 rounded-xl bg-warm-white p-3 no-underline text-inherit transition-shadow hover:shadow-sm"
                     >
                       <img
@@ -167,16 +170,18 @@
         </p>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
+definePageMeta({ layout: "guest" });
 const { t, locale } = useI18n();
 const localePath = useLocalePath();
 
-useSeoMeta({
+useLocalizedSeo({
   title: () => t("gallery.seoTitle"),
   description: () => t("gallery.seoDescription"),
+  path: "/shared-gallery",
   robots: "noindex, nofollow",
 });
 

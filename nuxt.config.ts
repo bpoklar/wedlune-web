@@ -2,11 +2,15 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   css: ["~/assets/css/main.css"],
+  features: {
+    inlineStyles: true,
+  },
 
   nitro: {
     preset: "cloudflare_module",
+    compressPublicAssets: { gzip: true, brotli: true },
     cloudflare: {
       // Generate the Worker entrypoint/assets config that `wrangler deploy`
       // consumes. Dashboard variables are retained by keep_vars in
@@ -28,13 +32,41 @@ export default defineNuxtConfig({
 
   modules: ["@nuxtjs/seo", "@nuxt/fonts", "@vee-validate/nuxt", "@nuxtjs/i18n"],
 
+  fonts: {
+    defaults: {
+      weights: [400],
+      styles: ["normal"],
+      subsets: ["latin-ext", "latin"],
+      formats: ["woff2"],
+    },
+    devtools: false,
+  },
+
   app: {
     head: {
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+      meta: [
+        { name: "theme-color", content: "#fffdf9" },
+        { name: "color-scheme", content: "light" },
+      ],
     },
   },
 
   routeRules: {
+    "/": { prerender: true },
+    "/sl": { prerender: true },
+    "/privacy": { prerender: true },
+    "/terms": { prerender: true },
+    "/delete-account": { prerender: true },
+    "/sl/privacy": { prerender: true },
+    "/sl/terms": { prerender: true },
+    "/sl/delete-account": { prerender: true },
+    "/_nuxt/**": {
+      headers: { "Cache-Control": "public, max-age=31536000, immutable" },
+    },
+    "/img/**": {
+      headers: { "Cache-Control": "public, max-age=604800, stale-while-revalidate=86400" },
+    },
     "/rsvp": {
       headers: {
         "Cache-Control": "no-store",
@@ -80,7 +112,7 @@ export default defineNuxtConfig({
     url: "https://wedlune.com",
     name: "Wedlune",
     description:
-      "Budgets, RSVPs, smart timelines, and AI recommendations. Your entire wedding, beautifully organized in one app.",
+      "A calm wedding planner app for couples, with a shared checklist, budget, guests, RSVPs, vendors, and timeline.",
     defaultLocale: "en",
   },
 
@@ -93,14 +125,14 @@ export default defineNuxtConfig({
     enabled: false,
   },
 
-  robots: {
-    sitemap: "https://wedlune.com/sitemap.xml",
-  },
+  robots: {},
 
   runtimeConfig: {
     public: {
       supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL || "",
       supabaseAnonKey: process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY || "",
+      appStoreUrl: process.env.NUXT_PUBLIC_APP_STORE_URL || "",
+      googlePlayUrl: process.env.NUXT_PUBLIC_GOOGLE_PLAY_URL || "",
     },
   },
 });

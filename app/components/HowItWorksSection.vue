@@ -1,37 +1,22 @@
 <template>
-  <section id="how-it-works" class="py-20">
+  <section id="how-it-works" class="bg-soft-champagne py-20 sm:py-28">
     <div class="section-shell">
-      <div class="text-center mb-16">
+      <div class="max-w-3xl">
         <p class="section-kicker">{{ $t("home.how.kicker") }}</p>
         <h2 class="section-title">{{ $t("home.how.title") }}</h2>
       </div>
-
-      <div class="grid md:grid-cols-3 gap-12">
-        <div v-for="(step, i) in steps" :key="step.title" class="text-center">
-          <div
-            class="w-16 h-16 rounded-full bg-champagne-gold/10 border-2 border-champagne-gold flex items-center justify-center text-champagne-gold font-display text-2xl mx-auto mb-6"
-          >
-            {{ i + 1 }}
-          </div>
-          <h3 class="font-display text-xl text-charcoal mb-3">
-            {{ step.title }}
-          </h3>
-          <p class="text-warm-gray text-sm leading-relaxed max-w-xs mx-auto">
-            {{ step.description }}
-          </p>
-        </div>
-      </div>
+      <ol class="mt-14 grid gap-5 md:grid-cols-3">
+        <li v-for="(step, index) in steps" :key="step.title" class="relative rounded-[2rem] border border-deep-gold/15 bg-warm-white p-7 sm:p-8">
+          <span class="font-display text-5xl text-champagne-gold" aria-hidden="true">{{ String(index + 1).padStart(2, "0") }}</span>
+          <h3 class="mt-8 font-display text-2xl text-charcoal">{{ step.title }}</h3>
+          <p class="mt-4 text-sm leading-7 text-warm-gray">{{ step.description }}</p>
+        </li>
+      </ol>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 const { tm, rt } = useI18n();
-const steps = computed(() => {
-  const messages = tm("home.how.steps") as Array<{ title: string; description: string }>;
-  return messages.map(({ title, description }) => ({
-    title: rt(title),
-    description: rt(description),
-  }));
-});
+const steps = computed(() => (tm("home.how.steps") as Array<{ title: string; description: string }>).map((step) => ({ title: rt(step.title), description: rt(step.description) })));
 </script>

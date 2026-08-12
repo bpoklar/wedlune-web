@@ -1,91 +1,62 @@
 <template>
-  <section class="soft-page-bg pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
-    <div class="section-shell">
-      <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-14 items-center">
-        <!-- Text content -->
-        <div>
-          <p
-            class="inline-flex items-center gap-2 rounded-full border border-champagne-gold/30 bg-warm-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-deep-gold mb-6"
-          >
-            {{ $t("home.hero.badge") }}
-          </p>
-          <h1
-            class="font-display text-4xl md:text-5xl lg:text-6xl text-charcoal leading-[1.04] mb-6"
-          >
-            {{ $t("home.hero.title") }}
-          </h1>
-          <p class="text-warm-gray text-lg leading-relaxed mb-8 max-w-lg">
-            {{ $t("home.hero.body") }}
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4">
-            <NuxtLink
-              :to="homeLink('download')"
-              class="btn-primary"
-            >
-              {{ $t("home.hero.primary") }}
-            </NuxtLink>
-            <NuxtLink
-              :to="homeLink('how-it-works')"
-              class="btn-secondary"
-            >
-              {{ $t("home.hero.secondary") }}
-            </NuxtLink>
-          </div>
-          <div
-            class="mt-10 grid max-w-lg grid-cols-3 border-y border-linen/80 py-5"
-            :aria-label="$t('home.hero.highlights')"
-          >
-            <div
-              v-for="(stat, index) in stats"
-              :key="stat.label"
-              class="min-w-0 px-5 text-left first:pl-0 last:pr-0"
-              :class="index > 0 ? 'border-l border-linen/80' : ''"
-            >
-              <p class="font-display text-xl leading-none text-charcoal">
-                {{ stat.value }}
-              </p>
-              <p class="mt-2 text-xs leading-tight text-warm-gray">
-                {{ stat.label }}
-              </p>
-            </div>
+  <section class="soft-page-bg overflow-hidden pb-20 pt-28 sm:pb-24 sm:pt-32 lg:min-h-[51rem] lg:pb-28 lg:pt-36">
+    <div class="section-shell grid items-center gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
+      <div class="relative z-10 max-w-2xl">
+        <p class="section-kicker">{{ $t("home.hero.badge") }}</p>
+        <h1 class="font-display text-[2.85rem] leading-[1.02] tracking-[-0.025em] text-charcoal sm:text-6xl lg:text-[4.7rem]">
+          {{ $t("home.hero.title") }}
+        </h1>
+        <p class="mt-7 max-w-xl text-lg leading-8 text-warm-gray sm:text-xl sm:leading-9">
+          {{ $t("home.hero.body") }}
+        </p>
+        <div class="mt-9">
+          <AppStoreCtas />
+        </div>
+        <a :href="homeLink('how-it-works')" class="mt-7 inline-flex min-h-11 items-center gap-2 text-sm font-extrabold text-deep-gold hover:text-charcoal">
+          {{ $t("home.hero.secondary") }}
+          <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+
+      <div class="relative min-h-[34rem] sm:min-h-[42rem]" :aria-label="$t('home.hero.slider.label')">
+        <div class="absolute inset-x-8 top-0 h-[31rem] overflow-hidden rounded-[2.5rem] shadow-2xl sm:inset-x-12 sm:h-[38rem] lg:inset-x-0 lg:left-16">
+          <EditorialPicture name="rings" :alt="$t('home.hero.photoAlt')" :width="1440" :height="1800" eager sizes="(min-width: 1024px) 42vw, 85vw" />
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/20 via-transparent to-white/5" />
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-[13.5rem] rounded-[2.4rem] border-[8px] border-charcoal bg-charcoal shadow-2xl sm:left-4 sm:w-[16rem] lg:-left-3">
+          <div class="absolute left-1/2 top-0 z-20 h-5 w-20 -translate-x-1/2 rounded-b-xl bg-charcoal" />
+          <div class="relative aspect-[390/844] overflow-hidden rounded-[1.9rem] bg-ivory-cream">
+            <Transition name="preview-fade" mode="out-in">
+              <img
+                :key="activeSlide.src"
+                :src="activeSlide.src"
+                :alt="activeSlide.alt"
+                width="390"
+                height="844"
+                decoding="async"
+                fetchpriority="high"
+                class="absolute inset-0 h-full w-full object-cover"
+              >
+            </Transition>
           </div>
         </div>
 
-        <div
-          class="relative flex flex-col items-center justify-center"
-          role="region"
-          :aria-label="$t('home.hero.slider.label')"
-          @touchstart.passive="handleTouchStart"
-          @touchend.passive="handleTouchEnd"
-        >
-          <div
-            class="absolute -right-12 -top-10 h-56 w-56 rounded-full bg-blush-rose/20 blur-3xl"
-          />
-          <div
-            class="relative w-72 max-w-full rounded-[3rem] border-[10px] border-charcoal bg-charcoal shadow-2xl shadow-champagne-gold/20"
-          >
-            <div
-              class="absolute top-0 left-1/2 z-20 h-6 w-28 -translate-x-1/2 rounded-b-2xl bg-charcoal"
-            />
-            <div class="relative aspect-[390/844] overflow-hidden rounded-[2.35rem] bg-ivory-cream">
-              <Transition name="phone-slide" mode="out-in">
-                <img
-                  :key="slides[currentSlide].src"
-                  :src="slides[currentSlide].src"
-                  :alt="slides[currentSlide].alt"
-                  width="780"
-                  height="1688"
-                  class="absolute inset-0 h-full w-full object-cover"
-                  decoding="async"
-                  fetchpriority="high"
-                >
-              </Transition>
-            </div>
+        <div class="absolute bottom-3 right-0 max-w-[14rem] rounded-2xl border border-linen bg-white/95 p-3 shadow-xl backdrop-blur sm:bottom-7 sm:right-2 sm:max-w-xs sm:p-4">
+          <p class="text-[0.66rem] font-extrabold uppercase tracking-[0.16em] text-deep-gold">{{ $t("home.hero.previewLabel") }}</p>
+          <div class="mt-3 flex flex-wrap gap-2" role="group" :aria-label="$t('home.hero.slider.label')">
+            <button
+              v-for="(slide, index) in slides"
+              :key="slide.src"
+              type="button"
+              class="min-h-10 rounded-full px-3 text-xs font-extrabold transition-colors"
+              :class="currentSlide === index ? 'bg-charcoal text-white' : 'bg-soft-champagne text-charcoal hover:bg-linen'"
+              :aria-pressed="currentSlide === index"
+              @click="currentSlide = index"
+            >
+              {{ slide.shortTitle }}
+            </button>
           </div>
-
-          <p class="mt-5 text-sm font-bold text-deep-gold">
-            {{ slides[currentSlide].title }}
-          </p>
         </div>
       </div>
     </div>
@@ -93,109 +64,26 @@
 </template>
 
 <script setup lang="ts">
-const { t, tm, rt } = useI18n();
+const { t } = useI18n();
 const localePath = useLocalePath();
-const stats = computed(() => {
-  const messages = tm("home.hero.stats") as Array<{ value: string; label: string }>;
-  return messages.map(({ value, label }) => ({
-    value: rt(value),
-    label: rt(label),
-  }));
-});
 const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
 
 const slides = computed(() => [
-  {
-    src: "/img/app-screens/home.png",
-    alt: t("home.hero.slider.slides.homeAlt"),
-    title: t("home.hero.slider.slides.homeTitle"),
-  },
-  {
-    src: "/img/app-screens/budget.png",
-    alt: t("home.hero.slider.slides.budgetAlt"),
-    title: t("home.hero.slider.slides.budgetTitle"),
-  },
-  {
-    src: "/img/app-screens/guests.png",
-    alt: t("home.hero.slider.slides.guestsAlt"),
-    title: t("home.hero.slider.slides.guestsTitle"),
-  },
+  { src: "/img/app-screens/home-390.png", alt: t("home.hero.slider.slides.homeAlt"), shortTitle: t("home.hero.slider.slides.homeShort") },
+  { src: "/img/app-screens/budget-390.png", alt: t("home.hero.slider.slides.budgetAlt"), shortTitle: t("home.hero.slider.slides.budgetShort") },
+  { src: "/img/app-screens/guests-390.png", alt: t("home.hero.slider.slides.guestsAlt"), shortTitle: t("home.hero.slider.slides.guestsShort") },
 ]);
-
 const currentSlide = ref(0);
-const prefersReducedMotion = ref(false);
-let autoplayTimer: ReturnType<typeof setInterval> | undefined;
-let motionPreference: MediaQueryList | undefined;
-let touchStartX = 0;
-
-const stopAutoplay = () => {
-  if (autoplayTimer) clearInterval(autoplayTimer);
-  autoplayTimer = undefined;
-};
-
-const startAutoplay = () => {
-  stopAutoplay();
-  if (prefersReducedMotion.value) return;
-  autoplayTimer = setInterval(() => {
-    currentSlide.value = (currentSlide.value + 1) % slides.value.length;
-  }, 5000);
-};
-
-const setSlide = (index: number) => {
-  currentSlide.value = (index + slides.value.length) % slides.value.length;
-  startAutoplay();
-};
-const nextSlide = () => setSlide(currentSlide.value + 1);
-const previousSlide = () => setSlide(currentSlide.value - 1);
-
-const handleTouchStart = (event: TouchEvent) => {
-  touchStartX = event.changedTouches[0]?.clientX ?? 0;
-};
-const handleTouchEnd = (event: TouchEvent) => {
-  const distance = (event.changedTouches[0]?.clientX ?? touchStartX) - touchStartX;
-  if (Math.abs(distance) < 45) return;
-  distance < 0 ? nextSlide() : previousSlide();
-};
-
-const handleMotionPreference = (event: MediaQueryListEvent) => {
-  prefersReducedMotion.value = event.matches;
-};
-
-watch(prefersReducedMotion, startAutoplay);
-
-onMounted(() => {
-  motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
-  prefersReducedMotion.value = motionPreference.matches;
-  motionPreference.addEventListener("change", handleMotionPreference);
-  startAutoplay();
-});
-
-onBeforeUnmount(() => {
-  stopAutoplay();
-  motionPreference?.removeEventListener("change", handleMotionPreference);
-});
+const activeSlide = computed(() => slides.value[currentSlide.value] || slides.value[0]);
 </script>
 
 <style scoped>
-.phone-slide-enter-active,
-.phone-slide-leave-active {
-  transition: opacity 220ms ease, transform 220ms ease;
+.preview-fade-enter-active,
+.preview-fade-leave-active {
+  transition: opacity 180ms ease;
 }
-
-.phone-slide-enter-from {
+.preview-fade-enter-from,
+.preview-fade-leave-to {
   opacity: 0;
-  transform: translateX(10px);
-}
-
-.phone-slide-leave-to {
-  opacity: 0;
-  transform: translateX(-10px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .phone-slide-enter-active,
-  .phone-slide-leave-active {
-    transition: none;
-  }
 }
 </style>

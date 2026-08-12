@@ -95,12 +95,36 @@ export function createHeroImageStyle(design: RsvpDesign) {
 }
 
 export function readableTextColor(hex: string): "#111827" | "#FFFFFF" {
+  return contrastRatio(hex, "#111827") >= contrastRatio(hex, "#FFFFFF")
+    ? "#111827"
+    : "#FFFFFF";
+}
+
+function relativeLuminance(hex: string) {
   const value = Number.parseInt(hex.slice(1), 16);
-  const r = (value >> 16) & 255;
-  const g = (value >> 8) & 255;
-  const b = value & 255;
-  const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-  return luminance > 0.55 ? "#111827" : "#FFFFFF";
+  const channel = (shift: number) => {
+    const srgb = ((value >> shift) & 255) / 255;
+    return srgb <= 0.04045
+      ? srgb / 12.92
+      : ((srgb + 0.055) / 1.055) ** 2.4;
+  };
+  return (0.2126 * channel(16)) + (0.7152 * channel(8)) + (0.0722 * channel(0));
+}
+
+function contrastRatio(first: string, second: string) {
+  const light = Math.max(relativeLuminance(first), relativeLuminance(second));
+  const dark = Math.min(relativeLuminance(first), relativeLuminance(second));
+  return (light + 0.05) / (dark + 0.05);
+}
+
+function accessibleAccentText(accent: string, surface: string) {
+  if (contrastRatio(accent, surface) >= 4.5) return accent;
+  let candidate = accent;
+  for (let step = 0; step < 16; step += 1) {
+    candidate = mixHexColors(candidate, "#111827", 0.82);
+    if (contrastRatio(candidate, surface) >= 4.5) return candidate;
+  }
+  return readableTextColor(surface);
 }
 
 function mixHexColors(foreground: string, background: string, amount: number) {
@@ -129,6 +153,10 @@ export function createRsvpTheme(design: RsvpDesign) {
 
   return {
     "--rsvp-accent": design.accentColor,
+    "--rsvp-accent-text": accessibleAccentText(
+      design.accentColor,
+      design.surfaceColor,
+    ),
     "--rsvp-background": design.backgroundColor,
     "--rsvp-surface": design.surfaceColor,
     "--rsvp-text": readableTextColor(design.surfaceColor),

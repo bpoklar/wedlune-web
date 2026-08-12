@@ -2,7 +2,7 @@
   <div
     id="rsvp-page"
     :class="[
-      'soft-page-bg rsvp-themed relative mt-16 min-h-[calc(100vh-4rem)] overflow-hidden px-4 pb-8 pt-0 sm:px-6 sm:pb-12 lg:pb-16',
+      'soft-page-bg rsvp-themed relative min-h-[calc(100vh-4rem)] overflow-hidden px-4 pb-8 pt-0 sm:px-6 sm:pb-12 lg:pb-16',
       `rsvp-template-${rsvpDesign.template}`,
     ]"
     :style="rsvpThemeStyle"
@@ -16,15 +16,17 @@
       aria-hidden="true"
     />
 
-    <main class="relative mx-auto w-full max-w-3xl mt-6">
+    <main id="main-content" tabindex="-1" class="relative mx-auto mt-6 w-full max-w-3xl">
       <!-- Loading state -->
       <div
         v-if="loading"
         id="rsvp-loading"
         class="card-surface mx-auto max-w-lg px-6 py-12 text-center sm:px-10 sm:py-14"
         role="status"
+        aria-live="polite"
       >
         <div
+          aria-hidden="true"
           class="mx-auto h-11 w-11 animate-spin rounded-full border-4 border-champagne-gold/25 border-t-champagne-gold"
         />
         <p class="mt-5 font-display text-xl text-charcoal">{{ $t("rsvp.opening") }}</p>
@@ -36,6 +38,7 @@
         v-else-if="premiumUnavailable"
         id="rsvp-premium-unavailable"
         class="card-surface mx-auto max-w-lg px-6 py-10 text-center sm:p-12"
+        role="status"
       >
         <div
           class="rsvp-muted-panel mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full text-3xl"
@@ -55,6 +58,7 @@
         v-else-if="errorMessage"
         id="rsvp-error"
         class="card-surface mx-auto max-w-lg px-6 py-10 text-center sm:p-12"
+        role="alert"
       >
         <div
           class="rsvp-muted-panel mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full text-3xl"
@@ -79,7 +83,10 @@
       <div
         v-else-if="submitted"
         id="rsvp-confirmation"
+        ref="confirmationPanel"
+        tabindex="-1"
         class="card-surface mx-auto max-w-xl overflow-hidden text-center"
+        role="status"
       >
         <div class="h-1.5 bg-champagne-gold" />
         <div class="px-6 py-9 sm:px-12 sm:py-12">
@@ -211,7 +218,7 @@
           </p>
         </div>
 
-        <form @submit="onSubmit" class="rsvp-form p-5 sm:p-8 md:p-10">
+        <form class="rsvp-form p-5 sm:p-8 md:p-10" :aria-busy="submitting" @submit="onSubmit">
           <div
             v-if="hasExistingResponse"
             class="rsvp-muted-panel flex gap-3 rounded-2xl border p-4"
@@ -628,6 +635,8 @@
 
           <p
             v-if="submitError"
+            ref="submitErrorPanel"
+            tabindex="-1"
             class="text-center text-xs text-dusty-crimson"
             role="alert"
           >
@@ -666,15 +675,16 @@ import {
   type RsvpDesign,
 } from "~/utils/rsvpDesign";
 
+definePageMeta({ layout: "guest" });
+
 const { t } = useI18n();
 const localePath = useLocalePath();
 
-useSeoMeta({
+useLocalizedSeo({
   title: () => t("rsvp.seoTitle"),
   description: () => t("rsvp.seoDescription"),
+  path: "/rsvp",
   robots: "noindex, nofollow",
-  ogTitle: () => t("rsvp.seoTitle"),
-  ogDescription: () => t("rsvp.seoDescription"),
 });
 
 // RSVP URLs contain bearer capability tokens. Never send the full page URL as
@@ -699,6 +709,20 @@ const hasExistingResponse = ref(false);
 const submitting = ref(false);
 const submitError = ref<string | null>(null);
 const premiumUnavailable = ref(false);
+const confirmationPanel = ref<HTMLElement>();
+const submitErrorPanel = ref<HTMLElement>();
+
+watch(submitted, async (isSubmitted) => {
+  if (!isSubmitted) return;
+  await nextTick();
+  confirmationPanel.value?.focus();
+});
+
+watch(submitError, async (message) => {
+  if (!message) return;
+  await nextTick();
+  submitErrorPanel.value?.focus();
+});
 
 // Guest data from API
 const guestName = ref("");
@@ -1033,7 +1057,7 @@ const onSubmit = handleSubmit(async (values) => {
 
 .rsvp-themed :deep(.text-champagne-gold),
 .rsvp-themed :deep(.text-deep-gold) {
-  color: var(--rsvp-accent);
+  color: var(--rsvp-accent-text);
 }
 
 .rsvp-themed :deep(.text-charcoal),
@@ -1095,7 +1119,7 @@ const onSubmit = handleSubmit(async (values) => {
 
 .rsvp-outline-button,
 .rsvp-themed :deep(.rsvp-outline-button) {
-  color: var(--rsvp-accent);
+  color: var(--rsvp-accent-text);
   border-color: var(--rsvp-accent);
 }
 
@@ -1155,8 +1179,8 @@ const onSubmit = handleSubmit(async (values) => {
   .rsvp-themed *::before,
   .rsvp-themed *::after {
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
     animation-iteration-count: 1 !important;
   }
 }

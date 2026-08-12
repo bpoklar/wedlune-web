@@ -1,98 +1,23 @@
 <template>
-  <section class="py-20 bg-ivory-cream">
+  <section id="trust" class="py-20 sm:py-28">
     <div class="section-shell">
-      <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-10 items-center">
-        <div>
-          <p class="section-kicker">{{ $t("home.trust.kicker") }}</p>
-          <h2 class="section-title">
-            {{ $t("home.trust.title") }}
-          </h2>
-          <p class="section-subtitle mt-4">
-            {{ $t("home.trust.subtitle") }}
-          </p>
-        </div>
-
-        <div class="grid sm:grid-cols-3 gap-4">
-          <article
-            v-for="item in trustItems"
-            :key="item.title"
-            class="card-surface p-6"
-          >
-            <div class="text-champagne-gold mb-4" aria-hidden="true">
-              <component :is="item.icon" class="w-7 h-7" />
-            </div>
-            <h3 class="font-display text-lg text-charcoal mb-2">
-              {{ item.title }}
-            </h3>
-            <p class="text-warm-gray text-sm leading-relaxed">
-              {{ item.description }}
-            </p>
-          </article>
-        </div>
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="section-kicker">{{ $t("home.trust.kicker") }}</p>
+        <h2 class="section-title mx-auto">{{ $t("home.trust.title") }}</h2>
+        <p class="section-subtitle mx-auto mt-6">{{ $t("home.trust.subtitle") }}</p>
+      </div>
+      <div class="mt-14 grid gap-5 md:grid-cols-3">
+        <article v-for="item in items" :key="item.title" class="rounded-[2rem] border border-linen bg-warm-white p-7 sm:p-8">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-sage-green/10 text-sage-green" aria-hidden="true">✓</span>
+          <h3 class="mt-7 font-display text-2xl text-charcoal">{{ item.title }}</h3>
+          <p class="mt-4 text-sm leading-7 text-warm-gray">{{ item.description }}</p>
+        </article>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { defineComponent, h } from "vue";
-
-const makeIcon = (path: string) =>
-  defineComponent({
-    inheritAttrs: false,
-    setup(_, { attrs }) {
-      return () =>
-        h(
-          "svg",
-          {
-            ...attrs,
-            fill: "none",
-            stroke: "currentColor",
-            viewBox: "0 0 24 24",
-            "aria-hidden": "true",
-          },
-          [
-            h("path", {
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round",
-              "stroke-width": "1.8",
-              d: path,
-            }),
-          ],
-        );
-    },
-  });
-
-const CalendarIcon = makeIcon(
-  "M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z",
-);
-
-const UsersIcon = makeIcon(
-  "M16 11a4 4 0 1 0-8 0m8 0a4 4 0 0 1-8 0m8 0c2.5.8 4 2.5 4 5v1H4v-1c0-2.5 1.5-4.2 4-5m10-3a3 3 0 0 1 0 6M6 8a3 3 0 0 0 0 6",
-);
-
-const ShieldIcon = makeIcon(
-  "M12 3 5 6v5c0 4.5 2.8 8.4 7 10 4.2-1.6 7-5.5 7-10V6l-7-3Zm-3 9 2 2 4-4",
-);
-
-const trustDefinitions = [
-  {
-    icon: CalendarIcon,
-  },
-  {
-    icon: UsersIcon,
-  },
-  {
-    icon: ShieldIcon,
-  },
-];
 const { tm, rt } = useI18n();
-const trustItems = computed(() => {
-  const copy = tm("home.trust.items") as Array<{ title: string; description: string }>;
-  return trustDefinitions.map((definition, index) => ({
-    ...definition,
-    title: rt(copy[index].title),
-    description: rt(copy[index].description),
-  }));
-});
+const items = computed(() => (tm("home.trust.items") as Array<{ title: string; description: string }>).map((item) => ({ title: rt(item.title), description: rt(item.description) })));
 </script>

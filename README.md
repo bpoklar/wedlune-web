@@ -87,6 +87,12 @@ environment and runtime Variables and Secrets, then redeploy:
 
 - `NUXT_PUBLIC_SUPABASE_URL`
 - `NUXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NUXT_PUBLIC_APP_STORE_URL`
+- `NUXT_PUBLIC_GOOGLE_PLAY_URL`
+
+Store URLs are optional. Only complete HTTPS links on `apps.apple.com` and
+`play.google.com` are rendered as interactive badges; a missing or invalid
+platform URL displays localized, non-interactive “Coming soon” content.
 
 Do not rely on the local `.env` file for Cloudflare builds; it is intentionally
 excluded from source control.
@@ -116,7 +122,7 @@ binding conflicts with Pages' reserved binding.
 - Guest-facing wishlist image URLs are also short-lived signed URLs from private storage.
 - Reservation responses contain counts only and never reveal another giver's identity.
 
-Before release, run `npm test` and `npm run build`, then manually verify all
+Before release, run `npm test`, `npm run build`, and `npm run test:e2e`, then manually verify all
 three layouts on mobile/desktop, default and custom designs, Premium-unavailable,
 accepted/declined/confirmation states, reservation cancellation, external-link
 safety, keyboard use, accessible status announcements, and expired/missing
