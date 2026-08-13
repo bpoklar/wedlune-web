@@ -22,7 +22,7 @@
         </div>
         <div class="flex grow flex-col p-4 sm:p-5">
           <div class="flex items-start gap-2">
-            <span v-if="item.isPriority" class="text-dusty-crimson" :aria-label="$t('wishlist.mostWanted')">♥</span>
+            <span v-if="item.isPriority" class="text-cocoa-brown" :aria-label="$t('wishlist.mostWanted')">♥</span>
             <h3 class="font-display text-xl text-charcoal leading-tight">{{ item.title }}</h3>
           </div>
           <p v-if="item.description" class="text-warm-gray text-sm leading-relaxed mt-2">
@@ -86,7 +86,7 @@
               </button>
             </div>
             <p v-else class="text-center text-warm-gray text-sm py-2">{{ $t("wishlist.unavailable") }}</p>
-            <p v-if="errors[item.id]" class="text-dusty-crimson text-xs text-center" role="alert">
+            <p v-if="errors[item.id]" class="text-cocoa-brown text-xs text-center" role="alert">
               {{ errors[item.id] }}
             </p>
           </div>

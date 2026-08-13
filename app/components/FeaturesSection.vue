@@ -1,12 +1,9 @@
 <template>
-  <section id="features" class="py-20 sm:py-28">
+  <section id="features" v-reveal class="py-20 sm:py-28">
     <div class="section-shell">
-      <div class="grid gap-7 lg:grid-cols-[1fr_0.85fr] lg:items-end">
-        <div>
-          <p class="section-kicker">{{ $t("home.features.kicker") }}</p>
-          <h2 class="section-title">{{ $t("home.features.title") }}</h2>
-        </div>
-        <p class="section-subtitle lg:justify-self-end">{{ $t("home.features.subtitle") }}</p>
+      <div class="max-w-3xl">
+        <p class="section-kicker">{{ $t("home.features.kicker") }}</p>
+        <h2 class="section-title">{{ $t("home.features.title") }}</h2>
       </div>
 
       <div class="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-12">
@@ -22,28 +19,10 @@
           <p class="mt-9 text-xs font-extrabold uppercase tracking-[0.15em] text-pearl-gray">{{ String(index + 1).padStart(2, "0") }}</p>
           <h3 class="mt-3 font-display text-2xl leading-tight text-charcoal">{{ feature.title }}</h3>
           <p class="mt-4 text-sm leading-7 text-warm-gray">{{ feature.description }}</p>
-          <div v-if="index < 2" class="absolute -bottom-14 -right-14 h-40 w-40 rounded-full bg-blush-rose/10 transition-transform group-hover:-translate-x-2 group-hover:-translate-y-2" aria-hidden="true" />
+          <div v-if="index < 2" class="absolute -bottom-14 -right-14 h-40 w-40 rounded-full bg-sand-beige/20 transition-transform group-hover:-translate-x-2 group-hover:-translate-y-2" aria-hidden="true" />
         </article>
       </div>
 
-      <div class="mt-16 grid overflow-hidden rounded-[2.5rem] bg-soft-champagne lg:grid-cols-[0.9fr_1.1fr]">
-        <div class="relative min-h-88 lg:min-h-128">
-          <EditorialPicture name="roses" :alt="$t('home.features.photoAlt')" :width="1440" :height="1080" sizes="(min-width: 1024px) 45vw, 100vw" />
-          <div class="absolute inset-0 bg-linear-to-t from-charcoal/20 to-transparent" />
-        </div>
-        <div class="flex items-center p-8 sm:p-12 lg:p-16">
-          <div>
-            <p class="section-kicker">{{ $t("home.connected.kicker") }}</p>
-            <h3 class="font-display text-3xl leading-tight text-charcoal sm:text-4xl">{{ $t("home.connected.title") }}</h3>
-            <p class="mt-5 text-base leading-8 text-warm-gray">{{ $t("home.connected.body") }}</p>
-            <ul class="mt-7 space-y-4">
-              <li v-for="item in connectedItems" :key="item" class="flex gap-3 text-sm font-bold text-charcoal">
-                <span class="mt-0.5 text-sage-green" aria-hidden="true">✓</span>{{ item }}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 </template>
@@ -75,5 +54,4 @@ const features = computed(() => (tm("home.features.items") as Array<{ title: str
   title: rt(item.title),
   description: rt(item.description),
 })));
-const connectedItems = computed(() => (tm("home.connected.items") as string[]).map((item) => rt(item)));
 </script>

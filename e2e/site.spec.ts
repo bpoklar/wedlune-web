@@ -43,8 +43,8 @@ const mockRsvp = {
 test.describe("marketing, SEO, and navigation", () => {
   test("English and Slovenian homepages expose exact search signals", async ({ page }, testInfo) => {
     const localized = testInfo.project.name.startsWith("mobile")
-      ? { path: "/sl", title: "Poročni planer za organizacijo poroke | Wedlune", h1: "Načrtujta poroko skupaj, brez kaosa v preglednicah." }
-      : { path: "/", title: "Wedding Planner App for Couples | Wedlune", h1: "Plan your wedding together, without the spreadsheet chaos." };
+      ? { path: "/sl", title: "Poročni planer za organizacijo poroke | Wedlune", h1: "Načrtujta poroko brez kaosa." }
+      : { path: "/", title: "Wedding Planner App for Couples | Wedlune", h1: "Plan your wedding without the chaos." };
 
     await page.goto(localized.path);
     await expect(page).toHaveTitle(localized.title);
@@ -73,10 +73,50 @@ test.describe("marketing, SEO, and navigation", () => {
     await page.waitForFunction(() => Boolean((document.querySelector("#__nuxt") as HTMLElement & { __vue_app__?: unknown })?.__vue_app__));
     const menuButton = page.getByRole("button", { name: "Open menu" });
     await menuButton.click();
-    await expect(page.locator("#mobile-menu")).toBeVisible();
+    const mobileMenu = page.locator("#mobile-menu");
+    await expect(mobileMenu).toBeVisible();
+    await expect(mobileMenu).toHaveCSS("transition-property", "opacity, transform");
+    const mobileLanguageSwitcher = mobileMenu.locator(".language-switcher-mobile");
+    await expect(mobileLanguageSwitcher).toBeVisible();
+    const languageWidths = await mobileLanguageSwitcher.locator("[data-language-option]").evaluateAll((options) => options.map((option) => option.getBoundingClientRect().width));
+    expect(languageWidths).toHaveLength(2);
+    expect(Math.abs(languageWidths[0]! - languageWidths[1]!)).toBeLessThan(1);
     await page.keyboard.press("Escape");
-    await expect(page.locator("#mobile-menu")).toBeHidden();
+    await expect(mobileMenu).toBeHidden();
     await expect(menuButton).toBeFocused();
+
+    await menuButton.click();
+    await mobileMenu.locator('[data-language-option][lang="sl"]').click();
+    await expect(page).toHaveURL(/\/sl(?:[?#]|$)/);
+    await expect(page.locator("#mobile-menu")).toBeHidden();
+  });
+
+  test("header uses the light palette and follows scroll direction", async ({ page }, testInfo) => {
+    await page.goto("/");
+    await page.waitForFunction(() => Boolean((document.querySelector("#__nuxt") as HTMLElement & { __vue_app__?: unknown })?.__vue_app__));
+
+    const header = page.locator("[data-site-header]");
+    const isMobile = testInfo.project.name.startsWith("mobile");
+    if (isMobile) await page.getByRole("button", { name: "Open menu" }).click();
+
+    const visibleCta = page.locator("[data-nav-cta]:visible");
+    const activeLanguage = header.locator('[data-language-option][aria-current="page"]:visible');
+
+    await expect(header).toHaveAttribute("data-visible", "true");
+    await expect(visibleCta).toHaveCSS("background-color", "rgb(181, 150, 114)");
+    await expect(activeLanguage).toHaveCSS("background-color", "rgba(255, 253, 249, 0.82)");
+    await expect(page.locator("main section").first()).toHaveClass(/motion-enter/);
+
+    if (isMobile) await page.getByRole("button", { name: "Close menu" }).click();
+
+    await page.evaluate(() => window.scrollTo(0, 900));
+    await expect(header).toHaveAttribute("data-visible", "false");
+
+    await page.evaluate(() => window.scrollTo(0, 500));
+    await expect(header).toHaveAttribute("data-visible", "true");
+
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(header).toHaveAttribute("data-visible", "true");
   });
 
   test("store calls to action stay non-interactive when URLs are unavailable", async ({ page }) => {
@@ -86,10 +126,47 @@ test.describe("marketing, SEO, and navigation", () => {
     await expect(page.locator('a[href=""]')).toHaveCount(0);
   });
 
+  test("homepage navigation targets every compact section", async ({ page }) => {
+    await page.goto("/");
+
+    for (const id of ["features", "how-it-works", "pricing", "faq", "download"]) {
+      await expect(page.locator(`#${id}`)).toHaveCount(1);
+    }
+    await expect(page.getByText("A wedding is one day.")).toHaveCount(0);
+    await expect(page.getByText("Less mental load. More shared clarity.")).toHaveCount(0);
+    await expect(page.getByText("Optional guidance when you need a next step.")).toHaveCount(0);
+  });
+
+  test("FAQ answers animate open and closed accessibly", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForFunction(() => Boolean((document.querySelector("#__nuxt") as HTMLElement & { __vue_app__?: unknown })?.__vue_app__));
+    const faq = page.locator("#faq");
+    await faq.scrollIntoViewIfNeeded();
+
+    const toggle = faq.locator("[data-faq-toggle]").first();
+    const answer = faq.locator("[data-faq-answer]").first();
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+    await expect(answer).toBeHidden();
+
+    await toggle.click();
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
+    await expect(answer).toBeVisible();
+    await expect(answer).toHaveCSS("transition-property", "grid-template-rows, opacity");
+    await faq.evaluate(async (element) => {
+      await Promise.all(element.getAnimations({ subtree: true }).map((animation) => animation.finished));
+    });
+    await assertA11y(page);
+
+    await toggle.click();
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+    await expect(answer).toBeHidden();
+  });
+
   test("plan comparison is compact, expandable, localized, and responsive", async ({ page }, testInfo) => {
     const isMobile = testInfo.project.name.startsWith("mobile");
     if (isMobile) await page.setViewportSize({ width: 320, height: 720 });
     await page.goto(isMobile ? "/sl" : "/");
+    await page.waitForFunction(() => Boolean((document.querySelector("#__nuxt") as HTMLElement & { __vue_app__?: unknown })?.__vue_app__));
 
     const pricing = page.locator("#pricing");
     await pricing.scrollIntoViewIfNeeded();
@@ -111,7 +188,9 @@ test.describe("marketing, SEO, and navigation", () => {
     const fullComparison = pricing.locator("[data-full-comparison]");
     const groups = fullComparison.locator("details[data-comparison-group]");
     await expect(fullComparison).toBeVisible();
+    await expect(fullComparison).toHaveCSS("transition-property", "grid-template-rows, opacity, transform");
     await expect(groups).toHaveCount(5);
+    expect(await groups.first().evaluate((element) => getComputedStyle(element).animationName)).toContain("comparison-item-in");
     await expect(fullComparison.locator("details[open]")).toHaveCount(0);
 
     const listsGroup = fullComparison.locator('details[data-comparison-group="lists"]');
@@ -122,20 +201,20 @@ test.describe("marketing, SEO, and navigation", () => {
     await expect(listsGroup.locator('[data-comparison-row="gallery"]:visible')).toContainText(
       isMobile ? "Do 10" : "Up to 10",
     );
+    expect(await listsGroup.locator('[data-comparison-row="gallery"]:visible').evaluate((element) => getComputedStyle(element).animationName)).toContain("comparison-row-in");
 
     const recommendationsGroup = fullComparison.locator(
       'details[data-comparison-group="recommendations"]',
     );
     await recommendationsGroup.locator("summary").click();
+    await expect(listsGroup).not.toHaveAttribute("open", "");
+    await expect(recommendationsGroup).toHaveAttribute("open", "");
+    await expect(fullComparison.locator("details[open]")).toHaveCount(1);
     await expect(
       recommendationsGroup.locator('[data-comparison-row="venueLookups"]:visible'),
     ).toContainText(isMobile ? "Do 2 iskanj" : "Up to 2 lookups");
 
-    await fullComparison.locator("[data-expand-all]").click();
-    await expect(fullComparison.locator("details[open]")).toHaveCount(5);
-    await expect(fullComparison.locator("[data-comparison-row]:visible")).toHaveCount(32);
-
-    await fullComparison.locator("[data-collapse-all]").click();
+    await recommendationsGroup.locator("summary").click();
     await expect(fullComparison.locator("details[open]")).toHaveCount(0);
 
     await toggle.click();
@@ -152,6 +231,7 @@ test.describe("marketing, SEO, and navigation", () => {
     await page.goto("/");
     const duration = await page.getByRole("button", { name: "Budget" }).evaluate((element) => getComputedStyle(element).transitionDuration);
     expect(Number.parseFloat(duration)).toBeLessThanOrEqual(0.001);
+    await expect(page.locator("main section").first()).not.toHaveClass(/motion-enter/);
   });
 });
 
@@ -213,6 +293,7 @@ test.describe("private guest surfaces", () => {
   test("missing RSVP token has an accessible error state", async ({ page }) => {
     await page.goto("/rsvp");
     await expect(page.locator("#rsvp-error")).toBeVisible();
+    await expect(page.locator('[data-language-option][aria-current="page"]')).toHaveCSS("background-color", "rgba(255, 253, 249, 0.82)");
     await assertA11y(page);
     await expect(page).toHaveScreenshot("rsvp-error.png");
   });

@@ -1,5 +1,5 @@
 <template>
-  <main id="main-content" tabindex="-1" class="soft-page-bg min-h-[calc(100vh-4rem)] px-4 pb-16 pt-10 sm:pt-14">
+  <main id="main-content" v-reveal tabindex="-1" class="soft-page-bg min-h-[calc(100vh-4rem)] px-4 pb-16 pt-10 sm:pt-14">
     <div class="mx-auto max-w-4xl px-6">
       <!-- Loading state -->
       <div id="shared-gallery-loading" v-if="loading" class="flex flex-col items-center justify-center py-24 space-y-4" role="status" aria-live="polite">

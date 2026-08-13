@@ -32,4 +32,17 @@ describe("i18n catalogs", () => {
     expect(sl.privacy.s13Title).toMatch(/^13\./);
     expect(sl.terms.s14Title).toMatch(/^14\./);
   });
+
+  it("keeps the homepage compact in both locales", () => {
+    for (const catalog of [en, sl]) {
+      expect(catalog.home.proof.items).toHaveLength(4);
+      expect(catalog.home.features.items).toHaveLength(6);
+      expect(catalog.home.how.steps).toHaveLength(3);
+      expect(catalog.home.faq.items).toHaveLength(6);
+      expect(catalog.home).not.toHaveProperty("problem");
+      expect(catalog.home).not.toHaveProperty("connected");
+      expect(catalog.home).not.toHaveProperty("ai");
+      expect(catalog.home).not.toHaveProperty("trust");
+    }
+  });
 });

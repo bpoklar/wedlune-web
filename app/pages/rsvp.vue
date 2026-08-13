@@ -8,7 +8,7 @@
     :style="rsvpThemeStyle"
   >
     <div
-      class="pointer-events-none absolute -left-20 top-28 h-56 w-56 rounded-full border border-blush-rose/20 sm:h-72 sm:w-72"
+      class="pointer-events-none absolute -left-20 top-28 h-56 w-56 rounded-full border border-sand-beige/45 sm:h-72 sm:w-72"
       aria-hidden="true"
     />
     <div
@@ -16,7 +16,7 @@
       aria-hidden="true"
     />
 
-    <main id="main-content" tabindex="-1" class="relative mx-auto mt-6 w-full max-w-3xl">
+    <main id="main-content" v-reveal tabindex="-1" class="relative mx-auto mt-6 w-full max-w-3xl">
       <!-- Loading state -->
       <div
         v-if="loading"
@@ -135,7 +135,7 @@
                 :class="
                   po.rsvpStatus === 'accepted'
                     ? 'text-sage-green'
-                    : 'text-blush-rose'
+                    : 'text-warm-camel'
                 "
               >
                 {{
@@ -240,7 +240,7 @@
                 <span>
                   <span class="block text-base font-bold text-charcoal"
                     >{{ $t("rsvp.willYouAttend") }}
-                    <span class="text-dusty-crimson">*</span></span
+                    <span class="text-cocoa-brown">*</span></span
                   >
                   <span class="mt-0.5 block text-xs font-normal text-warm-gray"
                     >{{ $t("rsvp.chooseResponse") }}</span
@@ -271,8 +271,8 @@
                 :class="[
                   'flex min-h-16 items-center justify-center gap-2 rounded-2xl border-2 px-4 py-3 text-center text-sm font-semibold cursor-pointer transition-all',
                   rsvpStatusField === 'declined'
-                    ? 'border-blush-rose bg-blush-rose/10 text-blush-rose'
-                    : 'border-linen text-warm-gray hover:border-blush-rose/50',
+                    ? 'border-warm-camel bg-sand-beige/20 text-deep-gold'
+                    : 'border-linen text-warm-gray hover:border-warm-camel/60',
                 ]"
               >
                 <input
@@ -288,7 +288,7 @@
             </div>
             <p
               v-if="rsvpStatusError"
-              class="mt-2 text-xs text-dusty-crimson"
+              class="mt-2 text-xs text-cocoa-brown"
               role="alert"
             >
               {{ rsvpStatusError }}
@@ -435,7 +435,7 @@
               />
               <p
                 v-if="dietaryNotesError"
-                class="text-dusty-crimson text-xs mt-1"
+                class="text-cocoa-brown text-xs mt-1"
               >
                 {{ dietaryNotesError }}
               </p>
@@ -453,7 +453,7 @@
               <fieldset>
                 <legend class="text-charcoal font-semibold text-sm mb-3">
                   {{ $t("rsvp.willGuestAttend", { name: po.name }) }}
-                  <span class="text-dusty-crimson">*</span>
+                  <span class="text-cocoa-brown">*</span>
                 </legend>
                 <div class="grid gap-3 sm:grid-cols-2">
                   <label
@@ -477,8 +477,8 @@
                     :class="[
                       'flex min-h-14 items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
                       po.rsvpStatus === 'declined'
-                        ? 'border-blush-rose bg-blush-rose/10 text-blush-rose'
-                        : 'border-linen text-warm-gray hover:border-blush-rose/50',
+                        ? 'border-warm-camel bg-sand-beige/20 text-deep-gold'
+                        : 'border-linen text-warm-gray hover:border-warm-camel/60',
                     ]"
                   >
                     <input
@@ -637,7 +637,7 @@
             v-if="submitError"
             ref="submitErrorPanel"
             tabindex="-1"
-            class="text-center text-xs text-dusty-crimson"
+            class="text-center text-xs text-cocoa-brown"
             role="alert"
           >
             {{ submitError }}

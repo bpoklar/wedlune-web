@@ -1,5 +1,5 @@
 <template>
-  <section id="how-it-works" class="bg-soft-champagne py-20 sm:py-28">
+  <section id="how-it-works" v-reveal class="bg-soft-champagne py-20 sm:py-28">
     <div class="section-shell">
       <div class="max-w-3xl">
         <p class="section-kicker">{{ $t("home.how.kicker") }}</p>

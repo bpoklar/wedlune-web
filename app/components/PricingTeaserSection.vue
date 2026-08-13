@@ -1,10 +1,9 @@
 <template>
-  <section id="pricing" class="comparison-section py-20 sm:py-28" :aria-labelledby="comparisonTitleId">
+  <section id="pricing" v-reveal class="comparison-section py-20 sm:py-28" :aria-labelledby="comparisonTitleId">
     <div class="section-shell">
       <div class="mx-auto max-w-3xl text-center">
         <p class="section-kicker">{{ $t("home.pricing.kicker") }}</p>
         <h2 :id="comparisonTitleId" class="section-title">{{ $t("home.pricing.title") }}</h2>
-        <p class="section-subtitle mx-auto mt-6">{{ $t("home.pricing.subtitle") }}</p>
       </div>
 
       <div class="mt-12 grid gap-5 md:grid-cols-2">
@@ -83,66 +82,70 @@
           </svg>
         </button>
 
-        <div v-show="showFullComparison" :id="fullComparisonPanelId" class="full-comparison" data-full-comparison>
-          <div class="comparison-controls" role="group" :aria-label="$t('home.pricing.comparisonControls')">
-            <button type="button" data-expand-all @click="setAllGroups(true)">{{ $t("home.pricing.expandAll") }}</button>
-            <span aria-hidden="true">·</span>
-            <button type="button" data-collapse-all @click="setAllGroups(false)">{{ $t("home.pricing.collapseAll") }}</button>
-          </div>
-
-          <details
-            v-for="group in planComparisonGroups"
-            :key="group.id"
-            class="comparison-accordion"
-            :data-comparison-group="group.id"
-            :open="isGroupOpen(group.id)"
-            @toggle="onGroupToggle(group.id, $event)"
+        <Transition name="comparison-reveal">
+          <div
+            v-show="showFullComparison"
+            :id="fullComparisonPanelId"
+            class="full-comparison-reveal"
+            :class="{ 'is-revealed': showFullComparison }"
+            data-full-comparison
           >
-            <summary>
-              <span>
-                <strong>{{ $t(group.titleKey) }}</strong>
-                <small>{{ $t("home.pricing.featureCount", { count: group.rows.length }) }}</small>
-              </span>
-              <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
-                <path d="m5 7.5 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </summary>
+            <div class="full-comparison">
+              <details
+                v-for="group in planComparisonGroups"
+                :key="group.id"
+                class="comparison-accordion"
+                :data-comparison-group="group.id"
+                :open="isGroupOpen(group.id)"
+                @toggle="onGroupToggle(group.id, $event)"
+              >
+                <summary>
+                  <span>
+                    <strong>{{ $t(group.titleKey) }}</strong>
+                    <small>{{ $t("home.pricing.featureCount", { count: group.rows.length }) }}</small>
+                  </span>
+                  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
+                    <path d="m5 7.5 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </summary>
 
-            <div class="accordion-content">
-              <table class="comparison-table hidden md:table">
-                <caption class="sr-only">{{ $t("home.pricing.groupCaption", { group: $t(group.titleKey) }) }}</caption>
-                <thead>
-                  <tr>
-                    <th scope="col">{{ $t("home.pricing.feature") }}</th>
-                    <th scope="col">{{ $t("home.pricing.free") }}</th>
-                    <th scope="col" class="premium-column">{{ $t("home.pricing.premium") }}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="comparisonRow in group.rows" :key="comparisonRow.id" :data-comparison-row="comparisonRow.id">
-                    <th scope="row">{{ $t(comparisonRow.labelKey) }}</th>
-                    <td><PlanComparisonValue :value="comparisonRow.free" /></td>
-                    <td class="premium-column"><PlanComparisonValue :value="comparisonRow.premium" /></td>
-                  </tr>
-                </tbody>
-              </table>
+                <div class="accordion-content">
+                  <table class="comparison-table hidden md:table">
+                    <caption class="sr-only">{{ $t("home.pricing.groupCaption", { group: $t(group.titleKey) }) }}</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">{{ $t("home.pricing.feature") }}</th>
+                        <th scope="col">{{ $t("home.pricing.free") }}</th>
+                        <th scope="col" class="premium-column">{{ $t("home.pricing.premium") }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="comparisonRow in group.rows" :key="comparisonRow.id" :data-comparison-row="comparisonRow.id">
+                        <th scope="row">{{ $t(comparisonRow.labelKey) }}</th>
+                        <td><PlanComparisonValue :value="comparisonRow.free" /></td>
+                        <td class="premium-column"><PlanComparisonValue :value="comparisonRow.premium" /></td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-              <dl class="comparison-mobile md:hidden">
-                <div v-for="comparisonRow in group.rows" :key="comparisonRow.id" class="mobile-row" :data-comparison-row="comparisonRow.id">
-                  <dt>{{ $t(comparisonRow.labelKey) }}</dt>
-                  <dd>
-                    <span class="mobile-plan-label">{{ $t("home.pricing.free") }}</span>
-                    <PlanComparisonValue :value="comparisonRow.free" />
-                  </dd>
-                  <dd class="mobile-premium-value">
-                    <span class="mobile-plan-label">{{ $t("home.pricing.premium") }}</span>
-                    <PlanComparisonValue :value="comparisonRow.premium" />
-                  </dd>
+                  <dl class="comparison-mobile md:hidden">
+                    <div v-for="comparisonRow in group.rows" :key="comparisonRow.id" class="mobile-row" :data-comparison-row="comparisonRow.id">
+                      <dt>{{ $t(comparisonRow.labelKey) }}</dt>
+                      <dd>
+                        <span class="mobile-plan-label">{{ $t("home.pricing.free") }}</span>
+                        <PlanComparisonValue :value="comparisonRow.free" />
+                      </dd>
+                      <dd class="mobile-premium-value">
+                        <span class="mobile-plan-label">{{ $t("home.pricing.premium") }}</span>
+                        <PlanComparisonValue :value="comparisonRow.premium" />
+                      </dd>
+                    </div>
+                  </dl>
                 </div>
-              </dl>
+              </details>
             </div>
-          </details>
-        </div>
+          </div>
+        </Transition>
       </div>
 
       <div class="comparison-cta">
@@ -178,17 +181,16 @@ const toggleFullComparison = () => {
   if (!showFullComparison.value) openGroups.value = new Set();
 };
 
-const setAllGroups = (open: boolean) => {
-  openGroups.value = open
-    ? new Set(planComparisonGroups.map((group) => group.id))
-    : new Set();
-};
-
 const onGroupToggle = (id: string, event: Event) => {
   const details = event.currentTarget as HTMLDetailsElement;
+  if (details.open) {
+    openGroups.value = new Set([id]);
+    return;
+  }
+
+  if (!openGroups.value.has(id)) return;
   const next = new Set(openGroups.value);
-  if (details.open) next.add(id);
-  else next.delete(id);
+  next.delete(id);
   openGroups.value = next;
 };
 </script>
@@ -402,30 +404,44 @@ const onGroupToggle = (id: string, event: Event) => {
   transition: transform 180ms ease;
 }
 
+.full-comparison-reveal {
+  display: grid;
+  overflow: hidden;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .full-comparison {
+  min-height: 0;
   margin-top: 1.25rem;
   scroll-margin-top: 6rem;
 }
 
-.comparison-controls {
-  display: flex;
-  min-height: 2.75rem;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.55rem;
-  margin-bottom: 0.75rem;
-  font-size: 0.8rem;
-  color: var(--site-text-muted);
+.comparison-reveal-enter-active,
+.comparison-reveal-leave-active {
+  transition:
+    grid-template-rows 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 340ms ease,
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.comparison-controls button {
-  min-height: 2.75rem;
-  padding-inline: 0.25rem;
-  font-weight: 900;
-  color: var(--site-accent-strong);
-  text-decoration: underline;
-  text-underline-offset: 0.22rem;
+.comparison-reveal-enter-from,
+.comparison-reveal-leave-to {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transform: translateY(-0.5rem);
 }
+
+.full-comparison-reveal.is-revealed .comparison-accordion {
+  animation: comparison-item-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.full-comparison-reveal.is-revealed .comparison-accordion:nth-of-type(1) { animation-delay: 60ms; }
+.full-comparison-reveal.is-revealed .comparison-accordion:nth-of-type(2) { animation-delay: 120ms; }
+.full-comparison-reveal.is-revealed .comparison-accordion:nth-of-type(3) { animation-delay: 180ms; }
+.full-comparison-reveal.is-revealed .comparison-accordion:nth-of-type(4) { animation-delay: 240ms; }
+.full-comparison-reveal.is-revealed .comparison-accordion:nth-of-type(5) { animation-delay: 300ms; }
 
 .comparison-accordion {
   border-radius: 1rem;
@@ -487,6 +503,44 @@ const onGroupToggle = (id: string, event: Event) => {
   border-top: 1px solid var(--site-border);
 }
 
+.comparison-accordion[open] .accordion-content {
+  animation: accordion-content-in 440ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.comparison-accordion[open] .accordion-content .comparison-table tbody tr,
+.comparison-accordion[open] .accordion-content .mobile-row {
+  animation: comparison-row-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.comparison-accordion[open] .accordion-content :is(tbody tr, .mobile-row):nth-child(2) { animation-delay: 40ms; }
+.comparison-accordion[open] .accordion-content :is(tbody tr, .mobile-row):nth-child(3) { animation-delay: 80ms; }
+.comparison-accordion[open] .accordion-content :is(tbody tr, .mobile-row):nth-child(4) { animation-delay: 120ms; }
+.comparison-accordion[open] .accordion-content :is(tbody tr, .mobile-row):nth-child(5) { animation-delay: 160ms; }
+.comparison-accordion[open] .accordion-content :is(tbody tr, .mobile-row):nth-child(6) { animation-delay: 200ms; }
+.comparison-accordion[open] .accordion-content :is(tbody tr, .mobile-row):nth-child(7) { animation-delay: 240ms; }
+.comparison-accordion[open] .accordion-content :is(tbody tr, .mobile-row):nth-child(8) { animation-delay: 280ms; }
+
+@keyframes comparison-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.7rem);
+  }
+}
+
+@keyframes accordion-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.4rem);
+  }
+}
+
+@keyframes comparison-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.45rem);
+  }
+}
+
 .comparison-cta {
   max-width: 48rem;
   margin: 3.5rem auto 0;
@@ -514,6 +568,18 @@ const onGroupToggle = (id: string, event: Event) => {
   .comparison-toggle svg,
   .comparison-accordion summary > svg {
     transition: none;
+  }
+
+  .comparison-reveal-enter-active,
+  .comparison-reveal-leave-active {
+    transition: none;
+  }
+
+  .full-comparison-reveal.is-revealed .comparison-accordion,
+  .comparison-accordion[open] .accordion-content,
+  .comparison-accordion[open] .accordion-content .comparison-table tbody tr,
+  .comparison-accordion[open] .accordion-content .mobile-row {
+    animation: none;
   }
 }
 </style>

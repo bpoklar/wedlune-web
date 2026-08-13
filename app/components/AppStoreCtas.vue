@@ -89,7 +89,7 @@ const externalLinkProps = (url: string) => ({
 
 .store-badge-active:hover {
   transform: translateY(-2px);
-  background: #68451d;
+  background: var(--site-accent-strong);
 }
 
 .store-badge-unavailable {

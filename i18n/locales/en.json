@@ -37,8 +37,8 @@
   },
   "footer": {
     "kicker": "Your plans, beautifully connected",
-    "title": "Make space for the part that matters.",
-    "body": "Bring the timeline, budget, guest list, vendors, and next decisions into one shared place—then get back to enjoying the engagement.",
+    "title": "Ready to plan together?",
+    "body": "Keep every wedding detail in one shared place.",
     "waitlist": "Join the waitlist",
     "explore": "Explore features",
     "comingSoon": "Coming soon to iOS and Android",
@@ -59,8 +59,8 @@
     "organizationDescription": "A wedding planning app that helps couples manage checklists, guests, RSVPs, budgets, vendors, and timelines together.",
     "hero": {
       "badge": "Wedding planner app for couples",
-      "title": "Plan your wedding together, without the spreadsheet chaos.",
-      "body": "Wedlune is a wedding planner app that connects your checklist, budget, guests, RSVPs, vendors, and timeline in one shared plan.",
+      "title": "Plan your wedding without the chaos.",
+      "body": "Keep your timeline, budget, guests, RSVPs, and vendors in one shared place.",
       "primary": "Get started free",
       "secondary": "See how it works",
       "highlights": "Wedlune highlights",
@@ -99,79 +99,36 @@
     "proof": {
       "label": "Verified Wedlune capabilities",
       "items": [
-        { "title": "Plan together", "body": "Share one wedding plan with your partner." },
-        { "title": "Works offline", "body": "Keep planning through an interrupted connection." },
-        { "title": "Private guest links", "body": "RSVP and gallery links stay token-protected." },
-        { "title": "English + Slovenian", "body": "Use the experience in either supported language." }
-      ]
-    },
-    "problem": {
-      "kicker": "The messy middle",
-      "title": "A wedding is one day. Planning it touches everything.",
-      "body": "The stress rarely comes from one big decision. It comes from dozens of small details living in different places.",
-      "items": [
-        { "title": "The plan keeps moving", "body": "A guest changes, a quote arrives, a deadline shifts—and three different lists need updating." },
-        { "title": "You lose the next step", "body": "A long checklist shows everything at once, but not what deserves your attention today." },
-        { "title": "Planning stops feeling shared", "body": "Notes and messages split the context, so one partner ends up carrying more of the mental load." }
+        "Shared plan",
+        "Works offline",
+        "Private guest links",
+        "English + Slovenian"
       ]
     },
     "features": {
       "kicker": "One calm planning space",
-      "title": "Everything that used to live in tabs, notes, chats, and spreadsheets.",
-      "subtitle": "Wedlune keeps every moving part connected, so one decision never gets lost from the rest of your wedding.",
-      "photoAlt": "A minimal arrangement of white roses in soft natural light",
+      "title": "Everything you need, in one place.",
       "items": [
-        { "title": "Smart Timeline", "description": "Turn a huge wedding plan into a clear sequence of tasks, dates, reminders, and decisions." },
-        { "title": "Guest Management", "description": "Track RSVPs, dietary needs, meal choices, plus-ones, and table details without losing context." },
-        { "title": "Budget Tracker", "description": "See where money is going, compare quotes, track payments, and spot overspending before it grows." },
-        { "title": "Vendor Hub", "description": "Keep quotes, booking status, contacts, and notes together while you choose the right people." },
-        { "title": "Photo Gallery", "description": "Save inspiration, venue photos, fitting shots, and gallery links beside the plan they belong to." },
-        { "title": "Optional AI Suggestions", "description": "Get next-step suggestions based on your date, budget, guest count, style, and what is still missing." }
-      ]
-    },
-    "connected": {
-      "kicker": "One connected plan",
-      "title": "A change in one place should make sense everywhere else.",
-      "body": "Wedlune keeps the people, costs, tasks, suppliers, and day-of details close enough to understand the whole picture.",
-      "items": [
-        "Follow budget decisions alongside guest and vendor changes",
-        "Keep RSVP details beside meals, dietary needs, and seating",
-        "Move from a recommendation to the task it helps resolve"
-      ]
-    },
-    "ai": {
-      "kicker": "Optional AI, always your decision",
-      "title": "Optional guidance when you need a next step.",
-      "body": "Wedlune’s AI recommendation feature can use the wedding details you choose to share to suggest useful next steps. It never makes personal or high-stakes decisions for you.",
-      "items": [
-        { "title": "Context-aware", "body": "Suggestions reflect your date, priorities, budget range, and planning progress." },
-        { "title": "Always reviewable", "body": "You decide what belongs in the plan before acting on a recommendation." },
-        { "title": "Built for verification", "body": "Vendor, legal, pricing, and timing details should always be confirmed at the source." }
-      ]
-    },
-    "trust": {
-      "kicker": "Built for the messy middle",
-      "title": "Less mental load. More shared clarity.",
-      "subtitle": "Wedding planning gets noisy fast. Wedlune helps both partners see what matters, what is done, and what needs attention next.",
-      "items": [
-        { "title": "Clear next steps", "description": "Your timeline turns scattered decisions into manageable tasks and deadlines." },
-        { "title": "Built for two", "description": "Both partners can follow the same guests, budget, vendors, and open decisions." },
-        { "title": "Private by design", "description": "Guest-facing RSVP and gallery links stay private, token-based, and noindexed." }
+        { "title": "Timeline", "description": "Turn your dates, tasks, reminders, and decisions into one clear wedding plan." },
+        { "title": "Guests & RSVPs", "description": "Track RSVPs, meals, dietary needs, plus-ones, and seating without losing context." },
+        { "title": "Budget", "description": "Compare quotes, track payments, and catch wedding overspending before it grows." },
+        { "title": "Vendors", "description": "Keep vendor contacts, quotes, booking status, and important notes together." },
+        { "title": "Photos", "description": "Save inspiration, venue photos, and gallery links beside your wedding plan." },
+        { "title": "Smart suggestions", "description": "Get optional next-step suggestions based on your wedding details and planning progress." }
       ]
     },
     "how": {
       "kicker": "From overwhelmed to organized",
       "title": "How Wedlune Works",
       "steps": [
-        { "title": "Create Your Profile", "description": "Tell Wedlune your wedding date, location, guest count, style, budget, and priorities." },
-        { "title": "Get Your Plan", "description": "Build a practical timeline with the tasks, reminders, and decisions that matter next." },
-        { "title": "Plan Together", "description": "Share guests, vendors, RSVPs, budget, and progress so both partners stay in sync." }
+        { "title": "Tell us about your wedding", "description": "Date, location, budget, and priorities." },
+        { "title": "Get your plan", "description": "A clear timeline and checklist." },
+        { "title": "Plan together", "description": "Shared progress, guests, costs, and decisions." }
       ]
     },
     "pricing": {
       "kicker": "Free or Premium",
-      "title": "Know exactly what is included before you begin.",
-      "subtitle": "Start with a capable wedding planner for free. Premium removes planning limits and adds collaboration, guest-facing experiences, advanced tools, and optional recommendation features.",
+      "title": "Start free. Upgrade when you need more.",
       "free": "Free",
       "freeTitle": "Start with clarity",
       "freeSubtitle": "A complete foundation for organizing your wedding without committing to a subscription.",
@@ -187,9 +144,6 @@
       "keyDifferencesCaption": "Key differences between the Wedlune Free and Premium plans",
       "compareAll": "Compare all features",
       "hideComparison": "Hide full comparison",
-      "comparisonControls": "Full comparison controls",
-      "expandAll": "Expand all",
-      "collapseAll": "Collapse all",
       "featureCount": "{count} features",
       "groupCaption": "Free and Premium comparison for {group}",
       "groups": {
@@ -260,14 +214,13 @@
     "faq": {
       "kicker": "Before you begin",
       "title": "A few useful answers.",
-      "body": "The essentials about using Wedlune, planning together, and keeping wedding information private.",
       "items": [
-        { "question": "Can we start planning for free?", "answer": "Yes. Wedlune includes a free starting experience for building your plan, timeline, and core planning lists. Premium expands capacity and advanced tools." },
-        { "question": "Can both partners use the same wedding plan?", "answer": "Yes. A partner can be invited to the shared wedding with editing or viewing permissions chosen by the owner." },
-        { "question": "How do AI suggestions work?", "answer": "The optional AI recommendation feature uses details such as your date, priorities, budget range, location, and progress to suggest next steps. You review every suggestion and remain responsible for final decisions." },
-        { "question": "Do guests need the app to RSVP?", "answer": "No. Guests respond through a private web link and can return to that link if their plans change." },
-        { "question": "Can we keep planning without a connection?", "answer": "Core planning data is available locally and supported changes can be queued for synchronization when connectivity returns." },
-        { "question": "Is wedding information public?", "answer": "No. Planning data is account-protected, and shared RSVP and gallery pages require private tokens and are excluded from search engines." }
+        { "question": "Can we start planning for free?", "answer": "Yes, the free plan includes a timeline, checklist, budget, and core planning lists." },
+        { "question": "Can both partners use the same wedding plan?", "answer": "Yes, invite a partner with editing or viewing access chosen by the owner." },
+        { "question": "How do AI suggestions work?", "answer": "Optional suggestions use your wedding details to recommend next steps that you always review." },
+        { "question": "Do guests need the app to RSVP?", "answer": "No, guests respond and update their plans through a private web link." },
+        { "question": "Can we keep planning without a connection?", "answer": "Yes, core data stays available locally and supported changes sync when you reconnect." },
+        { "question": "Is wedding information public?", "answer": "No, planning data is account-protected and guest links are private and excluded from search engines." }
       ]
     },
     "couples": {

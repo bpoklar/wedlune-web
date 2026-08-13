@@ -2,11 +2,8 @@
   <div>
     <HeroSection />
     <ProofStrip />
-    <PlanningStorySection />
     <FeaturesSection />
-    <TrustSection />
     <HowItWorksSection />
-    <AiTrustSection />
     <PricingTeaserSection />
     <FaqSection />
   </div>
