@@ -36,7 +36,9 @@
     "contents": "Na tej strani",
     "googleMapsTerms": "Pogoji Google Maps Platform",
     "geminiTerms": "Pogoji API-ja Gemini",
-    "googlePrivacy": "Googlov pravilnik o zasebnosti"
+    "googlePrivacy": "Googlov pravilnik o zasebnosti",
+    "openAiTerms": "Pogodba o storitvah OpenAI",
+    "openAiPrivacy": "Pravilnik o zasebnosti OpenAI"
   },
   "footer": {
     "kicker": "Vsi vajini načrti, lepo povezani",
@@ -364,7 +366,7 @@
     "s5Title": "5. Lokalni podatki in obvestila",
     "s5Body": "Aplikacija v napravi hrani varne žetone seje, stanje »zapomni si me«, nastavitve, predpomnilnik brez povezave, čakajoče spremembe in urnike lokalnih obvestil. Obvestila nastajajo lokalno in lahko vključujejo naslove nalog ter roke.",
     "s6Title": "6. Funkcije umetne inteligence",
-    "s6Paragraphs": ["Pri uporabi funkcij umetne inteligence se ustrezen kontekst načrtovanja prek varnih funkcij Supabase Edge pošlje storitvi Google Gemini. Iskanje prizorišča pošlje ime, mesto in državo utemeljevanju Gemini z Google Iskanjem ter prikaže njegov utemeljeni odgovor, citate in predloge Iskanja, medtem ko izberete ali vnesete uradno spletno mesto. Gemini URL Context nato prejme natanko spletno mesto, ki ste ga potrdili.", "Besedila odkrivanja, predlogov in citatov Iskanja ne shranjujemo. Shranimo samo citate z uradne strani in preslikave polj, uporabljene za preverjanje shranjenih podatkov prizorišča. Ne pošiljamo gesel, plačilnih podatkov ali kontaktov gostov. Rezultati umetne inteligence so lahko netočni; pred uporabo preverite podatke o prizorišču, cenah, pravu in urnikih."],
+    "s6Paragraphs": ["Pri uporabi funkcij umetne inteligence se ustrezen kontekst načrtovanja prek varnih funkcij Supabase Edge pošlje ustreznemu ponudniku. Iskanje prizorišča pošlje ime, mesto ali občino, državo in morebitni obstoječi namig spletnega mesta v OpenAI Responses API z iskanjem po spletu v živo. Zahteve uporabljajo store:false. Priporočila še naprej uporabljajo utemeljevanje Gemini z Google Zemljevidi.", "Za pregled prikažemo citirana dejstva o prizorišču ter ne shranjujemo surovih odgovorov iskanja, povzetkov ali vsebine strani. Če podatke uporabite, shranimo le kratke vrednosti, povezave do virov, preslikave polj na vire, čas preverjanja in različico poziva. Ne pošiljamo gesel, plačilnih podatkov ali kontaktov gostov. Rezultati umetne inteligence so lahko netočni; pred uporabo preverite podatke o prizorišču, cenah, pravu in urnikih."],
     "s7Title": "7. Storitve tretjih oseb",
     "s7Intro": "Uporabljamo naslednje storitve:",
     "s7Items": ["Supabase: preverjanje pristnosti, podatkovna zbirka, shramba in funkcije Edge.", "Google Play in RevenueCat: stanje naročnine, identifikatorji izdelkov, datumi poteka in metapodatki transakcij. Celotnih podatkov plačilnih kartic ne prejmemo.", "Google AdMob: oglasi za brezplačne uporabnike, ki lahko po Googlovih pravilnikih zbirajo identifikatorje naprave, približno lokacijo, interakcije z oglasi in diagnostiko. Premium uporabniki oglasov ne vidijo.", "Ponudniki umetne inteligence: ustvarjanje priporočil in predlogov za načrtovanje."],
@@ -402,7 +404,7 @@
     "s6Title": "6. Vsebina uporabnikov",
     "s6Body": "Ohranite lastništvo vsebine, ki jo naložite ali ustvarite, vključno s fotografijami, podatki gostov, pravnimi dokumenti in podrobnostmi poroke. Podeljujete nam omejeno dovoljenje za hrambo, obdelavo, prikaz in sinhronizacijo izključno za zagotavljanje storitve. Pri sodelovanju s partnerjem se vsebina deli skladno z izbranimi dovoljenji.",
     "s7Title": "7. Vsebina umetne inteligence",
-    "s7Body": "Priporočila in časovnice umetne inteligence so le predlogi in so lahko netočni. Priporočila lahko uporabljajo utemeljevanje Gemini z Google Zemljevidi. Iskanje prizorišča uporablja utemeljevanje Gemini z Google Iskanjem za predlaganje možnih uradnih spletnih mest, zahteva vašo potrditev in nato z Gemini URL Context pridobi citirana dejstva z izbranega spletnega mesta. Pred ukrepanjem morate neodvisno preveriti podatke o prizorišču, cene, razpoložljivost, pravne zahteve in primernost.",
+    "s7Body": "Priporočila in časovnice umetne inteligence so le predlogi in so lahko netočni. Priporočila lahko uporabljajo utemeljevanje Gemini z Google Zemljevidi. Iskanje prizorišča uporablja OpenAI Responses API z iskanjem po spletu v živo ter vrne kratka dejstva o prizorišču, podprta s klikljivimi uradnimi ali javnimi spletnimi viri. Pred ukrepanjem morate neodvisno preveriti podatke o prizorišču, cene, razpoložljivost, pravne zahteve in primernost.",
     "s8Title": "8. Sprejemljiva uporaba",
     "s8Intro": "Strinjate se, da ne boste:",
     "s8Items": ["uporabljali aplikacije Wedlune za nezakonite namene;", "nalagali žaljive, škodljive, kršitvene ali nezakonite vsebine;", "poskušali dostopati do podatkov drugega uporabnika ali obiti nadzor dostopa;", "izvajali obratnega inženirstva, dekompilacije ali razstavljanja aplikacije;", "uporabljali avtomatiziranih orodij za zajemanje ali zlorabo storitve."],

@@ -11,7 +11,7 @@
     </section>
     <section id="terms-7">
       <h2>{{ $t("terms.s7Title") }}</h2><p>{{ $t("terms.s7Body") }}</p>
-      <p><a href="https://ai.google.dev/gemini-api/terms" rel="noopener noreferrer">{{ $t("legal.geminiTerms") }}</a> · <a href="https://cloud.google.com/maps-platform/terms" rel="noopener noreferrer">{{ $t("legal.googleMapsTerms") }}</a> · <a href="https://policies.google.com/privacy" rel="noopener noreferrer">{{ $t("legal.googlePrivacy") }}</a></p>
+      <p><a href="https://openai.com/policies/services-agreement/" rel="noopener noreferrer">{{ $t("legal.openAiTerms") }}</a> · <a href="https://openai.com/policies/privacy-policy/" rel="noopener noreferrer">{{ $t("legal.openAiPrivacy") }}</a> · <a href="https://ai.google.dev/gemini-api/terms" rel="noopener noreferrer">{{ $t("legal.geminiTerms") }}</a> · <a href="https://cloud.google.com/maps-platform/terms" rel="noopener noreferrer">{{ $t("legal.googleMapsTerms") }}</a> · <a href="https://policies.google.com/privacy" rel="noopener noreferrer">{{ $t("legal.googlePrivacy") }}</a></p>
     </section>
     <section id="terms-8"><h2>{{ $t("terms.s8Title") }}</h2><p>{{ $t("terms.s8Intro") }}</p><ul><li v-for="item in s8Items" :key="item">{{ item }}</li></ul></section>
     <section id="terms-9"><h2>{{ $t("terms.s9Title") }}</h2><p>{{ $t("terms.s9Body") }}</p></section>
