@@ -1,5 +1,5 @@
 <template>
-  <section id="faq" v-reveal class="bg-ivory-cream py-20 sm:py-28">
+  <section id="faq" v-reveal class="motion-reveal bg-ivory-cream py-20 sm:py-28">
     <div class="section-shell grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
       <div>
         <p class="section-kicker">{{ $t("home.faq.kicker") }}</p>
@@ -42,18 +42,15 @@
 <script setup lang="ts">
 const { tm, rt } = useI18n();
 const faqId = useId();
-const openItems = ref<Set<number>>(new Set());
+const openItem = ref<number | null>(null);
 const items = computed(() => (tm("home.faq.items") as Array<{ question: string; answer: string }>).map((item) => ({ question: rt(item.question), answer: rt(item.answer) })));
 
-const isOpen = (index: number) => openItems.value.has(index);
+const isOpen = (index: number) => openItem.value === index;
 const questionId = (index: number) => `${faqId}-question-${index}`;
 const answerId = (index: number) => `${faqId}-answer-${index}`;
 
 const toggle = (index: number) => {
-  const next = new Set(openItems.value);
-  if (next.has(index)) next.delete(index);
-  else next.add(index);
-  openItems.value = next;
+  openItem.value = openItem.value === index ? null : index;
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <footer id="download" class="site-footer">
     <div v-if="showCta" class="section-shell footer-cta-wrap">
-      <section v-reveal class="footer-cta" :aria-labelledby="ctaTitleId">
+      <section v-reveal class="motion-reveal footer-cta" :aria-labelledby="ctaTitleId">
         <div class="footer-cta-copy">
           <p class="footer-kicker">{{ $t("footer.kicker") }}</p>
           <h2 :id="ctaTitleId" class="footer-title">{{ $t("footer.title") }}</h2>

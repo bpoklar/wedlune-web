@@ -1,5 +1,5 @@
 <template>
-  <section id="pricing" v-reveal class="comparison-section py-20 sm:py-28" :aria-labelledby="comparisonTitleId">
+  <section id="pricing" v-reveal class="motion-reveal comparison-section py-20 sm:py-28" :aria-labelledby="comparisonTitleId">
     <div class="section-shell">
       <div class="mx-auto max-w-3xl text-center">
         <p class="section-kicker">{{ $t("home.pricing.kicker") }}</p>
@@ -181,10 +181,22 @@ const toggleFullComparison = () => {
   if (!showFullComparison.value) openGroups.value = new Set();
 };
 
-const onGroupToggle = (id: string, event: Event) => {
+const onGroupToggle = async (id: string, event: Event) => {
   const details = event.currentTarget as HTMLDetailsElement;
   if (details.open) {
+    const shouldReposition = openGroups.value.size > 0 && !openGroups.value.has(id);
     openGroups.value = new Set([id]);
+
+    if (shouldReposition) {
+      await nextTick();
+      requestAnimationFrame(() => {
+        if (!details.open) return;
+        details.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+          block: "start",
+        });
+      });
+    }
     return;
   }
 

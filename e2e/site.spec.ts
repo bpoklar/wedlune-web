@@ -46,6 +46,7 @@ test.describe("marketing, SEO, and navigation", () => {
       ? { path: "/sl", title: "Poročni planer za organizacijo poroke | Wedlune", h1: "Načrtujta poroko brez kaosa." }
       : { path: "/", title: "Wedding Planner App for Couples | Wedlune", h1: "Plan your wedding without the chaos." };
 
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(localized.path);
     await expect(page).toHaveTitle(localized.title);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(localized.h1);
@@ -119,6 +120,29 @@ test.describe("marketing, SEO, and navigation", () => {
     await expect(header).toHaveAttribute("data-visible", "true");
   });
 
+  test("sections reveal forward without changing the scroll position", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 500 });
+    await page.goto("/");
+    await page.waitForFunction(() => Boolean((document.querySelector("#__nuxt") as HTMLElement & { __vue_app__?: unknown })?.__vue_app__));
+
+    const features = page.locator("#features");
+    await expect(features).toHaveClass(/motion-reveal/);
+    await expect(features).not.toHaveClass(/motion-enter/);
+    await expect(features).toHaveCSS("opacity", "0");
+
+    await page.evaluate(() => window.scrollTo(0, document.querySelector("#features")!.getBoundingClientRect().top + window.scrollY - 200));
+    const scrollYAtReveal = await page.evaluate(() => window.scrollY);
+    await expect(features).toHaveClass(/motion-enter/);
+    expect(await page.evaluate(() => window.scrollY)).toBe(scrollYAtReveal);
+    expect(await features.evaluate((element) => getComputedStyle(element).animationName)).toContain("soft-rise");
+
+    await features.evaluate(async (element) => {
+      await Promise.all(element.getAnimations().map((animation) => animation.finished));
+    });
+    await expect(features).toHaveCSS("opacity", "1");
+    await expect(features).toHaveCSS("transform", "matrix(1, 0, 0, 1, 0, 0)");
+  });
+
   test("store calls to action stay non-interactive when URLs are unavailable", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator('[aria-disabled="true"]', { hasText: "App Store" }).first()).toBeVisible();
@@ -157,9 +181,17 @@ test.describe("marketing, SEO, and navigation", () => {
     });
     await assertA11y(page);
 
-    await toggle.click();
+    const secondToggle = faq.locator("[data-faq-toggle]").nth(1);
+    const secondAnswer = faq.locator("[data-faq-answer]").nth(1);
+    await secondToggle.click();
     await expect(toggle).toHaveAttribute("aria-expanded", "false");
     await expect(answer).toBeHidden();
+    await expect(secondToggle).toHaveAttribute("aria-expanded", "true");
+    await expect(secondAnswer).toBeVisible();
+
+    await secondToggle.click();
+    await expect(secondToggle).toHaveAttribute("aria-expanded", "false");
+    await expect(secondAnswer).toBeHidden();
   });
 
   test("plan comparison is compact, expandable, localized, and responsive", async ({ page }, testInfo) => {
@@ -210,6 +242,10 @@ test.describe("marketing, SEO, and navigation", () => {
     await expect(listsGroup).not.toHaveAttribute("open", "");
     await expect(recommendationsGroup).toHaveAttribute("open", "");
     await expect(fullComparison.locator("details[open]")).toHaveCount(1);
+    await expect.poll(() => recommendationsGroup.evaluate((element) => {
+      const headerOffset = Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+      return Math.round(Math.abs(element.getBoundingClientRect().top - headerOffset));
+    })).toBeLessThanOrEqual(2);
     await expect(
       recommendationsGroup.locator('[data-comparison-row="venueLookups"]:visible'),
     ).toContainText(isMobile ? "Do 2 iskanj" : "Up to 2 lookups");
@@ -254,6 +290,7 @@ test.describe("legal and recovery surfaces", () => {
   });
 
   test("404 presents a branded recovery action", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/this-page-does-not-exist");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(page.locator('a[href="/"]').last()).toBeVisible();

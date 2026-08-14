@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout>
-    <section v-reveal class="soft-page-bg flex min-h-168 items-center px-5 pb-20 pt-28 sm:pt-32">
+    <section v-reveal class="motion-reveal soft-page-bg flex min-h-168 items-center px-5 pb-20 pt-28 sm:pt-32">
       <div class="mx-auto w-full max-w-2xl text-center">
         <p class="section-kicker">{{ error?.statusCode === 404 ? "404" : $t("error.oops") }}</p>
         <h1 class="font-display text-5xl leading-tight text-charcoal sm:text-6xl">

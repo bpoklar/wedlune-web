@@ -1,5 +1,5 @@
 <template>
-  <section id="features" v-reveal class="py-20 sm:py-28">
+  <section id="features" v-reveal class="motion-reveal py-20 sm:py-28">
     <div class="section-shell">
       <div class="max-w-3xl">
         <p class="section-kicker">{{ $t("home.features.kicker") }}</p>

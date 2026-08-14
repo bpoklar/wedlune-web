@@ -1,5 +1,5 @@
 <template>
-  <section v-reveal class="soft-page-bg overflow-hidden pb-20 pt-28 sm:pb-24 sm:pt-32 lg:min-h-204 lg:pb-28 lg:pt-36">
+  <section v-reveal class="motion-reveal soft-page-bg overflow-hidden pb-20 pt-28 sm:pb-24 sm:pt-32 lg:min-h-204 lg:pb-28 lg:pt-36">
     <div class="section-shell grid items-center gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
       <div class="relative z-10 max-w-2xl">
         <p class="section-kicker">{{ $t("home.hero.badge") }}</p>

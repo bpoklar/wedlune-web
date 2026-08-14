@@ -16,7 +16,7 @@
       aria-hidden="true"
     />
 
-    <main id="main-content" v-reveal tabindex="-1" class="relative mx-auto mt-6 w-full max-w-3xl">
+    <main id="main-content" v-reveal tabindex="-1" class="motion-reveal relative mx-auto mt-6 w-full max-w-3xl">
       <!-- Loading state -->
       <div
         v-if="loading"
