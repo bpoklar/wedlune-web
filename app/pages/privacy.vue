@@ -14,7 +14,10 @@
       <p v-for="paragraph in section.paragraphs" :key="paragraph">{{ paragraph }}</p>
     </section>
     <section id="privacy-5"><h2>{{ $t("privacy.s5Title") }}</h2><p>{{ $t("privacy.s5Body") }}</p></section>
-    <section id="privacy-6"><h2>{{ $t("privacy.s6Title") }}</h2><p v-for="paragraph in s6Paragraphs" :key="paragraph">{{ paragraph }}</p></section>
+    <section id="privacy-6">
+      <h2>{{ $t("privacy.s6Title") }}</h2><p v-for="paragraph in s6Paragraphs" :key="paragraph">{{ paragraph }}</p>
+      <p><a href="https://ai.google.dev/gemini-api/terms" rel="noopener noreferrer">{{ $t("legal.geminiTerms") }}</a> · <a href="https://cloud.google.com/maps-platform/terms" rel="noopener noreferrer">{{ $t("legal.googleMapsTerms") }}</a> · <a href="https://policies.google.com/privacy" rel="noopener noreferrer">{{ $t("legal.googlePrivacy") }}</a></p>
+    </section>
     <section id="privacy-7">
       <h2>{{ $t("privacy.s7Title") }}</h2><p>{{ $t("privacy.s7Intro") }}</p>
       <ul><li v-for="item in s7Items" :key="item">{{ item }}</li></ul>

@@ -33,7 +33,10 @@
   },
   "legal": {
     "kicker": "Pravne informacije",
-    "contents": "Na tej strani"
+    "contents": "Na tej strani",
+    "googleMapsTerms": "Pogoji Google Maps Platform",
+    "geminiTerms": "Pogoji API-ja Gemini",
+    "googlePrivacy": "Googlov pravilnik o zasebnosti"
   },
   "footer": {
     "kicker": "Vsi vajini načrti, lepo povezani",
@@ -339,7 +342,7 @@
   },
   "privacy": {
     "title": "Pravilnik o zasebnosti",
-    "date": "7. avgust 2026",
+    "date": "14. avgust 2026",
     "seoTitle": "Pravilnik o zasebnosti",
     "seoDescription": "Pravilnik o zasebnosti Wedlune pojasnjuje, kako zbiramo, uporabljamo in varujemo podatke načrtovanja poroke.",
     "s1Title": "1. Upravljavec in kontakt",
@@ -361,7 +364,7 @@
     "s5Title": "5. Lokalni podatki in obvestila",
     "s5Body": "Aplikacija v napravi hrani varne žetone seje, stanje »zapomni si me«, nastavitve, predpomnilnik brez povezave, čakajoče spremembe in urnike lokalnih obvestil. Obvestila nastajajo lokalno in lahko vključujejo naslove nalog ter roke.",
     "s6Title": "6. Funkcije umetne inteligence",
-    "s6Paragraphs": ["Pri uporabi funkcij umetne inteligence se ustrezen kontekst načrtovanja, kot so odgovori vprašalnika, proračun, vrsta lokacije, država ali mesto, nastavitve in obstoječe postavke načrta, pošlje varnim funkcijam Supabase Edge. Te lahko potrebne pozive pošljejo nastavljenim ponudnikom umetne inteligence, trenutno tudi Google Gemini. E-pošte, gesel, plačilnih podatkov in kontaktov gostov ne pošiljamo, razen če jih določena funkcija izrecno potrebuje.", "Rezultati umetne inteligence so lahko netočni. Pred uporabo vedno preverite podatke o ponudnikih, cenah, pravu in urnikih."],
+    "s6Paragraphs": ["Pri uporabi funkcij umetne inteligence se ustrezen kontekst načrtovanja prek varnih funkcij Supabase Edge pošlje storitvi Google Gemini. Iskanje prizorišča pošlje ime, mesto in državo utemeljevanju Gemini z Google Iskanjem ter prikaže njegov utemeljeni odgovor, citate in predloge Iskanja, medtem ko izberete ali vnesete uradno spletno mesto. Gemini URL Context nato prejme natanko spletno mesto, ki ste ga potrdili.", "Besedila odkrivanja, predlogov in citatov Iskanja ne shranjujemo. Shranimo samo citate z uradne strani in preslikave polj, uporabljene za preverjanje shranjenih podatkov prizorišča. Ne pošiljamo gesel, plačilnih podatkov ali kontaktov gostov. Rezultati umetne inteligence so lahko netočni; pred uporabo preverite podatke o prizorišču, cenah, pravu in urnikih."],
     "s7Title": "7. Storitve tretjih oseb",
     "s7Intro": "Uporabljamo naslednje storitve:",
     "s7Items": ["Supabase: preverjanje pristnosti, podatkovna zbirka, shramba in funkcije Edge.", "Google Play in RevenueCat: stanje naročnine, identifikatorji izdelkov, datumi poteka in metapodatki transakcij. Celotnih podatkov plačilnih kartic ne prejmemo.", "Google AdMob: oglasi za brezplačne uporabnike, ki lahko po Googlovih pravilnikih zbirajo identifikatorje naprave, približno lokacijo, interakcije z oglasi in diagnostiko. Premium uporabniki oglasov ne vidijo.", "Ponudniki umetne inteligence: ustvarjanje priporočil in predlogov za načrtovanje."],
@@ -383,7 +386,7 @@
   },
   "terms": {
     "title": "Pogoji uporabe",
-    "date": "7. avgust 2026",
+    "date": "14. avgust 2026",
     "seoTitle": "Pogoji uporabe",
     "seoDescription": "Pogoji in pravila za uporabo poročne aplikacije Wedlune.",
     "s1Title": "1. Sprejetje pogojev",
@@ -399,7 +402,7 @@
     "s6Title": "6. Vsebina uporabnikov",
     "s6Body": "Ohranite lastništvo vsebine, ki jo naložite ali ustvarite, vključno s fotografijami, podatki gostov, pravnimi dokumenti in podrobnostmi poroke. Podeljujete nam omejeno dovoljenje za hrambo, obdelavo, prikaz in sinhronizacijo izključno za zagotavljanje storitve. Pri sodelovanju s partnerjem se vsebina deli skladno z izbranimi dovoljenji.",
     "s7Title": "7. Vsebina umetne inteligence",
-    "s7Body": "Priporočila in časovnice umetne inteligence so le predlogi in lahko vsebujejo netočne podatke o ponudnikih, cenah, kontaktih, pravnih zahtevah ali urnikih. Pred ukrepanjem morate vse predloge neodvisno preveriti.",
+    "s7Body": "Priporočila in časovnice umetne inteligence so le predlogi in so lahko netočni. Priporočila lahko uporabljajo utemeljevanje Gemini z Google Zemljevidi. Iskanje prizorišča uporablja utemeljevanje Gemini z Google Iskanjem za predlaganje možnih uradnih spletnih mest, zahteva vašo potrditev in nato z Gemini URL Context pridobi citirana dejstva z izbranega spletnega mesta. Pred ukrepanjem morate neodvisno preveriti podatke o prizorišču, cene, razpoložljivost, pravne zahteve in primernost.",
     "s8Title": "8. Sprejemljiva uporaba",
     "s8Intro": "Strinjate se, da ne boste:",
     "s8Items": ["uporabljali aplikacije Wedlune za nezakonite namene;", "nalagali žaljive, škodljive, kršitvene ali nezakonite vsebine;", "poskušali dostopati do podatkov drugega uporabnika ali obiti nadzor dostopa;", "izvajali obratnega inženirstva, dekompilacije ali razstavljanja aplikacije;", "uporabljali avtomatiziranih orodij za zajemanje ali zlorabo storitve."],
