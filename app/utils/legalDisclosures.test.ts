@@ -32,8 +32,17 @@ describe("venue lookup legal disclosures", () => {
       expect(privacy).toMatch(/in-memory|pomnilniku/);
       expect(transfers).toMatch(/outside the EEA|zunaj EGP/);
       expect(privacy).toMatch(/delete all chats|vseh klepetov/);
+      expect(privacy).toMatch(/action proposal|predlog dejanja/);
+      expect(privacy).toMatch(/cannot execute|ne more izvesti/);
+      expect(privacy).toMatch(/selected target|izbrani cilj/i);
+      expect(privacy).toMatch(/locally|lokalno/);
+      expect(privacy).toMatch(/draft|osnut/);
+      expect(privacy).toMatch(/never claims|nikoli ne prevzame/);
+      expect(privacy).toMatch(/does not delete existing history|ne izbriše obstoječe zgodovine/);
       expect(use).toMatch(/explicit versioned consent|izrecno soglasje/);
       expect(catalog.terms.s7Body).toMatch(/aggregate|zbirn/);
+      expect(catalog.terms.s7Body).toMatch(/confirm|potrdit/);
+      expect(catalog.terms.s7Body).toContain("20");
       expect(catalog.terms.s7Body).toContain("OpenAI Responses API");
       expect(catalog.terms.s7Body).toContain("Gemini");
     }

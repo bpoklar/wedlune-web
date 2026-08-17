@@ -277,6 +277,11 @@ test.describe("legal and recovery surfaces", () => {
     await page.goto("/privacy");
     await expect(page.getByRole("heading", { level: 1, name: "Privacy Policy" })).toBeVisible();
     await expect(page.getByRole("navigation", { name: "On this page" })).toBeVisible();
+    await expect(page.getByText(/OpenRouter never claims proposals or executes planning commands/)).toBeVisible();
+    await expect(page.getByRole("link", { name: "OpenRouter Data Processing Agreement" })).toHaveAttribute(
+      "href",
+      "https://openrouter.ai/data-processing-agreement",
+    );
     await assertA11y(page);
     await expect(page).toHaveScreenshot("privacy-desktop.png", { fullPage: true });
   });
@@ -285,6 +290,7 @@ test.describe("legal and recovery surfaces", () => {
     await page.setViewportSize({ width: 320, height: 640 });
     await page.goto("/sl/terms");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.getByText(/OpenRouter in usmerjeni model nikoli ne izbereta lokalnih zapisov/)).toBeVisible();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow).toBeLessThanOrEqual(1);
   });
