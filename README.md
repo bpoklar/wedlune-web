@@ -104,6 +104,24 @@ redirected Worker configuration, entrypoint, and static-assets binding under
 turns the deployment into a Pages configuration, where the generated `ASSETS`
 binding conflicts with Pages' reserved binding.
 
+## Legal-page synchronization
+
+The localized `/privacy`, `/terms`, and `/delete-account` pages mirror the
+legal disclosures shipped inside the Flutter app. AI chat disclosures must
+continue to distinguish the aggregate-only OpenRouter chat flow from the
+separate OpenAI venue lookup and Gemini recommendation flows. Material AI
+disclosure changes require matching English and Slovenian updates, synchronized
+policy dates, a Flutter/Edge consent-version bump, and updates to
+`app/utils/legalDisclosures.test.ts`.
+
+The current AI chat uses OpenRouter's global endpoint. Public copy must disclose
+possible non-EEA processing under the reviewed DPA and Standard Contractual
+Clauses, describe ZDR as a provider-retention control rather than
+anonymization, and explain that Wedlune separately stores private chat history
+until the user deletes it. Do not publish or enable AI chat until the provider,
+transfer, store-declaration, and legal checks in the app repository release
+checklist are complete.
+
 ## RSVP and wishlist safety
 
 - Never log, persist, or include the RSVP bearer token in outbound retailer URLs.
