@@ -24,7 +24,8 @@ describe("venue lookup legal disclosures", () => {
       const transfers = catalog.privacy.s4Paragraphs.join(" ");
       const use = catalog.privacy.s3Paragraphs.join(" ");
       expect(privacy).toContain("OpenRouter");
-      expect(privacy).toContain("Anthropic");
+      expect(privacy).toContain("Auto Router");
+      expect(privacy).toMatch(/does not apply a model-family allowlist|ne uporablja seznama dovoljenih družin modelov/);
       expect(privacy).toMatch(/aggregate|zbirn/);
       expect(privacy).toMatch(/pseudonymous|psevdonim/);
       expect(privacy).toMatch(/Zero Data Retention|brez hrambe podatkov/);
