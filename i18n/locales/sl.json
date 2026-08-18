@@ -124,7 +124,7 @@
         { "title": "Gostje in RSVP", "description": "Spremljajta RSVP, menije, prehranske potrebe, spremljevalce in sedežni red." },
         { "title": "Proračun", "description": "Primerjajta ponudbe, spremljajta plačila in pravočasno opazita prekoračitve stroškov." },
         { "title": "Ponudniki", "description": "Kontakte, ponudbe, stanje rezervacij in pomembne zapiske hranita skupaj." },
-        { "title": "Fotografije", "description": "Navdih, fotografije lokacij in galerije shranita ob svojem poročnem načrtu." },
+        { "title": "Fotografije", "description": "Shranita navdih in fotografije lokacij ter delita seznam posnetkov za fotografa." },
         { "title": "Pametni predlogi", "description": "Po želji prejmeta naslednje korake glede na podrobnosti in napredek poroke." }
       ]
     },
@@ -308,7 +308,7 @@
     "seoTitle": "Seznam poročnih posnetkov",
     "seoDescription": "Oglejte si deljeni seznam poročnih posnetkov s fotografijami.",
     "loading": "Nalaganje seznama posnetkov ...",
-    "notFoundTitle": "Galerije ni bilo mogoče najti",
+    "notFoundTitle": "Seznama posnetkov ni bilo mogoče najti",
     "kicker": "Poročna fotografija",
     "title": "Seznam posnetkov: {name}",
     "shots": "posnetkov",
@@ -322,10 +322,10 @@
     "emptyTitle": "Tukaj še ni ničesar",
     "emptyBody": "Seznam posnetkov je prazen. Oglejte si ga znova pozneje.",
     "categories": { "details": "Detajli", "getting_ready": "Priprave", "ceremony": "Obred", "family": "Družina", "reception": "Sprejem" },
-    "missingToken": "V povezavi galerije manjka žeton. Preverite prejeto povezavo.",
-    "inactive": "Ta povezava galerije ni več aktivna. Par je morda izklopil deljenje ali ustvaril novo povezavo.",
-    "invalid": "Neveljavna povezava galerije.",
-    "loadError": "Pri nalaganju galerije je prišlo do napake. Poskusite znova pozneje."
+    "missingToken": "V povezavi do seznama posnetkov manjka žeton. Preverite prejeto povezavo.",
+    "inactive": "Ta povezava do seznama posnetkov ni več aktivna. Par je morda izklopil deljenje ali ustvaril novo povezavo.",
+    "invalid": "Neveljavna povezava do seznama posnetkov.",
+    "loadError": "Pri nalaganju seznama posnetkov je prišlo do napake. Poskusite znova pozneje."
   },
   "deleteAccount": {
     "title": "Izbris računa Wedlune",
@@ -361,7 +361,7 @@
     "s2Items": [
       "Podatki o računu: e-poštni naslov, ime, ime partnerja, identifikatorji za preverjanje pristnosti, jezik, valuta, tema, stanje naročnine in podatki o povabilu partnerja.",
       "Podrobnosti poroke: datum poroke, slog lokacije, kraj, želje glede obreda, okvirni proračun, število gostov, odgovori vprašalnika, zapiski in nastavitve priporočil.",
-      "Podatki načrtovanja: gostje in odgovori RSVP, zasnove in slike strani RSVP, seznami želja, slike, zasebne rezervacije daril, meniji in prehranske opombe, sedežni red, proračuni, ponudniki, lokacije, nastanitve, prevoz, oblačila, pravni dokumenti, časovnice, kontrolni seznami, plačilni mejniki, predloge sporočil, fotografije in deljene povezave galerij. Za rezervacijo hranimo izdelek, količino in minimalno referenco skupine RSVP, potrebno za spremembo ali preklic. Par in drugi gostje vidijo količine, ne identitete osebe, ki je rezervirala darilo.",
+      "Podatki načrtovanja: gostje in odgovori RSVP, zasnove in slike strani RSVP, seznami želja, slike, zasebne rezervacije daril, meniji in prehranske opombe, sedežni red, proračuni, ponudniki, lokacije, nastanitve, prevoz, oblačila, pravni dokumenti, časovnice, kontrolni seznami, plačilni mejniki, predloge sporočil, fotografije in deljene povezave do seznamov posnetkov. Za rezervacijo hranimo izdelek, količino in minimalno referenco skupine RSVP, potrebno za spremembo ali preklic. Par in drugi gostje vidijo količine, ne identitete osebe, ki je rezervirala darilo.",
       "Podatki klepeta z UI: sprejeta uporabniška sporočila, odgovori pomočnika, zasebni naslovi in povzetki pogovorov, pregledano osnutkovno besedilo za izrecno podprta nova polja, predlogi dejanj brez identifikatorjev in stanje izvajanja, časovni žigi ter različica soglasja in preklica, usmerjeni model, poraba žetonov in metapodatki stroškov. Izbrani cilji načrtovanja in celotne vrednosti lokalnih ukazov se ne shranijo v zgodovino klepeta. Zavrnjena sporočila z zaznanimi podatki gostov ali para oziroma ročno vnesenimi e-poštnimi naslovi, telefoni, naslovi, povezavami, identifikatorji ali žetoni ne ustvarijo pogovora ali sporočila.",
       "Tehnični podatki: podatki o napravi in aplikaciji, stanje lokalne sinhronizacije, dnevniki napak in varnosti, evidence omejevanja uporabe ter časovni žigi, potrebni za delovanje in zaščito storitve.",
       "Izbirna analitika: omejeni dogodki uporabe samo, če analitiko izrecno omogočite v nastavitvah aplikacije. Vsebina pozivov in sporočil UI se ne pošilja v analitiko aplikacije."

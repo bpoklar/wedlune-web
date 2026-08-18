@@ -26,6 +26,14 @@ describe("i18n catalogs", () => {
     expect(sl.gallery.inactive).not.toBe(en.gallery.inactive);
   });
 
+  it("describes the shared photography page as a shot list", () => {
+    expect(en.gallery.notFoundTitle).toBe("Shot List Not Found");
+    expect(en.gallery.missingToken).toContain("shot list link");
+    expect(en.gallery.missingToken.toLowerCase()).not.toContain("gallery");
+    expect(sl.gallery.notFoundTitle).toContain("Seznama posnetkov");
+    expect(sl.gallery.missingToken).toContain("seznama posnetkov");
+  });
+
   it("contains complete localized legal documents", () => {
     expect(sl.privacy.s2Items).toHaveLength(en.privacy.s2Items.length);
     expect(sl.terms.s5Items).toHaveLength(en.terms.s5Items.length);

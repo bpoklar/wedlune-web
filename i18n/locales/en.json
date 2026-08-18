@@ -124,7 +124,7 @@
         { "title": "Guests & RSVPs", "description": "Track RSVPs, meals, dietary needs, plus-ones, and seating without losing context." },
         { "title": "Budget", "description": "Compare quotes, track payments, and catch wedding overspending before it grows." },
         { "title": "Vendors", "description": "Keep vendor contacts, quotes, booking status, and important notes together." },
-        { "title": "Photos", "description": "Save inspiration, venue photos, and gallery links beside your wedding plan." },
+        { "title": "Photos", "description": "Save inspiration and venue photos, then share a photographer shot list from your wedding plan." },
         { "title": "Smart suggestions", "description": "Get optional next-step suggestions based on your wedding details and planning progress." }
       ]
     },
@@ -308,7 +308,7 @@
     "seoTitle": "Wedding Shot List",
     "seoDescription": "View a shared wedding shot list with photos.",
     "loading": "Loading shot list...",
-    "notFoundTitle": "Gallery Not Found",
+    "notFoundTitle": "Shot List Not Found",
     "kicker": "Wedding photography",
     "title": "{name}'s Shot List",
     "shots": "shots",
@@ -322,10 +322,10 @@
     "emptyTitle": "Nothing here yet",
     "emptyBody": "The shot list is empty. Check back later!",
     "categories": { "details": "Details", "getting_ready": "Getting Ready", "ceremony": "Ceremony", "family": "Family", "reception": "Reception" },
-    "missingToken": "This gallery link is missing a token. Please check the link you received.",
-    "inactive": "This gallery link is no longer active. The couple may have disabled sharing or regenerated the link.",
-    "invalid": "Invalid gallery link.",
-    "loadError": "Something went wrong loading the gallery. Please try again later."
+    "missingToken": "This shot list link is missing a token. Please check the link you received.",
+    "inactive": "This shot list link is no longer active. The couple may have disabled sharing or regenerated the link.",
+    "invalid": "Invalid shot list link.",
+    "loadError": "Something went wrong loading the shot list. Please try again later."
   },
   "deleteAccount": {
     "title": "Delete Your Wedlune Account",
@@ -361,7 +361,7 @@
     "s2Items": [
       "Account information: email address, name, partner name, authentication identifiers, language, currency, theme, subscription status, and partner-invitation details.",
       "Wedding details: wedding date, venue style, location, ceremony preferences, budget range, guest count, questionnaire answers, notes, and recommendation preferences.",
-      "Planning data: guests and RSVP details, RSVP page designs and images, wishlists, wishlist images, private gift reservations, meal and dietary notes, seating, budgets, vendors, venues, accommodation, transport, attire, legal documents, timelines, checklists, payment milestones, message templates, photos, and shared gallery links. For a reservation, we retain the wishlist item, quantity, and minimal RSVP-party reference needed to let that party change or cancel it. The couple and other guests are shown quantities, not the reserving party's identity.",
+      "Planning data: guests and RSVP details, RSVP page designs and images, wishlists, wishlist images, private gift reservations, meal and dietary notes, seating, budgets, vendors, venues, accommodation, transport, attire, legal documents, timelines, checklists, payment milestones, message templates, photos, and shared shot list links. For a reservation, we retain the wishlist item, quantity, and minimal RSVP-party reference needed to let that party change or cancel it. The couple and other guests are shown quantities, not the reserving party's identity.",
       "AI chat data: accepted user messages, assistant responses, private conversation titles and summaries, screened draft text for explicitly supported new fields, identifier-free action proposals and execution status, consent and revocation timestamps and policy version, routed model, token usage, and cost metadata. Selected planning targets and full local command values are not stored in chat history. Rejected messages containing detected guest or couple data or manually typed email, phone, address, link, identifier, or token data do not create a conversation or message.",
       "Technical data: device/app metadata, local sync state, error logs, security logs, rate-limit records, and timestamps needed to operate and protect the service.",
       "Optional analytics: limited usage events only if you explicitly enable analytics in the app's Settings. AI prompt and message content is not sent to application analytics."
