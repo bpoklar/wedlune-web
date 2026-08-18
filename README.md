@@ -108,8 +108,9 @@ binding conflicts with Pages' reserved binding.
 
 The localized `/privacy`, `/terms`, and `/delete-account` pages mirror the
 legal disclosures shipped inside the Flutter app. AI chat disclosures must
-continue to distinguish the aggregate-only OpenRouter chat flow from the
-separate OpenAI venue lookup and Gemini recommendation flows. Material AI
+describe guest-safe planning summaries and the exact allowlist of saved
+business details sent through OpenRouter, while distinguishing that flow from
+the separate OpenAI venue lookup and Gemini recommendation flows. Material AI
 disclosure changes require matching English and Slovenian updates, synchronized
 policy dates, a Flutter/Edge consent-version bump, and updates to
 `app/utils/legalDisclosures.test.ts`.

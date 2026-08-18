@@ -277,6 +277,8 @@ test.describe("legal and recovery surfaces", () => {
     await page.goto("/privacy");
     await expect(page.getByRole("heading", { level: 1, name: "Privacy Policy" })).toBeVisible();
     await expect(page.getByRole("navigation", { name: "On this page" })).toBeVisible();
+    await expect(page.getByText(/saved business details may include venue names and types/i)).toBeVisible();
+    await expect(page.getByText(/Guest and couple names, contact data and notes/)).toBeVisible();
     await expect(page.getByText(/OpenRouter never claims proposals or executes planning commands/)).toBeVisible();
     await expect(page.getByRole("link", { name: "OpenRouter Data Processing Agreement" })).toHaveAttribute(
       "href",
@@ -290,6 +292,7 @@ test.describe("legal and recovery surfaces", () => {
     await page.setViewportSize({ width: 320, height: 640 });
     await page.goto("/sl/terms");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.getByText(/shranjenih poslovnih podatkov/)).toBeVisible();
     await expect(page.getByText(/OpenRouter in usmerjeni model nikoli ne izbereta lokalnih zapisov/)).toBeVisible();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow).toBeLessThanOrEqual(1);

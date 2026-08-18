@@ -18,7 +18,7 @@ describe("venue lookup legal disclosures", () => {
     }
   });
 
-  it("describes aggregate-only AI chat separately in both locales", () => {
+  it("describes guest-safe AI chat with saved business details in both locales", () => {
     for (const catalog of [en, sl]) {
       const privacy = catalog.privacy.s6Paragraphs.join(" ");
       const transfers = catalog.privacy.s4Paragraphs.join(" ");
@@ -26,7 +26,14 @@ describe("venue lookup legal disclosures", () => {
       expect(privacy).toContain("OpenRouter");
       expect(privacy).toContain("Auto Router");
       expect(privacy).toMatch(/does not apply a model-family allowlist|ne uporablja seznama dovoljenih družin modelov/);
-      expect(privacy).toMatch(/aggregate|zbirn/);
+      expect(privacy).toMatch(/guest-safe|brez zasebnih podatkov gostov/);
+      expect(privacy).toMatch(/saved business details|shranjeni poslovni podatki/i);
+      expect(privacy).toMatch(/venue names|imena in vrste prizorišč/);
+      expect(privacy).toMatch(/business contact names|poslovnih kontaktnih oseb/);
+      expect(privacy).toMatch(/At most 20|največ 20/);
+      expect(privacy).toMatch(/Guest and couple names|Imena, kontakti in opombe gostov ali para/);
+      expect(privacy).toMatch(/per-record prices|cene posameznih zapisov/);
+      expect(privacy).toMatch(/Manually typed|Ročno vneseni/);
       expect(privacy).toMatch(/pseudonymous|psevdonim/);
       expect(privacy).toMatch(/Zero Data Retention|brez hrambe podatkov/);
       expect(privacy).toMatch(/in-memory|pomnilniku/);
@@ -40,7 +47,8 @@ describe("venue lookup legal disclosures", () => {
       expect(privacy).toMatch(/never claims|nikoli ne prevzame/);
       expect(privacy).toMatch(/does not delete existing history|ne izbriše obstoječe zgodovine/);
       expect(use).toMatch(/explicit versioned consent|izrecno soglasje/);
-      expect(catalog.terms.s7Body).toMatch(/aggregate|zbirn/);
+      expect(catalog.terms.s7Body).toMatch(/guest-safe|brez zasebnih podatkov gostov/);
+      expect(catalog.terms.s7Body).toMatch(/saved business details|shranjenih poslovnih podatkov/);
       expect(catalog.terms.s7Body).toMatch(/confirm|potrdit/);
       expect(catalog.terms.s7Body).toContain("20");
       expect(catalog.terms.s7Body).toContain("OpenAI Responses API");
@@ -49,10 +57,10 @@ describe("venue lookup legal disclosures", () => {
   });
 
   it("keeps legal dates and account deletion coverage synchronized", () => {
-    expect(en.privacy.date).toBe("August 17, 2026");
-    expect(en.terms.date).toBe("August 17, 2026");
-    expect(sl.privacy.date).toBe("17. avgust 2026");
-    expect(sl.terms.date).toBe("17. avgust 2026");
+    expect(en.privacy.date).toBe("August 18, 2026");
+    expect(en.terms.date).toBe("August 18, 2026");
+    expect(sl.privacy.date).toBe("18. avgust 2026");
+    expect(sl.terms.date).toBe("18. avgust 2026");
     for (const catalog of [en, sl]) {
       expect(catalog.deleteAccount.deletedBody).toMatch(
         /AI conversations|pogovore/,
@@ -63,11 +71,12 @@ describe("venue lookup legal disclosures", () => {
     }
   });
 
-  it("does not make inaccurate aggregate-chat privacy claims", () => {
+  it("does not make inaccurate AI chat privacy claims", () => {
     const privacy = en.privacy.s6Paragraphs.join(" ");
     expect(privacy).not.toContain("anonymous payload");
     expect(privacy).not.toContain("OpenRouter never receives");
     expect(privacy).not.toContain("no identifiers are sent");
+    expect(privacy).not.toContain("exclude third-party display names");
     expect(privacy).toContain("different data flows");
   });
 
