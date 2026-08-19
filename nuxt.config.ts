@@ -61,6 +61,14 @@ export default defineNuxtConfig({
     "/sl/privacy": { prerender: true },
     "/sl/terms": { prerender: true },
     "/sl/delete-account": { prerender: true },
+    "/auth/callback/**": {
+      ssr: false,
+      headers: {
+        "Cache-Control": "no-store",
+        "Referrer-Policy": "no-referrer",
+        "X-Robots-Tag": "noindex, nofollow",
+      },
+    },
     "/_nuxt/**": {
       headers: { "Cache-Control": "public, max-age=31536000, immutable" },
     },
@@ -118,7 +126,13 @@ export default defineNuxtConfig({
 
   sitemap: {
     enabled: true,
-    exclude: ["/rsvp", "/shared-gallery", "/sl/rsvp", "/sl/shared-gallery"],
+    exclude: [
+      "/rsvp",
+      "/shared-gallery",
+      "/sl/rsvp",
+      "/sl/shared-gallery",
+      "/auth/callback/**",
+    ],
   },
 
   ogImage: {
@@ -128,6 +142,8 @@ export default defineNuxtConfig({
   robots: {},
 
   runtimeConfig: {
+    appleTeamId: process.env.APPLE_TEAM_ID || "",
+    androidAppLinkSha256: process.env.ANDROID_APP_LINK_SHA256 || "",
     public: {
       supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL || "",
       supabaseAnonKey: process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY || "",

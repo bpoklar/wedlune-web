@@ -309,6 +309,25 @@ test.describe("legal and recovery surfaces", () => {
 });
 
 test.describe("private guest surfaces", () => {
+  test("auth callbacks and Android app links are private and correctly scoped", async ({ request }) => {
+    const callback = await request.get(
+      "/auth/callback/recovery?code=private-e2e-code",
+    );
+    expect(callback.headers()["cache-control"]).toContain("no-store");
+    expect(callback.headers()["referrer-policy"]).toBe("no-referrer");
+    expect(callback.headers()["x-robots-tag"]).toBe("noindex, nofollow");
+    expect(await callback.text()).not.toContain("private-e2e-code");
+
+    const association = await request.get("/.well-known/assetlinks.json");
+    expect(association.ok()).toBe(true);
+    expect(association.headers()["content-type"]).toContain("application/json");
+    const payload = await association.json();
+    expect(payload[0].target.package_name).toBe("com.wedlune.app");
+    expect(payload[0].relation).toContain(
+      "delegate_permission/common.handle_all_urls",
+    );
+  });
+
   test("RSVP keeps its token out of metadata and covers loading, form, wishlist, and confirmation", async ({ page }) => {
     await page.route("**/functions/v1/handle-guest-rsvp", async (route) => {
       if (route.request().method() === "POST") {

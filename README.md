@@ -89,10 +89,24 @@ environment and runtime Variables and Secrets, then redeploy:
 - `NUXT_PUBLIC_SUPABASE_ANON_KEY`
 - `NUXT_PUBLIC_APP_STORE_URL`
 - `NUXT_PUBLIC_GOOGLE_PLAY_URL`
+- `APPLE_TEAM_ID` (10-character Apple Developer Team ID for Universal Links)
+- `ANDROID_APP_LINK_SHA256` (optional comma-separated Google Play signing
+  SHA-256 fingerprints; debug and upload fingerprints are bundled)
+
+`APPLE_TEAM_ID` is mandatory before building or archiving an iOS release.
+After setting it, redeploy this Worker and verify
+`/.well-known/apple-app-site-association` returns HTTP 200 with
+`<TEAM_ID>.com.wedlune.app`. Do not use the bundle ID or the numeric App Store
+Connect app ID in place of the 10-character Developer Team ID.
 
 Store URLs are optional. Only complete HTTPS links on `apps.apple.com` and
 `play.google.com` are rendered as interactive badges; a missing or invalid
 platform URL displays localized, non-interactive “Coming soon” content.
+
+Auth callbacks use `/auth/callback/signup`, `/auth/callback/invite`, and
+`/auth/callback/recovery`. These routes are private, non-cacheable handoff
+pages for the mobile app. Never add analytics, logging, third-party scripts, or
+server-side token exchange to these routes.
 
 Do not rely on the local `.env` file for Cloudflare builds; it is intentionally
 excluded from source control.
