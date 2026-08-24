@@ -123,11 +123,12 @@ binding conflicts with Pages' reserved binding.
 The localized `/privacy`, `/terms`, and `/delete-account` pages mirror the
 legal disclosures shipped inside the Flutter app. AI chat disclosures must
 describe guest-safe planning summaries and the exact allowlist of saved
-business details sent through OpenRouter, while distinguishing that flow from
-the separate OpenAI venue lookup and Gemini recommendation flows. Material AI
-disclosure changes require matching English and Slovenian updates, synchronized
-policy dates, a Flutter/Edge consent-version bump, and updates to
-`app/utils/legalDisclosures.test.ts`.
+business details sent through OpenRouter. Verified venue lookup and section
+recommendations use the separate OpenRouter/Exa source-bound discovery flow;
+transport geocoding and route calculation use openrouteservice. Material
+processing changes require matching English and Slovenian updates,
+synchronized policy dates, review of whether the Flutter/Edge consent version
+must change, and updates to `app/utils/legalDisclosures.test.ts`.
 
 The current AI chat uses OpenRouter's global endpoint. Public copy must disclose
 possible non-EEA processing under the reviewed DPA and Standard Contractual

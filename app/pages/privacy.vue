@@ -16,7 +16,20 @@
     <section id="privacy-5"><h2>{{ $t("privacy.s5Title") }}</h2><p>{{ $t("privacy.s5Body") }}</p></section>
     <section id="privacy-6">
       <h2>{{ $t("privacy.s6Title") }}</h2><p v-for="paragraph in s6Paragraphs" :key="paragraph">{{ paragraph }}</p>
-      <p><a href="https://openrouter.ai/terms" rel="noopener noreferrer">{{ $t("legal.openRouterTerms") }}</a> · <a href="https://openrouter.ai/privacy" rel="noopener noreferrer">{{ $t("legal.openRouterPrivacy") }}</a> · <a href="https://openrouter.ai/data-processing-agreement" rel="noopener noreferrer">{{ $t("legal.openRouterDpa") }}</a> · <a href="https://openrouter.ai/docs/guides/privacy/provider-logging/" rel="noopener noreferrer">{{ $t("legal.openRouterProviderPolicies") }}</a> · <a href="https://openai.com/policies/services-agreement/" rel="noopener noreferrer">{{ $t("legal.openAiTerms") }}</a> · <a href="https://openai.com/policies/privacy-policy/" rel="noopener noreferrer">{{ $t("legal.openAiPrivacy") }}</a> · <a href="https://ai.google.dev/gemini-api/terms" rel="noopener noreferrer">{{ $t("legal.geminiTerms") }}</a> · <a href="https://cloud.google.com/maps-platform/terms" rel="noopener noreferrer">{{ $t("legal.googleMapsTerms") }}</a> · <a href="https://policies.google.com/privacy" rel="noopener noreferrer">{{ $t("legal.googlePrivacy") }}</a> · <a href="https://www.anthropic.com/legal/commercial-terms" rel="noopener noreferrer">{{ $t("legal.anthropicTerms") }}</a> · <a href="https://www.anthropic.com/legal/privacy" rel="noopener noreferrer">{{ $t("legal.anthropicPrivacy") }}</a></p>
+      <p class="provider-links">
+        <a href="https://openrouter.ai/terms" rel="noopener noreferrer">{{ $t("legal.openRouterTerms") }}</a> ·
+        <a href="https://openrouter.ai/privacy" rel="noopener noreferrer">{{ $t("legal.openRouterPrivacy") }}</a> ·
+        <a href="https://openrouter.ai/data-processing-agreement" rel="noopener noreferrer">{{ $t("legal.openRouterDpa") }}</a> ·
+        <a href="https://openrouter.ai/docs/guides/privacy/provider-logging/" rel="noopener noreferrer">{{ $t("legal.openRouterProviderPolicies") }}</a> ·
+        <a href="https://exa.ai/assets/Exa_Labs_Terms_of_Service.pdf" rel="noopener noreferrer">{{ $t("legal.exaTerms") }}</a> ·
+        <a href="https://exa.ai/privacy-policy" rel="noopener noreferrer">{{ $t("legal.exaPrivacy") }}</a> ·
+        <a href="https://ai.google.dev/gemini-api/terms" rel="noopener noreferrer">{{ $t("legal.geminiTerms") }}</a> ·
+        <a href="https://openrouteservice.org/terms-of-service/" rel="noopener noreferrer">{{ $t("legal.orsTerms") }}</a> ·
+        <a href="https://openrouteservice.org/privacy-policy/" rel="noopener noreferrer">{{ $t("legal.orsPrivacy") }}</a> ·
+        <a href="https://policies.google.com/privacy" rel="noopener noreferrer">{{ $t("legal.googlePrivacy") }}</a> ·
+        <a href="https://www.anthropic.com/legal/commercial-terms" rel="noopener noreferrer">{{ $t("legal.anthropicTerms") }}</a> ·
+        <a href="https://www.anthropic.com/legal/privacy" rel="noopener noreferrer">{{ $t("legal.anthropicPrivacy") }}</a>
+      </p>
     </section>
     <section id="privacy-7">
       <h2>{{ $t("privacy.s7Title") }}</h2><p>{{ $t("privacy.s7Intro") }}</p>
@@ -60,5 +73,6 @@ useStructuredData("privacy", () => [{
   name: t("privacy.seoTitle"),
   description: t("privacy.seoDescription"),
   url: `https://wedlune.com${localePath("/privacy")}`,
+  dateModified: "2026-08-24",
 }]);
 </script>
