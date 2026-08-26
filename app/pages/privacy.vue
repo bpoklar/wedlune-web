@@ -15,7 +15,7 @@
     </section>
     <section id="privacy-5"><h2>{{ $t("privacy.s5Title") }}</h2><p>{{ $t("privacy.s5Body") }}</p></section>
     <section id="privacy-6">
-      <h2>{{ $t("privacy.s6Title") }}</h2><p v-for="paragraph in s6Paragraphs" :key="paragraph">{{ paragraph }}</p>
+      <h2>{{ $t("privacy.s6Title") }}</h2><p>{{ $t("privacy.s6ConsentScope") }}</p><p v-for="paragraph in s6Paragraphs" :key="paragraph">{{ paragraph }}</p>
       <p class="provider-links">
         <a href="https://openrouter.ai/terms" rel="noopener noreferrer">{{ $t("legal.openRouterTerms") }}</a> ·
         <a href="https://openrouter.ai/privacy" rel="noopener noreferrer">{{ $t("legal.openRouterPrivacy") }}</a> ·
@@ -73,6 +73,6 @@ useStructuredData("privacy", () => [{
   name: t("privacy.seoTitle"),
   description: t("privacy.seoDescription"),
   url: `https://wedlune.com${localePath("/privacy")}`,
-  dateModified: "2026-08-24",
+  dateModified: "2026-08-26",
 }]);
 </script>

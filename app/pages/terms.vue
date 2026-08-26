@@ -10,7 +10,7 @@
       <h2>{{ $t(`${section.key}Title`) }}</h2><p>{{ $t(`${section.key}Body`) }}</p>
     </section>
     <section id="terms-7">
-      <h2>{{ $t("terms.s7Title") }}</h2><p>{{ $t("terms.s7Body") }}</p>
+      <h2>{{ $t("terms.s7Title") }}</h2><p>{{ $t("terms.s7ConsentScope") }}</p><p>{{ $t("terms.s7Body") }}</p>
       <p class="provider-links">
         <a href="https://openrouter.ai/terms" rel="noopener noreferrer">{{ $t("legal.openRouterTerms") }}</a> ·
         <a href="https://openrouter.ai/privacy" rel="noopener noreferrer">{{ $t("legal.openRouterPrivacy") }}</a> ·
@@ -57,6 +57,6 @@ useStructuredData("terms", () => [{
   name: t("terms.seoTitle"),
   description: t("terms.seoDescription"),
   url: `https://wedlune.com${localePath("/terms")}`,
-  dateModified: "2026-08-24",
+  dateModified: "2026-08-26",
 }]);
 </script>

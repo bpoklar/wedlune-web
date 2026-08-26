@@ -41,7 +41,8 @@ describe("AI and discovery legal disclosures", () => {
       expect(privacy).toMatch(/Zero Data Retention|brez hrambe podatkov/);
       expect(privacy).toMatch(/in-memory|pomnilniku/);
       expect(transfers).toMatch(/outside the EEA|zunaj EGP/);
-      expect(catalog.privacy.s11Body).toMatch(/all chats|vse klepete/);
+      expect(catalog.privacy.s11Body).toMatch(/recommendation selections|izbire priporočil/);
+      expect(catalog.privacy.s11Body).toMatch(/follow-up responses|nadaljnja vprašanja/);
       expect(privacy).toMatch(/action proposal|predlog dejanja/);
       expect(privacy).toMatch(/cannot execute|ne more izvesti/);
       expect(privacy).toMatch(/selected target|izbrani cilj/i);
@@ -64,10 +65,10 @@ describe("AI and discovery legal disclosures", () => {
   });
 
   it("keeps legal dates and account deletion coverage synchronized", () => {
-    expect(en.privacy.date).toBe("August 24, 2026");
-    expect(en.terms.date).toBe("August 24, 2026");
-    expect(sl.privacy.date).toBe("24. avgust 2026");
-    expect(sl.terms.date).toBe("24. avgust 2026");
+    expect(en.privacy.date).toBe("August 26, 2026");
+    expect(en.terms.date).toBe("August 26, 2026");
+    expect(sl.privacy.date).toBe("26. avgust 2026");
+    expect(sl.terms.date).toBe("26. avgust 2026");
     for (const catalog of [en, sl]) {
       expect(catalog.deleteAccount.deletedBody).toMatch(
         /AI conversations|pogovore/,
@@ -75,6 +76,19 @@ describe("AI and discovery legal disclosures", () => {
       expect(catalog.deleteAccount.deletedBody).toMatch(
         /consent records|zapise soglasja/,
       );
+    }
+  });
+
+  it("documents one per-account consent for every covered AI feature", () => {
+    for (const catalog of [en, sl]) {
+      const scope = catalog.privacy.s6ConsentScope;
+      expect(scope).toMatch(/recommendations|priporočila/);
+      expect(scope).toMatch(/venue lookup|iskanje prizorišč/);
+      expect(scope).toMatch(/missing-task|manjkajočih opravil/);
+      expect(scope).toMatch(/per account|posamezen račun/);
+      expect(scope).toMatch(/partner|partnerja/);
+      expect(scope).toMatch(/deterministic timeline|deterministično ustvarjanje časovnice/);
+      expect(scope).toMatch(/incomplete or incorrect|nepopolni ali napačni/);
     }
   });
 
