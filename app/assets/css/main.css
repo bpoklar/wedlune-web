@@ -232,6 +232,18 @@
   .legal-prose a {
     @apply font-bold text-deep-gold underline decoration-champagne-gold/40 underline-offset-4 hover:text-charcoal;
   }
+
+  .legal-prose .provider-notices {
+    @apply rounded-2xl border border-champagne-gold/30 bg-white/40 px-5 py-4;
+  }
+
+  .legal-prose .provider-notices summary {
+    @apply cursor-pointer font-bold text-charcoal;
+  }
+
+  .legal-prose .provider-notices .provider-links {
+    @apply mb-0 mt-4;
+  }
 }
 
 @keyframes soft-rise {
