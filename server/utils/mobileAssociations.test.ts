@@ -11,6 +11,10 @@ describe("mobile association payloads", () => {
     const fingerprints = payload[0].target.sha256_cert_fingerprints;
 
     expect(payload[0].target.package_name).toBe("com.wedlune.app");
+    expect(payload[0].relation).toEqual([
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds",
+    ]);
     expect(fingerprints).toHaveLength(4);
     expect(fingerprints).toContain(
       "A2:71:0A:25:F1:19:6E:BF:3D:BA:20:61:BE:62:ED:0E:33:AF:4D:02:18:C7:CE:E6:E5:4A:E3:44:A0:2D:46:1A",

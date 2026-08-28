@@ -340,6 +340,9 @@ test.describe("private guest surfaces", () => {
     expect(payload[0].relation).toContain(
       "delegate_permission/common.handle_all_urls",
     );
+    expect(payload[0].relation).toContain(
+      "delegate_permission/common.get_login_creds",
+    );
   });
 
   test("RSVP keeps its token out of metadata and covers loading, form, wishlist, and confirmation", async ({ page }) => {
