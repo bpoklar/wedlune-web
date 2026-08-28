@@ -16,6 +16,7 @@
     <section id="privacy-5"><h2>{{ $t("privacy.s5Title") }}</h2><p>{{ $t("privacy.s5Body") }}</p></section>
     <section id="privacy-6">
       <h2>{{ $t("privacy.s6Title") }}</h2><p v-for="paragraph in s6Paragraphs" :key="paragraph">{{ paragraph }}</p>
+      <p>{{ $t("privacy.aiQuotaBody") }}</p>
       <details class="provider-notices">
         <summary>{{ $t("legal.servicePrivacyNotices") }}</summary>
         <p class="provider-links">
@@ -35,6 +36,7 @@
     </section>
     <section v-for="section in laterParagraphSections" :id="section.id" :key="section.key">
       <h2>{{ $t(`${section.key}Title`) }}</h2><p v-for="paragraph in section.paragraphs" :key="paragraph">{{ paragraph }}</p>
+      <p v-if="section.key === 'privacy.s8'">{{ $t("privacy.rsvpPlanBody") }}</p>
     </section>
     <section id="privacy-10">
       <h2>{{ $t("privacy.s10Title") }}</h2>
@@ -71,6 +73,6 @@ useStructuredData("privacy", () => [{
   name: t("privacy.seoTitle"),
   description: t("privacy.seoDescription"),
   url: `https://wedlune.com${localePath("/privacy")}`,
-  dateModified: "2026-08-26",
+  dateModified: "2026-08-28",
 }]);
 </script>

@@ -3,11 +3,10 @@
 Nuxt 4 website for Wedlune marketing pages, public legal pages, account
 deletion instructions, token-gated guest RSVP, and wedding wishlists.
 
-The Premium RSVP route accepts the guest token from the shared URL, loads the
-published wedding design and wishlist through Supabase Edge Functions, and lets
-that RSVP party respond or reserve, change, and cancel gift quantities. Design
-and wishlist data are additive so the page remains compatible with older
-backend deployments that omit either payload.
+The RSVP route accepts the guest token from the shared URL. Free weddings with
+up to 50 invited people use the default presentation; Premium may load the
+published design and wishlist and lets that RSVP party reserve, change, and
+cancel gift quantities. Design and wishlist payloads remain additive.
 
 ## Setup
 
@@ -143,9 +142,11 @@ checklist are complete.
 - Never log, persist, or include the RSVP bearer token in outbound retailer URLs.
 - Retailer links open in a new tab with `noopener` and `noreferrer`; RSVP pages
   are `noindex` and use the site's no-referrer policy.
-- Both RSVP loading and submission require an active wedding Premium
-  entitlement after the token is validated. A valid paused link renders the
-  neutral `premium_required` unavailable state without subscription details.
+- The token is validated before plan checks. Free loading and submission work
+  through 50 invited people with the default design and no wishlist; above 50,
+  the neutral `free_guest_limit_exceeded` state reveals no subscription details.
+- Premium expiry preserves the published design and wishlist. Reducing the
+  guest list resumes Free RSVP; renewal restores the preserved presentation.
 - The optional versioned `rsvpDesign` payload supports Classic, Botanical, and
   Modern layouts. Missing or invalid payloads render the current default.
 - Custom colors and copy apply to form, wishlist, and confirmation states.

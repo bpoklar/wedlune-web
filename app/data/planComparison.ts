@@ -53,8 +53,8 @@ const row = (
  * Public plan comparison values mirror the shipped Flutter entitlements in:
  * ../wedlune/lib/features/settings/providers/feature_limits_provider.dart
  *
- * Online venue lookup usage is also enforced server-side at two Free lookups in:
- * ../wedlune/supabase/migrations/20260811173000_edge_function_atomic_workflows.sql
+ * The human-readable source of truth is:
+ * ../wedlune/docs/Monetization/MONETIZATION_PLAN.md
  *
  * Keep this list user-facing: do not expose model names, API rate limits,
  * cache behavior, grounding scope, or unshipped monetization ideas here.
@@ -77,24 +77,25 @@ export const planComparisonGroups: PlanComparisonGroup[] = [
     id: "lists",
     titleKey: "home.pricing.groups.lists",
     rows: [
-      row("guests", value("guests25", "limited", 25), unlimited()),
-      row("venues", value("venues1", "limited", 1), unlimited()),
-      row("vendors", value("vendors3", "limited", 3), unlimited()),
-      row("caterers", value("caterers3", "limited", 3), unlimited()),
-      row("attire", value("attire10", "limited", 10), unlimited()),
-      row("transport", value("transport3", "limited", 3), unlimited()),
-      row("gallery", value("gallery10", "limited", 10), unlimited()),
+      row("guests", value("guests50", "limited", 50), unlimited()),
+      row("venues", value("venues3", "limited", 3), unlimited()),
+      row("vendors", value("vendors10", "limited", 10), unlimited()),
+      row("caterers", value("caterers5", "limited", 5), unlimited()),
+      row("attire", value("attire20", "limited", 20), unlimited()),
+      row("transport", value("transport5", "limited", 5), unlimited()),
+      row("gallery", value("gallery20", "limited", 20), value("gallery100", "premium", 100)),
     ],
   },
   {
     id: "guests",
     titleKey: "home.pricing.groups.guests",
     rows: [
-      row("rsvpWebsite", unavailable(), premium()),
+      row("rsvpWebsite", value("defaultRsvp50", "limited", 50), premium()),
       row("rsvpDesign", unavailable(), premium()),
       row("guestMessages", unavailable(), premium()),
       row("wishlist", included(), included()),
       row("wishlistSharing", unavailable(), premium()),
+      row("manualSeating", included(), included()),
       row("seatingChart", unavailable(), premium()),
     ],
   },
@@ -102,7 +103,7 @@ export const planComparisonGroups: PlanComparisonGroup[] = [
     id: "collaboration",
     titleKey: "home.pricing.groups.collaboration",
     rows: [
-      row("partnerCollaboration", unavailable(), premium()),
+      row("partnerCollaboration", included(), included()),
       row("shotList", unavailable(), premium()),
       row("pdfExports", unavailable(), premium()),
       row("printing", unavailable(), premium()),
@@ -113,10 +114,11 @@ export const planComparisonGroups: PlanComparisonGroup[] = [
     id: "recommendations",
     titleKey: "home.pricing.groups.recommendations",
     rows: [
-      row("recommendationGenerations", value("recommendations1", "limited", 1), unlimited()),
+      row("recommendationGenerations", value("recommendations1", "limited", 1), value("recommendations10", "premium", 10)),
       row("recommendationResults", value("results2", "limited", 2), value("results4", "premium", 4)),
-      row("missingTaskScan", value("taskScanFree", "limited", 1), value("taskScanPremium", "premium")),
-      row("venueLookups", value("lookups2", "limited", 2), unlimited()),
+      row("missingTaskScan", value("taskScanFree", "limited", 1), value("taskScanPremium", "premium", 5)),
+      row("venueLookups", value("lookups2", "limited", 2), value("lookups20", "premium", 20)),
+      row("aiChat", unavailable(), value("aiChatLimits", "premium", 100)),
       row("moreLikeThis", unavailable(), premium()),
       row("shortlistComparison", unavailable(), premium()),
       row("followupQuestions", unavailable(), premium()),

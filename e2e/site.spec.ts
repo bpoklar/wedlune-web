@@ -9,6 +9,19 @@ const assertA11y = async (page: Page) => {
     .toEqual([]);
 };
 
+const waitForNuxtHydration = async (page: Page) => {
+  await page.waitForFunction(() => {
+    const root = document.querySelector("#__nuxt") as HTMLElement & {
+      __vue_app__?: {
+        config?: {
+          globalProperties?: { $nuxt?: { isHydrating?: boolean } };
+        };
+      };
+    };
+    return root.__vue_app__?.config?.globalProperties?.$nuxt?.isHydrating === false;
+  });
+};
+
 const mockRsvp = {
   name: "Alex Morgan",
   rsvpStatus: "pending",
@@ -71,7 +84,7 @@ test.describe("marketing, SEO, and navigation", () => {
   test("mobile navigation closes on Escape and returns focus", async ({ page }, testInfo) => {
     test.skip(!testInfo.project.name.startsWith("mobile"), "mobile-only interaction");
     await page.goto("/");
-    await page.waitForFunction(() => Boolean((document.querySelector("#__nuxt") as HTMLElement & { __vue_app__?: unknown })?.__vue_app__));
+    await waitForNuxtHydration(page);
     const menuButton = page.getByRole("button", { name: "Open menu" });
     await menuButton.click();
     const mobileMenu = page.locator("#mobile-menu");
@@ -94,7 +107,7 @@ test.describe("marketing, SEO, and navigation", () => {
 
   test("header uses the light palette and follows scroll direction", async ({ page }, testInfo) => {
     await page.goto("/");
-    await page.waitForFunction(() => Boolean((document.querySelector("#__nuxt") as HTMLElement & { __vue_app__?: unknown })?.__vue_app__));
+    await waitForNuxtHydration(page);
 
     const header = page.locator("[data-site-header]");
     const isMobile = testInfo.project.name.startsWith("mobile");
@@ -208,7 +221,7 @@ test.describe("marketing, SEO, and navigation", () => {
     await expect(preview).toBeVisible();
     await expect(preview.locator("[data-comparison-row]:visible")).toHaveCount(6);
     await expect(preview.locator('[data-comparison-row="guests"]:visible')).toContainText(
-      isMobile ? "Do 25" : "Up to 25",
+      isMobile ? "Do 50" : "Up to 50",
     );
 
     const toggle = pricing.locator("[data-full-comparison-toggle]");
@@ -231,7 +244,7 @@ test.describe("marketing, SEO, and navigation", () => {
     await page.keyboard.press("Enter");
     await expect(listsGroup).toHaveAttribute("open", "");
     await expect(listsGroup.locator('[data-comparison-row="gallery"]:visible')).toContainText(
-      isMobile ? "Do 10" : "Up to 10",
+      isMobile ? "Do 20" : "Up to 20",
     );
     expect(await listsGroup.locator('[data-comparison-row="gallery"]:visible').evaluate((element) => getComputedStyle(element).animationName)).toContain("comparison-row-in");
 
@@ -248,7 +261,7 @@ test.describe("marketing, SEO, and navigation", () => {
     })).toBeLessThanOrEqual(2);
     await expect(
       recommendationsGroup.locator('[data-comparison-row="venueLookups"]:visible'),
-    ).toContainText(isMobile ? "Do 2 iskanj" : "Up to 2 lookups");
+    ).toContainText(isMobile ? "2 enkratni iskanji" : "2 unique lookups");
 
     await recommendationsGroup.locator("summary").click();
     await expect(fullComparison.locator("details[open]")).toHaveCount(0);
@@ -277,12 +290,13 @@ test.describe("legal and recovery surfaces", () => {
     await page.goto("/privacy");
     await expect(page.getByRole("heading", { level: 1, name: "Privacy Policy" })).toBeVisible();
     await expect(page.getByRole("navigation", { name: "On this page" })).toBeVisible();
-    await expect(page.getByText(/saved business details may include venue names and types/i)).toBeVisible();
-    await expect(page.getByText(/Guest and couple names, contact data and notes/)).toBeVisible();
-    await expect(page.getByText(/OpenRouter never claims proposals or executes planning commands/)).toBeVisible();
-    await expect(page.getByRole("link", { name: "OpenRouter Data Processing Agreement" })).toHaveAttribute(
+    await expect(page.getByText(/Premium AI chat allows 20 completed turns/i)).toBeVisible();
+    await expect(page.getByText(/Free RSVP uses the default presentation/i)).toBeVisible();
+    await expect(page.getByText(/Guest and couple names, contacts and notes/i)).toBeVisible();
+    await page.locator(".provider-notices summary").click();
+    await expect(page.getByRole("link", { name: "OpenRouter Privacy Policy" })).toHaveAttribute(
       "href",
-      "https://openrouter.ai/data-processing-agreement",
+      "https://openrouter.ai/privacy",
     );
     await assertA11y(page);
     await expect(page).toHaveScreenshot("privacy-desktop.png", { fullPage: true });
@@ -292,8 +306,8 @@ test.describe("legal and recovery surfaces", () => {
     await page.setViewportSize({ width: 320, height: 640 });
     await page.goto("/sl/terms");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(page.getByText(/shranjenih poslovnih podatkov/)).toBeVisible();
-    await expect(page.getByText(/OpenRouter in usmerjeni model nikoli ne izbereta lokalnih zapisov/)).toBeVisible();
+    await expect(page.getByText(/Premium klepet z UI deluje le s povezavo/i)).toBeVisible();
+    await expect(page.getByText(/Brezplačni RSVP uporablja privzeto predstavitev/i)).toBeVisible();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow).toBeLessThanOrEqual(1);
   });

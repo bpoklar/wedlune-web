@@ -654,7 +654,10 @@
       <!-- Branding -->
       <p class="mt-7 text-center text-xs text-pearl-gray sm:mt-8">
         {{ $t("common.poweredBy") }}
-        <NuxtLink :to="localePath('/')" class="text-champagne-gold hover:text-deep-gold">
+        <NuxtLink
+          :to="localePath('/')"
+          class="text-champagne-gold underline decoration-current underline-offset-2 hover:text-deep-gold"
+        >
           Wedlune
         </NuxtLink>
       </p>
@@ -925,7 +928,8 @@ onMounted(async () => {
     };
     if (
       fetchError.status === 403 &&
-      fetchError.data?.code === "premium_required"
+      (fetchError.data?.code === "premium_required" ||
+        fetchError.data?.code === "free_guest_limit_exceeded")
     ) {
       premiumUnavailable.value = true;
     } else if (fetchError.status === 404) {
@@ -989,7 +993,8 @@ const onSubmit = handleSubmit(async (values) => {
     const fetchError = err as { data?: { code?: string }; status?: number };
     if (
       fetchError.status === 403 &&
-      fetchError.data?.code === "premium_required"
+      (fetchError.data?.code === "premium_required" ||
+        fetchError.data?.code === "free_guest_limit_exceeded")
     ) {
       premiumUnavailable.value = true;
       submitted.value = false;

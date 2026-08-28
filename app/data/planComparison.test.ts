@@ -33,7 +33,7 @@ describe("plan comparison", () => {
 
     const rowIds = planComparisonRows.map((comparisonRow) => comparisonRow.id);
     expect(new Set(rowIds).size).toBe(rowIds.length);
-    expect(rowIds).toHaveLength(32);
+    expect(rowIds).toHaveLength(34);
 
     for (const group of planComparisonGroups) {
       expect(getMessage(en, group.titleKey)).toEqual(expect.any(String));
@@ -53,21 +53,29 @@ describe("plan comparison", () => {
   });
 
   it("matches the shipped Free limits instead of stale documentation", () => {
-    expect(byId("guests").free.limit).toBe(25);
-    expect(byId("venues").free.limit).toBe(1);
-    expect(byId("vendors").free.limit).toBe(3);
-    expect(byId("caterers").free.limit).toBe(3);
-    expect(byId("attire").free.limit).toBe(10);
-    expect(byId("transport").free.limit).toBe(3);
-    expect(byId("gallery").free.limit).toBe(10);
+    expect(byId("guests").free.limit).toBe(50);
+    expect(byId("venues").free.limit).toBe(3);
+    expect(byId("vendors").free.limit).toBe(10);
+    expect(byId("caterers").free.limit).toBe(5);
+    expect(byId("attire").free.limit).toBe(20);
+    expect(byId("transport").free.limit).toBe(5);
+    expect(byId("gallery").free.limit).toBe(20);
+    expect(byId("gallery").premium.limit).toBe(100);
     expect(byId("venueLookups").free.limit).toBe(2);
     expect(byId("recommendationGenerations").free.limit).toBe(1);
     expect(byId("recommendationResults").free.limit).toBe(2);
     expect(byId("recommendationResults").premium.limit).toBe(4);
     expect(byId("missingTaskScan").free.limit).toBe(1);
+    expect(byId("recommendationGenerations").premium.limit).toBe(10);
+    expect(byId("missingTaskScan").premium.limit).toBe(5);
+    expect(byId("venueLookups").premium.limit).toBe(20);
+    expect(byId("aiChat").premium.limit).toBe(100);
+    expect(byId("partnerCollaboration").free.state).toBe("included");
+    expect(byId("manualSeating").free.state).toBe("included");
+    expect(byId("rsvpWebsite").free.limit).toBe(50);
 
     const comparisonCopy = JSON.stringify({ en: en.home.pricing, sl: sl.home.pricing });
-    expect(comparisonCopy).not.toMatch(/50 guests|50 gostov|20 photos|20 fotografij/i);
+    expect(comparisonCopy).not.toMatch(/unlimited (AI|photo)|neomejen(a|e|o|i) (UI|fotograf)/i);
   });
 
   it("keeps AI-specific capabilities in the final group", () => {
@@ -77,6 +85,7 @@ describe("plan comparison", () => {
       "recommendationResults",
       "missingTaskScan",
       "venueLookups",
+      "aiChat",
       "moreLikeThis",
       "shortlistComparison",
       "followupQuestions",

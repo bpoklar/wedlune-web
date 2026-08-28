@@ -74,10 +74,10 @@ describe("AI and discovery legal disclosures", () => {
   });
 
   it("keeps legal dates and account deletion coverage synchronized", () => {
-    expect(en.privacy.date).toBe("August 26, 2026");
-    expect(en.terms.date).toBe("August 26, 2026");
-    expect(sl.privacy.date).toBe("26. avgust 2026");
-    expect(sl.terms.date).toBe("26. avgust 2026");
+    expect(en.privacy.date).toBe("August 28, 2026");
+    expect(en.terms.date).toBe("August 28, 2026");
+    expect(sl.privacy.date).toBe("28. avgust 2026");
+    expect(sl.terms.date).toBe("28. avgust 2026");
     for (const catalog of [en, sl]) {
       expect(catalog.deleteAccount.deletedBody).toMatch(
         /AI conversations|pogovore/,
@@ -85,6 +85,26 @@ describe("AI and discovery legal disclosures", () => {
       expect(catalog.deleteAccount.deletedBody).toMatch(
         /consent records|zapise soglasja/,
       );
+    }
+  });
+
+  it("discloses exact plan, RSVP, collaboration, and AI limits in both locales", () => {
+    for (const catalog of [en, sl]) {
+      const copy = [
+        catalog.privacy.aiQuotaBody,
+        catalog.privacy.rsvpPlanBody,
+        catalog.terms.s2Body,
+        catalog.terms.s7Body,
+      ].join(" ");
+      for (const value of ["10", "20", "50", "100", "24"]) {
+        expect(copy).toContain(value);
+      }
+      expect(copy).toMatch(/two results|dvema rezultatoma/);
+      expect(copy).toMatch(/three tasks|tremi opravili/);
+      expect(copy).toMatch(/four results|štirimi rezultati/);
+      expect(copy).toMatch(/five tasks|petimi opravili/);
+      expect(copy.toLowerCase()).not.toMatch(/unlimited (ai|photo)|premium partner invitation/);
+      expect(copy.toLowerCase()).not.toMatch(/neomejen(a|e|o|i) (ui|fotograf)|premium povabil/);
     }
   });
 
