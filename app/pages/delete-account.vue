@@ -27,5 +27,6 @@ useStructuredData("delete-account", () => [{
   name: t("deleteAccount.seoTitle"),
   description: t("deleteAccount.seoDescription"),
   url: `https://wedlune.com${localePath("/delete-account")}`,
+  dateModified: "2026-09-02",
 }]);
 </script>

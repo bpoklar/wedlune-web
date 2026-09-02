@@ -22,6 +22,8 @@
         <p class="provider-links">
           <a href="https://supabase.com/privacy" rel="noopener noreferrer">{{ $t("legal.supabasePrivacy") }}</a> ·
           <a href="https://www.revenuecat.com/privacy/" rel="noopener noreferrer">{{ $t("legal.revenueCatPrivacy") }}</a> ·
+          <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener noreferrer">{{ $t("legal.cloudflarePrivacy") }}</a> ·
+          <a href="https://www.apple.com/legal/privacy/" rel="noopener noreferrer">{{ $t("legal.applePrivacy") }}</a> ·
           <a href="https://policies.google.com/privacy" rel="noopener noreferrer">{{ $t("legal.googlePrivacy") }}</a> ·
           <a href="https://openrouter.ai/privacy" rel="noopener noreferrer">{{ $t("legal.openRouterPrivacy") }}</a> ·
           <a href="https://openrouter.ai/docs/guides/privacy/provider-logging/" rel="noopener noreferrer">{{ $t("legal.openRouterProviderPolicies") }}</a> ·
@@ -73,6 +75,6 @@ useStructuredData("privacy", () => [{
   name: t("privacy.seoTitle"),
   description: t("privacy.seoDescription"),
   url: `https://wedlune.com${localePath("/privacy")}`,
-  dateModified: "2026-08-28",
+  dateModified: "2026-09-02",
 }]);
 </script>

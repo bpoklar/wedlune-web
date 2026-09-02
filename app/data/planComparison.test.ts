@@ -2,8 +2,6 @@ import { describe, expect, it } from "vitest";
 import en from "../../i18n/locales/en.json";
 import sl from "../../i18n/locales/sl.json";
 import {
-  featuredComparisonRowIds,
-  featuredComparisonRows,
   planComparisonGroups,
   planComparisonRows,
   type PlanComparisonRow,
@@ -90,21 +88,6 @@ describe("plan comparison", () => {
       "shortlistComparison",
       "followupQuestions",
     ]);
-  });
-
-  it("keeps the compact overview focused on six meaningful differences", () => {
-    expect(featuredComparisonRowIds).toEqual([
-      "guests",
-      "partnerCollaboration",
-      "rsvpWebsite",
-      "seatingChart",
-      "pdfExports",
-      "advertising",
-    ]);
-    expect(featuredComparisonRows.map((comparisonRow) => comparisonRow.id)).toEqual([
-      ...featuredComparisonRowIds,
-    ]);
-    expect(new Set(featuredComparisonRowIds).size).toBe(6);
   });
 
   it("leaves monetary pricing to the platform stores", () => {

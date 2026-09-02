@@ -1,5 +1,6 @@
 <template>
-  <section id="pricing" v-reveal class="motion-reveal comparison-section py-20 sm:py-28" :aria-labelledby="comparisonTitleId">
+  <section id="pricing" v-reveal class="motion-reveal comparison-section relative isolate overflow-hidden py-20 sm:py-28" :aria-labelledby="comparisonTitleId">
+    <RingsMotif size="xl" class="pricing-rings" />
     <div class="section-shell">
       <div class="mx-auto max-w-3xl text-center">
         <p class="section-kicker">{{ $t("home.pricing.kicker") }}</p>
@@ -8,7 +9,10 @@
 
       <div class="mt-12 grid gap-5 md:grid-cols-2">
         <article class="plan-summary plan-summary-free">
-          <p class="plan-eyebrow">{{ $t("home.pricing.free") }}</p>
+          <div class="flex items-center justify-between gap-5">
+            <p class="plan-eyebrow">{{ $t("home.pricing.free") }}</p>
+            <RingsMotif size="small" class="plan-symbol" />
+          </div>
           <h3>{{ $t("home.pricing.freeTitle") }}</h3>
           <p>{{ $t("home.pricing.freeSubtitle") }}</p>
           <ul>
@@ -17,54 +21,16 @@
         </article>
 
         <article class="plan-summary plan-summary-premium">
-          <p class="plan-eyebrow">{{ $t("home.pricing.premium") }}</p>
+          <div class="flex items-center justify-between gap-5">
+            <p class="plan-eyebrow">{{ $t("home.pricing.premium") }}</p>
+            <RingsMotif size="small" class="plan-symbol plan-symbol-premium" />
+          </div>
           <h3>{{ $t("home.pricing.premiumTitle") }}</h3>
           <p>{{ $t("home.pricing.premiumSubtitle") }}</p>
           <ul>
             <li v-for="item in premiumItems" :key="item"><span aria-hidden="true">✓</span>{{ item }}</li>
           </ul>
         </article>
-      </div>
-
-      <div class="comparison-panel comparison-preview mt-8" data-comparison-preview>
-        <div class="comparison-preview-heading">
-          <div>
-            <h3>{{ $t("home.pricing.keyDifferences") }}</h3>
-            <p>{{ $t("home.pricing.keyDifferencesBody") }}</p>
-          </div>
-        </div>
-
-        <table class="comparison-table hidden md:table">
-          <caption class="sr-only">{{ $t("home.pricing.keyDifferencesCaption") }}</caption>
-          <thead>
-            <tr>
-              <th scope="col">{{ $t("home.pricing.feature") }}</th>
-              <th scope="col">{{ $t("home.pricing.free") }}</th>
-              <th scope="col" class="premium-column">{{ $t("home.pricing.premium") }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="comparisonRow in featuredComparisonRows" :key="comparisonRow.id" :data-comparison-row="comparisonRow.id">
-              <th scope="row">{{ $t(comparisonRow.labelKey) }}</th>
-              <td><PlanComparisonValue :value="comparisonRow.free" /></td>
-              <td class="premium-column"><PlanComparisonValue :value="comparisonRow.premium" /></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <dl class="comparison-mobile md:hidden">
-          <div v-for="comparisonRow in featuredComparisonRows" :key="comparisonRow.id" class="mobile-row" :data-comparison-row="comparisonRow.id">
-            <dt>{{ $t(comparisonRow.labelKey) }}</dt>
-            <dd>
-              <span class="mobile-plan-label">{{ $t("home.pricing.free") }}</span>
-              <PlanComparisonValue :value="comparisonRow.free" />
-            </dd>
-            <dd class="mobile-premium-value">
-              <span class="mobile-plan-label">{{ $t("home.pricing.premium") }}</span>
-              <PlanComparisonValue :value="comparisonRow.premium" />
-            </dd>
-          </div>
-        </dl>
       </div>
 
       <div class="comparison-disclosure">
@@ -160,7 +126,6 @@
 
 <script setup lang="ts">
 import {
-  featuredComparisonRows,
   planComparisonGroups,
 } from "~/data/planComparison";
 
@@ -209,23 +174,58 @@ const onGroupToggle = async (id: string, event: Event) => {
 
 <style scoped>
 .comparison-section {
-  background: var(--site-bg-soft);
+  background:
+    radial-gradient(circle at 4% 35%, rgb(181 150 114 / 0.12), transparent 24rem),
+    linear-gradient(180deg, #fbf6ee, var(--site-bg-soft));
+}
+
+.pricing-rings {
+  position: absolute;
+  right: -8rem;
+  top: 2rem;
+  z-index: -1;
+  color: rgb(152 114 77 / 0.14);
+  transform: rotate(8deg);
 }
 
 .plan-summary {
+  position: relative;
+  overflow: hidden;
   border: 1px solid var(--site-border);
   border-radius: 1.5rem;
   padding: 2rem;
 }
 
 .plan-summary-free {
-  background: var(--site-surface);
+  background: rgb(255 255 255 / 0.86);
+  backdrop-filter: blur(10px);
 }
 
 .plan-summary-premium {
   border-color: #cfb083;
-  background: #f7eddf;
-  box-shadow: 0 22px 55px rgb(104 69 29 / 0.09);
+  background:
+    radial-gradient(circle at 100% 0%, rgb(181 150 114 / 0.2), transparent 15rem),
+    #f2e5d3;
+  box-shadow: 0 22px 55px rgb(104 69 29 / 0.1);
+}
+
+.plan-summary-premium::after {
+  position: absolute;
+  right: -4.5rem;
+  bottom: -5rem;
+  width: 10rem;
+  height: 10rem;
+  border: 1px solid rgb(152 114 77 / 0.14);
+  border-radius: 999px;
+  content: "";
+}
+
+.plan-symbol {
+  color: rgb(152 114 77 / 0.42);
+}
+
+.plan-symbol-premium {
+  color: var(--site-accent-strong);
 }
 
 .plan-eyebrow {
@@ -268,31 +268,12 @@ const onGroupToggle = async (id: string, event: Event) => {
   color: var(--site-success);
 }
 
-.comparison-panel,
 .comparison-accordion {
   overflow: hidden;
   border: 1px solid var(--site-border);
   border-radius: 1.5rem;
   background: var(--site-surface);
   box-shadow: 0 18px 50px rgb(36 31 27 / 0.06);
-}
-
-.comparison-preview-heading {
-  padding: 1.5rem 1.25rem;
-  border-bottom: 1px solid var(--site-border);
-}
-
-.comparison-preview-heading h3 {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-}
-
-.comparison-preview-heading p {
-  max-width: 44rem;
-  margin-top: 0.4rem;
-  font-size: 0.875rem;
-  line-height: 1.65;
-  color: var(--site-text-muted);
 }
 
 .comparison-table {
@@ -386,7 +367,7 @@ const onGroupToggle = async (id: string, event: Event) => {
 }
 
 .comparison-disclosure {
-  margin-top: 1.25rem;
+  margin-top: 2rem;
 }
 
 .comparison-toggle {
@@ -571,9 +552,6 @@ const onGroupToggle = async (id: string, event: Event) => {
     padding: 2.5rem;
   }
 
-  .comparison-preview-heading {
-    padding: 1.75rem 2rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

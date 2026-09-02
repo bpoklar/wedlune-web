@@ -46,6 +46,8 @@ describe("AI and discovery legal disclosures", () => {
       const services = catalog.privacy.s7Items.join(" ");
       expect(services).toContain("Supabase");
       expect(services).toContain("RevenueCat");
+      expect(services).toContain("Cloudflare");
+      expect(services).toContain("Apple App Store");
       expect(services).toContain("OpenRouter");
       expect(services).toContain("Exa");
       expect(services).toContain("openrouteservice");
@@ -62,6 +64,8 @@ describe("AI and discovery legal disclosures", () => {
     expect(privacyPage).toContain("<details class=\"provider-notices\">");
     expect(privacyPage).toContain("https://supabase.com/privacy");
     expect(privacyPage).toContain("https://www.revenuecat.com/privacy/");
+    expect(privacyPage).toContain("https://www.cloudflare.com/privacypolicy/");
+    expect(privacyPage).toContain("https://www.apple.com/legal/privacy/");
     expect(privacyPage).toContain("https://openrouter.ai/privacy");
     expect(privacyPage).toContain("https://exa.ai/privacy-policy");
     expect(privacyPage).toContain(
@@ -74,16 +78,34 @@ describe("AI and discovery legal disclosures", () => {
   });
 
   it("keeps legal dates and account deletion coverage synchronized", () => {
-    expect(en.privacy.date).toBe("August 28, 2026");
-    expect(en.terms.date).toBe("August 28, 2026");
-    expect(sl.privacy.date).toBe("28. avgust 2026");
-    expect(sl.terms.date).toBe("28. avgust 2026");
+    expect(en.privacy.date).toBe("September 2, 2026");
+    expect(en.terms.date).toBe("September 2, 2026");
+    expect(en.deleteAccount.date).toBe("September 2, 2026");
+    expect(sl.privacy.date).toBe("2. september 2026");
+    expect(sl.terms.date).toBe("2. september 2026");
+    expect(sl.deleteAccount.date).toBe("2. september 2026");
     for (const catalog of [en, sl]) {
       expect(catalog.deleteAccount.deletedBody).toMatch(
-        /AI conversations|pogovore/,
+        /private AI data|zasebne podatke.*UI/,
       );
       expect(catalog.deleteAccount.deletedBody).toMatch(
         /consent records|zapise soglasja/,
+      );
+      expect(catalog.deleteAccount.deletedBody).toMatch(
+        /partner remains|partner ostane/,
+      );
+      expect(catalog.deleteAccount.retainedBody).toContain("Apple App Store");
+    }
+  });
+
+  it("explains store billing and shared-plan deletion consistently", () => {
+    for (const catalog of [en, sl]) {
+      expect(catalog.terms.s9Body).toContain("Apple App Store");
+      expect(catalog.terms.s9Body).toMatch(/automatically|samodejno/);
+      expect(catalog.terms.s9Body).toMatch(/uninstalling|odstranitev/);
+      expect(catalog.privacy.s10After).toMatch(/partner remains|partner ostane/);
+      expect(catalog.privacy.s10After).toMatch(
+        /not transferred|se ne prenesejo/,
       );
     }
   });

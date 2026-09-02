@@ -77,6 +77,9 @@ test.describe("marketing, SEO, and navigation", () => {
       return parsed["@graph"]?.map((node) => node["@type"]) ?? [];
     });
     expect(schemaTypes).toEqual(expect.arrayContaining(["Organization", "WebSite", "SoftwareApplication"]));
+    const footerSupport = page.locator("footer [data-footer-support]");
+    await expect(footerSupport.getByRole("link", { name: "support@wedlune.com" })).toHaveAttribute("href", "mailto:support@wedlune.com");
+    await expect(footerSupport.locator("[data-language-select]")).toHaveValue(localized.path === "/" ? "en" : "sl");
     await assertA11y(page);
     await expect(page).toHaveScreenshot(`home-${localized.path === "/" ? "en-desktop" : "sl-mobile"}.png`, { fullPage: true });
   });
@@ -90,19 +93,19 @@ test.describe("marketing, SEO, and navigation", () => {
     const mobileMenu = page.locator("#mobile-menu");
     await expect(mobileMenu).toBeVisible();
     await expect(mobileMenu).toHaveCSS("transition-property", "opacity, transform");
-    const mobileLanguageSwitcher = mobileMenu.locator(".language-switcher-mobile");
-    await expect(mobileLanguageSwitcher).toBeVisible();
-    const languageWidths = await mobileLanguageSwitcher.locator("[data-language-option]").evaluateAll((options) => options.map((option) => option.getBoundingClientRect().width));
-    expect(languageWidths).toHaveLength(2);
-    expect(Math.abs(languageWidths[0]! - languageWidths[1]!)).toBeLessThan(1);
+    await expect(mobileMenu).toHaveCSS("transition-duration", "0.48s");
+    await expect(mobileMenu).toHaveCSS("transition-timing-function", "cubic-bezier(0.16, 1, 0.3, 1)");
+    await expect(mobileMenu.locator("[data-language-select]")).toHaveCount(0);
+    await expect(mobileMenu).toHaveScreenshot("mobile-menu-open.png");
     await page.keyboard.press("Escape");
+    await expect(mobileMenu).toHaveClass(/mobile-menu-leave-active/);
+    await expect(mobileMenu).toHaveCSS("transition-duration", "0.4s");
     await expect(mobileMenu).toBeHidden();
     await expect(menuButton).toBeFocused();
 
-    await menuButton.click();
-    await mobileMenu.locator('[data-language-option][lang="sl"]').click();
+    await page.locator("footer [data-language-select]").selectOption("sl");
     await expect(page).toHaveURL(/\/sl(?:[?#]|$)/);
-    await expect(page.locator("#mobile-menu")).toBeHidden();
+    await expect(page.locator("footer [data-language-select]")).toHaveValue("sl");
   });
 
   test("header uses the light palette and follows scroll direction", async ({ page }, testInfo) => {
@@ -114,11 +117,10 @@ test.describe("marketing, SEO, and navigation", () => {
     if (isMobile) await page.getByRole("button", { name: "Open menu" }).click();
 
     const visibleCta = page.locator("[data-nav-cta]:visible");
-    const activeLanguage = header.locator('[data-language-option][aria-current="page"]:visible');
-
     await expect(header).toHaveAttribute("data-visible", "true");
-    await expect(visibleCta).toHaveCSS("background-color", "rgb(181, 150, 114)");
-    await expect(activeLanguage).toHaveCSS("background-color", "rgba(255, 253, 249, 0.82)");
+    await expect(visibleCta).toHaveCSS("background-color", "rgb(36, 31, 27)");
+    await expect(visibleCta).toHaveCSS("background-image", /linear-gradient/);
+    await expect(header.locator("[data-language-select]")).toHaveCount(0);
     await expect(page.locator("main section").first()).toHaveClass(/motion-enter/);
 
     if (isMobile) await page.getByRole("button", { name: "Close menu" }).click();
@@ -172,6 +174,8 @@ test.describe("marketing, SEO, and navigation", () => {
     await expect(page.getByText("A wedding is one day.")).toHaveCount(0);
     await expect(page.getByText("Less mental load. More shared clarity.")).toHaveCount(0);
     await expect(page.getByText("Optional guidance when you need a next step.")).toHaveCount(0);
+    await expect(page.getByText("Explore the app")).toHaveCount(0);
+    await expect(page.locator("[data-hero-slide]")).toHaveCount(7);
   });
 
   test("FAQ answers animate open and closed accessibly", async ({ page }) => {
@@ -217,12 +221,8 @@ test.describe("marketing, SEO, and navigation", () => {
     await pricing.scrollIntoViewIfNeeded();
     await expect(pricing.getByRole("heading", { level: 2 })).toBeVisible();
 
-    const preview = pricing.locator("[data-comparison-preview]");
-    await expect(preview).toBeVisible();
-    await expect(preview.locator("[data-comparison-row]:visible")).toHaveCount(6);
-    await expect(preview.locator('[data-comparison-row="guests"]:visible')).toContainText(
-      isMobile ? "Do 50" : "Up to 50",
-    );
+    await expect(pricing.locator("[data-comparison-preview]")).toHaveCount(0);
+    await expect(pricing.locator(".plan-summary")).toHaveCount(2);
 
     const toggle = pricing.locator("[data-full-comparison-toggle]");
     await expect(toggle).toHaveAttribute("aria-expanded", "false");
@@ -278,7 +278,7 @@ test.describe("marketing, SEO, and navigation", () => {
   test("reduced-motion users receive static transitions", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
-    const duration = await page.getByRole("button", { name: "Budget" }).evaluate((element) => getComputedStyle(element).transitionDuration);
+    const duration = await page.getByRole("button", { name: "Compare all features" }).evaluate((element) => getComputedStyle(element).transitionDuration);
     expect(Number.parseFloat(duration)).toBeLessThanOrEqual(0.001);
     await expect(page.locator("main section").first()).not.toHaveClass(/motion-enter/);
   });
@@ -375,7 +375,7 @@ test.describe("private guest surfaces", () => {
   test("missing RSVP token has an accessible error state", async ({ page }) => {
     await page.goto("/rsvp");
     await expect(page.locator("#rsvp-error")).toBeVisible();
-    await expect(page.locator('[data-language-option][aria-current="page"]')).toHaveCSS("background-color", "rgba(255, 253, 249, 0.82)");
+    await expect(page.locator("[data-language-select]")).toHaveValue("en");
     await assertA11y(page);
     await expect(page).toHaveScreenshot("rsvp-error.png");
   });

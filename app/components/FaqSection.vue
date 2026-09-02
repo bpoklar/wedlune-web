@@ -4,6 +4,10 @@
       <div>
         <p class="section-kicker">{{ $t("home.faq.kicker") }}</p>
         <h2 class="section-title">{{ $t("home.faq.title") }}</h2>
+        <div class="faq-motif mt-10" aria-hidden="true">
+          <RingsMotif size="medium" class="faq-rings" />
+          <span class="faq-line" />
+        </div>
       </div>
       <div class="divide-y divide-linen border-y border-linen">
         <div v-for="(item, index) in items" :key="item.question" class="faq-item py-2">
@@ -55,6 +59,24 @@ const toggle = (index: number) => {
 </script>
 
 <style scoped>
+.faq-motif {
+  display: flex;
+  width: 10rem;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.faq-rings {
+  color: rgb(152 114 77 / 0.45);
+  transform: rotate(-7deg);
+}
+
+.faq-line {
+  width: 4rem;
+  height: 1px;
+  background: var(--site-border);
+}
+
 .faq-answer-reveal {
   display: grid;
   overflow: hidden;

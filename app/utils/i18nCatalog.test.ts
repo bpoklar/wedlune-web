@@ -44,6 +44,7 @@ describe("i18n catalogs", () => {
   it("keeps the homepage compact in both locales", () => {
     for (const catalog of [en, sl]) {
       expect(catalog.home.proof.items).toHaveLength(4);
+      expect(Object.keys(catalog.home.hero.slider.slides)).toHaveLength(7);
       expect(catalog.home.features.items).toHaveLength(6);
       expect(catalog.home.how.steps).toHaveLength(3);
       expect(catalog.home.faq.items).toHaveLength(6);
@@ -52,5 +53,20 @@ describe("i18n catalogs", () => {
       expect(catalog.home).not.toHaveProperty("ai");
       expect(catalog.home).not.toHaveProperty("trust");
     }
+  });
+
+  it("uses outcome-led selling points in the proof strip", () => {
+    expect(en.home.proof.items).toEqual([
+      "Plan together",
+      "Stay on budget",
+      "RSVPs without the app",
+      "Always know what's next",
+    ]);
+    expect(sl.home.proof.items).toEqual([
+      "Načrtujta skupaj",
+      "Ostanita znotraj proračuna",
+      "RSVP brez aplikacije",
+      "Vedno vesta, kaj sledi",
+    ]);
   });
 });

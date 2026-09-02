@@ -57,6 +57,6 @@ useStructuredData("terms", () => [{
   name: t("terms.seoTitle"),
   description: t("terms.seoDescription"),
   url: `https://wedlune.com${localePath("/terms")}`,
-  dateModified: "2026-08-28",
+  dateModified: "2026-09-02",
 }]);
 </script>

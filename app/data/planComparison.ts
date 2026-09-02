@@ -129,18 +129,3 @@ export const planComparisonGroups: PlanComparisonGroup[] = [
 export const planComparisonRows = planComparisonGroups.flatMap(
   (group) => group.rows,
 );
-
-export const featuredComparisonRowIds = [
-  "guests",
-  "partnerCollaboration",
-  "rsvpWebsite",
-  "seatingChart",
-  "pdfExports",
-  "advertising",
-] as const;
-
-export const featuredComparisonRows = featuredComparisonRowIds.map((id) => {
-  const comparisonRow = planComparisonRows.find((item) => item.id === id);
-  if (!comparisonRow) throw new Error(`Missing featured comparison row: ${id}`);
-  return comparisonRow;
-});

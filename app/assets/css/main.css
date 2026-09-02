@@ -35,6 +35,7 @@
   --site-error: #76533b;
   --site-focus: #654a34;
   --site-shadow: 0 28px 80px rgb(36 31 27 / 0.1);
+  --site-shadow-soft: 0 18px 50px rgb(36 31 27 / 0.08);
 }
 
 @layer base {
@@ -88,54 +89,6 @@
     opacity: 0;
   }
 
-  .language-switcher {
-    display: inline-grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(0, 1fr);
-    align-items: center;
-    gap: 0.125rem;
-    padding: 0.1875rem;
-    border: 1px solid rgb(181 150 114 / 0.28);
-    border-radius: 9999px;
-    background: rgb(241 230 216 / 0.42);
-  }
-
-  .language-option {
-    display: inline-flex;
-    min-width: 2.25rem;
-    min-height: 2.25rem;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9999px;
-    padding-inline: 0.625rem;
-    color: var(--site-text-muted);
-    font-size: 0.75rem;
-    font-weight: 800;
-    line-height: 1;
-    transition: color 140ms ease, background-color 140ms ease, box-shadow 140ms ease;
-  }
-
-  .language-option:hover {
-    color: var(--site-accent-strong);
-  }
-
-  .language-option.is-active {
-    color: var(--site-accent-strong);
-    background: rgb(255 253 249 / 0.82);
-    box-shadow: 0 1px 4px rgb(36 31 27 / 0.08);
-  }
-
-  .language-switcher-mobile {
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .language-switcher-mobile .language-option {
-    min-height: 2.75rem;
-    font-size: 0.875rem;
-  }
-
   @media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
     .motion-reveal {
       opacity: 0;
@@ -161,11 +114,12 @@
   }
 
   .section-kicker {
-    @apply mb-4 text-xs font-extrabold uppercase tracking-[0.2em] text-deep-gold sm:text-sm;
+    @apply mb-4 text-[0.68rem] font-extrabold uppercase tracking-[0.22em] text-deep-gold sm:text-xs;
   }
 
   .section-title {
     @apply max-w-3xl font-display text-4xl leading-[1.08] text-charcoal sm:text-5xl lg:text-[3.5rem];
+    text-wrap: balance;
   }
 
   .section-subtitle {
@@ -174,7 +128,7 @@
 
   .card-surface {
     @apply rounded-4xl border border-linen bg-white;
-    box-shadow: 0 18px 60px rgb(36 31 27 / 0.07);
+    box-shadow: var(--site-shadow-soft);
   }
 
   .btn-primary {
@@ -191,9 +145,9 @@
 
   .soft-page-bg {
     background:
-      radial-gradient(circle at 7% 5%, rgb(181 150 114 / 0.16), transparent 28rem),
-      radial-gradient(circle at 94% 0%, rgb(101 74 52 / 0.09), transparent 30rem),
-      linear-gradient(180deg, var(--site-bg-soft), var(--site-bg));
+      radial-gradient(circle at 8% 10%, rgb(181 150 114 / 0.18), transparent 26rem),
+      radial-gradient(circle at 92% 5%, rgb(152 114 77 / 0.13), transparent 30rem),
+      linear-gradient(145deg, #fbf6ee 0%, #fffdf9 56%, #f3e9dc 100%);
   }
 
   .editorial-rule {
