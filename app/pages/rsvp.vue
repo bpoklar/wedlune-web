@@ -230,7 +230,7 @@
           </div>
 
           <!-- Main guest RSVP Status -->
-          <fieldset>
+          <fieldset v-if="!isCouple">
             <legend class="mb-4 w-full">
               <span class="flex items-center gap-3">
                 <span
@@ -294,6 +294,19 @@
               {{ rsvpStatusError }}
             </p>
           </fieldset>
+          <div
+            v-else
+            id="rsvp-couple-status"
+            class="rsvp-muted-panel flex min-h-16 items-center justify-between gap-4 rounded-2xl border border-sage-green/40 px-4 py-3"
+            role="status"
+          >
+            <span class="text-sm font-semibold text-charcoal">
+              {{ $t("rsvp.willYouAttend") }}
+            </span>
+            <span class="font-semibold text-sage-green">
+              ✓ {{ $t("rsvp.attending") }}
+            </span>
+          </div>
 
           <!-- Main guest meal / dietary (only if accepted) -->
           <div
@@ -730,6 +743,7 @@ watch(submitError, async (message) => {
 // Guest data from API
 const guestName = ref("");
 const coupleName = ref<string | null>(null);
+const isCouple = ref(false);
 
 // +1 guest data (reactive array)
 interface MenuCourse {
@@ -851,6 +865,7 @@ onMounted(async () => {
   try {
     const data = await $fetch<{
       name: string;
+      isCouple: boolean;
       rsvpStatus: string;
       mealPreference: string | null;
       dietaryNotes: string | null;
@@ -887,6 +902,7 @@ onMounted(async () => {
     });
 
     guestName.value = data.name;
+    isCouple.value = data.isCouple;
     coupleName.value = data.coupleName;
     wishlist.value = data.wishlist ?? null;
     rsvpDesign.value = resolveRsvpDesign(data.rsvpDesign);
@@ -905,8 +921,9 @@ onMounted(async () => {
       }));
     }
 
-    // Pre-fill form if guest already responded
-    if (data.rsvpStatus !== "pending") {
+    // Couple attendance is fixed, but their RSVP details remain editable.
+    const effectiveStatus = data.isCouple ? "accepted" : data.rsvpStatus;
+    if (effectiveStatus !== "pending") {
       hasExistingResponse.value = true;
       selectedMenuId.value = data.menuId ?? null;
       const matched = data.menuId
@@ -915,7 +932,7 @@ onMounted(async () => {
       const label = matched ? matched.label : (data.mealPreference ?? "");
       resetForm({
         values: {
-          rsvpStatus: data.rsvpStatus as "accepted" | "declined",
+          rsvpStatus: effectiveStatus as "accepted" | "declined",
           mealPreference: label,
           dietaryNotes: data.dietaryNotes ?? "",
         },
@@ -972,7 +989,7 @@ const onSubmit = handleSubmit(async (values) => {
         "x-rsvp-token": rsvpToken,
       },
       body: {
-        rsvpStatus: values.rsvpStatus,
+        rsvpStatus: isCouple.value ? "accepted" : values.rsvpStatus,
         menuId: selectedMenuId.value,
         mealPreference: values.mealPreference || null,
         dietaryNotes: values.dietaryNotes || null,
@@ -986,7 +1003,7 @@ const onSubmit = handleSubmit(async (values) => {
       },
     });
 
-    submittedStatus.value = values.rsvpStatus;
+    submittedStatus.value = isCouple.value ? "accepted" : values.rsvpStatus;
     hasExistingResponse.value = true;
     submitted.value = true;
   } catch (err: unknown) {
