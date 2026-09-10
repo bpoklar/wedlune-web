@@ -117,6 +117,28 @@ redirected Worker configuration, entrypoint, and static-assets binding under
 turns the deployment into a Pages configuration, where the generated `ASSETS`
 binding conflicts with Pages' reserved binding.
 
+## Website feedback
+
+`/feedback` and `/sl/feedback` accept public feedback without an account. The
+footer links to the localized page. Category, a trimmed 10–2,000-character
+message, an optional 1–5 rating, and optional reply email are validated with
+Zod 4.4.3 and sent to the `submit-feedback` Supabase Edge Function using the
+existing public runtime configuration.
+
+The function lives in the Flutter repository and writes to the same
+`public.feedback` table with `source = 'website'` and null user/wedding IDs.
+Flutter inserts keep the `app` default. Anonymous clients cannot access the
+table directly; the function enforces a honeypot, a 16 KiB body limit, and
+database-backed network rate limits (5 attempts per 10 minutes, 25 per day).
+Contact emails are optional, unverified, and private. The form retains values
+after network errors for manual retry and does not persist an offline queue.
+
+Keep `app/utils/feedback.ts` aligned with the function's `schema.ts`. Run
+`npm test`, `npm run build`, and `npm run test:e2e`; feedback browser tests
+cover English/Slovenian on desktop/mobile and save form/success screenshots.
+Release the `website_feedback` database migration and `submit-feedback`
+function before deploying the website. Do not log messages or contact emails.
+
 ## Legal-page synchronization
 
 The localized `/privacy`, `/terms`, and `/delete-account` pages mirror the

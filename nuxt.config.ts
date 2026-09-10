@@ -61,6 +61,8 @@ export default defineNuxtConfig({
     "/sl/privacy": { prerender: true },
     "/sl/terms": { prerender: true },
     "/sl/delete-account": { prerender: true },
+    "/feedback": { prerender: true },
+    "/sl/feedback": { prerender: true },
     "/auth/callback/**": {
       ssr: false,
       headers: {

@@ -1,4 +1,51 @@
 {
+  "feedback": {
+    "kicker": "Prisluhnemo vam",
+    "title": "Pošlji povratno informacijo",
+    "subtitle": "Prijavite napako, predlagajte izboljšavo ali nam povejte, kako vam Wedlune pomaga.",
+    "seoTitle": "Pošljite povratno informacijo | Wedlune",
+    "seoDescription": "Delite napako, predlog funkcije ali izboljšavo z ekipo Wedlune. Račun ni potreben.",
+    "category": "Kategorija",
+    "categories": {
+      "bug": "Napaka",
+      "feature": "Predlog funkcije",
+      "improvement": "Izboljšava",
+      "general": "Splošno"
+    },
+    "message": "Sporočilo",
+    "messageHint": "Podrobno opišite svojo povratno informacijo …",
+    "messageCount": "{count} / 2.000 znakov",
+    "rating": "Kako bi ocenili Wedlune? (neobvezno)",
+    "ratingStar": "Oceni Wedlune z {count} od 5",
+    "clearRating": "Odstrani oceno",
+    "email": "E-pošta (neobvezno)",
+    "emailHint": "vi{'@'}primer.si",
+    "emailHelp": "Vnesite e-poštni naslov, če želite, da vam lahko odgovorimo.",
+    "privacyBefore": "Vašo povratno informacijo in neobvezni e-poštni naslov hranimo zasebno. Preberite našo",
+    "privacyLink": "Politiko zasebnosti",
+    "privacyAfter": ".",
+    "website": "Spletna stran",
+    "submit": "Pošlji povratno informacijo",
+    "submitting": "Pošiljanje …",
+    "successTitle": "Hvala za vašo povratno informacijo",
+    "success": "Vaša povratna informacija je poslana. Hvala, ker nam pomagate izboljšati Wedlune.",
+    "sendAnother": "Pošlji novo povratno informacijo",
+    "backHome": "Nazaj na domačo stran",
+    "errors": {
+      "offline": "Niste povezani s spletom. Sporočilo je še vedno tukaj — povežite se in poskusite znova.",
+      "rateLimited": "V zadnjem času ste poslali več zahtev. Pred ponovnim poskusom malo počakajte.",
+      "unavailable": "Povratne informacije ni bilo mogoče poslati. Sporočilo je še vedno tukaj — poskusite znova.",
+      "invalid": "Preverite povratno informacijo in poskusite znova."
+    },
+    "validation": {
+      "category": "Izberite kategorijo povratne informacije.",
+      "messageRequired": "Prosimo, vnesite sporočilo.",
+      "messageShort": "Sporočilo mora imeti vsaj 10 znakov.",
+      "messageLong": "Sporočilo ima lahko največ 2.000 znakov.",
+      "email": "Vnesite veljaven e-poštni naslov z največ 254 znaki.",
+      "rating": "Izberite celoštevilsko oceno od 1 do 5."
+    }
+  },
   "common": {
     "wedlune": "Wedlune",
     "poweredBy": "Omogoča",
@@ -53,6 +100,7 @@
     "applePrivacy": "Pravilnik o zasebnosti Apple"
   },
   "footer": {
+    "feedback": "Pošlji povratno informacijo",
     "kicker": "Vsi vajini načrti, lepo povezani",
     "title": "Sta pripravljena načrtovati skupaj?",
     "body": "Vse podrobnosti poroke imejta skupaj na enem mestu.",

@@ -52,6 +52,7 @@
           <div class="footer-link-group footer-support-group" data-footer-support>
             <RingsMotif size="large" class="footer-rings" />
             <h2 class="footer-heading">{{ $t("footer.support") }}</h2>
+            <NuxtLink :to="localePath('/feedback')" class="footer-link footer-feedback-link">{{ $t("footer.feedback") }}</NuxtLink>
             <a href="mailto:support@wedlune.com" class="footer-support-email">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
                 <path d="M4 6.5h16v11H4v-11Z" stroke="currentColor" stroke-width="1.6" />
@@ -222,6 +223,11 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   font-weight: 700;
   color: rgb(255 255 255 / 0.68);
   transition: color 180ms ease;
+}
+
+.footer-support-group .footer-feedback-link {
+  display: flex;
+  width: fit-content;
 }
 
 .footer-support-email svg {

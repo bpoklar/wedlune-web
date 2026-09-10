@@ -1,4 +1,51 @@
 {
+  "feedback": {
+    "kicker": "We’re listening",
+    "title": "Send feedback",
+    "subtitle": "Report a bug, suggest an improvement, or tell us how Wedlune is working for you.",
+    "seoTitle": "Send Feedback | Wedlune",
+    "seoDescription": "Share a bug report, feature request, or suggestion with Wedlune. No account needed.",
+    "category": "Category",
+    "categories": {
+      "bug": "Bug",
+      "feature": "Feature request",
+      "improvement": "Improvement",
+      "general": "General"
+    },
+    "message": "Message",
+    "messageHint": "Describe your feedback in detail…",
+    "messageCount": "{count} / 2,000 characters",
+    "rating": "How would you rate Wedlune? (optional)",
+    "ratingStar": "Rate Wedlune {count} out of 5",
+    "clearRating": "Clear rating",
+    "email": "Email (optional)",
+    "emailHint": "you{'@'}example.com",
+    "emailHelp": "Leave your email if you’d like us to be able to reply.",
+    "privacyBefore": "Your feedback and optional email are stored privately. See our",
+    "privacyLink": "Privacy Policy",
+    "privacyAfter": ".",
+    "website": "Website",
+    "submit": "Submit feedback",
+    "submitting": "Sending…",
+    "successTitle": "Thank you for your feedback",
+    "success": "Your feedback has been sent. We appreciate you helping us improve Wedlune.",
+    "sendAnother": "Send more feedback",
+    "backHome": "Back to home",
+    "errors": {
+      "offline": "You’re offline. Your message is still here — reconnect and try again.",
+      "rateLimited": "You’ve sent several requests recently. Please wait before trying again.",
+      "unavailable": "We couldn’t send your feedback. Your message is still here — please try again.",
+      "invalid": "Please check your feedback and try again."
+    },
+    "validation": {
+      "category": "Choose a feedback category.",
+      "messageRequired": "Please enter a message.",
+      "messageShort": "Message must be at least 10 characters.",
+      "messageLong": "Message must be no more than 2,000 characters.",
+      "email": "Enter a valid email address with no more than 254 characters.",
+      "rating": "Choose a whole-number rating from 1 to 5."
+    }
+  },
   "common": {
     "wedlune": "Wedlune",
     "poweredBy": "Powered by",
@@ -53,6 +100,7 @@
     "applePrivacy": "Apple Privacy Policy"
   },
   "footer": {
+    "feedback": "Send feedback",
     "kicker": "Your plans, beautifully connected",
     "title": "Ready to plan together?",
     "body": "Keep every wedding detail in one shared place.",
