@@ -80,7 +80,7 @@ test.describe("marketing, SEO, and navigation", () => {
     expect(schemaTypes).toEqual(expect.arrayContaining(["Organization", "WebSite", "SoftwareApplication"]));
     const footerSupport = page.locator("footer [data-footer-support]");
     await expect(footerSupport.getByRole("link", { name: "support@wedlune.com" })).toHaveAttribute("href", "mailto:support@wedlune.com");
-    await expect(footerSupport.locator("[data-language-select]")).toHaveValue(localized.path === "/" ? "en" : "sl");
+    await expect(page.locator("footer [data-language-select]")).toHaveValue(localized.path === "/" ? "en" : "sl");
     await assertA11y(page);
     await expect(page).toHaveScreenshot(`home-${localized.path === "/" ? "en-desktop" : "sl-mobile"}.png`, { fullPage: true });
   });

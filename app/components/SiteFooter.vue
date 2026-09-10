@@ -17,55 +17,43 @@
     </div>
 
     <div class="footer-lower" :class="{ 'footer-lower-standalone': !showCta }">
-      <div class="section-shell footer-main" :class="showCta ? '' : 'footer-main-standalone'">
-        <div class="footer-intro">
+      <div class="section-shell footer-main">
+        <div class="footer-content">
           <div class="footer-brand">
             <NuxtLink :to="localePath('/')" class="inline-flex rounded-sm" :aria-label="$t('nav.homeLabel')">
               <img src="/img/wedlune-logo-light-284.png" alt="" width="142" height="29" class="h-7 w-auto">
             </NuxtLink>
             <p class="footer-tagline">{{ $t("footer.tagline") }}</p>
           </div>
-        </div>
-
-        <div class="footer-divider" aria-hidden="true"><span>✦</span></div>
-
-        <nav class="footer-links" :aria-label="$t('footer.navigation')">
-          <div class="footer-link-group">
-            <h2 class="footer-heading">{{ $t("footer.product") }}</h2>
-            <ul class="footer-list">
-              <li><NuxtLink :to="homeLink('features')" class="footer-link">{{ $t("nav.features") }}</NuxtLink></li>
-              <li><NuxtLink :to="homeLink('how-it-works')" class="footer-link">{{ $t("nav.howItWorks") }}</NuxtLink></li>
-              <li><NuxtLink :to="homeLink('pricing')" class="footer-link">{{ $t("nav.pricing") }}</NuxtLink></li>
-              <li><NuxtLink :to="homeLink('faq')" class="footer-link">{{ $t("nav.faq") }}</NuxtLink></li>
-            </ul>
-          </div>
-
-          <div class="footer-link-group">
-            <h2 class="footer-heading">{{ $t("footer.legal") }}</h2>
-            <ul class="footer-list">
-              <li><NuxtLink :to="localePath('/privacy')" class="footer-link">{{ $t("footer.privacyPolicy") }}</NuxtLink></li>
-              <li><NuxtLink :to="localePath('/terms')" class="footer-link">{{ $t("footer.terms") }}</NuxtLink></li>
-              <li><NuxtLink :to="localePath('/delete-account')" class="footer-link">{{ $t("footer.deleteAccount") }}</NuxtLink></li>
-            </ul>
-          </div>
-
-          <div class="footer-link-group footer-support-group" data-footer-support>
-            <RingsMotif size="large" class="footer-rings" />
-            <h2 class="footer-heading">{{ $t("footer.support") }}</h2>
-            <NuxtLink :to="localePath('/feedback')" class="footer-link footer-feedback-link">{{ $t("footer.feedback") }}</NuxtLink>
-            <a href="mailto:support@wedlune.com" class="footer-support-email">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
-                <path d="M4 6.5h16v11H4v-11Z" stroke="currentColor" stroke-width="1.6" />
-                <path d="m5 7.5 7 5 7-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-              support@wedlune.com
-            </a>
-            <div class="footer-language-field">
-              <span class="footer-language-label">{{ $t("nav.language") }}</span>
-              <LanguageDropdown size="utility" tone="dark" />
+          <nav class="footer-links" :aria-label="$t('footer.navigation')">
+            <div class="footer-link-group">
+              <h2 class="footer-heading">{{ $t("footer.product") }}</h2>
+              <ul class="footer-list">
+                <li><NuxtLink :to="homeLink('features')" class="footer-link">{{ $t("nav.features") }}</NuxtLink></li>
+                <li><NuxtLink :to="homeLink('how-it-works')" class="footer-link">{{ $t("nav.howItWorks") }}</NuxtLink></li>
+                <li><NuxtLink :to="homeLink('pricing')" class="footer-link">{{ $t("nav.pricing") }}</NuxtLink></li>
+                <li><NuxtLink :to="homeLink('faq')" class="footer-link">{{ $t("nav.faq") }}</NuxtLink></li>
+              </ul>
             </div>
-          </div>
-        </nav>
+
+            <div class="footer-link-group">
+              <h2 class="footer-heading">{{ $t("footer.legal") }}</h2>
+              <ul class="footer-list">
+                <li><NuxtLink :to="localePath('/privacy')" class="footer-link">{{ $t("footer.privacyPolicy") }}</NuxtLink></li>
+                <li><NuxtLink :to="localePath('/terms')" class="footer-link">{{ $t("footer.terms") }}</NuxtLink></li>
+                <li><NuxtLink :to="localePath('/delete-account')" class="footer-link">{{ $t("footer.deleteAccount") }}</NuxtLink></li>
+              </ul>
+            </div>
+
+            <div class="footer-link-group footer-support-group" data-footer-support>
+              <h2 class="footer-heading">{{ $t("footer.support") }}</h2>
+              <ul class="footer-list">
+                <li><NuxtLink :to="localePath('/feedback')" class="footer-link">{{ $t("footer.feedback") }}</NuxtLink></li>
+                <li><a href="mailto:support@wedlune.com" class="footer-link">support@wedlune.com</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
 
         <div class="footer-meta">
           <p>{{ $t("footer.rights", { year: new Date().getFullYear() }) }}</p>
@@ -76,6 +64,10 @@
             </svg>
             {{ $t("footer.noTracking") }}
           </p>
+          <div class="footer-language-field">
+            <span class="footer-language-label">{{ $t("nav.language") }}</span>
+            <LanguageDropdown size="utility" tone="dark" />
+          </div>
         </div>
       </div>
     </div>
@@ -192,13 +184,9 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   padding-bottom: 1.75rem;
 }
 
-.footer-main-standalone {
-  padding-top: 3.5rem;
-}
-
-.footer-intro {
-  position: relative;
-  z-index: 1;
+.footer-content {
+  display: grid;
+  gap: 2.5rem;
 }
 
 .footer-brand {
@@ -206,49 +194,15 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
 }
 
 .footer-tagline {
-  max-width: 30rem;
+  max-width: 25ch;
   margin-top: 1rem;
   font-size: 0.9375rem;
   line-height: 1.75;
   color: rgb(255 255 255 / 0.64);
 }
 
-.footer-support-email {
-  display: inline-flex;
-  min-height: 2.5rem;
-  width: fit-content;
-  align-items: center;
-  gap: 0.55rem;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: rgb(255 255 255 / 0.68);
-  transition: color 180ms ease;
-}
-
-.footer-support-group .footer-feedback-link {
-  display: flex;
-  width: fit-content;
-}
-
-.footer-support-email svg {
-  width: 1rem;
-  height: 1rem;
-  flex: 0 0 auto;
-  color: #e2c18b;
-}
-
-.footer-support-email:hover {
-  color: white;
-}
-
 .footer-support-group {
-  position: relative;
-  isolation: isolate;
-}
-
-.footer-support-group > :not(.footer-rings) {
-  position: relative;
-  z-index: 1;
+  grid-column: 1 / -1;
 }
 
 .footer-language-field {
@@ -256,7 +210,6 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   flex-wrap: wrap;
   align-items: center;
   gap: 0.6rem 0.8rem;
-  margin-top: 0.65rem;
 }
 
 .footer-language-label {
@@ -265,40 +218,10 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   color: rgb(255 255 255 / 0.48);
 }
 
-.footer-rings {
-  position: absolute;
-  right: -1rem;
-  top: -1.75rem;
-  z-index: -1;
-  color: rgb(226 193 139 / 0.15);
-  transform: rotate(-7deg);
-}
-
-.footer-divider {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-block: 2.5rem;
-  color: rgb(226 193 139 / 0.72);
-}
-
-.footer-divider::before,
-.footer-divider::after {
-  height: 1px;
-  flex: 1 1 auto;
-  content: "";
-  background: rgb(255 255 255 / 0.1);
-}
-
-.footer-divider::after {
-  flex-grow: 0.08;
-}
-
 .footer-links {
-  position: relative;
-  z-index: 1;
   display: grid;
-  gap: 2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 1.5rem;
 }
 
 .footer-heading {
@@ -311,9 +234,7 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
 }
 
 .footer-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 1.4rem;
+  display: grid;
 }
 
 .footer-link {
@@ -332,19 +253,10 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   color: white;
 }
 
-.footer-link[aria-current="page"]::after {
-  width: 0.3rem;
-  height: 0.3rem;
-  margin-left: 0.45rem;
-  border-radius: 999px;
-  content: "";
-  background: #e2c18b;
-}
-
 .footer-meta {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1rem 1.5rem;
   margin-top: 2.5rem;
   border-top: 1px solid rgb(255 255 255 / 0.1);
   padding-top: 1.4rem;
@@ -366,18 +278,29 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   color: #8bb599;
 }
 
+@media (max-width: 23.99rem) {
+  .footer-link-group:not(.footer-support-group) .footer-heading {
+    min-height: 3em;
+  }
+}
+
 @media (min-width: 48rem) {
   .footer-cta {
     padding: 3.5rem;
   }
 
   .footer-links {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.2fr) minmax(15rem, 0.8fr);
-    gap: 2rem 3rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .footer-support-group {
+    grid-column: auto;
   }
 
   .footer-meta {
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
   }
@@ -385,6 +308,11 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
 }
 
 @media (min-width: 64rem) {
+  .footer-content {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 4rem;
+  }
+
   .footer-cta {
     grid-template-columns: minmax(0, 1fr) minmax(25rem, 0.78fr);
     gap: 5rem;
