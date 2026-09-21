@@ -121,7 +121,7 @@ function accessibleAccentText(accent: string, surface: string) {
   if (contrastRatio(accent, surface) >= 4.5) return accent;
   let candidate = accent;
   for (let step = 0; step < 16; step += 1) {
-    candidate = mixHexColors(candidate, "#111827", 0.82);
+    candidate = mixHexColors(candidate, readableTextColor(surface), 0.82);
     if (contrastRatio(candidate, surface) >= 4.5) return candidate;
   }
   return readableTextColor(surface);
@@ -151,7 +151,21 @@ export function createRsvpTheme(design: RsvpDesign) {
     0.18,
   );
 
-  return {
+  const primary = accessibleAccentText(design.accentColor, design.surfaceColor);
+  const primaryHover = mixHexColors(primary, readableTextColor(design.surfaceColor), 0.86);
+  const selection = mixHexColors(design.accentColor, design.surfaceColor, 0.12);
+  const acceptedSurface = mixHexColors("#477858", design.surfaceColor, 0.1);
+  const theme = {
+    "--rsvp-primary": primary,
+    "--rsvp-primary-text": readableTextColor(primary),
+    "--rsvp-primary-hover": primaryHover,
+    "--rsvp-primary-hover-text": readableTextColor(primaryHover),
+    "--rsvp-selection": selection,
+    "--rsvp-selection-text": readableTextColor(selection),
+    "--rsvp-selection-border": accessibleAccentText(design.accentColor, selection),
+    "--rsvp-accepted-surface": acceptedSurface,
+    "--rsvp-accepted-text": accessibleAccentText("#477858", acceptedSurface),
+    "--rsvp-focus": accessibleAccentText(design.accentColor, design.surfaceColor),
     "--rsvp-accent": design.accentColor,
     "--rsvp-accent-text": accessibleAccentText(
       design.accentColor,
@@ -166,5 +180,37 @@ export function createRsvpTheme(design: RsvpDesign) {
     "--rsvp-input-surface": inputSurface,
     "--rsvp-input-text": readableTextColor(inputSurface),
     "--rsvp-border": mixHexColors(design.accentColor, design.surfaceColor, 0.24),
-  } as const;
+  };
+
+  // Existing default designs use the original palette in their saved payload.
+  // Present that palette with the site's shared tokens without changing the
+  // saved design or overriding a couple's custom colors.
+  const isBrandPalette = ["#B88A4A", "#98724D"].includes(design.accentColor.toUpperCase()) &&
+    ["#FAF7F2", "#FFFDF9", "#FBF6EE"].includes(design.backgroundColor.toUpperCase()) &&
+    design.surfaceColor.toUpperCase() === "#FFFFFF";
+  if (isBrandPalette) {
+    return {
+      ...theme,
+      "--rsvp-accent": "var(--site-accent)",
+      "--rsvp-accent-text": "var(--site-accent-strong)",
+      "--rsvp-background": "var(--site-bg-soft)",
+      "--rsvp-surface": "var(--site-surface)",
+      "--rsvp-text": "var(--site-text)",
+      "--rsvp-muted-surface": "var(--site-bg-soft)",
+      "--rsvp-muted-text": "var(--site-text)",
+      "--rsvp-input-surface": "var(--site-bg)",
+      "--rsvp-input-text": "var(--site-text)",
+      "--rsvp-border": "var(--site-border)",
+      "--rsvp-primary": "var(--site-surface-strong)",
+      "--rsvp-primary-text": "var(--site-bg)",
+      "--rsvp-primary-hover": "var(--site-accent-strong)",
+      "--rsvp-primary-hover-text": "var(--site-bg)",
+      "--rsvp-selection": "var(--color-soft-champagne)",
+      "--rsvp-selection-text": "var(--site-text)",
+      "--rsvp-selection-border": "var(--site-accent-strong)",
+      "--rsvp-accepted-text": "var(--site-success)",
+      "--rsvp-focus": "var(--site-focus)",
+    };
+  }
+  return theme;
 }

@@ -373,7 +373,7 @@ test.describe("private guest surfaces", () => {
     await expect(page).toHaveScreenshot("rsvp-confirmation.png");
   });
 
-  test("couple RSVP locks attendance while keeping details and plus-one editable", async ({ page }) => {
+  test("couple RSVP hides attendance while keeping details and plus-one editable", async ({ page }, testInfo) => {
     let submittedBody: {
       rsvpStatus?: string;
       dietaryNotes?: string;
@@ -407,7 +407,8 @@ test.describe("private guest surfaces", () => {
     });
 
     await page.goto("/rsvp?token=couple-private-token");
-    await expect(page.locator("#rsvp-couple-status")).toBeVisible();
+    await expect(page.locator("#rsvp-couple-status")).toHaveCount(0);
+    await expect(page.getByText("Will you attend?", { exact: true })).toHaveCount(0);
     await expect(page.locator("#rsvp-accept")).toHaveCount(0);
     await expect(page.locator("#rsvp-decline")).toHaveCount(0);
     await expect(page.locator("#dietaryNotes")).toBeVisible();
@@ -424,7 +425,61 @@ test.describe("private guest surfaces", () => {
       dietaryNotes: "Gluten free",
       guests: [{ id: "plus-one-1", rsvpStatus: "accepted" }],
     });
+    await expect(page.getByRole("heading", { name: "Details saved", exact: true })).toBeVisible();
+    await expect(page.getByText("RSVP confirmed", { exact: true })).toHaveCount(0);
+    await expect(page.getByText("Attending", { exact: true })).toBeVisible();
+    await assertA11y(page);
+
+    await page.getByRole("button", { name: "Update details", exact: true }).click();
+    await expect(page.locator("#dietaryNotes")).toHaveValue("Gluten free");
+    await expect(page.locator('input[name="rsvpStatus_0"][value="accepted"]')).toBeChecked();
+    await expect(page.locator('input[name="rsvpStatus"]')).toHaveCount(0);
+    await page.locator('label:has(input[name="rsvpStatus_0"][value="declined"])').click();
+    await page.screenshot({ path: testInfo.outputPath("couple-plus-one-form.png"), fullPage: true });
+    await page.locator("#rsvp-submit").click();
+    await expect(page.getByRole("heading", { name: "Details saved", exact: true })).toBeVisible();
+    await expect(page.getByText("Not attending", { exact: true })).toBeVisible();
+    expect(submittedBody).toMatchObject({
+      rsvpStatus: "accepted",
+      guests: [{ id: "plus-one-1", rsvpStatus: "declined" }],
+    });
+    await assertA11y(page);
+    await page.screenshot({ path: testInfo.outputPath("couple-plus-one-confirmation.png"), fullPage: true });
   });
+
+  for (const status of ["accepted", "pending", "declined"]) {
+    test(`couple RSVP without companions saves details with initial ${status} status`, async ({ page }, testInfo) => {
+      let submittedBody: unknown;
+      await page.route("**/functions/v1/handle-guest-rsvp", async (route) => {
+        if (route.request().method() === "POST") {
+          submittedBody = route.request().postDataJSON();
+          await route.fulfill({ status: 200, contentType: "application/json", body: "{}" });
+          return;
+        }
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify({ ...mockRsvp, isCouple: true, rsvpStatus: status, plusOnes: [] }),
+        });
+      });
+      await page.goto("/rsvp?token=couple-private-token");
+      await expect(page.locator("#dietaryNotes")).toBeVisible();
+      await expect(page.locator('input[name="rsvpStatus"]')).toHaveCount(0);
+      await expect(page.locator("#rsvp-couple-status")).toHaveCount(0);
+      await expect(page.getByText("Attending", { exact: true })).toHaveCount(0);
+      await assertA11y(page);
+      await page.locator("#dietaryNotes").fill("Gluten free");
+      await page.getByRole("button", { name: "Save details", exact: true }).click();
+      await expect(page.getByRole("heading", { name: "Details saved", exact: true })).toBeVisible();
+      await expect(page.getByText("RSVP confirmed", { exact: true })).toHaveCount(0);
+      await expect(page.getByText("Attending", { exact: true })).toHaveCount(0);
+      expect(submittedBody).toMatchObject({ rsvpStatus: "accepted", dietaryNotes: "Gluten free", guests: [] });
+      await page.screenshot({ path: testInfo.outputPath("couple-details-confirmation.png"), fullPage: true });
+      await page.getByRole("button", { name: "Update details", exact: true }).click();
+      await expect(page.locator("#dietaryNotes")).toHaveValue("Gluten free");
+      await expect(page.locator('input[name="rsvpStatus"]')).toHaveCount(0);
+    });
+  }
 
   test("missing RSVP token has an accessible error state", async ({ page }) => {
     await page.goto("/rsvp");

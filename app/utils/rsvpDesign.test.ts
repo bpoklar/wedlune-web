@@ -129,3 +129,54 @@ describe("RSVP design contract", () => {
     expect(theme["--rsvp-input-text"]).toBe("#111827");
   });
 });
+
+describe("RSVP interaction colors", () => {
+  const siteCss = readFileSync(new URL("../assets/css/main.css", import.meta.url), "utf8");
+  function color(value: string): string {
+    const token = value.match(/^var\((--[\w-]+)\)$/)?.[1];
+    if (!token) return value;
+    const resolved = siteCss.match(new RegExp(`${token}:\\s*(#[0-9a-f]{6})`, "i"))?.[1];
+    if (!resolved) throw new Error(`Missing site color ${token}`);
+    return resolved;
+  }
+  function luminance(value: string) {
+    const channels = color(value).slice(1).match(/../g)!.map((part) => {
+      const channel = parseInt(part, 16) / 255;
+      return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+    });
+    return channels[0]! * 0.2126 + channels[1]! * 0.7152 + channels[2]! * 0.0722;
+  }
+  function contrast(first: string, second: string) {
+    const values = [luminance(first), luminance(second)].sort((a, b) => b - a);
+    return (values[0]! + 0.05) / (values[1]! + 0.05);
+  }
+
+  it("uses the shared site colors for existing default designs", () => {
+    const theme = createRsvpTheme(defaultRsvpDesign);
+    expect(theme["--rsvp-primary"]).toBe("var(--site-surface-strong)");
+    expect(theme["--rsvp-accent"]).toBe("var(--site-accent)");
+    expect(theme["--rsvp-primary-hover"]).toBe("var(--site-accent-strong)");
+    expect(defaultRsvpDesign.accentColor).toBe("#B88A4A");
+  });
+
+  it.each([
+    ["default", defaultRsvpDesign],
+    ["dark", { ...defaultRsvpDesign, accentColor: "#F2C94C", backgroundColor: "#101820", surfaceColor: "#17212B" }],
+    ["light", { ...defaultRsvpDesign, accentColor: "#DFC4CE", backgroundColor: "#FFF9F4", surfaceColor: "#FFFFFF" }],
+    ["dark accent on dark surface", { ...defaultRsvpDesign, accentColor: "#243746", backgroundColor: "#101820", surfaceColor: "#17212B" }],
+  ])("keeps %s interaction text and focus indicators readable", (_name, design) => {
+    const theme = createRsvpTheme(design as typeof defaultRsvpDesign);
+    for (const [foreground, background] of [
+      ["--rsvp-primary-text", "--rsvp-primary"],
+      ["--rsvp-primary-hover-text", "--rsvp-primary-hover"],
+      ["--rsvp-selection-text", "--rsvp-selection"],
+      ["--rsvp-accepted-text", "--rsvp-accepted-surface"],
+    ] as const) {
+      expect(contrast(theme[foreground], theme[background])).toBeGreaterThanOrEqual(4.5);
+    }
+    expect(contrast(theme["--rsvp-focus"], theme["--rsvp-surface"])).toBeGreaterThanOrEqual(3);
+    if (_name !== "default") {
+      expect(theme["--rsvp-accent"]).toBe((design as typeof defaultRsvpDesign).accentColor);
+    }
+  });
+});

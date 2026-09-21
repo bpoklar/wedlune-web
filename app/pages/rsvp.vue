@@ -93,25 +93,30 @@
           <div
             class="rsvp-muted-panel mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full text-4xl shadow-inner"
           >
-            {{ submittedStatus === "accepted" ? "🎉" : "💐" }}
+            {{ isCouple ? "✓" : submittedStatus === "accepted" ? "🎉" : "💐" }}
           </div>
           <p
+            v-if="!isCouple"
             class="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-champagne-gold"
           >
             {{ $t("rsvp.confirmed") }}
           </p>
           <h1 class="mb-3 font-display text-3xl text-charcoal sm:text-4xl">
             {{
-              submittedStatus === "accepted" ? $t("rsvp.acceptedTitle") : $t("rsvp.declinedTitle")
+              isCouple
+                ? $t("rsvp.detailsSaved")
+                : submittedStatus === "accepted" ? $t("rsvp.acceptedTitle") : $t("rsvp.declinedTitle")
             }}
           </h1>
           <p
             class="mx-auto max-w-md text-sm leading-relaxed text-warm-gray sm:text-base"
           >
             {{
-              submittedStatus === "accepted"
-                ? $t("rsvp.acceptedBody", { name: guestName })
-                : $t("rsvp.declinedBody", { name: guestName })
+              isCouple
+                ? $t("rsvp.detailsSavedBody")
+                : submittedStatus === "accepted"
+                  ? $t("rsvp.acceptedBody", { name: guestName })
+                  : $t("rsvp.declinedBody", { name: guestName })
             }}
           </p>
           <p
@@ -131,13 +136,7 @@
               class="flex items-center justify-between gap-3 py-3 text-left text-sm text-warm-gray"
             >
               <span class="font-semibold text-charcoal">{{ po.name }}</span>
-              <span
-                :class="
-                  po.rsvpStatus === 'accepted'
-                    ? 'text-sage-green'
-                    : 'text-warm-camel'
-                "
-              >
+              <span class="text-warm-gray">
                 {{
                   po.rsvpStatus === "accepted" ? $t("rsvp.attending") : $t("rsvp.notAttending")
                 }}
@@ -158,17 +157,17 @@
               <div>
                 <p class="text-sm font-bold text-charcoal">{{ $t("rsvp.plansChanged") }}</p>
                 <p class="mt-1 text-sm leading-relaxed text-warm-gray">
-                  {{ $t("rsvp.plansChangedBody") }}
+                  {{ $t(isCouple ? "rsvp.detailsReturnBody" : "rsvp.plansChangedBody") }}
                 </p>
               </div>
             </div>
           </div>
           <button
             type="button"
-            class="rsvp-outline-button mt-5 min-h-12 w-full rounded-full border-2 px-6 text-sm font-bold transition-colors"
+            class="rsvp-outline-button mt-5 min-h-12 w-full rounded-full px-6"
             @click="submitted = false"
           >
-            {{ $t("rsvp.updateResponse") }}
+            {{ $t(isCouple ? "rsvp.updateDetails" : "rsvp.updateResponse") }}
           </button>
         </div>
       </div>
@@ -220,7 +219,7 @@
 
         <form class="rsvp-form p-5 sm:p-8 md:p-10" :aria-busy="submitting" @submit="onSubmit">
           <div
-            v-if="hasExistingResponse"
+            v-if="hasExistingResponse && !isCouple"
             class="rsvp-muted-panel flex gap-3 rounded-2xl border p-4"
           >
             <span aria-hidden="true">✓</span>
@@ -250,12 +249,7 @@
             </legend>
             <div class="grid gap-3 sm:grid-cols-2">
               <label
-                :class="[
-                  'flex min-h-16 items-center justify-center gap-2 rounded-2xl border-2 px-4 py-3 text-center text-sm font-semibold cursor-pointer transition-all',
-                  rsvpStatusField === 'accepted'
-                    ? 'border-sage-green bg-sage-green/10 text-sage-green'
-                    : 'border-linen text-warm-gray hover:border-sage-green/50',
-                ]"
+                class="rsvp-choice rsvp-choice-accept flex min-h-16 items-center justify-center gap-2 rounded-2xl px-4 py-3 text-center text-sm font-semibold cursor-pointer"
               >
                 <input
                   id="rsvp-accept"
@@ -268,12 +262,7 @@
                 <span>✓</span> {{ $t("rsvp.accept") }}
               </label>
               <label
-                :class="[
-                  'flex min-h-16 items-center justify-center gap-2 rounded-2xl border-2 px-4 py-3 text-center text-sm font-semibold cursor-pointer transition-all',
-                  rsvpStatusField === 'declined'
-                    ? 'border-warm-camel bg-sand-beige/20 text-deep-gold'
-                    : 'border-linen text-warm-gray hover:border-warm-camel/60',
-                ]"
+                class="rsvp-choice rsvp-choice-decline flex min-h-16 items-center justify-center gap-2 rounded-2xl px-4 py-3 text-center text-sm font-semibold cursor-pointer"
               >
                 <input
                   id="rsvp-decline"
@@ -294,33 +283,20 @@
               {{ rsvpStatusError }}
             </p>
           </fieldset>
-          <div
-            v-else
-            id="rsvp-couple-status"
-            class="rsvp-muted-panel flex min-h-16 items-center justify-between gap-4 rounded-2xl border border-sage-green/40 px-4 py-3"
-            role="status"
-          >
-            <span class="text-sm font-semibold text-charcoal">
-              {{ $t("rsvp.willYouAttend") }}
-            </span>
-            <span class="font-semibold text-sage-green">
-              ✓ {{ $t("rsvp.attending") }}
-            </span>
-          </div>
-
           <!-- Main guest meal / dietary (only if accepted) -->
           <div
             v-if="rsvpStatusField === 'accepted'"
-            class="space-y-6 border-t border-linen pt-8"
+            class="space-y-6"
+            :class="{ 'border-t border-linen pt-8': !isCouple }"
           >
             <div class="flex items-center gap-3">
               <span
                 class="rsvp-muted-panel flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-deep-gold"
-                >2</span
+                >{{ isCouple ? 1 : 2 }}</span
               >
               <div>
                 <h2 class="text-base font-bold text-charcoal">{{ $t("rsvp.detailsTitle") }}</h2>
-                <p class="text-xs text-warm-gray">{{ $t("rsvp.detailsBody") }}</p>
+                <p class="text-xs text-warm-gray">{{ $t(isCouple ? "rsvp.coupleDetailsBody" : "rsvp.detailsBody") }}</p>
               </div>
             </div>
             <div>
@@ -338,12 +314,7 @@
                   aria-labelledby="menuSelectLabel"
                 >
                   <label
-                    :class="[
-                      'rsvp-input-panel flex min-h-24 items-center justify-center rounded-xl border-2 px-4 text-center cursor-pointer transition-all',
-                      selectedMenuId === null
-                        ? 'border-champagne-gold ring-2 ring-champagne-gold/20'
-                        : 'border-linen hover:border-champagne-gold/50',
-                    ]"
+                    class="rsvp-choice rsvp-menu-choice rsvp-input-panel flex min-h-24 items-center justify-center rounded-xl px-4 text-center cursor-pointer"
                   >
                     <input
                       v-model="selectedMenuId"
@@ -357,12 +328,7 @@
                   <label
                     v-for="m in menus"
                     :key="m.id"
-                    :class="[
-                      'rsvp-input-panel overflow-hidden rounded-xl border-2 cursor-pointer transition-all',
-                      selectedMenuId === m.id
-                        ? 'border-champagne-gold ring-2 ring-champagne-gold/20'
-                        : 'border-linen hover:border-champagne-gold/50',
-                    ]"
+                    class="rsvp-choice rsvp-menu-choice rsvp-input-panel overflow-hidden rounded-xl cursor-pointer"
                   >
                     <input
                       v-model="selectedMenuId"
@@ -470,12 +436,7 @@
                 </legend>
                 <div class="grid gap-3 sm:grid-cols-2">
                   <label
-                    :class="[
-                      'flex min-h-14 items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
-                      po.rsvpStatus === 'accepted'
-                        ? 'border-sage-green bg-sage-green/10 text-sage-green'
-                        : 'border-linen text-warm-gray hover:border-sage-green/50',
-                    ]"
+                    class="rsvp-choice rsvp-choice-accept flex min-h-14 items-center justify-center gap-2 px-4 py-3 rounded-xl cursor-pointer text-sm font-semibold"
                   >
                     <input
                       v-model="po.rsvpStatus"
@@ -487,12 +448,7 @@
                     <span>✓</span> {{ $t("rsvp.attending") }}
                   </label>
                   <label
-                    :class="[
-                      'flex min-h-14 items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all text-sm font-semibold',
-                      po.rsvpStatus === 'declined'
-                        ? 'border-warm-camel bg-sand-beige/20 text-deep-gold'
-                        : 'border-linen text-warm-gray hover:border-warm-camel/60',
-                    ]"
+                    class="rsvp-choice rsvp-choice-decline flex min-h-14 items-center justify-center gap-2 px-4 py-3 rounded-xl cursor-pointer text-sm font-semibold"
                   >
                     <input
                       v-model="po.rsvpStatus"
@@ -523,12 +479,7 @@
                       :aria-labelledby="`meal_${idx}`"
                     >
                       <label
-                        :class="[
-                          'rsvp-surface-panel flex min-h-20 items-center justify-center rounded-xl border-2 px-3 text-center cursor-pointer transition-all',
-                          po.menuId === null
-                            ? 'border-champagne-gold ring-2 ring-champagne-gold/20'
-                            : 'border-linen hover:border-champagne-gold/50',
-                        ]"
+                        class="rsvp-choice rsvp-menu-choice rsvp-surface-panel flex min-h-20 items-center justify-center rounded-xl px-3 text-center cursor-pointer"
                       >
                         <input
                           v-model="po.menuId"
@@ -545,12 +496,7 @@
                       <label
                         v-for="m in menus"
                         :key="m.id"
-                        :class="[
-                          'rsvp-surface-panel overflow-hidden rounded-xl border-2 cursor-pointer transition-all',
-                          po.menuId === m.id
-                            ? 'border-champagne-gold ring-2 ring-champagne-gold/20'
-                            : 'border-linen hover:border-champagne-gold/50',
-                        ]"
+                        class="rsvp-choice rsvp-menu-choice rsvp-surface-panel overflow-hidden rounded-xl cursor-pointer"
                       >
                         <input
                           v-model="po.menuId"
@@ -641,9 +587,9 @@
             id="rsvp-submit"
             type="submit"
             :disabled="submitting"
-            class="rsvp-accent-button min-h-14 w-full rounded-full bg-champagne-gold px-6 text-sm font-bold text-white shadow-lg shadow-champagne-gold/20 transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
+            class="rsvp-accent-button min-h-14 w-full rounded-full px-6"
           >
-            {{ submitting ? $t("rsvp.sending") : $t("rsvp.send") }}
+            {{ submitting ? $t("rsvp.sending") : $t(isCouple ? "rsvp.saveDetails" : "rsvp.send") }}
           </button>
 
           <p
@@ -1114,7 +1060,7 @@ const onSubmit = handleSubmit(async (values) => {
 
 .rsvp-input-panel::placeholder,
 .rsvp-surface-panel::placeholder {
-  color: color-mix(in srgb, currentColor 55%, transparent);
+  color: color-mix(in srgb, currentColor 72%, transparent);
 }
 
 .rsvp-input-panel:focus,
@@ -1123,32 +1069,109 @@ const onSubmit = handleSubmit(async (values) => {
   --tw-ring-color: color-mix(in srgb, var(--rsvp-accent) 32%, transparent);
 }
 
-.rsvp-themed :deep(.bg-champagne-gold.text-white) {
-  color: var(--rsvp-on-accent);
+.rsvp-accent-button,
+.rsvp-outline-button,
+.rsvp-themed :deep(.rsvp-accent-button),
+.rsvp-themed :deep(.rsvp-outline-button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-block: 0.875rem;
+  border: 1px solid transparent;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease,
+    border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
 .rsvp-accent-button,
 .rsvp-themed :deep(.rsvp-accent-button) {
-  color: var(--rsvp-on-accent);
-  background-color: var(--rsvp-accent);
-}
-
-.rsvp-accent-button:hover,
-.rsvp-themed :deep(.rsvp-accent-button:hover) {
-  background-color: var(--rsvp-accent);
-  filter: brightness(0.93);
+  color: var(--rsvp-primary-text);
+  background: var(--rsvp-primary);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--rsvp-primary) 16%, transparent);
 }
 
 .rsvp-outline-button,
 .rsvp-themed :deep(.rsvp-outline-button) {
   color: var(--rsvp-accent-text);
-  border-color: var(--rsvp-accent);
+  background: var(--rsvp-surface);
+  border-color: var(--rsvp-selection-border);
 }
 
-.rsvp-outline-button:hover,
-.rsvp-themed :deep(.rsvp-outline-button:hover) {
-  color: var(--rsvp-on-accent);
-  background-color: var(--rsvp-accent);
+@media (hover: hover) {
+  .rsvp-accent-button:hover:not(:disabled),
+  .rsvp-themed :deep(.rsvp-accent-button:hover:not(:disabled)) {
+    color: var(--rsvp-primary-hover-text);
+    background: var(--rsvp-primary-hover);
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--rsvp-primary) 20%, transparent);
+    transform: translateY(-1px);
+  }
+
+  .rsvp-outline-button:hover:not(:disabled),
+  .rsvp-themed :deep(.rsvp-outline-button:hover:not(:disabled)) {
+    color: var(--rsvp-selection-text);
+    background: var(--rsvp-selection);
+  }
+}
+
+.rsvp-accent-button:disabled,
+.rsvp-outline-button:disabled,
+.rsvp-themed :deep(.rsvp-accent-button:disabled),
+.rsvp-themed :deep(.rsvp-outline-button:disabled) {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow: none;
+  transform: none;
+}
+
+.rsvp-themed :deep(.rsvp-accent-button:active:not(:disabled)),
+.rsvp-themed :deep(.rsvp-outline-button:active:not(:disabled)) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.rsvp-themed .rsvp-choice {
+  position: relative;
+  color: var(--rsvp-input-text);
+  background: var(--rsvp-input-surface);
+  border: 2px solid var(--rsvp-border);
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.rsvp-themed .rsvp-choice:hover {
+  border-color: var(--rsvp-selection-border);
+}
+
+.rsvp-themed .rsvp-choice:has(> input:checked) {
+  color: var(--rsvp-selection-text);
+  background: var(--rsvp-selection);
+  border-color: var(--rsvp-selection-border);
+  box-shadow: inset 0 0 0 1px var(--rsvp-selection-border);
+}
+
+.rsvp-themed .rsvp-choice-accept:has(> input:checked) {
+  color: var(--rsvp-accepted-text);
+  background: var(--rsvp-accepted-surface);
+  border-color: var(--rsvp-accepted-text);
+  box-shadow: inset 0 0 0 1px var(--rsvp-accepted-text);
+}
+
+.rsvp-themed .rsvp-menu-choice:has(> input:checked) :is(.text-charcoal, .text-warm-gray) {
+  color: var(--rsvp-selection-text);
+}
+
+.rsvp-themed :deep(.rsvp-accent-button:focus-visible),
+.rsvp-themed :deep(.rsvp-outline-button:focus-visible),
+.rsvp-themed .rsvp-choice:has(> input:focus-visible) {
+  outline: 3px solid var(--rsvp-focus);
+  outline-offset: 4px;
+}
+
+.rsvp-themed .rsvp-choice > input:focus-visible {
+  outline: none;
 }
 
 .rsvp-themed :deep(.border-champagne-gold),
