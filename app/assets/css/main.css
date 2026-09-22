@@ -1,41 +1,67 @@
 @import "tailwindcss";
 
-@theme {
-  --color-warm-white: #fffdf9;
-  --color-ivory-cream: #fbf6ee;
-  --color-soft-champagne: #f1e6d8;
-  --color-champagne-gold: #98724d;
-  --color-deep-gold: #654a34;
-  --color-warm-camel: #b59672;
-  --color-sand-beige: #d7c3aa;
-  --color-charcoal: #241f1b;
-  --color-warm-gray: #675c55;
-  --color-pearl-gray: #6d625a;
-  --color-linen: #ded0bf;
-  --color-sage-green: #477858;
-  --color-cocoa-brown: #76533b;
+/* The website palette lives here. Components consume roles, never palette literals. */
+:root {
+  color-scheme: light;
+  --site-bg: #FDF8F2;
+  --site-bg-soft: #FAF3E8;
+  --site-surface: #FFFFFF;
+  --site-surface-strong: #2C2C2C;
+  --site-text: #2C2C2C;
+  --site-text-muted: #68645F;
+  --site-border: #E5DED4;
+  --site-control-border: #8D877E;
+  --site-accent: #C9A96E;
+  --site-accent-hover: #BE9B5F;
+  --site-accent-pressed: #B89455;
+  --site-accent-strong: #8B6914;
+  --site-on-accent: var(--site-text);
+  --site-selection: var(--site-bg-soft);
+  --site-focus: var(--site-accent-strong);
+  --site-blush: #F6E8EA;
+  --site-success: #3F6B50;
+  --site-success-bg: #EFF6F0;
+  --site-error: #B23A48;
+  --site-error-bg: #FFF1F2;
+  --site-warning: #855D12;
+  --site-warning-bg: #FFF7E5;
+  --site-info: #35648C;
+  --site-info-bg: #EDF4FA;
+  --site-inverse-text: #FFFFFF;
+  --site-inverse-muted: #D6D2CC;
+  --site-inverse-border: #8D877E;
+  --site-inverse-success: #9BC7A1;
+  --site-device-metal-1: #747b80;
+  --site-device-metal-2: #e9ecee;
+  --site-device-metal-3: #aeb4b8;
+  --site-device-metal-4: #f8f9f9;
+  --site-device-metal-5: #9aa1a6;
+  --site-device-metal-6: #dfe3e5;
+  --site-device-metal-7: #777e83;
+  --site-disabled-bg: #E5DED4;
+  --site-shadow: 0 28px 80px color-mix(in srgb, var(--site-text) 10%, transparent);
+  --site-shadow-soft: 0 18px 50px color-mix(in srgb, var(--site-text) 8%, transparent);
+}
 
+@theme inline {
+  --color-page: var(--site-bg);
+  --color-subtle: var(--site-bg-soft);
+  --color-surface: var(--site-surface);
+  --color-inverse: var(--site-surface-strong);
+  --color-content: var(--site-text);
+  --color-muted: var(--site-text-muted);
+  --color-line: var(--site-border);
+  --color-control: var(--site-control-border);
+  --color-accent: var(--site-accent);
+  --color-accent-strong: var(--site-accent-strong);
+  --color-on-inverse: var(--site-inverse-text);
+  --color-inverse-muted: var(--site-inverse-muted);
+  --color-on-accent: var(--site-on-accent);
+  --color-success: var(--site-success);
+  --color-error: var(--site-error);
   --font-display: "Playfair Display", Georgia, serif;
   --font-body: "Nunito", system-ui, sans-serif;
   --font-accent: "Playfair Display", Georgia, serif;
-}
-
-:root {
-  color-scheme: light;
-  --site-bg: #fffdf9;
-  --site-bg-soft: #fbf6ee;
-  --site-surface: #ffffff;
-  --site-surface-strong: #241f1b;
-  --site-text: #241f1b;
-  --site-text-muted: #675c55;
-  --site-border: #ded0bf;
-  --site-accent: #98724d;
-  --site-accent-strong: #654a34;
-  --site-success: #477858;
-  --site-error: #76533b;
-  --site-focus: #654a34;
-  --site-shadow: 0 28px 80px rgb(36 31 27 / 0.1);
-  --site-shadow-soft: 0 18px 50px rgb(36 31 27 / 0.08);
 }
 
 @layer base {
@@ -55,7 +81,7 @@
 
   ::selection {
     color: var(--site-text);
-    background: #ead7bd;
+    background: var(--site-selection);
   }
 
   :focus-visible {
@@ -102,11 +128,15 @@
   }
 
   .skip-link {
-    @apply fixed left-4 top-3 z-100 -translate-y-24 rounded-full bg-charcoal px-5 py-3 text-sm font-bold text-white shadow-xl transition-transform;
+    @apply fixed left-4 top-3 z-100 -translate-y-24 rounded-full bg-inverse px-5 py-3 text-sm font-bold text-on-inverse shadow-xl transition-transform;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .skip-link:focus {
     @apply translate-y-0;
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .section-shell {
@@ -114,48 +144,56 @@
   }
 
   .section-kicker {
-    @apply mb-4 text-[0.68rem] font-extrabold uppercase tracking-[0.22em] text-deep-gold sm:text-xs;
+    @apply mb-4 text-[0.68rem] font-extrabold uppercase tracking-[0.22em] text-accent-strong sm:text-xs;
   }
 
   .section-title {
-    @apply max-w-3xl font-display text-4xl leading-[1.08] text-charcoal sm:text-5xl lg:text-[3.5rem];
+    @apply max-w-3xl font-display text-4xl leading-[1.08] text-content sm:text-5xl lg:text-[3.5rem];
     text-wrap: balance;
   }
 
   .section-subtitle {
-    @apply max-w-2xl text-base leading-8 text-warm-gray sm:text-lg;
+    @apply max-w-2xl text-base leading-8 text-muted sm:text-lg;
   }
 
   .card-surface {
-    @apply rounded-4xl border border-linen bg-white;
+    @apply rounded-4xl border border-line bg-surface;
     box-shadow: var(--site-shadow-soft);
   }
 
   .btn-primary {
-    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-charcoal px-7 py-3 text-sm font-extrabold text-white shadow-lg transition-[background-color,transform,box-shadow] hover:-translate-y-0.5 hover:bg-deep-gold hover:shadow-xl;
+    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-accent px-7 py-3 text-sm font-extrabold text-on-accent shadow-lg transition-[background-color,transform,box-shadow] hover:-translate-y-0.5 hover:bg-[var(--site-accent-hover)] hover:shadow-xl;
+  }
+
+  .btn-primary:active:not(:disabled) { background: var(--site-accent-pressed); }
+  .btn-primary:disabled, .btn-secondary:disabled {
+    background: var(--site-disabled-bg);
+    color: var(--site-text-muted);
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
   }
 
   .btn-secondary {
-    @apply inline-flex min-h-12 items-center justify-center rounded-full border border-charcoal px-7 py-3 text-sm font-extrabold text-charcoal transition-[background-color,color,transform] hover:-translate-y-0.5 hover:bg-charcoal hover:text-white;
+    @apply inline-flex min-h-12 items-center justify-center rounded-full border border-content px-7 py-3 text-sm font-extrabold text-content transition-[background-color,color,transform] hover:-translate-y-0.5 hover:bg-subtle;
   }
 
   .text-link {
-    @apply font-bold text-deep-gold underline decoration-champagne-gold/40 underline-offset-4 transition-colors hover:text-charcoal;
+    @apply font-bold text-content underline decoration-accent-strong underline-offset-4 transition-colors hover:text-content;
   }
 
   .soft-page-bg {
     background:
-      radial-gradient(circle at 8% 10%, rgb(181 150 114 / 0.18), transparent 26rem),
-      radial-gradient(circle at 92% 5%, rgb(152 114 77 / 0.13), transparent 30rem),
-      linear-gradient(145deg, #fbf6ee 0%, #fffdf9 56%, #f3e9dc 100%);
+      radial-gradient(circle at 8% 10%, var(--site-blush), transparent 26rem),
+      linear-gradient(145deg, var(--site-bg) 0%, var(--site-surface) 56%, var(--site-bg-soft) 100%);
   }
 
   .editorial-rule {
-    @apply h-px w-16 bg-champagne-gold;
+    @apply h-px w-16 bg-accent;
   }
 
   .legal-prose {
-    @apply text-[0.98rem] leading-8 text-warm-gray;
+    @apply text-[0.98rem] leading-8 text-muted;
   }
 
   .legal-prose section {
@@ -163,7 +201,7 @@
   }
 
   .legal-prose h2 {
-    @apply mb-4 font-display text-2xl leading-tight text-charcoal;
+    @apply mb-4 font-display text-2xl leading-tight text-content;
   }
 
   .legal-prose p {
@@ -184,15 +222,15 @@
   }
 
   .legal-prose a {
-    @apply font-bold text-deep-gold underline decoration-champagne-gold/40 underline-offset-4 hover:text-charcoal;
+    @apply font-bold text-content underline decoration-accent-strong underline-offset-4 hover:text-content;
   }
 
   .legal-prose .provider-notices {
-    @apply rounded-2xl border border-champagne-gold/30 bg-white/40 px-5 py-4;
+    @apply rounded-2xl border border-accent/30 bg-surface/40 px-5 py-4;
   }
 
   .legal-prose .provider-notices summary {
-    @apply cursor-pointer font-bold text-charcoal;
+    @apply cursor-pointer font-bold text-content;
   }
 
   .legal-prose .provider-notices .provider-links {
@@ -212,6 +250,95 @@
   }
 }
 
+/* Explicit RSVP roles also style child components and the guest layout. */
+.rsvp-theme {
+  --rsvp-current-text: var(--rsvp-background-text);
+  --rsvp-current-secondary: var(--rsvp-background-text);
+  --rsvp-current-border: var(--rsvp-control-border);
+}
+.rsvp-surface-panel {
+  --rsvp-current-text: var(--rsvp-text);
+  --rsvp-current-secondary: var(--rsvp-text-muted);
+  --rsvp-current-border: var(--rsvp-control-border);
+  color: var(--rsvp-current-text);
+  background: var(--rsvp-surface);
+  border-color: var(--rsvp-border);
+}
+.rsvp-muted-panel {
+  --rsvp-current-text: var(--rsvp-muted-text);
+  --rsvp-current-secondary: var(--rsvp-muted-secondary);
+  --rsvp-current-border: var(--rsvp-muted-border);
+  color: var(--rsvp-current-text);
+  background: var(--rsvp-muted-surface);
+  border-color: var(--rsvp-border);
+}
+.rsvp-input-panel {
+  --rsvp-current-text: var(--rsvp-input-text);
+  --rsvp-current-secondary: var(--rsvp-input-secondary);
+  --rsvp-current-border: var(--rsvp-input-border);
+  color: var(--rsvp-current-text);
+  background: var(--rsvp-input-surface);
+  border-color: var(--rsvp-border);
+}
+.rsvp-text { color: var(--rsvp-current-text); }
+.rsvp-text-secondary { color: var(--rsvp-current-secondary); }
+.rsvp-link { color: var(--rsvp-current-text); text-decoration: underline; text-underline-offset: .2em; }
+.rsvp-accent-fill { background: var(--rsvp-accent); }
+.rsvp-divider, .rsvp-divided > :not(:last-child) { border-color: var(--rsvp-border); }
+.rsvp-error, .rsvp-success {
+  padding: .15em .35em;
+  border-radius: .25rem;
+  box-decoration-break: clone;
+}
+.rsvp-error { color: var(--rsvp-error); background: var(--rsvp-error-surface); }
+.rsvp-success { color: var(--rsvp-accepted-text); background: var(--rsvp-accepted-surface); }
+.rsvp-theme :is(textarea, select, input:not([type=radio])) {
+  border-color: var(--rsvp-current-border);
+}
+.rsvp-theme ::placeholder { color: var(--rsvp-current-secondary); opacity: 1; }
+.rsvp-accent-button, .rsvp-outline-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  padding-block: .875rem; border: 1px solid var(--rsvp-control-border);
+  font-size: .9375rem; font-weight: 800; line-height: 1.5; cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+.rsvp-accent-button { color: var(--rsvp-primary-text); background: var(--rsvp-primary); }
+.rsvp-outline-button { color: var(--rsvp-text); background: var(--rsvp-surface); }
+.rsvp-choice {
+  --rsvp-current-text: var(--rsvp-input-text);
+  --rsvp-current-secondary: var(--rsvp-input-secondary);
+  position: relative; color: var(--rsvp-current-text); background: var(--rsvp-input-surface);
+  border: 2px solid var(--rsvp-input-border);
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+.rsvp-choice:has(> input:checked) {
+  --rsvp-current-text: var(--rsvp-selection-text);
+  --rsvp-current-secondary: var(--rsvp-selection-text);
+  color: var(--rsvp-selection-text); background: var(--rsvp-selection);
+  border-color: var(--rsvp-selection-border);
+  box-shadow: inset 0 0 0 1px var(--rsvp-selection-border);
+}
+.rsvp-choice-accept:has(> input:checked) {
+  --rsvp-current-text: var(--rsvp-accepted-text);
+  --rsvp-current-secondary: var(--rsvp-accepted-text);
+  color: var(--rsvp-accepted-text); background: var(--rsvp-accepted-surface);
+  border-color: var(--rsvp-accepted-text);
+  box-shadow: inset 0 0 0 1px var(--rsvp-accepted-text);
+}
+.rsvp-theme :focus-visible, .rsvp-choice:has(> input:focus-visible) {
+  outline: 3px solid var(--rsvp-focus); outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--rsvp-focus-inner);
+}
+.rsvp-choice > input:focus-visible { outline: none; box-shadow: none; }
+@media (hover: hover) {
+  .rsvp-accent-button:hover:not(:disabled) { color: var(--rsvp-primary-hover-text); background: var(--rsvp-primary-hover); }
+  .rsvp-outline-button:hover:not(:disabled) { color: var(--rsvp-selection-text); background: var(--rsvp-selection); }
+}
+.rsvp-accent-button:active:not(:disabled) { color: var(--rsvp-primary-pressed-text); background: var(--rsvp-primary-pressed); }
+.rsvp-accent-button:disabled, .rsvp-outline-button:disabled {
+  cursor: not-allowed; opacity: .6; box-shadow: none; transform: none;
+}
+
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .card-surface {
     transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
@@ -219,7 +346,7 @@
 
   .card-surface:hover {
     transform: translateY(-0.15rem);
-    box-shadow: 0 22px 70px rgb(36 31 27 / 0.1);
+    box-shadow: var(--site-shadow);
   }
 
   :where(.btn-primary, .btn-secondary, .store-badge, [data-nav-cta], button):active:not(:disabled) {
@@ -235,6 +362,69 @@
   *,
   *::before,
   *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+.rsvp-decoration { border-color: color-mix(in srgb, var(--rsvp-accent) 22%, transparent); }
+.rsvp-spinner { border-color: var(--rsvp-border); border-top-color: var(--rsvp-accent); }
+
+/* RSVP template framing; all templates share the same palette. */
+
+.rsvp-themed {
+  background: var(--rsvp-background);
+  --rsvp-section-gap: clamp(1.5rem, 3vw, 2rem);
+  --rsvp-card-gap: clamp(1rem, 2vw, 1.5rem);
+}
+.rsvp-form { display: flex; flex-direction: column; gap: var(--rsvp-section-gap); }
+
+.rsvp-template-botanical .rsvp-invitation-header {
+  border-radius: 0 0 45% 45% / 0 0 8% 8%;
+}
+
+.rsvp-hero-frame {
+  aspect-ratio: 16 / 9;
+}
+
+.rsvp-template-botanical .rsvp-hero-frame {
+  aspect-ratio: 4 / 3;
+  border-radius: 999px 999px 1.5rem 1.5rem;
+}
+
+.rsvp-template-modern .rsvp-hero-frame {
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 640px) {
+  .rsvp-template-modern .rsvp-invitation-header.rsvp-modern-has-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: center;
+    column-gap: clamp(1.5rem, 4vw, 2.5rem);
+    row-gap: 0.35rem;
+    text-align: left;
+  }
+
+  .rsvp-template-modern .rsvp-modern-has-hero .rsvp-hero-frame {
+    grid-row: 1 / span 3;
+    aspect-ratio: 6 / 5;
+    margin: 0;
+  }
+
+  .rsvp-template-modern .rsvp-modern-has-hero > :not(.rsvp-hero-frame) {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rsvp-themed *,
+  .rsvp-themed *::before,
+  .rsvp-themed *::after {
     scroll-behavior: auto !important;
     transition-duration: 0s !important;
     animation-duration: 0s !important;

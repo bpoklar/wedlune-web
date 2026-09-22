@@ -48,7 +48,7 @@
           </svg>
         </button>
 
-        <Transition name="comparison-reveal">
+        <Transition name="comparison-reveal" @after-leave="resetComparisonGroups">
           <div
             v-show="showFullComparison"
             :id="fullComparisonPanelId"
@@ -56,59 +56,80 @@
             :class="{ 'is-revealed': showFullComparison }"
             data-full-comparison
           >
-            <div class="full-comparison">
-              <details
-                v-for="group in planComparisonGroups"
-                :key="group.id"
-                class="comparison-accordion"
-                :data-comparison-group="group.id"
-                :open="isGroupOpen(group.id)"
-                @toggle="onGroupToggle(group.id, $event)"
-              >
-                <summary>
-                  <span>
-                    <strong>{{ $t(group.titleKey) }}</strong>
-                    <small>{{ $t("home.pricing.featureCount", { count: group.rows.length }) }}</small>
-                  </span>
-                  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
-                    <path d="m5 7.5 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                </summary>
+            <div class="full-comparison-clip">
+              <div class="full-comparison">
+                <div
+                  v-for="group in planComparisonGroups"
+                  :key="group.id"
+                  class="comparison-accordion"
+                  :data-comparison-group="group.id"
+                  :data-open="isGroupOpen(group.id)"
+                >
+                  <button
+                    :id="`${fullComparisonPanelId}-${group.id}-toggle`"
+                    type="button"
+                    class="comparison-group-toggle"
+                    :aria-expanded="isGroupOpen(group.id)"
+                    :aria-controls="`${fullComparisonPanelId}-${group.id}`"
+                    @click="toggleGroup(group.id)"
+                  >
+                    <span>
+                      <strong>{{ $t(group.titleKey) }}</strong>
+                      <small>{{ $t("home.pricing.featureCount", { count: group.rows.length }) }}</small>
+                    </span>
+                    <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
+                      <path d="m5 7.5 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </button>
 
-                <div class="accordion-content">
-                  <table class="comparison-table hidden md:table">
-                    <caption class="sr-only">{{ $t("home.pricing.groupCaption", { group: $t(group.titleKey) }) }}</caption>
-                    <thead>
-                      <tr>
-                        <th scope="col">{{ $t("home.pricing.feature") }}</th>
-                        <th scope="col">{{ $t("home.pricing.free") }}</th>
-                        <th scope="col" class="premium-column">{{ $t("home.pricing.premium") }}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="comparisonRow in group.rows" :key="comparisonRow.id" :data-comparison-row="comparisonRow.id">
-                        <th scope="row">{{ $t(comparisonRow.labelKey) }}</th>
-                        <td><PlanComparisonValue :value="comparisonRow.free" /></td>
-                        <td class="premium-column"><PlanComparisonValue :value="comparisonRow.premium" /></td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <Transition name="comparison-group" @after-enter="onGroupOpened(group.id, $event)">
+                    <div
+                      v-show="isGroupOpen(group.id)"
+                      :id="`${fullComparisonPanelId}-${group.id}`"
+                      class="accordion-reveal"
+                      role="region"
+                      :aria-labelledby="`${fullComparisonPanelId}-${group.id}-toggle`"
+                      :inert="!isGroupOpen(group.id)"
+                    >
+                      <div class="accordion-clip">
+                        <div class="accordion-content">
+                          <table class="comparison-table hidden md:table">
+                            <caption class="sr-only">{{ $t("home.pricing.groupCaption", { group: $t(group.titleKey) }) }}</caption>
+                            <thead>
+                              <tr>
+                                <th scope="col">{{ $t("home.pricing.feature") }}</th>
+                                <th scope="col">{{ $t("home.pricing.free") }}</th>
+                                <th scope="col" class="premium-column">{{ $t("home.pricing.premium") }}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="comparisonRow in group.rows" :key="comparisonRow.id" :data-comparison-row="comparisonRow.id">
+                                <th scope="row">{{ $t(comparisonRow.labelKey) }}</th>
+                                <td><PlanComparisonValue :value="comparisonRow.free" /></td>
+                                <td class="premium-column"><PlanComparisonValue :value="comparisonRow.premium" /></td>
+                              </tr>
+                            </tbody>
+                          </table>
 
-                  <dl class="comparison-mobile md:hidden">
-                    <div v-for="comparisonRow in group.rows" :key="comparisonRow.id" class="mobile-row" :data-comparison-row="comparisonRow.id">
-                      <dt>{{ $t(comparisonRow.labelKey) }}</dt>
-                      <dd>
-                        <span class="mobile-plan-label">{{ $t("home.pricing.free") }}</span>
-                        <PlanComparisonValue :value="comparisonRow.free" />
-                      </dd>
-                      <dd class="mobile-premium-value">
-                        <span class="mobile-plan-label">{{ $t("home.pricing.premium") }}</span>
-                        <PlanComparisonValue :value="comparisonRow.premium" />
-                      </dd>
+                          <dl class="comparison-mobile md:hidden">
+                            <div v-for="comparisonRow in group.rows" :key="comparisonRow.id" class="mobile-row" :data-comparison-row="comparisonRow.id">
+                              <dt>{{ $t(comparisonRow.labelKey) }}</dt>
+                              <dd>
+                                <span class="mobile-plan-label">{{ $t("home.pricing.free") }}</span>
+                                <PlanComparisonValue :value="comparisonRow.free" />
+                              </dd>
+                              <dd class="mobile-premium-value">
+                                <span class="mobile-plan-label">{{ $t("home.pricing.premium") }}</span>
+                                <PlanComparisonValue :value="comparisonRow.premium" />
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
                     </div>
-                  </dl>
+                  </Transition>
                 </div>
-              </details>
+              </div>
             </div>
           </div>
         </Transition>
@@ -134,6 +155,7 @@ const comparisonTitleId = useId();
 const fullComparisonPanelId = useId();
 const showFullComparison = ref(false);
 const openGroups = ref<Set<string>>(new Set());
+const pendingScrollGroup = ref<string | null>(null);
 
 const resolveList = (key: string) => (tm(key) as string[]).map((item) => rt(item));
 const freeItems = computed(() => resolveList("home.pricing.freeItems"));
@@ -143,40 +165,35 @@ const isGroupOpen = (id: string) => openGroups.value.has(id);
 
 const toggleFullComparison = () => {
   showFullComparison.value = !showFullComparison.value;
-  if (!showFullComparison.value) openGroups.value = new Set();
 };
 
-const onGroupToggle = async (id: string, event: Event) => {
-  const details = event.currentTarget as HTMLDetailsElement;
-  if (details.open) {
-    const shouldReposition = openGroups.value.size > 0 && !openGroups.value.has(id);
-    openGroups.value = new Set([id]);
+const resetComparisonGroups = () => {
+  if (showFullComparison.value) return;
+  openGroups.value = new Set();
+  pendingScrollGroup.value = null;
+};
 
-    if (shouldReposition) {
-      await nextTick();
-      requestAnimationFrame(() => {
-        if (!details.open) return;
-        details.scrollIntoView({
-          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-          block: "start",
-        });
-      });
-    }
-    return;
-  }
+const toggleGroup = (id: string) => {
+  const wasOpen = isGroupOpen(id);
+  pendingScrollGroup.value = !wasOpen && openGroups.value.size > 0 ? id : null;
+  openGroups.value = wasOpen ? new Set() : new Set([id]);
+};
 
-  if (!openGroups.value.has(id)) return;
-  const next = new Set(openGroups.value);
-  next.delete(id);
-  openGroups.value = next;
+const onGroupOpened = (id: string, element: Element) => {
+  if (pendingScrollGroup.value !== id || !isGroupOpen(id) || !showFullComparison.value) return;
+  pendingScrollGroup.value = null;
+  element.closest<HTMLElement>("[data-comparison-group]")?.scrollIntoView({
+    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    block: "start",
+  });
 };
 </script>
 
 <style scoped>
 .comparison-section {
   background:
-    radial-gradient(circle at 4% 35%, rgb(181 150 114 / 0.12), transparent 24rem),
-    linear-gradient(180deg, #fbf6ee, var(--site-bg-soft));
+    radial-gradient(circle at 4% 35%, color-mix(in srgb, var(--site-accent) 12%, transparent), transparent 24rem),
+    linear-gradient(180deg, var(--site-bg), var(--site-bg-soft));
 }
 
 .pricing-rings {
@@ -184,7 +201,7 @@ const onGroupToggle = async (id: string, event: Event) => {
   right: -8rem;
   top: 2rem;
   z-index: -1;
-  color: rgb(152 114 77 / 0.14);
+  color: color-mix(in srgb, var(--site-accent) 14%, transparent);
   transform: rotate(8deg);
 }
 
@@ -197,16 +214,16 @@ const onGroupToggle = async (id: string, event: Event) => {
 }
 
 .plan-summary-free {
-  background: rgb(255 255 255 / 0.86);
+  background: color-mix(in srgb, var(--site-surface) 86%, transparent);
   backdrop-filter: blur(10px);
 }
 
 .plan-summary-premium {
-  border-color: #cfb083;
+  border-color: var(--site-accent);
   background:
-    radial-gradient(circle at 100% 0%, rgb(181 150 114 / 0.2), transparent 15rem),
-    #f2e5d3;
-  box-shadow: 0 22px 55px rgb(104 69 29 / 0.1);
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--site-accent) 20%, transparent), transparent 15rem),
+    var(--site-bg-soft);
+  box-shadow: 0 22px 55px color-mix(in srgb, var(--site-text) 10%, transparent);
 }
 
 .plan-summary-premium::after {
@@ -215,13 +232,13 @@ const onGroupToggle = async (id: string, event: Event) => {
   bottom: -5rem;
   width: 10rem;
   height: 10rem;
-  border: 1px solid rgb(152 114 77 / 0.14);
+  border: 1px solid color-mix(in srgb, var(--site-accent) 14%, transparent);
   border-radius: 999px;
   content: "";
 }
 
 .plan-symbol {
-  color: rgb(152 114 77 / 0.42);
+  color: color-mix(in srgb, var(--site-accent) 42%, transparent);
 }
 
 .plan-symbol-premium {
@@ -273,7 +290,7 @@ const onGroupToggle = async (id: string, event: Event) => {
   border: 1px solid var(--site-border);
   border-radius: 1.5rem;
   background: var(--site-surface);
-  box-shadow: 0 18px 50px rgb(36 31 27 / 0.06);
+  box-shadow: 0 18px 50px color-mix(in srgb, var(--site-text) 6%, transparent);
 }
 
 .comparison-table {
@@ -284,7 +301,7 @@ const onGroupToggle = async (id: string, event: Event) => {
 
 .comparison-table th,
 .comparison-table td {
-  border-bottom: 1px solid #e8ddd0;
+  border-bottom: 1px solid var(--site-border);
   padding: 1rem 1.25rem;
   text-align: left;
   vertical-align: top;
@@ -296,7 +313,7 @@ const onGroupToggle = async (id: string, event: Event) => {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--site-text-muted);
-  background: #f7f0e7;
+  background: var(--site-bg-soft);
 }
 
 .comparison-table thead th:first-child,
@@ -311,12 +328,12 @@ const onGroupToggle = async (id: string, event: Event) => {
 }
 
 .comparison-table .premium-column {
-  background: #fdf8f0;
+  background: var(--site-bg);
 }
 
 .comparison-table thead .premium-column {
   color: var(--site-accent-strong);
-  background: #f1e3d0;
+  background: var(--site-bg-soft);
 }
 
 .comparison-table tbody tr:last-child > * {
@@ -332,14 +349,14 @@ const onGroupToggle = async (id: string, event: Event) => {
   grid-template-columns: minmax(0, 1fr) minmax(7.5rem, 0.76fr);
   margin-top: 1rem;
   overflow: hidden;
-  border: 1px solid #e5d8c8;
+  border: 1px solid var(--site-border);
   border-radius: 1rem;
 }
 
 .mobile-row dt {
   grid-column: 1 / -1;
   padding: 0.85rem 1rem;
-  border-bottom: 1px solid #e5d8c8;
+  border-bottom: 1px solid var(--site-border);
   font-size: 0.9rem;
   font-weight: 900;
   line-height: 1.45;
@@ -354,8 +371,8 @@ const onGroupToggle = async (id: string, event: Event) => {
 }
 
 .mobile-premium-value {
-  border-left: 1px solid #e5d8c8;
-  background: #fdf8f0;
+  border-left: 1px solid var(--site-border);
+  background: var(--site-bg);
 }
 
 .mobile-plan-label {
@@ -387,8 +404,8 @@ const onGroupToggle = async (id: string, event: Event) => {
 }
 
 .comparison-toggle:hover {
-  color: white;
-  background: var(--site-accent-strong);
+  color: var(--site-text);
+  background: var(--site-selection);
 }
 
 .comparison-toggle svg {
@@ -405,9 +422,13 @@ const onGroupToggle = async (id: string, event: Event) => {
   transform: translateY(0);
 }
 
-.full-comparison {
+.full-comparison-clip {
   min-height: 0;
-  margin-top: 1.25rem;
+  overflow: hidden;
+}
+
+.full-comparison {
+  padding-top: 1.25rem;
   scroll-margin-top: 6rem;
 }
 
@@ -445,42 +466,39 @@ const onGroupToggle = async (id: string, event: Event) => {
   margin-top: 0.75rem;
 }
 
-.comparison-accordion summary {
+.comparison-group-toggle {
   display: flex;
+  width: 100%;
   min-height: 4.5rem;
   cursor: pointer;
-  list-style: none;
+  text-align: left;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem 1.25rem;
 }
 
-.comparison-accordion summary::-webkit-details-marker {
-  display: none;
+.comparison-group-toggle:hover {
+  background: var(--site-bg-soft);
 }
 
-.comparison-accordion summary:hover {
-  background: #f8f1e8;
-}
-
-.comparison-accordion summary > span {
+.comparison-group-toggle > span {
   display: grid;
   gap: 0.2rem;
 }
 
-.comparison-accordion summary strong {
+.comparison-group-toggle strong {
   font-family: var(--font-display);
   font-size: 1.3rem;
   color: var(--site-text);
 }
 
-.comparison-accordion summary small {
+.comparison-group-toggle small {
   font-size: 0.75rem;
   color: var(--site-text-muted);
 }
 
-.comparison-accordion summary > svg {
+.comparison-group-toggle > svg {
   width: 1.25rem;
   height: 1.25rem;
   flex: 0 0 auto;
@@ -488,7 +506,7 @@ const onGroupToggle = async (id: string, event: Event) => {
   transition: transform 180ms ease;
 }
 
-.comparison-accordion[open] summary > svg {
+.comparison-group-toggle[aria-expanded="true"] > svg {
   transform: rotate(180deg);
 }
 
@@ -496,34 +514,47 @@ const onGroupToggle = async (id: string, event: Event) => {
   border-top: 1px solid var(--site-border);
 }
 
-.comparison-accordion[open] .accordion-content {
-  animation: accordion-content-in 440ms cubic-bezier(0.22, 1, 0.36, 1) both;
+.accordion-reveal {
+  display: grid;
+  grid-template-rows: 1fr;
+  opacity: 1;
 }
 
-.comparison-accordion[open] .accordion-content .comparison-table tbody tr,
-.comparison-accordion[open] .accordion-content .mobile-row {
+.accordion-clip {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.comparison-group-enter-active,
+.comparison-group-leave-active {
+  transition:
+    grid-template-rows 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 320ms ease;
+}
+
+.comparison-group-enter-from,
+.comparison-group-leave-to {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+.comparison-accordion[data-open="true"] .accordion-content .comparison-table tbody tr,
+.comparison-accordion[data-open="true"] .accordion-content .mobile-row {
   animation: comparison-row-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.comparison-accordion[open] .accordion-content :is(tbody tr, .mobile-row):nth-child(2) { animation-delay: 40ms; }
-.comparison-accordion[open] .accordion-content :is(tbody tr, .mobile-row):nth-child(3) { animation-delay: 80ms; }
-.comparison-accordion[open] .accordion-content :is(tbody tr, .mobile-row):nth-child(4) { animation-delay: 120ms; }
-.comparison-accordion[open] .accordion-content :is(tbody tr, .mobile-row):nth-child(5) { animation-delay: 160ms; }
-.comparison-accordion[open] .accordion-content :is(tbody tr, .mobile-row):nth-child(6) { animation-delay: 200ms; }
-.comparison-accordion[open] .accordion-content :is(tbody tr, .mobile-row):nth-child(7) { animation-delay: 240ms; }
-.comparison-accordion[open] .accordion-content :is(tbody tr, .mobile-row):nth-child(8) { animation-delay: 280ms; }
+.comparison-accordion[data-open="true"] .accordion-content :is(tbody tr, .mobile-row):nth-child(2) { animation-delay: 40ms; }
+.comparison-accordion[data-open="true"] .accordion-content :is(tbody tr, .mobile-row):nth-child(3) { animation-delay: 80ms; }
+.comparison-accordion[data-open="true"] .accordion-content :is(tbody tr, .mobile-row):nth-child(4) { animation-delay: 120ms; }
+.comparison-accordion[data-open="true"] .accordion-content :is(tbody tr, .mobile-row):nth-child(5) { animation-delay: 160ms; }
+.comparison-accordion[data-open="true"] .accordion-content :is(tbody tr, .mobile-row):nth-child(6) { animation-delay: 200ms; }
+.comparison-accordion[data-open="true"] .accordion-content :is(tbody tr, .mobile-row):nth-child(7) { animation-delay: 240ms; }
+.comparison-accordion[data-open="true"] .accordion-content :is(tbody tr, .mobile-row):nth-child(8) { animation-delay: 280ms; }
 
 @keyframes comparison-item-in {
   from {
     opacity: 0;
     transform: translateY(-0.7rem);
-  }
-}
-
-@keyframes accordion-content-in {
-  from {
-    opacity: 0;
-    transform: translateY(-0.4rem);
   }
 }
 
@@ -556,19 +587,20 @@ const onGroupToggle = async (id: string, event: Event) => {
 
 @media (prefers-reduced-motion: reduce) {
   .comparison-toggle svg,
-  .comparison-accordion summary > svg {
+  .comparison-group-toggle > svg {
     transition: none;
   }
 
   .comparison-reveal-enter-active,
-  .comparison-reveal-leave-active {
+  .comparison-reveal-leave-active,
+  .comparison-group-enter-active,
+  .comparison-group-leave-active {
     transition: none;
   }
 
   .full-comparison-reveal.is-revealed .comparison-accordion,
-  .comparison-accordion[open] .accordion-content,
-  .comparison-accordion[open] .accordion-content .comparison-table tbody tr,
-  .comparison-accordion[open] .accordion-content .mobile-row {
+  .comparison-accordion[data-open="true"] .accordion-content .comparison-table tbody tr,
+  .comparison-accordion[data-open="true"] .accordion-content .mobile-row {
     animation: none;
   }
 }

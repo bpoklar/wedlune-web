@@ -15,12 +15,12 @@
           {{ $t("home.hero.badge") }}
         </p>
         <h1
-          class="font-display text-[2.85rem] leading-[1.02] tracking-tight text-charcoal sm:text-6xl lg:text-[4.7rem]"
+          class="font-display text-[2.85rem] leading-[1.02] tracking-tight text-content sm:text-6xl lg:text-[4.7rem]"
         >
           {{ $t("home.hero.title") }}
         </h1>
         <p
-          class="mt-7 max-w-xl text-lg leading-8 text-warm-gray sm:text-xl sm:leading-9"
+          class="mt-7 max-w-xl text-lg leading-8 text-muted sm:text-xl sm:leading-9"
         >
           {{ $t("home.hero.body") }}
         </p>
@@ -29,7 +29,7 @@
         </div>
         <a
           :href="homeLink('how-it-works')"
-          class="mt-7 inline-flex min-h-11 items-center gap-2 text-sm font-extrabold text-deep-gold hover:text-charcoal"
+          class="mt-7 inline-flex min-h-11 items-center gap-2 text-sm font-extrabold text-accent-strong hover:text-content"
         >
           {{ $t("home.hero.secondary") }}
           <span aria-hidden="true">↓</span>
@@ -56,7 +56,7 @@
             sizes="(min-width: 1024px) 42vw, 85vw"
           />
           <div
-            class="absolute inset-0 bg-linear-to-t from-charcoal/35 via-charcoal/5 to-white/5"
+            class="absolute inset-0 bg-linear-to-t from-content/35 via-content/5 to-surface/5"
           />
         </div>
 
@@ -64,7 +64,7 @@
           class="phone-shell absolute bottom-0 left-0 z-10 w-54 rounded-[2.4rem] p-[0.42rem] sm:left-4 sm:w-[16rem] lg:-left-3"
         >
           <div
-            class="phone-screen relative aspect-1280/2856 overflow-hidden rounded-[1.9rem] bg-charcoal"
+            class="phone-screen relative aspect-1280/2856 overflow-hidden rounded-[1.9rem] bg-inverse"
           >
             <Transition name="preview-fade" mode="out-in">
               <img
@@ -89,7 +89,7 @@
         </div>
 
         <div
-          class="absolute right-4 top-1/2 flex -translate-y-1/2 flex-col items-center gap-0.5 rounded-full bg-charcoal/75 p-1.5 shadow-lg backdrop-blur-sm sm:right-7"
+          class="absolute right-4 top-1/2 flex -translate-y-1/2 flex-col items-center gap-0.5 rounded-full bg-inverse/75 p-1.5 shadow-lg backdrop-blur-sm sm:right-7"
           role="group"
           :aria-label="$t('home.hero.slider.label')"
         >
@@ -107,8 +107,8 @@
               class="h-2 rounded-full transition-[width,background-color]"
               :class="
                 currentSlide === index
-                  ? 'w-5 bg-white'
-                  : 'w-2 bg-white/45 group-hover/slide:bg-white/75'
+                  ? 'w-5 bg-surface'
+                  : 'w-2 bg-surface/45 group-hover/slide:bg-surface/75'
               "
               aria-hidden="true"
             />
@@ -175,7 +175,7 @@ onBeforeUnmount(pauseSlider);
 .hero-rings {
   position: absolute;
   z-index: -1;
-  color: rgb(152 114 77 / 0.18);
+  color: color-mix(in srgb, var(--site-accent) 18%, transparent);
   pointer-events: none;
 }
 
@@ -190,7 +190,7 @@ onBeforeUnmount(pauseSlider);
 .hero-rings-small {
   left: -1.75rem;
   bottom: 2rem;
-  color: rgb(152 114 77 / 0.22);
+  color: color-mix(in srgb, var(--site-accent) 22%, transparent);
   transform: rotate(8deg);
 }
 
@@ -201,7 +201,7 @@ onBeforeUnmount(pauseSlider);
 .hero-photo::after {
   position: absolute;
   inset: 1rem;
-  border: 1px solid rgb(255 255 255 / 0.38);
+  border: 1px solid color-mix(in srgb, var(--site-surface) 38%, transparent);
   border-radius: 1.65rem;
   content: "";
   pointer-events: none;
@@ -212,50 +212,50 @@ onBeforeUnmount(pauseSlider);
   min-height: 2.75rem;
   align-items: center;
   gap: 0.55rem;
-  border: 1px solid rgb(255 255 255 / 0.5);
+  border: 1px solid color-mix(in srgb, var(--site-surface) 50%, transparent);
   border-radius: 999px;
   padding: 0.65rem 0.95rem;
   font-size: 0.75rem;
   font-weight: 900;
-  color: white;
-  background: rgb(36 31 27 / 0.9);
-  box-shadow: 0 14px 34px rgb(36 31 27 / 0.2);
+  color: var(--site-inverse-text);
+  background: color-mix(in srgb, var(--site-text) 90%, transparent);
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--site-text) 20%, transparent);
   backdrop-filter: blur(12px);
 }
 
 .hero-screen-spark {
-  color: #e2c18b;
+  color: var(--site-accent);
 }
 
 .phone-shell {
   background: linear-gradient(
     112deg,
-    #747b80 0%,
-    #e9ecee 15%,
-    #aeb4b8 34%,
-    #f8f9f9 51%,
-    #9aa1a6 72%,
-    #dfe3e5 88%,
-    #777e83 100%
+    var(--site-device-metal-1) 0%,
+    var(--site-device-metal-2) 15%,
+    var(--site-device-metal-3) 34%,
+    var(--site-device-metal-4) 51%,
+    var(--site-device-metal-5) 72%,
+    var(--site-device-metal-6) 88%,
+    var(--site-device-metal-7) 100%
   );
   box-shadow:
-    0 30px 60px rgb(36 31 27 / 0.3),
-    inset 0 0 0 1px rgb(255 255 255 / 0.78),
-    inset 0 0 0 2px rgb(74 80 84 / 0.5);
+    0 30px 60px color-mix(in srgb, var(--site-text) 30%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, var(--site-surface) 78%, transparent),
+    inset 0 0 0 2px color-mix(in srgb, var(--site-text) 50%, transparent);
 }
 
 .phone-shell::after {
   position: absolute;
   inset: 0.18rem;
-  border: 1px solid rgb(255 255 255 / 0.48);
+  border: 1px solid color-mix(in srgb, var(--site-surface) 48%, transparent);
   border-radius: 2.2rem;
   content: "";
   pointer-events: none;
 }
 
 .phone-screen {
-  border: 2px solid #17191a;
-  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.45);
+  border: 2px solid var(--site-surface-strong);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--site-text) 45%, transparent);
 }
 
 .preview-fade-enter-active,

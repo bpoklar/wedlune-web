@@ -103,7 +103,7 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   overflow: hidden;
   border-radius: 1.5rem;
   padding: 2.5rem 1.5rem;
-  color: white;
+  color: var(--site-inverse-text);
   background: var(--site-surface-strong);
   box-shadow: var(--site-shadow);
 }
@@ -148,7 +148,7 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   margin-bottom: 1.5rem;
   font-size: 1rem;
   line-height: 1.8;
-  color: rgb(255 255 255 / 0.74);
+  color: var(--site-inverse-muted);
 }
 
 .footer-ornament {
@@ -160,7 +160,7 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   font-size: clamp(12rem, 28vw, 24rem);
   font-style: italic;
   line-height: 1;
-  color: rgb(255 255 255 / 0.035);
+  color: color-mix(in srgb, var(--site-surface) 3.5%, transparent);
   pointer-events: none;
   user-select: none;
 }
@@ -169,9 +169,9 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   position: relative;
   overflow: hidden;
   margin-top: 4rem;
-  color: white;
+  color: var(--site-inverse-text);
   background:
-    radial-gradient(circle at 88% -45%, rgb(181 150 114 / 0.2), transparent 28rem),
+    radial-gradient(circle at 88% -45%, color-mix(in srgb, var(--site-accent) 20%, transparent), transparent 28rem),
     var(--site-surface-strong);
 }
 
@@ -198,7 +198,7 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   margin-top: 1rem;
   font-size: 0.9375rem;
   line-height: 1.75;
-  color: rgb(255 255 255 / 0.64);
+  color: var(--site-inverse-muted);
 }
 
 .footer-support-group {
@@ -215,7 +215,7 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
 .footer-language-label {
   font-size: 0.72rem;
   font-weight: 700;
-  color: rgb(255 255 255 / 0.48);
+  color: var(--site-inverse-muted);
 }
 
 .footer-links {
@@ -230,7 +230,7 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   font-weight: 900;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #e2c18b;
+  color: var(--site-accent);
 }
 
 .footer-list {
@@ -244,13 +244,13 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   overflow-wrap: anywhere;
   font-size: 0.875rem;
   font-weight: 700;
-  color: rgb(255 255 255 / 0.62);
+  color: var(--site-inverse-muted);
   transition: color 180ms ease;
 }
 
 .footer-link:hover,
 .footer-link[aria-current="page"] {
-  color: white;
+  color: var(--site-inverse-text);
 }
 
 .footer-meta {
@@ -258,11 +258,11 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   flex-direction: column;
   gap: 1rem 1.5rem;
   margin-top: 2.5rem;
-  border-top: 1px solid rgb(255 255 255 / 0.1);
+  border-top: 1px solid color-mix(in srgb, var(--site-surface) 10%, transparent);
   padding-top: 1.4rem;
   font-size: 0.72rem;
   line-height: 1.6;
-  color: rgb(255 255 255 / 0.45);
+  color: var(--site-inverse-muted);
 }
 
 .footer-privacy-note {
@@ -275,7 +275,7 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   width: 1rem;
   height: 1rem;
   flex: 0 0 auto;
-  color: #8bb599;
+  color: var(--site-inverse-success);
 }
 
 @media (max-width: 23.99rem) {

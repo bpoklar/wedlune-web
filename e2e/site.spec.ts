@@ -2,6 +2,15 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
 const assertA11y = async (page: Page) => {
+  // Production pages can render before reveal/route fades finish. Measure
+  // their settled colors; infinite loading indicators must not block checks.
+  await page.evaluate(async () => {
+    await new Promise(requestAnimationFrame);
+    const finiteAnimations = document.getAnimations().filter((animation) =>
+      Number.isFinite(animation.effect?.getComputedTiming().endTime),
+    );
+    await Promise.all(finiteAnimations.map((animation) => animation.finished.catch(() => {})));
+  });
   const results = await new AxeBuilder({ page })
     .exclude("nuxt-error-overlay")
     .analyze();
@@ -93,7 +102,7 @@ test.describe("marketing, SEO, and navigation", () => {
     await menuButton.click();
     const mobileMenu = page.locator("#mobile-menu");
     await expect(mobileMenu).toBeVisible();
-    await expect(mobileMenu).toHaveCSS("transition-property", "opacity, transform");
+    await expect(mobileMenu).toHaveCSS("transition-property", "grid-template-rows, opacity");
     await expect(mobileMenu).toHaveCSS("transition-duration", "0.48s");
     await expect(mobileMenu).toHaveCSS("transition-timing-function", "cubic-bezier(0.16, 1, 0.3, 1)");
     await expect(mobileMenu.locator("[data-language-select]")).toHaveCount(0);
@@ -119,12 +128,17 @@ test.describe("marketing, SEO, and navigation", () => {
 
     const visibleCta = page.locator("[data-nav-cta]:visible");
     await expect(header).toHaveAttribute("data-visible", "true");
-    await expect(visibleCta).toHaveCSS("background-color", "rgb(36, 31, 27)");
-    await expect(visibleCta).toHaveCSS("background-image", /linear-gradient/);
+    await expect(visibleCta).toHaveCSS("background-color", "rgb(44, 44, 44)");
+    await expect(visibleCta).toHaveCSS("background-image", "none");
+    await expect(visibleCta).toHaveCSS("color", "rgb(255, 255, 255)");
+    await visibleCta.screenshot({ path: testInfo.outputPath("get-wedlune-button.png") });
     await expect(header.locator("[data-language-select]")).toHaveCount(0);
     await expect(page.locator("main section").first()).toHaveClass(/motion-enter/);
 
-    if (isMobile) await page.getByRole("button", { name: "Close menu" }).click();
+    if (isMobile) {
+      await page.getByRole("button", { name: "Close menu" }).click();
+      await expect(page.locator("#mobile-menu")).toBeHidden();
+    }
 
     await page.evaluate(() => window.scrollTo(0, 900));
     await expect(header).toHaveAttribute("data-visible", "false");
@@ -232,30 +246,30 @@ test.describe("marketing, SEO, and navigation", () => {
     await expect(toggle).toHaveAttribute("aria-expanded", "true");
 
     const fullComparison = pricing.locator("[data-full-comparison]");
-    const groups = fullComparison.locator("details[data-comparison-group]");
+    const groups = fullComparison.locator("[data-comparison-group]");
     await expect(fullComparison).toBeVisible();
     await expect(fullComparison).toHaveCSS("transition-property", "grid-template-rows, opacity, transform");
     await expect(groups).toHaveCount(5);
     expect(await groups.first().evaluate((element) => getComputedStyle(element).animationName)).toContain("comparison-item-in");
-    await expect(fullComparison.locator("details[open]")).toHaveCount(0);
+    await expect(fullComparison.locator('[data-comparison-group][data-open="true"]')).toHaveCount(0);
 
-    const listsGroup = fullComparison.locator('details[data-comparison-group="lists"]');
-    const listsSummary = listsGroup.locator("summary");
+    const listsGroup = fullComparison.locator('[data-comparison-group="lists"]');
+    const listsSummary = listsGroup.locator(".comparison-group-toggle");
     await listsSummary.focus();
     await page.keyboard.press("Enter");
-    await expect(listsGroup).toHaveAttribute("open", "");
+    await expect(listsGroup).toHaveAttribute("data-open", "true");
     await expect(listsGroup.locator('[data-comparison-row="gallery"]:visible')).toContainText(
       isMobile ? "Do 20" : "Up to 20",
     );
     expect(await listsGroup.locator('[data-comparison-row="gallery"]:visible').evaluate((element) => getComputedStyle(element).animationName)).toContain("comparison-row-in");
 
     const recommendationsGroup = fullComparison.locator(
-      'details[data-comparison-group="recommendations"]',
+      '[data-comparison-group="recommendations"]',
     );
-    await recommendationsGroup.locator("summary").click();
-    await expect(listsGroup).not.toHaveAttribute("open", "");
-    await expect(recommendationsGroup).toHaveAttribute("open", "");
-    await expect(fullComparison.locator("details[open]")).toHaveCount(1);
+    await recommendationsGroup.locator(".comparison-group-toggle").click();
+    await expect(listsGroup).not.toHaveAttribute("data-open", "true");
+    await expect(recommendationsGroup).toHaveAttribute("data-open", "true");
+    await expect(fullComparison.locator('[data-comparison-group][data-open="true"]')).toHaveCount(1);
     await expect.poll(() => recommendationsGroup.evaluate((element) => {
       const headerOffset = Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
       return Math.round(Math.abs(element.getBoundingClientRect().top - headerOffset));
@@ -264,8 +278,8 @@ test.describe("marketing, SEO, and navigation", () => {
       recommendationsGroup.locator('[data-comparison-row="venueLookups"]:visible'),
     ).toContainText(isMobile ? "2 enkratni iskanji" : "2 unique lookups");
 
-    await recommendationsGroup.locator("summary").click();
-    await expect(fullComparison.locator("details[open]")).toHaveCount(0);
+    await recommendationsGroup.locator(".comparison-group-toggle").click();
+    await expect(fullComparison.locator('[data-comparison-group][data-open="true"]')).toHaveCount(0);
 
     await toggle.click();
     await expect(toggle).toHaveAttribute("aria-expanded", "false");
@@ -300,6 +314,8 @@ test.describe("legal and recovery surfaces", () => {
       "https://openrouter.ai/privacy",
     );
     await assertA11y(page);
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    await expect(page.locator("[data-site-header]")).toHaveAttribute("data-visible", "true");
     await expect(page).toHaveScreenshot("privacy-desktop.png", { fullPage: true });
   });
 

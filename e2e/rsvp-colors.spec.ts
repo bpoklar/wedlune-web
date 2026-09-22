@@ -5,6 +5,7 @@ const designs = [
   { name: "brand", palette: null },
   { name: "custom-light", palette: { accentColor: "#DFC4CE", backgroundColor: "#FFF9F4", surfaceColor: "#FFFFFF" } },
   { name: "custom-dark", palette: { accentColor: "#F2C94C", backgroundColor: "#101820", surfaceColor: "#17212B" } },
+  { name: "custom-low-contrast", palette: { accentColor: "#777777", backgroundColor: "#777777", surfaceColor: "#777777" } },
 ];
 
 for (const design of designs) {
@@ -32,11 +33,11 @@ for (const design of designs) {
     await expect(save).toBeVisible();
     await expect(page.locator("#rsvp-accept")).toHaveCount(0);
     if (design.name === "brand") {
-      await expect(save).toHaveCSS("background-color", "rgb(36, 31, 27)");
-      await expect(save).toHaveCSS("color", "rgb(255, 253, 249)");
+      await expect(save).toHaveCSS("background-color", "rgb(201, 169, 110)");
+      await expect(save).toHaveCSS("color", "rgb(44, 44, 44)");
       if (!testInfo.project.name.startsWith("mobile")) {
         await save.hover();
-        await expect(save).toHaveCSS("background-color", "rgb(101, 74, 52)");
+        await expect(save).toHaveCSS("background-color", "rgb(190, 155, 95)");
         await page.mouse.move(0, 0);
       }
     }
@@ -62,6 +63,7 @@ for (const design of designs) {
     await page.keyboard.press("Tab");
     await expect(save).toBeFocused();
     await expect(save).toHaveCSS("outline-style", "solid");
+    await expect(page.locator(".skip-link")).toHaveCSS("opacity", "0");
     await page.screenshot({ path: testInfo.outputPath(`rsvp-${design.name}-form.png`), fullPage: true });
     await save.click();
     await expect(save).toBeDisabled();

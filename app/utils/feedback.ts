@@ -8,8 +8,10 @@ export const feedbackSchema = z.strictObject({
   message: z.string({ error: "feedback.validation.messageRequired" })
     .trim()
     .min(1, { error: "feedback.validation.messageRequired" })
-    .min(10, { error: "feedback.validation.messageShort" })
-    .max(2000, { error: "feedback.validation.messageLong" }),
+    // Match Flutter and the Edge Function's UTF-16 limits even when the schema
+    // library counts Unicode code points for its built-in length checks.
+    .refine((value) => value.length >= 10, { error: "feedback.validation.messageShort" })
+    .refine((value) => value.length <= 2000, { error: "feedback.validation.messageLong" }),
   rating: z.number({ error: "feedback.validation.rating" })
     .int({ error: "feedback.validation.rating" })
     .min(1, { error: "feedback.validation.rating" })
@@ -26,4 +28,3 @@ export const feedbackSchema = z.strictObject({
 
 export type FeedbackInput = z.input<typeof feedbackSchema>;
 export type FeedbackPayload = z.output<typeof feedbackSchema>;
-

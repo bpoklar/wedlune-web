@@ -1,11 +1,11 @@
 <template>
-  <section id="wishlist-section" class="mt-8 card-surface overflow-hidden sm:mt-10" aria-labelledby="wishlist-heading">
+  <section id="wishlist-section" class="mt-8 card-surface rsvp-surface-panel overflow-hidden sm:mt-10" aria-labelledby="wishlist-heading">
     <header class="rsvp-muted-panel border-b px-5 py-7 text-center sm:px-8 sm:py-8">
-      <p class="font-accent text-champagne-gold text-2xl mb-1">{{ $t("wishlist.gifts") }}</p>
-      <h2 id="wishlist-heading" class="font-display text-2xl text-charcoal">
+      <p class="font-accent rsvp-text text-2xl mb-1">{{ $t("wishlist.gifts") }}</p>
+      <h2 id="wishlist-heading" class="font-display text-2xl rsvp-text">
         {{ wishlist.title }}
       </h2>
-      <p v-if="wishlist.message" class="text-warm-gray text-sm mt-2 max-w-xl mx-auto">
+      <p v-if="wishlist.message" class="rsvp-text-secondary text-sm mt-2 max-w-xl mx-auto">
         {{ wishlist.message }}
       </p>
     </header>
@@ -17,21 +17,21 @@
         :id="`wishlist-item-${item.id}`"
         class="rsvp-input-panel flex flex-col overflow-hidden rounded-2xl border"
       >
-        <div v-if="item.imageUrl" class="aspect-4/3 bg-soft-champagne overflow-hidden">
+        <div v-if="item.imageUrl" class="aspect-4/3 rsvp-muted-panel overflow-hidden">
           <img :src="item.imageUrl" :alt="item.title" class="h-full w-full object-cover" loading="lazy" />
         </div>
         <div class="flex grow flex-col p-4 sm:p-5">
           <div class="flex items-start gap-2">
-            <span v-if="item.isPriority" class="text-cocoa-brown" :aria-label="$t('wishlist.mostWanted')">♥</span>
-            <h3 class="font-display text-xl text-charcoal leading-tight">{{ item.title }}</h3>
+            <span v-if="item.isPriority" class="rsvp-muted-panel rounded px-1" :aria-label="$t('wishlist.mostWanted')">♥</span>
+            <h3 class="font-display text-xl rsvp-text leading-tight">{{ item.title }}</h3>
           </div>
-          <p v-if="item.description" class="text-warm-gray text-sm leading-relaxed mt-2">
+          <p v-if="item.description" class="rsvp-text-secondary text-sm leading-relaxed mt-2">
             {{ item.description }}
           </p>
-          <p v-if="item.priceAmount != null" class="text-champagne-gold font-semibold mt-3">
+          <p v-if="item.priceAmount != null" class="rsvp-text font-semibold mt-3">
             {{ formatPrice(item.priceAmount, item.currency) }}
           </p>
-          <p class="text-xs text-warm-gray mt-2">
+          <p class="text-xs rsvp-text-secondary mt-2">
             <template v-if="item.remainingQuantity > 0">
               {{ $t("wishlist.available", { remaining: item.remainingQuantity, desired: item.desiredQuantity }) }}
             </template>
@@ -51,7 +51,7 @@
             </a>
 
             <div v-if="item.reservedByYou > 0" class="space-y-2">
-              <p class="text-sage-green text-sm font-semibold text-center">
+              <p class="rsvp-success text-sm font-semibold text-center">
                 {{ $t("wishlist.reservedByYou", { count: item.reservedByYou }) }}
               </p>
               <button
@@ -85,8 +85,8 @@
                 {{ savingItemId === item.id ? $t("wishlist.reserving") : $t("wishlist.reserve") }}
               </button>
             </div>
-            <p v-else class="text-center text-warm-gray text-sm py-2">{{ $t("wishlist.unavailable") }}</p>
-            <p v-if="errors[item.id]" class="text-cocoa-brown text-xs text-center" role="alert">
+            <p v-else class="text-center rsvp-text-secondary text-sm py-2">{{ $t("wishlist.unavailable") }}</p>
+            <p v-if="errors[item.id]" class="rsvp-error text-xs text-center" role="alert">
               {{ errors[item.id] }}
             </p>
           </div>

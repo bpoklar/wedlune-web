@@ -18,10 +18,10 @@
         <path d="M3.4 2.8a2 2 0 0 0-.4 1.3v15.8c0 .5.1.9.4 1.3l9.1-9.2-9.1-9.2Zm10.4 10.5-2 2 6.6 3.8c.8.5 1.8.2 2.3-.5.1-.2.2-.4.2-.6l-7.1-4.7ZM18.4 4.9l-6.6 3.8 2 2 7.1-4.7c-.2-1-1.3-1.7-2.5-1.1ZM4.7 2.1l8 8 1.7-1.7-8.8-5.1c-.3-.2-.6-.3-.9-.2Z" />
       </svg>
       <span class="min-w-0 text-left leading-none">
-        <span class="block text-[0.62rem] font-bold uppercase tracking-[0.08em] text-white/70">
+        <span class="block text-[0.62rem] font-bold uppercase tracking-[0.08em] text-content">
           {{ store.url ? store.eyebrow : $t('store.comingSoon') }}
         </span>
-        <span class="mt-1 block whitespace-nowrap text-sm font-extrabold text-white sm:text-base">
+        <span class="mt-1 block whitespace-nowrap text-sm font-extrabold text-on-accent sm:text-base">
           {{ store.name }}
         </span>
       </span>
@@ -69,11 +69,11 @@ const externalLinkProps = (url: string) => ({
   min-width: 11.5rem;
   align-items: center;
   gap: 0.7rem;
-  border: 1px solid rgb(255 255 255 / 0.18);
+  border: 1px solid var(--site-accent-strong);
   border-radius: 0.9rem;
   padding: 0.7rem 1rem;
-  color: white;
-  background: #241f1b;
+  color: var(--site-on-accent);
+  background: var(--site-accent);
 }
 
 .store-badge-compact {
@@ -83,18 +83,20 @@ const externalLinkProps = (url: string) => ({
 }
 
 .store-badge-active {
-  box-shadow: 0 12px 30px rgb(36 31 27 / 0.18);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--site-text) 18%, transparent);
   transition: transform 180ms ease, background-color 180ms ease;
 }
 
 .store-badge-active:hover {
   transform: translateY(-2px);
-  background: var(--site-accent-strong);
+  background: var(--site-accent-hover);
 }
+
+.store-badge-active:active { background: var(--site-accent-pressed); }
 
 .store-badge-unavailable {
   cursor: not-allowed;
-  background: #4c4540;
-  opacity: 0.78;
+  background: var(--site-disabled-bg);
+  color: var(--site-text-muted);
 }
 </style>

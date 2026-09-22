@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen flex-col bg-warm-white">
+  <div class="flex min-h-screen flex-col bg-surface">
     <a href="#main-content" class="skip-link">{{ $t("common.skipToContent") }}</a>
     <SiteHeader />
     <main id="main-content" tabindex="-1" class="flex-1 pt-16">

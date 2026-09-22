@@ -1,3 +1,4 @@
+import { readableTextColor } from "./colorTheme";
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 
@@ -5,8 +6,8 @@ import {
   defaultRsvpDesign,
   createHeroImageStyle,
   createRsvpTheme,
-  readableTextColor,
   resolveRsvpDesign,
+  resolveRsvpColorMode,
 } from "./rsvpDesign";
 
 describe("RSVP design contract", () => {
@@ -27,7 +28,7 @@ describe("RSVP design contract", () => {
   );
 
   it("derives readable foreground colors", () => {
-    expect(readableTextColor("#FFFFFF")).toBe("#111827");
+    expect(readableTextColor("#FFFFFF")).toBe("#000000");
     expect(readableTextColor("#111111")).toBe("#FFFFFF");
   });
 
@@ -76,9 +77,9 @@ describe("RSVP design contract", () => {
 
   it("keeps every public template crop ratio deterministic", () => {
     const page = readFileSync(
-      new URL("../pages/rsvp.vue", import.meta.url),
+      new URL("../assets/css/main.css", import.meta.url),
       "utf8",
-    );
+    ).replace(/\r\n/g, "\n");
 
     expect(page).toContain(".rsvp-hero-frame {\n  aspect-ratio: 16 / 9;");
     expect(page).toContain(".rsvp-template-botanical .rsvp-hero-frame {\n  aspect-ratio: 4 / 3;");
@@ -90,6 +91,7 @@ describe("RSVP design contract", () => {
     const design = resolveRsvpDesign({
       ...defaultRsvpDesign,
       template: "modern",
+      colorMode: "custom",
       accentColor: "#F2C94C",
       backgroundColor: "#101820",
       surfaceColor: "#17212B",
@@ -119,14 +121,15 @@ describe("RSVP design contract", () => {
   it("derives readable roles for a light custom palette", () => {
     const theme = createRsvpTheme({
       ...defaultRsvpDesign,
+      colorMode: "custom",
       accentColor: "#8A5A44",
       backgroundColor: "#FFF9F4",
       surfaceColor: "#FFFFFF",
     });
 
-    expect(theme["--rsvp-text"]).toBe("#111827");
-    expect(theme["--rsvp-muted-text"]).toBe("#111827");
-    expect(theme["--rsvp-input-text"]).toBe("#111827");
+    expect(theme["--rsvp-text"]).toBe("#000000");
+    expect(theme["--rsvp-muted-text"]).toBe("#000000");
+    expect(theme["--rsvp-input-text"]).toBe("#000000");
   });
 });
 
@@ -135,9 +138,9 @@ describe("RSVP interaction colors", () => {
   function color(value: string): string {
     const token = value.match(/^var\((--[\w-]+)\)$/)?.[1];
     if (!token) return value;
-    const resolved = siteCss.match(new RegExp(`${token}:\\s*(#[0-9a-f]{6})`, "i"))?.[1];
+    const resolved = siteCss.match(new RegExp(`${token}:\\s*([^;]+)`, "i"))?.[1];
     if (!resolved) throw new Error(`Missing site color ${token}`);
-    return resolved;
+    return color(resolved);
   }
   function luminance(value: string) {
     const channels = color(value).slice(1).match(/../g)!.map((part) => {
@@ -153,22 +156,26 @@ describe("RSVP interaction colors", () => {
 
   it("uses the shared site colors for existing default designs", () => {
     const theme = createRsvpTheme(defaultRsvpDesign);
-    expect(theme["--rsvp-primary"]).toBe("var(--site-surface-strong)");
+    expect(theme["--rsvp-primary"]).toBe("var(--site-accent)");
     expect(theme["--rsvp-accent"]).toBe("var(--site-accent)");
-    expect(theme["--rsvp-primary-hover"]).toBe("var(--site-accent-strong)");
-    expect(defaultRsvpDesign.accentColor).toBe("#B88A4A");
+    expect(theme["--rsvp-primary-hover"]).toBe("var(--site-accent-hover)");
+    expect(defaultRsvpDesign.accentColor).toBe("#C9A96E");
   });
 
   it.each([
     ["default", defaultRsvpDesign],
-    ["dark", { ...defaultRsvpDesign, accentColor: "#F2C94C", backgroundColor: "#101820", surfaceColor: "#17212B" }],
-    ["light", { ...defaultRsvpDesign, accentColor: "#DFC4CE", backgroundColor: "#FFF9F4", surfaceColor: "#FFFFFF" }],
-    ["dark accent on dark surface", { ...defaultRsvpDesign, accentColor: "#243746", backgroundColor: "#101820", surfaceColor: "#17212B" }],
+    ["dark", { ...defaultRsvpDesign, colorMode: "custom", accentColor: "#F2C94C", backgroundColor: "#101820", surfaceColor: "#17212B" }],
+    ["light", { ...defaultRsvpDesign, colorMode: "custom", accentColor: "#DFC4CE", backgroundColor: "#FFF9F4", surfaceColor: "#FFFFFF" }],
+    ["dark accent on dark surface", { ...defaultRsvpDesign, colorMode: "custom", accentColor: "#243746", backgroundColor: "#101820", surfaceColor: "#17212B" }],
   ])("keeps %s interaction text and focus indicators readable", (_name, design) => {
     const theme = createRsvpTheme(design as typeof defaultRsvpDesign);
     for (const [foreground, background] of [
       ["--rsvp-primary-text", "--rsvp-primary"],
       ["--rsvp-primary-hover-text", "--rsvp-primary-hover"],
+      ["--rsvp-primary-pressed-text", "--rsvp-primary-pressed"],
+      ["--rsvp-text-muted", "--rsvp-surface"],
+      ["--rsvp-muted-secondary", "--rsvp-muted-surface"],
+      ["--rsvp-input-secondary", "--rsvp-input-surface"],
       ["--rsvp-selection-text", "--rsvp-selection"],
       ["--rsvp-accepted-text", "--rsvp-accepted-surface"],
     ] as const) {
@@ -178,5 +185,29 @@ describe("RSVP interaction colors", () => {
     if (_name !== "default") {
       expect(theme["--rsvp-accent"]).toBe((design as typeof defaultRsvpDesign).accentColor);
     }
+  });
+});
+
+
+describe("RSVP palette ownership", () => {
+  const legacy = { ...defaultRsvpDesign, accentColor: "#B88A4A", backgroundColor: "#FAF7F2" };
+  delete legacy.colorMode;
+  it("adopts only exact legacy defaults", () => {
+    expect(resolveRsvpDesign(legacy).colorMode).toBe("brand");
+    expect(resolveRsvpDesign({ ...legacy, backgroundColor: "#FDF8F2" }).colorMode).toBe("custom");
+    expect(resolveRsvpDesign({ ...legacy, accentColor: "#71826B" }).colorMode).toBe("custom");
+  });
+  it("preserves explicit custom colors even when they equal a default", () => {
+    for (const palette of [legacy, defaultRsvpDesign]) {
+      const design = resolveRsvpDesign({ ...palette, colorMode: "custom" });
+      expect(resolveRsvpColorMode(design)).toBe("custom");
+      expect(createRsvpTheme(design)["--rsvp-accent"]).toBe(palette.accentColor);
+    }
+  });
+  it.each(["classic", "botanical", "modern"])("does not recolor the %s template", (template) => {
+    expect(createRsvpTheme(resolveRsvpDesign({ ...defaultRsvpDesign, template }))).toEqual(createRsvpTheme(defaultRsvpDesign));
+  });
+  it.each([null, "other", 1, false])("rejects invalid mode %s", (colorMode) => {
+    expect(resolveRsvpDesign({ ...legacy, colorMode })).toEqual(defaultRsvpDesign);
   });
 });

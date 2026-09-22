@@ -2,7 +2,7 @@
   <header
     data-site-header
     :data-visible="headerVisible"
-    class="fixed inset-x-0 top-0 z-50 border-b border-sand-beige/50 bg-warm-white/92 shadow-sm backdrop-blur-xl transition-transform duration-300 ease-out will-change-transform"
+    class="fixed inset-x-0 top-0 z-50 border-b border-line/50 bg-surface/92 shadow-sm backdrop-blur-xl transition-transform duration-300 ease-out will-change-transform"
     :class="headerVisible || mobileOpen ? 'translate-y-0' : '-translate-y-full'"
     @focusin="showHeader"
   >
@@ -12,11 +12,11 @@
       </NuxtLink>
 
       <div class="hidden items-center gap-7 lg:flex">
-        <NuxtLink v-for="link in navLinks" :key="link.id" :to="homeLink(link.id)" class="inline-flex min-h-11 items-center text-sm font-bold text-warm-gray transition-colors hover:text-deep-gold">
+        <NuxtLink v-for="link in navLinks" :key="link.id" :to="homeLink(link.id)" class="inline-flex min-h-11 items-center text-sm font-bold text-muted transition-colors hover:text-accent-strong">
           {{ link.label }}
         </NuxtLink>
-        <NuxtLink data-nav-cta :to="homeLink('download')" class="nav-cta inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-extrabold text-white">
-          <span class="text-soft-champagne" aria-hidden="true">✦</span>
+        <NuxtLink data-nav-cta :to="homeLink('download')" class="nav-cta inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-extrabold text-on-inverse">
+          <span class="text-accent" aria-hidden="true">✦</span>
           {{ $t("nav.getWedlune") }}
         </NuxtLink>
       </div>
@@ -24,7 +24,7 @@
       <button
         ref="menuButton"
         type="button"
-        class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full text-deep-gold transition-colors hover:bg-sand-beige/30 lg:hidden"
+        class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full text-accent-strong transition-colors hover:bg-line/30 lg:hidden"
         :aria-label="mobileOpen ? $t('nav.closeMenu') : $t('nav.openMenu')"
         :aria-expanded="mobileOpen"
         aria-controls="mobile-menu"
@@ -38,17 +38,25 @@
       </button>
     </nav>
 
-    <Transition name="mobile-menu" @after-enter="focusFirstMenuItem">
-      <div v-show="mobileOpen" id="mobile-menu" ref="mobileMenu" class="mobile-menu-panel border-t border-sand-beige/55 bg-warm-white px-5 pb-6 pt-3 shadow-xl lg:hidden" @keydown.escape="closeMenu(true)">
-        <nav data-mobile-menu-items class="mx-auto flex max-w-7xl flex-col" :aria-label="$t('nav.mobile')">
-          <NuxtLink v-for="link in navLinks" :key="link.id" :to="homeLink(link.id)" class="flex min-h-12 items-center border-b border-sand-beige/45 text-sm font-bold text-warm-gray transition-colors hover:text-deep-gold" @click="closeMenu(false)">
-            {{ link.label }}
-          </NuxtLink>
-          <NuxtLink data-nav-cta :to="homeLink('download')" class="nav-cta mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-extrabold text-white" @click="closeMenu(false)">
-            <span class="text-soft-champagne" aria-hidden="true">✦</span>
-            {{ $t("nav.getWedlune") }}
-          </NuxtLink>
-        </nav>
+    <Transition
+      name="mobile-menu"
+      @after-enter="focusFirstMenuItem"
+      @before-leave="mobileClosing = true"
+      @after-leave="mobileClosing = false"
+      @leave-cancelled="mobileClosing = false"
+    >
+      <div v-show="mobileOpen" id="mobile-menu" ref="mobileMenu" :inert="!mobileOpen" class="mobile-menu-panel grid bg-surface shadow-xl lg:hidden" @keydown.escape="closeMenu(true)">
+        <div class="min-h-0 overflow-hidden">
+          <nav data-mobile-menu-items class="mx-auto flex max-w-7xl flex-col border-t border-line/55 px-5 pb-6 pt-3" :aria-label="$t('nav.mobile')">
+            <NuxtLink v-for="link in navLinks" :key="link.id" :to="homeLink(link.id)" class="flex min-h-12 items-center border-b border-line/45 text-sm font-bold text-muted transition-colors hover:text-accent-strong" @click="closeMenu(false)">
+              {{ link.label }}
+            </NuxtLink>
+            <NuxtLink data-nav-cta :to="homeLink('download')" class="nav-cta mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-extrabold text-on-inverse" @click="closeMenu(false)">
+              <span class="text-accent" aria-hidden="true">✦</span>
+              {{ $t("nav.getWedlune") }}
+            </NuxtLink>
+          </nav>
+        </div>
       </div>
     </Transition>
   </header>
@@ -56,6 +64,7 @@
 
 <script setup lang="ts">
 const mobileOpen = ref(false);
+const mobileClosing = ref(false);
 const headerVisible = ref(true);
 const lastScrollY = ref(0);
 const menuButton = ref<HTMLButtonElement>();
@@ -79,7 +88,7 @@ const showHeader = () => {
 const handleScroll = () => {
   const currentScrollY = Math.max(window.scrollY, 0);
 
-  if (mobileOpen.value || currentScrollY <= 24) {
+  if (mobileOpen.value || mobileClosing.value || currentScrollY <= 24) {
     showHeader();
     lastScrollY.value = currentScrollY;
     return;
@@ -122,36 +131,35 @@ onBeforeUnmount(() => window.removeEventListener("scroll", handleScroll));
 <style scoped>
 .nav-cta {
   background-color: var(--site-surface-strong);
-  background-image: linear-gradient(105deg, #241f1b 0%, #3a2c21 50%, #241f1b 100%);
-  background-position: left center;
-  background-size: 180% 100%;
-  box-shadow: 0 8px 20px rgb(36 31 27 / 0.18);
-  transition: transform 220ms ease, box-shadow 220ms ease, background-position 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--site-text) 18%, transparent);
+  transition: transform 220ms ease, box-shadow 220ms ease;
 }
 
 .nav-cta:hover {
-  background-position: right center;
-  box-shadow: 0 11px 26px rgb(36 31 27 / 0.24);
+  box-shadow: 0 11px 26px color-mix(in srgb, var(--site-text) 24%, transparent);
   transform: translateY(-0.1rem);
 }
 
+.nav-cta:active {
+  transform: translateY(0);
+}
+
 .mobile-menu-panel {
-  transform-origin: top center;
-  transition-property: opacity, transform;
+  grid-template-rows: 1fr;
+  transition-property: grid-template-rows, opacity;
   transition-duration: 480ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
 }
 
 .mobile-menu-enter-from {
+  grid-template-rows: 0fr;
   opacity: 0;
-  transform: translate3d(0, -0.4rem, 0);
 }
 
 .mobile-menu-enter-to,
 .mobile-menu-leave-from {
+  grid-template-rows: 1fr;
   opacity: 1;
-  transform: translate3d(0, 0, 0);
 }
 
 .mobile-menu-leave-active {
@@ -161,8 +169,8 @@ onBeforeUnmount(() => window.removeEventListener("scroll", handleScroll));
 }
 
 .mobile-menu-leave-to {
+  grid-template-rows: 0fr;
   opacity: 0;
-  transform: translate3d(0, -0.3rem, 0);
 }
 
 .mobile-menu-enter-active [data-mobile-menu-items] > * {

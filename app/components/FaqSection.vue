@@ -1,5 +1,5 @@
 <template>
-  <section id="faq" v-reveal class="motion-reveal bg-ivory-cream py-20 sm:py-28">
+  <section id="faq" v-reveal class="motion-reveal bg-page py-20 sm:py-28">
     <div class="section-shell grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
       <div>
         <p class="section-kicker">{{ $t("home.faq.kicker") }}</p>
@@ -9,19 +9,19 @@
           <span class="faq-line" />
         </div>
       </div>
-      <div class="divide-y divide-linen border-y border-linen">
+      <div class="divide-y divide-line border-y border-line">
         <div v-for="(item, index) in items" :key="item.question" class="faq-item py-2">
           <button
             :id="questionId(index)"
             type="button"
-            class="flex min-h-16 w-full cursor-pointer items-center justify-between gap-5 py-4 text-left font-display text-xl text-charcoal"
+            class="flex min-h-16 w-full cursor-pointer items-center justify-between gap-5 py-4 text-left font-display text-xl text-content"
             :aria-expanded="isOpen(index)"
             :aria-controls="answerId(index)"
             data-faq-toggle
             @click="toggle(index)"
           >
             <span>{{ item.question }}</span>
-            <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-linen text-lg transition-transform duration-200" :class="{ 'rotate-45': isOpen(index) }" aria-hidden="true">+</span>
+            <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line text-lg transition-transform duration-200" :class="{ 'rotate-45': isOpen(index) }" aria-hidden="true">+</span>
           </button>
           <Transition name="faq-reveal">
             <div
@@ -33,7 +33,7 @@
               data-faq-answer
             >
               <div class="faq-answer">
-                <p class="max-w-2xl pb-6 pr-12 text-sm leading-7 text-warm-gray">{{ item.answer }}</p>
+                <p class="max-w-2xl pb-6 pr-12 text-sm leading-7 text-muted">{{ item.answer }}</p>
               </div>
             </div>
           </Transition>
@@ -67,7 +67,7 @@ const toggle = (index: number) => {
 }
 
 .faq-rings {
-  color: rgb(152 114 77 / 0.45);
+  color: color-mix(in srgb, var(--site-accent) 45%, transparent);
   transform: rotate(-7deg);
 }
 

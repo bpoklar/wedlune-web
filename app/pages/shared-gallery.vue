@@ -3,8 +3,8 @@
     <div class="mx-auto max-w-4xl px-6">
       <!-- Loading state -->
       <div id="shared-gallery-loading" v-if="loading" class="flex flex-col items-center justify-center py-24 space-y-4" role="status" aria-live="polite">
-        <div class="w-12 h-12 border-4 border-champagne-gold/30 border-t-champagne-gold rounded-full animate-spin" aria-hidden="true" />
-        <p class="text-warm-gray text-sm">{{ $t("gallery.loading") }}</p>
+        <div class="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-full animate-spin" aria-hidden="true" />
+        <p class="text-muted text-sm">{{ $t("gallery.loading") }}</p>
       </div>
 
       <!-- Error state -->
@@ -15,15 +15,15 @@
         role="alert"
       >
         <div class="text-5xl mb-4">📷</div>
-        <h1 class="font-display text-2xl text-charcoal mb-3">
+        <h1 class="font-display text-2xl text-content mb-3">
           {{ $t("gallery.notFoundTitle") }}
         </h1>
-        <p class="text-warm-gray text-sm leading-relaxed">
+        <p class="text-muted text-sm leading-relaxed">
           {{ errorMessage }}
         </p>
         <NuxtLink
           :to="localePath('/')"
-          class="inline-block mt-6 text-champagne-gold hover:text-deep-gold text-sm font-semibold"
+          class="text-link inline-block mt-6 text-content hover:text-accent-strong text-sm font-semibold"
         >
           {{ $t("common.goToWedlune") }}
         </NuxtLink>
@@ -34,10 +34,10 @@
         <!-- Header -->
         <div class="text-center mb-10">
           <p class="section-kicker">{{ $t("gallery.kicker") }}</p>
-          <h1 class="font-display text-3xl md:text-4xl text-charcoal mb-2">
+          <h1 class="font-display text-3xl md:text-4xl text-content mb-2">
             {{ $t("gallery.title", { name: data.coupleName }) }}
           </h1>
-          <p v-if="data.weddingDate" class="font-accent text-champagne-gold text-2xl">
+          <p v-if="data.weddingDate" class="font-accent text-content text-2xl">
             {{ formatDate(data.weddingDate) }}
           </p>
           <div
@@ -45,20 +45,20 @@
             class="mt-6 grid grid-cols-3 gap-3 max-w-md mx-auto"
           >
             <div class="card-surface p-3">
-              <p class="font-display text-2xl text-charcoal">{{ totalShots }}</p>
-              <p class="text-xs text-warm-gray">{{ $t("gallery.shots") }}</p>
+              <p class="font-display text-2xl text-content">{{ totalShots }}</p>
+              <p class="text-xs text-muted">{{ $t("gallery.shots") }}</p>
             </div>
             <div class="card-surface p-3">
-              <p class="font-display text-2xl text-charcoal">
+              <p class="font-display text-2xl text-content">
                 {{ mustHaveShots }}
               </p>
-              <p class="text-xs text-warm-gray">{{ $t("gallery.mustHave") }}</p>
+              <p class="text-xs text-muted">{{ $t("gallery.mustHave") }}</p>
             </div>
             <div class="card-surface p-3">
-              <p class="font-display text-2xl text-charcoal">
+              <p class="font-display text-2xl text-content">
                 {{ data.shotList.length }}
               </p>
-              <p class="text-xs text-warm-gray">{{ $t("gallery.groups") }}</p>
+              <p class="text-xs text-muted">{{ $t("gallery.groups") }}</p>
             </div>
           </div>
         </div>
@@ -66,20 +66,20 @@
         <!-- Shot List Section -->
         <section v-if="data.shotList?.length" class="mb-12">
           <div class="card-surface p-6 md:p-8">
-            <h2 class="font-display text-xl text-charcoal mb-6">{{ $t("gallery.shotList") }}</h2>
+            <h2 class="font-display text-xl text-content mb-6">{{ $t("gallery.shotList") }}</h2>
 
             <!-- Single gallery container for all images — PhotoSwipe picks up <a> children -->
             <div id="gallery">
               <div
                 v-for="group in data.shotList"
                 :key="group.category"
-                class="mb-6 last:mb-0 rounded-2xl border border-linen bg-ivory-cream/70 p-4"
+                class="mb-6 last:mb-0 rounded-2xl border border-line bg-page/70 p-4"
               >
                 <div class="mb-4 flex items-center justify-between gap-3">
-                  <h3 class="font-display text-lg text-charcoal">
+                  <h3 class="font-display text-lg text-content">
                     {{ categoryLabel(group.category) }}
                   </h3>
-                  <span class="rounded-full bg-warm-white px-3 py-1 text-xs font-bold text-warm-gray">
+                  <span class="rounded-full bg-surface px-3 py-1 text-xs font-bold text-muted">
                     {{ $t("gallery.shotCount", { count: group.items.length }) }}
                   </span>
                 </div>
@@ -92,7 +92,7 @@
                       target="_blank"
                       rel="noopener noreferrer"
                       referrerpolicy="no-referrer"
-                      class="flex items-start gap-4 rounded-xl bg-warm-white p-3 no-underline text-inherit transition-shadow hover:shadow-sm"
+                      class="flex items-start gap-4 rounded-xl bg-surface p-3 no-underline text-inherit transition-shadow hover:shadow-sm"
                     >
                       <img
                         :src="item.src"
@@ -103,11 +103,11 @@
                       <div class="min-w-0 flex-1 pt-1">
                         <p
                           class="text-sm"
-                          :class="item.isMustHave ? 'text-charcoal font-semibold' : 'text-warm-gray'"
+                          :class="item.isMustHave ? 'text-content font-semibold' : 'text-muted'"
                         >
                           <span
                             v-if="item.isMustHave"
-                            class="mr-2 rounded-full bg-champagne-gold/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-deep-gold"
+                            class="mr-2 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent-strong"
                             :aria-label="$t('gallery.mustHaveLabel')"
                           >{{ $t("gallery.mustHaveBadge") }}</span>
                           {{ item.title }}
@@ -116,20 +116,20 @@
                     </a>
                     <div
                       v-else
-                      class="flex items-start gap-3 rounded-xl bg-warm-white/80 px-3 py-3"
+                      class="flex items-start gap-3 rounded-xl bg-surface/80 px-3 py-3"
                     >
                       <div
-                        class="mt-0.5 h-5 w-5 shrink-0 rounded-full border border-champagne-gold/60"
+                        class="mt-0.5 h-5 w-5 shrink-0 rounded-full border border-accent/60"
                         aria-hidden="true"
                       />
                       <div class="min-w-0 flex-1 pt-1">
                         <p
                           class="text-sm"
-                          :class="item.isMustHave ? 'text-charcoal font-semibold' : 'text-warm-gray'"
+                          :class="item.isMustHave ? 'text-content font-semibold' : 'text-muted'"
                         >
                           <span
                             v-if="item.isMustHave"
-                            class="mr-2 rounded-full bg-champagne-gold/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-deep-gold"
+                            class="mr-2 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent-strong"
                             :aria-label="$t('gallery.mustHaveLabel')"
                           >{{ $t("gallery.mustHaveBadge") }}</span>
                           {{ item.title }}
@@ -141,7 +141,7 @@
               </div>
             </div>
 
-            <p v-if="data.shotList.every((g) => g.items.length === 0)" class="text-warm-gray text-sm italic">
+            <p v-if="data.shotList.every((g) => g.items.length === 0)" class="text-muted text-sm italic">
               {{ $t("gallery.noShots") }}
             </p>
           </div>
@@ -153,18 +153,18 @@
           class="card-surface p-10 text-center max-w-lg mx-auto"
         >
           <div class="text-5xl mb-4">✨</div>
-          <h2 class="font-display text-xl text-charcoal mb-2">
+          <h2 class="font-display text-xl text-content mb-2">
             {{ $t("gallery.emptyTitle") }}
           </h2>
-          <p class="text-warm-gray text-sm">
+          <p class="text-muted text-sm">
             {{ $t("gallery.emptyBody") }}
           </p>
         </div>
 
         <!-- Branding -->
-        <p class="text-center text-pearl-gray text-xs mt-8">
+        <p class="text-center text-muted text-xs mt-8">
           {{ $t("common.poweredBy") }}
-          <NuxtLink :to="localePath('/')" class="text-champagne-gold hover:text-deep-gold">
+          <NuxtLink :to="localePath('/')" class="text-link">
             Wedlune
           </NuxtLink>
         </p>

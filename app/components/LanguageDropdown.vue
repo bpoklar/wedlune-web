@@ -32,7 +32,7 @@ type LocaleOption = string | { code: string; name?: string };
 
 withDefaults(defineProps<{
   size?: "compact" | "utility";
-  tone?: "light" | "dark";
+  tone?: "light" | "dark" | "guest";
 }>(), {
   size: "compact",
   tone: "light",
@@ -85,11 +85,11 @@ const selectLocale = async (event: Event) => {
   width: 100%;
   min-height: 2.75rem;
   appearance: none;
-  border: 1px solid rgb(181 150 114 / 0.32);
+  border: 1px solid var(--site-control-border);
   border-radius: 9999px;
   padding: 0.65rem 2.6rem 0.65rem 1rem;
   color: var(--site-text-muted);
-  background-color: rgb(241 230 216 / 0.42);
+  background-color: color-mix(in srgb, var(--site-bg-soft) 42%, transparent);
   cursor: pointer;
   font-size: 0.78rem;
   font-weight: 800;
@@ -98,9 +98,9 @@ const selectLocale = async (event: Event) => {
 }
 
 .language-dropdown-control:hover {
-  border-color: rgb(152 114 77 / 0.55);
+  border-color: color-mix(in srgb, var(--site-accent) 55%, transparent);
   color: var(--site-accent-strong);
-  background-color: rgb(241 230 216 / 0.62);
+  background-color: color-mix(in srgb, var(--site-bg-soft) 62%, transparent);
 }
 
 .language-dropdown-chevron {
@@ -133,24 +133,38 @@ const selectLocale = async (event: Event) => {
 }
 
 .language-dropdown-dark .language-dropdown-control {
-  border-color: rgb(255 255 255 / 0.16);
-  color: rgb(255 255 255 / 0.78);
-  background-color: rgb(255 255 255 / 0.06);
+  border-color: color-mix(in srgb, var(--site-surface) 16%, transparent);
+  color: var(--site-inverse-muted);
+  background-color: color-mix(in srgb, var(--site-surface) 6%, transparent);
 }
 
 .language-dropdown-dark .language-dropdown-control:hover {
-  border-color: rgb(226 193 139 / 0.5);
-  color: white;
-  background-color: rgb(255 255 255 / 0.1);
+  border-color: color-mix(in srgb, var(--site-accent) 50%, transparent);
+  color: var(--site-inverse-text);
+  background-color: color-mix(in srgb, var(--site-surface) 10%, transparent);
 }
 
 .language-dropdown-dark .language-dropdown-chevron {
-  color: #e2c18b;
+  color: var(--site-accent);
 }
 
 .language-dropdown-control option {
   color: var(--site-text);
   background: var(--site-bg);
+}
+
+.language-dropdown-guest .language-dropdown-control,
+.language-dropdown-guest .language-dropdown-control option {
+  color: var(--rsvp-input-text, var(--site-text));
+  background: var(--rsvp-input-surface, var(--site-surface));
+  border-color: var(--rsvp-input-border, var(--site-control-border));
+}
+.language-dropdown-guest .language-dropdown-control:hover {
+  color: var(--rsvp-selection-text, var(--site-text));
+  background: var(--rsvp-selection, var(--site-selection));
+}
+.language-dropdown-guest .language-dropdown-chevron {
+  color: var(--rsvp-input-text, var(--site-text));
 }
 
 @media (prefers-reduced-motion: reduce) {

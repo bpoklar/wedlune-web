@@ -85,6 +85,7 @@ const openApp = () => {
       <button
         v-if="flow && !invalid && ready"
         id="open-wedlune"
+        class="btn-primary"
         type="button"
         :disabled="!appCallback"
         @click="openApp"
@@ -101,18 +102,18 @@ const openApp = () => {
   display: grid;
   place-items: center;
   padding: 24px;
-  color: #34272b;
-  background: radial-gradient(circle at top, #fffdf9 0%, #f7eee8 100%);
-  font-family: Arial, sans-serif;
+  color: var(--site-text);
+  background: radial-gradient(circle at top, var(--site-bg) 0%, var(--site-blush) 100%);
+  font-family: var(--font-body);
 }
 
 .callback-card {
   width: min(100%, 440px);
   padding: 40px 28px;
-  border: 1px solid rgb(99 75 62 / 14%);
+  border: 1px solid color-mix(in srgb, var(--site-text) 14%, transparent);
   border-radius: 24px;
-  background: rgb(255 253 249 / 94%);
-  box-shadow: 0 20px 60px rgb(72 48 50 / 10%);
+  background: color-mix(in srgb, var(--site-bg) 94%, transparent);
+  box-shadow: 0 20px 60px color-mix(in srgb, var(--site-text) 10%, transparent);
   text-align: center;
 }
 
@@ -124,7 +125,7 @@ const openApp = () => {
 
 h1 {
   margin: 12px 0;
-  font-family: Georgia, serif;
+  font-family: var(--font-display);
   font-size: clamp(1.8rem, 7vw, 2.4rem);
   font-weight: 500;
 }
@@ -132,7 +133,7 @@ h1 {
 p {
   margin: 0 auto 24px;
   max-width: 34ch;
-  color: #6f5b62;
+  color: var(--site-text-muted);
   line-height: 1.6;
 }
 
@@ -145,15 +146,19 @@ button {
   padding: 12px 24px;
   border: 0;
   border-radius: 999px;
-  color: #fff;
-  background: #74565e;
+  color: var(--site-on-accent);
+  background: var(--site-accent);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
 }
 
+button:hover:not(:disabled) { background: var(--site-accent-hover); }
+
+button:active:not(:disabled) { background: var(--site-accent-pressed); }
+
 button:focus-visible {
-  outline: 3px solid #c69b62;
+  outline: 3px solid var(--site-focus);
   outline-offset: 3px;
 }
 

@@ -1,18 +1,19 @@
 <template>
+  <div>
+  <NuxtLayout name="guest" :theme="rsvpThemeStyle" :inverse-logo="rsvpInverseLogo">
   <div
     id="rsvp-page"
     :class="[
       'soft-page-bg rsvp-themed relative min-h-[calc(100vh-4rem)] overflow-hidden px-4 pb-8 pt-0 sm:px-6 sm:pb-12 lg:pb-16',
       `rsvp-template-${rsvpDesign.template}`,
     ]"
-    :style="rsvpThemeStyle"
   >
     <div
-      class="pointer-events-none absolute -left-20 top-28 h-56 w-56 rounded-full border border-sand-beige/45 sm:h-72 sm:w-72"
+      class="pointer-events-none absolute -left-20 top-28 h-56 w-56 rounded-full border rsvp-decoration sm:h-72 sm:w-72"
       aria-hidden="true"
     />
     <div
-      class="pointer-events-none absolute -right-24 top-8 h-64 w-64 rounded-full border border-champagne-gold/20 sm:h-96 sm:w-96"
+      class="pointer-events-none absolute -right-24 top-8 h-64 w-64 rounded-full border rsvp-decoration sm:h-96 sm:w-96"
       aria-hidden="true"
     />
 
@@ -21,23 +22,23 @@
       <div
         v-if="loading"
         id="rsvp-loading"
-        class="card-surface mx-auto max-w-lg px-6 py-12 text-center sm:px-10 sm:py-14"
+        class="card-surface rsvp-surface-panel mx-auto max-w-lg px-6 py-12 text-center sm:px-10 sm:py-14"
         role="status"
         aria-live="polite"
       >
         <div
           aria-hidden="true"
-          class="mx-auto h-11 w-11 animate-spin rounded-full border-4 border-champagne-gold/25 border-t-champagne-gold"
+          class="mx-auto h-11 w-11 animate-spin rounded-full border-4 rsvp-spinner"
         />
-        <p class="mt-5 font-display text-xl text-charcoal">{{ $t("rsvp.opening") }}</p>
-        <p class="mt-1 text-sm text-warm-gray">{{ $t("rsvp.openingDetail") }}</p>
+        <p class="mt-5 font-display text-xl rsvp-text">{{ $t("rsvp.opening") }}</p>
+        <p class="mt-1 text-sm rsvp-text-secondary">{{ $t("rsvp.openingDetail") }}</p>
       </div>
 
       <!-- Premium unavailable state -->
       <div
         v-else-if="premiumUnavailable"
         id="rsvp-premium-unavailable"
-        class="card-surface mx-auto max-w-lg px-6 py-10 text-center sm:p-12"
+        class="card-surface rsvp-surface-panel mx-auto max-w-lg px-6 py-10 text-center sm:p-12"
         role="status"
       >
         <div
@@ -45,10 +46,10 @@
         >
           💌
         </div>
-        <h1 class="mb-3 font-display text-2xl text-charcoal sm:text-3xl">
+        <h1 class="mb-3 font-display text-2xl rsvp-text sm:text-3xl">
           {{ $t("rsvp.unavailableTitle") }}
         </h1>
-        <p class="text-warm-gray text-sm leading-relaxed">
+        <p class="rsvp-text-secondary text-sm leading-relaxed">
           {{ $t("rsvp.unavailableBody") }}
         </p>
       </div>
@@ -57,7 +58,7 @@
       <div
         v-else-if="errorMessage"
         id="rsvp-error"
-        class="card-surface mx-auto max-w-lg px-6 py-10 text-center sm:p-12"
+        class="card-surface rsvp-surface-panel mx-auto max-w-lg px-6 py-10 text-center sm:p-12"
         role="alert"
       >
         <div
@@ -65,15 +66,15 @@
         >
           💌
         </div>
-        <h1 class="mb-3 font-display text-2xl text-charcoal sm:text-3xl">
+        <h1 class="mb-3 font-display text-2xl rsvp-text sm:text-3xl">
           {{ $t("rsvp.notFoundTitle") }}
         </h1>
-        <p class="text-warm-gray text-sm leading-relaxed">
+        <p class="rsvp-text-secondary text-sm leading-relaxed">
           {{ errorMessage }}
         </p>
         <NuxtLink
           :to="localePath('/')"
-          class="inline-block mt-6 text-champagne-gold hover:text-deep-gold text-sm font-semibold"
+          class="inline-block mt-6 rsvp-link  text-sm font-semibold"
         >
           {{ $t("common.goToWedlune") }}
         </NuxtLink>
@@ -85,10 +86,10 @@
         id="rsvp-confirmation"
         ref="confirmationPanel"
         tabindex="-1"
-        class="card-surface mx-auto max-w-xl overflow-hidden text-center"
+        class="card-surface rsvp-surface-panel mx-auto max-w-xl overflow-hidden text-center"
         role="status"
       >
-        <div class="h-1.5 bg-champagne-gold" />
+        <div class="h-1.5 rsvp-accent-fill" />
         <div class="px-6 py-9 sm:px-12 sm:py-12">
           <div
             class="rsvp-muted-panel mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full text-4xl shadow-inner"
@@ -97,11 +98,11 @@
           </div>
           <p
             v-if="!isCouple"
-            class="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-champagne-gold"
+            class="mb-2 text-xs font-bold uppercase tracking-[0.22em] rsvp-text"
           >
             {{ $t("rsvp.confirmed") }}
           </p>
-          <h1 class="mb-3 font-display text-3xl text-charcoal sm:text-4xl">
+          <h1 class="mb-3 font-display text-3xl rsvp-text sm:text-4xl">
             {{
               isCouple
                 ? $t("rsvp.detailsSaved")
@@ -109,7 +110,7 @@
             }}
           </h1>
           <p
-            class="mx-auto max-w-md text-sm leading-relaxed text-warm-gray sm:text-base"
+            class="mx-auto max-w-md text-sm leading-relaxed rsvp-text-secondary sm:text-base"
           >
             {{
               isCouple
@@ -121,7 +122,7 @@
           </p>
           <p
             v-if="rsvpDesign.confirmationMessage"
-            class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-warm-gray sm:text-base"
+            class="mx-auto mt-3 max-w-md text-sm leading-relaxed rsvp-text-secondary sm:text-base"
           >
             {{ rsvpDesign.confirmationMessage }}
           </p>
@@ -133,10 +134,10 @@
             <p
               v-for="po in plusOneGuests"
               :key="po.id"
-              class="flex items-center justify-between gap-3 py-3 text-left text-sm text-warm-gray"
+              class="flex items-center justify-between gap-3 py-3 text-left text-sm rsvp-text-secondary"
             >
-              <span class="font-semibold text-charcoal">{{ po.name }}</span>
-              <span class="text-warm-gray">
+              <span class="font-semibold rsvp-text">{{ po.name }}</span>
+              <span class="rsvp-text-secondary">
                 {{
                   po.rsvpStatus === "accepted" ? $t("rsvp.attending") : $t("rsvp.notAttending")
                 }}
@@ -145,7 +146,7 @@
           </div>
           <p
             v-if="coupleName"
-            class="mt-6 font-accent text-2xl text-champagne-gold"
+            class="mt-6 font-accent text-2xl rsvp-text"
           >
             {{ $t("rsvp.withLove", { name: coupleName }) }}
           </p>
@@ -155,8 +156,8 @@
             <div class="flex gap-3">
               <span class="mt-0.5 text-lg" aria-hidden="true">🔗</span>
               <div>
-                <p class="text-sm font-bold text-charcoal">{{ $t("rsvp.plansChanged") }}</p>
-                <p class="mt-1 text-sm leading-relaxed text-warm-gray">
+                <p class="text-sm font-bold rsvp-text">{{ $t("rsvp.plansChanged") }}</p>
+                <p class="mt-1 text-sm leading-relaxed rsvp-text-secondary">
                   {{ $t(isCouple ? "rsvp.detailsReturnBody" : "rsvp.plansChangedBody") }}
                 </p>
               </div>
@@ -173,7 +174,7 @@
       </div>
 
       <!-- RSVP Form -->
-      <div v-else class="card-surface overflow-hidden">
+      <div v-else class="card-surface rsvp-surface-panel overflow-hidden">
         <!-- Header -->
         <div
           :class="[
@@ -184,7 +185,7 @@
               : '',
           ]"
         >
-          <div class="absolute inset-x-0 top-0 h-1.5 bg-champagne-gold" />
+          <div class="absolute inset-x-0 top-0 h-1.5 rsvp-accent-fill" />
           <div
             v-if="rsvpDesign.heroImageUrl"
             class="rsvp-hero-frame mx-auto mb-6 w-full overflow-hidden rounded-2xl"
@@ -197,18 +198,18 @@
             >
           </div>
           <p
-            class="mb-1 wrap-break-word font-accent text-3xl leading-tight text-champagne-gold sm:text-4xl"
+            class="mb-1 wrap-break-word font-accent text-3xl leading-tight rsvp-text sm:text-4xl"
           >
             {{ rsvpDesign.invitationHeading }}
           </p>
           <h1
-            class="mb-2 wrap-break-word font-display text-3xl leading-tight text-charcoal sm:text-4xl"
+            class="mb-2 wrap-break-word font-display text-3xl leading-tight rsvp-text sm:text-4xl"
           >
             {{ guestName }}
           </h1>
           <p
             v-if="coupleName"
-            class="mx-auto max-w-md text-sm leading-relaxed text-warm-gray sm:text-base"
+            class="mx-auto max-w-md text-sm leading-relaxed rsvp-text-secondary sm:text-base"
           >
             {{
               rsvpDesign.welcomeMessage ||
@@ -223,7 +224,7 @@
             class="rsvp-muted-panel flex gap-3 rounded-2xl border p-4"
           >
             <span aria-hidden="true">✓</span>
-            <p class="text-sm leading-relaxed text-warm-gray">
+            <p class="text-sm leading-relaxed rsvp-text-secondary">
               {{ $t("rsvp.savedResponse") }}
             </p>
           </div>
@@ -233,15 +234,15 @@
             <legend class="mb-4 w-full">
               <span class="flex items-center gap-3">
                 <span
-                  class="rsvp-muted-panel flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-deep-gold"
+                  class="rsvp-muted-panel flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold rsvp-text"
                   >1</span
                 >
                 <span>
-                  <span class="block text-base font-bold text-charcoal"
+                  <span class="block text-base font-bold rsvp-text"
                     >{{ $t("rsvp.willYouAttend") }}
-                    <span class="text-cocoa-brown">*</span></span
+                    <span class="rsvp-error">*</span></span
                   >
-                  <span class="mt-0.5 block text-xs font-normal text-warm-gray"
+                  <span class="mt-0.5 block text-xs font-normal rsvp-text-secondary"
                     >{{ $t("rsvp.chooseResponse") }}</span
                   >
                 </span>
@@ -277,7 +278,7 @@
             </div>
             <p
               v-if="rsvpStatusError"
-              class="mt-2 text-xs text-cocoa-brown"
+              class="mt-2 text-xs rsvp-error"
               role="alert"
             >
               {{ rsvpStatusError }}
@@ -287,22 +288,22 @@
           <div
             v-if="rsvpStatusField === 'accepted'"
             class="space-y-6"
-            :class="{ 'border-t border-linen pt-8': !isCouple }"
+            :class="{ 'border-t rsvp-divider pt-8': !isCouple }"
           >
             <div class="flex items-center gap-3">
               <span
-                class="rsvp-muted-panel flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-deep-gold"
+                class="rsvp-muted-panel flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold rsvp-text"
                 >{{ isCouple ? 1 : 2 }}</span
               >
               <div>
-                <h2 class="text-base font-bold text-charcoal">{{ $t("rsvp.detailsTitle") }}</h2>
-                <p class="text-xs text-warm-gray">{{ $t(isCouple ? "rsvp.coupleDetailsBody" : "rsvp.detailsBody") }}</p>
+                <h2 class="text-base font-bold rsvp-text">{{ $t("rsvp.detailsTitle") }}</h2>
+                <p class="text-xs rsvp-text-secondary">{{ $t(isCouple ? "rsvp.coupleDetailsBody" : "rsvp.detailsBody") }}</p>
               </div>
             </div>
             <div>
               <label
                 id="menuSelectLabel"
-                class="block text-charcoal font-semibold text-sm mb-2"
+                class="block rsvp-text font-semibold text-sm mb-2"
               >
                 {{ $t("rsvp.mealPreference") }}
               </label>
@@ -323,7 +324,7 @@
                       :value="null"
                       class="sr-only"
                     />
-                    <span class="text-warm-gray text-sm">{{ $t("rsvp.noPreference") }}</span>
+                    <span class="rsvp-text-secondary text-sm">{{ $t("rsvp.noPreference") }}</span>
                   </label>
                   <label
                     v-for="m in menus"
@@ -337,7 +338,7 @@
                       :value="m.id"
                       class="sr-only"
                     />
-                    <div class="h-28 bg-soft-champagne/70">
+                    <div class="h-28 rsvp-muted-panel">
                       <img
                         v-if="m.coverImageUrl"
                         :src="m.coverImageUrl"
@@ -346,37 +347,37 @@
                       />
                       <div
                         v-else
-                        class="flex h-full items-center justify-center text-3xl text-champagne-gold"
+                        class="flex h-full items-center justify-center text-3xl rsvp-text"
                         aria-hidden="true"
                       >
                         🍽️
                       </div>
                     </div>
                     <div class="p-3">
-                      <p class="font-semibold text-charcoal text-sm">
+                      <p class="font-semibold rsvp-text text-sm">
                         {{ m.label }}
                       </p>
                       <p
                         v-if="m.category"
-                        class="text-warm-gray text-xs mt-0.5"
+                        class="rsvp-text-secondary text-xs mt-0.5"
                       >
                         {{ m.category }}
                       </p>
                       <div
                         v-if="hasMenuCourses(m.courses)"
-                        class="mt-3 space-y-1 border-t border-linen pt-3 text-left"
+                        class="mt-3 space-y-1 border-t rsvp-divider pt-3 text-left"
                       >
                         <p
                           v-for="c in m.courses"
                           :key="c.id"
-                          class="text-warm-gray text-xs"
+                          class="rsvp-text-secondary text-xs"
                         >
                           {{ c.label }}
                         </p>
                       </div>
                       <p
                         v-else
-                        class="mt-3 border-t border-linen pt-3 text-left text-xs italic text-warm-gray"
+                        class="mt-3 border-t rsvp-divider pt-3 text-left text-xs italic rsvp-text-secondary"
                       >
                         {{ $t("rsvp.noDishes") }}
                       </p>
@@ -385,12 +386,12 @@
                 </div>
               </template>
               <template v-else>
-                <p class="text-warm-gray text-sm italic">
+                <p class="rsvp-text-secondary text-sm italic">
                   {{ $t("rsvp.noMealOptions") }}
                 </p>
                 <p
                   v-if="mealPreferenceField && !selectedMenuId"
-                  class="text-warm-gray text-xs mt-1"
+                  class="rsvp-text-secondary text-xs mt-1"
                 >
                   {{ $t("rsvp.previousSelection", { value: mealPreferenceField }) }}
                 </p>
@@ -400,7 +401,7 @@
             <div>
               <label
                 for="dietaryNotes"
-                class="block text-charcoal font-semibold text-sm mb-2"
+                class="block rsvp-text font-semibold text-sm mb-2"
               >
                 {{ $t("rsvp.dietaryRequirements") }}
               </label>
@@ -410,11 +411,11 @@
                 rows="3"
                 :placeholder="$t('rsvp.dietaryPlaceholder')"
                 maxlength="500"
-                class="rsvp-input-panel w-full rounded-xl border px-4 py-3 text-sm transition-colors resize-none focus:outline-none focus:ring-2"
+                class="rsvp-input-panel w-full rounded-xl border px-4 py-3 text-sm transition-colors resize-none "
               />
               <p
                 v-if="dietaryNotesError"
-                class="text-cocoa-brown text-xs mt-1"
+                class="rsvp-error text-xs mt-1"
               >
                 {{ dietaryNotesError }}
               </p>
@@ -424,15 +425,15 @@
           <!-- +1 Guest sections -->
           <template v-for="(po, idx) in plusOneGuests" :key="po.id">
             <div class="rsvp-input-panel rounded-3xl border p-4 sm:p-6">
-              <h2 class="font-display text-xl text-charcoal mb-4">
+              <h2 class="font-display text-xl rsvp-text mb-4">
                 {{ po.name }}
               </h2>
 
               <!-- +1 RSVP Status -->
               <fieldset>
-                <legend class="text-charcoal font-semibold text-sm mb-3">
+                <legend class="rsvp-text font-semibold text-sm mb-3">
                   {{ $t("rsvp.willGuestAttend", { name: po.name }) }}
-                  <span class="text-cocoa-brown">*</span>
+                  <span class="rsvp-error">*</span>
                 </legend>
                 <div class="grid gap-3 sm:grid-cols-2">
                   <label
@@ -467,7 +468,7 @@
                 <div>
                   <label
                     :id="`meal_${idx}`"
-                    class="block text-charcoal font-semibold text-sm mb-2"
+                    class="block rsvp-text font-semibold text-sm mb-2"
                   >
                     {{ $t("rsvp.mealPreference") }}
                   </label>
@@ -489,7 +490,7 @@
                           class="sr-only"
                           @change="onPlusOneMenuChange(po)"
                         />
-                        <span class="text-warm-gray text-sm"
+                        <span class="rsvp-text-secondary text-sm"
                           >{{ $t("rsvp.noPreference") }}</span
                         >
                       </label>
@@ -515,33 +516,33 @@
                           />
                           <div
                             v-else
-                            class="flex h-16 w-20 shrink-0 items-center justify-center rounded-lg bg-soft-champagne/70 text-2xl"
+                            class="flex h-16 w-20 shrink-0 items-center justify-center rounded-lg rsvp-muted-panel text-2xl"
                             aria-hidden="true"
                           >
                             🍽️
                           </div>
                           <div class="min-w-0 grow text-left">
-                            <p class="font-semibold text-charcoal text-sm">
+                            <p class="font-semibold rsvp-text text-sm">
                               {{ m.label }}
                             </p>
-                            <p v-if="m.category" class="text-warm-gray text-xs">
+                            <p v-if="m.category" class="rsvp-text-secondary text-xs">
                               {{ m.category }}
                             </p>
                             <div
                               v-if="hasMenuCourses(m.courses)"
-                              class="mt-2 space-y-1 border-t border-linen pt-2"
+                              class="mt-2 space-y-1 border-t rsvp-divider pt-2"
                             >
                               <p
                                 v-for="c in m.courses"
                                 :key="c.id"
-                                class="text-warm-gray text-xs"
+                                class="rsvp-text-secondary text-xs"
                               >
                                 {{ c.label }}
                               </p>
                             </div>
                             <p
                               v-else
-                              class="mt-2 border-t border-linen pt-2 text-xs italic text-warm-gray"
+                              class="mt-2 border-t rsvp-divider pt-2 text-xs italic rsvp-text-secondary"
                             >
                               {{ $t("rsvp.noDishes") }}
                             </p>
@@ -551,12 +552,12 @@
                     </div>
                   </template>
                   <template v-else>
-                    <p class="text-warm-gray text-sm italic">
+                    <p class="rsvp-text-secondary text-sm italic">
                       {{ $t("rsvp.noMealOptions") }}
                     </p>
                     <p
                       v-if="po.mealPreference"
-                      class="text-warm-gray text-xs mt-1"
+                      class="rsvp-text-secondary text-xs mt-1"
                     >
                       {{ $t("rsvp.previousSelection", { value: po.mealPreference }) }}
                     </p>
@@ -565,7 +566,7 @@
                 <div>
                   <label
                     :for="`dietary_${idx}`"
-                    class="block text-charcoal font-semibold text-sm mb-2"
+                    class="block rsvp-text font-semibold text-sm mb-2"
                   >
                     {{ $t("rsvp.dietaryRequirements") }}
                   </label>
@@ -575,7 +576,7 @@
                     rows="2"
                     :placeholder="$t('rsvp.dietaryPlaceholder')"
                     maxlength="500"
-                    class="rsvp-surface-panel w-full rounded-xl border px-4 py-3 text-sm transition-colors resize-none focus:outline-none focus:ring-2"
+                    class="rsvp-surface-panel w-full rounded-xl border px-4 py-3 text-sm transition-colors resize-none "
                   />
                 </div>
               </div>
@@ -596,7 +597,7 @@
             v-if="submitError"
             ref="submitErrorPanel"
             tabindex="-1"
-            class="text-center text-xs text-cocoa-brown"
+            class="text-center text-xs rsvp-error"
             role="alert"
           >
             {{ submitError }}
@@ -611,25 +612,29 @@
       />
 
       <!-- Branding -->
-      <p class="mt-7 text-center text-xs text-pearl-gray sm:mt-8">
+      <p class="mt-7 text-center text-xs rsvp-text-secondary sm:mt-8">
         {{ $t("common.poweredBy") }}
         <NuxtLink
           :to="localePath('/')"
-          class="text-champagne-gold underline decoration-current underline-offset-2 hover:text-deep-gold"
+          class="rsvp-link underline decoration-current underline-offset-2 "
         >
           Wedlune
         </NuxtLink>
       </p>
     </main>
   </div>
+  </NuxtLayout>
+  </div>
 </template>
 
 <script setup lang="ts">
+import { readableTextColor } from "~/utils/colorTheme";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm, useField } from "vee-validate";
 import { hasMenuCourses } from "~/utils/rsvpMenu";
 import {
+  resolveRsvpColorMode,
   createHeroImageStyle,
   createRsvpTheme,
   defaultRsvpDesign,
@@ -637,7 +642,7 @@ import {
   type RsvpDesign,
 } from "~/utils/rsvpDesign";
 
-definePageMeta({ layout: "guest" });
+definePageMeta({ layout: false });
 
 const { t } = useI18n();
 const localePath = useLocalePath();
@@ -738,6 +743,7 @@ interface Wishlist {
   items: WishlistItem[];
 }
 const rsvpDesign = ref<RsvpDesign>({ ...defaultRsvpDesign });
+const rsvpInverseLogo = computed(() => resolveRsvpColorMode(rsvpDesign.value) === "custom" && readableTextColor(rsvpDesign.value.surfaceColor) === "#FFFFFF");
 const rsvpThemeStyle = computed(() => createRsvpTheme(rsvpDesign.value));
 const rsvpHeroImageStyle = computed(() => createHeroImageStyle(rsvpDesign.value));
 const plusOneGuests = ref<PlusOneGuest[]>([]);
@@ -969,264 +975,3 @@ const onSubmit = handleSubmit(async (values) => {
   }
 });
 </script>
-
-<style scoped>
-.rsvp-themed {
-  background: var(--rsvp-background);
-  --rsvp-section-gap: clamp(1.5rem, 3vw, 2rem);
-  --rsvp-card-gap: clamp(1rem, 2vw, 1.5rem);
-}
-
-.rsvp-themed :deep(.card-surface) {
-  background-color: var(--rsvp-surface);
-  border-color: var(--rsvp-border);
-}
-
-.rsvp-form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--rsvp-section-gap);
-}
-
-.rsvp-muted-panel,
-.rsvp-themed :deep(.rsvp-muted-panel),
-.rsvp-themed :deep([class*="bg-soft-champagne"]) {
-  color: var(--rsvp-muted-text);
-  background-color: var(--rsvp-muted-surface);
-  border-color: var(--rsvp-border);
-}
-
-.rsvp-input-panel,
-.rsvp-themed :deep(.rsvp-input-panel),
-.rsvp-themed :deep([class*="bg-ivory-cream"]) {
-  color: var(--rsvp-input-text);
-  background-color: var(--rsvp-input-surface);
-  border-color: var(--rsvp-border);
-}
-
-.rsvp-surface-panel,
-.rsvp-themed :deep(.rsvp-surface-panel) {
-  color: var(--rsvp-text);
-  background-color: var(--rsvp-surface);
-  border-color: var(--rsvp-border);
-}
-
-.rsvp-themed :deep(.border-linen) {
-  border-color: var(--rsvp-border);
-}
-
-.rsvp-themed :deep(.divide-linen > :not(:last-child)) {
-  border-color: var(--rsvp-border);
-}
-
-.rsvp-themed :deep(.bg-champagne-gold) {
-  background-color: var(--rsvp-accent);
-}
-
-.rsvp-themed :deep(.text-champagne-gold),
-.rsvp-themed :deep(.text-deep-gold) {
-  color: var(--rsvp-accent-text);
-}
-
-.rsvp-themed :deep(.text-charcoal),
-.rsvp-themed :deep(.text-warm-gray),
-.rsvp-themed :deep(.text-pearl-gray) {
-  color: var(--rsvp-text);
-}
-
-.rsvp-muted-panel :deep(.text-charcoal),
-.rsvp-muted-panel :deep(.text-warm-gray),
-.rsvp-muted-panel :deep(.text-pearl-gray),
-.rsvp-themed :deep(.rsvp-muted-panel .text-charcoal),
-.rsvp-themed :deep(.rsvp-muted-panel .text-warm-gray),
-.rsvp-themed :deep(.rsvp-muted-panel .text-pearl-gray),
-.rsvp-themed :deep([class*="bg-soft-champagne"] .text-charcoal),
-.rsvp-themed :deep([class*="bg-soft-champagne"] .text-warm-gray),
-.rsvp-themed :deep([class*="bg-soft-champagne"] .text-pearl-gray) {
-  color: var(--rsvp-muted-text);
-}
-
-.rsvp-input-panel :deep(.text-charcoal),
-.rsvp-input-panel :deep(.text-warm-gray),
-.rsvp-input-panel :deep(.text-pearl-gray),
-.rsvp-themed :deep(.rsvp-input-panel .text-charcoal),
-.rsvp-themed :deep(.rsvp-input-panel .text-warm-gray),
-.rsvp-themed :deep(.rsvp-input-panel .text-pearl-gray),
-.rsvp-themed :deep([class*="bg-ivory-cream"] .text-charcoal),
-.rsvp-themed :deep([class*="bg-ivory-cream"] .text-warm-gray),
-.rsvp-themed :deep([class*="bg-ivory-cream"] .text-pearl-gray) {
-  color: var(--rsvp-input-text);
-}
-
-.rsvp-input-panel::placeholder,
-.rsvp-surface-panel::placeholder {
-  color: color-mix(in srgb, currentColor 72%, transparent);
-}
-
-.rsvp-input-panel:focus,
-.rsvp-surface-panel:focus {
-  border-color: var(--rsvp-accent);
-  --tw-ring-color: color-mix(in srgb, var(--rsvp-accent) 32%, transparent);
-}
-
-.rsvp-accent-button,
-.rsvp-outline-button,
-.rsvp-themed :deep(.rsvp-accent-button),
-.rsvp-themed :deep(.rsvp-outline-button) {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding-block: 0.875rem;
-  border: 1px solid transparent;
-  font-size: 0.9375rem;
-  font-weight: 800;
-  line-height: 1.5;
-  cursor: pointer;
-  transition: background-color 180ms ease, color 180ms ease,
-    border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-}
-
-.rsvp-accent-button,
-.rsvp-themed :deep(.rsvp-accent-button) {
-  color: var(--rsvp-primary-text);
-  background: var(--rsvp-primary);
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--rsvp-primary) 16%, transparent);
-}
-
-.rsvp-outline-button,
-.rsvp-themed :deep(.rsvp-outline-button) {
-  color: var(--rsvp-accent-text);
-  background: var(--rsvp-surface);
-  border-color: var(--rsvp-selection-border);
-}
-
-@media (hover: hover) {
-  .rsvp-accent-button:hover:not(:disabled),
-  .rsvp-themed :deep(.rsvp-accent-button:hover:not(:disabled)) {
-    color: var(--rsvp-primary-hover-text);
-    background: var(--rsvp-primary-hover);
-    box-shadow: 0 6px 16px color-mix(in srgb, var(--rsvp-primary) 20%, transparent);
-    transform: translateY(-1px);
-  }
-
-  .rsvp-outline-button:hover:not(:disabled),
-  .rsvp-themed :deep(.rsvp-outline-button:hover:not(:disabled)) {
-    color: var(--rsvp-selection-text);
-    background: var(--rsvp-selection);
-  }
-}
-
-.rsvp-accent-button:disabled,
-.rsvp-outline-button:disabled,
-.rsvp-themed :deep(.rsvp-accent-button:disabled),
-.rsvp-themed :deep(.rsvp-outline-button:disabled) {
-  cursor: not-allowed;
-  opacity: 0.55;
-  box-shadow: none;
-  transform: none;
-}
-
-.rsvp-themed :deep(.rsvp-accent-button:active:not(:disabled)),
-.rsvp-themed :deep(.rsvp-outline-button:active:not(:disabled)) {
-  transform: translateY(0);
-  box-shadow: none;
-}
-
-.rsvp-themed .rsvp-choice {
-  position: relative;
-  color: var(--rsvp-input-text);
-  background: var(--rsvp-input-surface);
-  border: 2px solid var(--rsvp-border);
-  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-}
-
-.rsvp-themed .rsvp-choice:hover {
-  border-color: var(--rsvp-selection-border);
-}
-
-.rsvp-themed .rsvp-choice:has(> input:checked) {
-  color: var(--rsvp-selection-text);
-  background: var(--rsvp-selection);
-  border-color: var(--rsvp-selection-border);
-  box-shadow: inset 0 0 0 1px var(--rsvp-selection-border);
-}
-
-.rsvp-themed .rsvp-choice-accept:has(> input:checked) {
-  color: var(--rsvp-accepted-text);
-  background: var(--rsvp-accepted-surface);
-  border-color: var(--rsvp-accepted-text);
-  box-shadow: inset 0 0 0 1px var(--rsvp-accepted-text);
-}
-
-.rsvp-themed .rsvp-menu-choice:has(> input:checked) :is(.text-charcoal, .text-warm-gray) {
-  color: var(--rsvp-selection-text);
-}
-
-.rsvp-themed :deep(.rsvp-accent-button:focus-visible),
-.rsvp-themed :deep(.rsvp-outline-button:focus-visible),
-.rsvp-themed .rsvp-choice:has(> input:focus-visible) {
-  outline: 3px solid var(--rsvp-focus);
-  outline-offset: 4px;
-}
-
-.rsvp-themed .rsvp-choice > input:focus-visible {
-  outline: none;
-}
-
-.rsvp-themed :deep(.border-champagne-gold),
-.rsvp-themed :deep(.border-deep-gold) {
-  border-color: var(--rsvp-accent);
-}
-
-.rsvp-template-botanical .rsvp-invitation-header {
-  border-radius: 0 0 45% 45% / 0 0 8% 8%;
-}
-
-.rsvp-hero-frame {
-  aspect-ratio: 16 / 9;
-}
-
-.rsvp-template-botanical .rsvp-hero-frame {
-  aspect-ratio: 4 / 3;
-  border-radius: 999px 999px 1.5rem 1.5rem;
-}
-
-.rsvp-template-modern .rsvp-hero-frame {
-  aspect-ratio: 4 / 3;
-}
-
-@media (min-width: 640px) {
-  .rsvp-template-modern .rsvp-invitation-header.rsvp-modern-has-hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-    align-items: center;
-    column-gap: clamp(1.5rem, 4vw, 2.5rem);
-    row-gap: 0.35rem;
-    text-align: left;
-  }
-
-  .rsvp-template-modern .rsvp-modern-has-hero .rsvp-hero-frame {
-    grid-row: 1 / span 3;
-    aspect-ratio: 6 / 5;
-    margin: 0;
-  }
-
-  .rsvp-template-modern .rsvp-modern-has-hero > :not(.rsvp-hero-frame) {
-    margin-left: 0;
-    margin-right: 0;
-    text-align: left;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rsvp-themed *,
-  .rsvp-themed *::before,
-  .rsvp-themed *::after {
-    scroll-behavior: auto !important;
-    transition-duration: 0s !important;
-    animation-duration: 0s !important;
-    animation-iteration-count: 1 !important;
-  }
-}
-</style>

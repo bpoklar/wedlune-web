@@ -89,46 +89,46 @@ const features = computed(() => (tm("home.features.items") as Array<{ title: str
 <style scoped>
 .feature-section {
   background:
-    radial-gradient(circle at 98% 20%, rgb(181 150 114 / 0.1), transparent 22rem),
+    radial-gradient(circle at 98% 20%, color-mix(in srgb, var(--site-accent) 10%, transparent), transparent 22rem),
     var(--site-bg);
 }
 
 .feature-rings {
   margin-right: 1.5rem;
-  color: rgb(152 114 77 / 0.42);
+  color: color-mix(in srgb, var(--site-accent) 42%, transparent);
   transform: rotate(-7deg);
 }
 
 .feature-card {
   color: var(--site-text);
   border-color: var(--site-border);
-  background: white;
+  background: var(--site-surface);
   box-shadow: var(--site-shadow-soft);
 }
 
 .feature-card-primary {
-  color: white;
-  border-color: rgb(255 255 255 / 0.08);
+  color: var(--site-inverse-text);
+  border-color: color-mix(in srgb, var(--site-surface) 8%, transparent);
   background:
-    radial-gradient(circle at 92% 10%, rgb(181 150 114 / 0.22), transparent 18rem),
-    linear-gradient(145deg, #241f1b, #322820);
+    radial-gradient(circle at 92% 10%, color-mix(in srgb, var(--site-accent) 22%, transparent), transparent 18rem),
+    linear-gradient(145deg, var(--site-surface-strong), var(--site-surface-strong));
 }
 
 .feature-card-secondary {
   background:
-    radial-gradient(circle at 100% 100%, rgb(181 150 114 / 0.22), transparent 18rem),
-    #f6ede2;
+    radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--site-accent) 22%, transparent), transparent 18rem),
+    var(--site-blush);
 }
 
 .feature-card-primary .feature-icon {
-  color: #f2d8a8;
-  background: rgb(255 255 255 / 0.08);
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
+  color: var(--site-accent);
+  background: color-mix(in srgb, var(--site-surface) 8%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--site-surface) 10%, transparent);
 }
 
 .feature-card-primary .feature-number,
 .feature-card-primary p {
-  color: rgb(255 255 255 / 0.68);
+  color: var(--site-inverse-muted);
 }
 
 .feature-card-secondary .feature-icon,
@@ -168,14 +168,14 @@ const features = computed(() => (tm("home.features.items") as Array<{ title: str
   z-index: 1;
   display: block;
   width: 100%;
-  border: 0.42rem solid #1e1a1c;
+  border: 0.42rem solid var(--site-surface-strong);
   border-radius: 2rem;
-  box-shadow: 0 25px 55px rgb(22 18 20 / 0.34);
+  box-shadow: 0 25px 55px color-mix(in srgb, var(--site-text) 34%, transparent);
 }
 
 .feature-card-secondary .feature-preview img {
-  border-color: #f9f6f2;
-  box-shadow: 0 25px 55px rgb(78 57 45 / 0.19);
+  border-color: var(--site-bg);
+  box-shadow: 0 25px 55px color-mix(in srgb, var(--site-text) 19%, transparent);
 }
 
 .feature-preview-halo {
@@ -184,19 +184,19 @@ const features = computed(() => (tm("home.features.items") as Array<{ title: str
   top: -3rem;
   width: 17rem;
   height: 17rem;
-  border: 1px solid rgb(255 255 255 / 0.16);
+  border: 1px solid color-mix(in srgb, var(--site-surface) 16%, transparent);
   border-radius: 999px;
 }
 
 .feature-card-secondary .feature-preview-halo {
-  border-color: rgb(152 114 77 / 0.2);
+  border-color: color-mix(in srgb, var(--site-accent) 20%, transparent);
 }
 
 .feature-card-rings {
   position: absolute;
   right: -1.5rem;
   bottom: -0.75rem;
-  color: rgb(152 114 77 / 0.22);
+  color: color-mix(in srgb, var(--site-accent) 22%, transparent);
   transform: rotate(-8deg);
   transition: transform 260ms ease;
 }
@@ -208,7 +208,7 @@ const features = computed(() => (tm("home.features.items") as Array<{ title: str
 
   .feature-card:hover {
     transform: translateY(-0.2rem);
-    box-shadow: 0 25px 65px rgb(36 31 27 / 0.12);
+    box-shadow: 0 25px 65px color-mix(in srgb, var(--site-text) 12%, transparent);
   }
 
   .feature-card:hover .feature-card-rings {
