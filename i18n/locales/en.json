@@ -304,6 +304,14 @@
     }
   },
   "rsvp": {
+    "previewTitle": "Guest page preview",
+    "previewHint": "Try your invitation with sample guest details. Responses here are not saved. Return to the app to edit or publish your design.",
+    "previewInvitation": "Invitation",
+    "previewAccepted": "Accepted response",
+    "previewDeclined": "Declined response",
+    "previewGuest": "Your guest",
+    "previewCouple": "the happy couple",
+    "previewInvalid": "This preview could not be loaded. Open a new preview from the RSVP editor.",
     "seoTitle": "RSVP",
     "seoDescription": "Respond to your wedding invitation. Let the couple know if you can attend.",
     "opening": "Opening your invitation",

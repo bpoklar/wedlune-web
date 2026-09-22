@@ -18,6 +18,29 @@
     />
 
     <main id="main-content" v-reveal tabindex="-1" class="motion-reveal relative mx-auto mt-6 w-full max-w-3xl">
+      <section
+        v-if="isPreview"
+        id="rsvp-preview-toolbar"
+        :aria-label="$t('rsvp.previewTitle')"
+        class="rsvp-surface-panel mb-5 rounded-2xl border p-4 sm:p-5"
+      >
+        <h2 class="font-display text-xl rsvp-text">{{ $t("rsvp.previewTitle") }}</h2>
+        <p class="mt-1 text-sm rsvp-text-secondary">{{ $t("rsvp.previewHint") }}</p>
+        <div v-if="!loading && !errorMessage" class="mt-4 flex flex-wrap gap-2">
+          <button type="button" class="rsvp-outline-button min-h-11 rounded-full px-4 text-sm"
+            :aria-pressed="!submitted" @click="submitted = false">
+            {{ $t("rsvp.previewInvitation") }}
+          </button>
+          <button type="button" class="rsvp-outline-button min-h-11 rounded-full px-4 text-sm"
+            :aria-pressed="submitted && submittedStatus === 'accepted'" @click="previewConfirmation('accepted')">
+            {{ $t("rsvp.previewAccepted") }}
+          </button>
+          <button type="button" class="rsvp-outline-button min-h-11 rounded-full px-4 text-sm"
+            :aria-pressed="submitted && submittedStatus === 'declined'" @click="previewConfirmation('declined')">
+            {{ $t("rsvp.previewDeclined") }}
+          </button>
+        </div>
+      </section>
       <!-- Loading state -->
       <div
         v-if="loading"
@@ -122,7 +145,7 @@
           </p>
           <p
             v-if="rsvpDesign.confirmationMessage"
-            class="mx-auto mt-3 max-w-md text-sm leading-relaxed rsvp-text-secondary sm:text-base"
+            class="mx-auto mt-3 max-w-md whitespace-pre-line wrap-break-word text-sm leading-relaxed rsvp-text-secondary sm:text-base"
           >
             {{ rsvpDesign.confirmationMessage }}
           </p>
@@ -179,15 +202,15 @@
         <div
           :class="[
             'rsvp-invitation-header rsvp-muted-panel relative overflow-hidden border-b px-5 pb-8 text-center sm:px-8 sm:pb-10',
-            rsvpDesign.heroImageUrl ? 'pt-8 sm:pt-10' : 'pt-8 sm:pt-10',
-            rsvpDesign.template === 'modern' && rsvpDesign.heroImageUrl
+            'pt-8 sm:pt-10',
+            rsvpDesign.template === 'modern' && showHeroImage
               ? 'rsvp-modern-has-hero'
               : '',
           ]"
         >
           <div class="absolute inset-x-0 top-0 h-1.5 rsvp-accent-fill" />
           <div
-            v-if="rsvpDesign.heroImageUrl"
+            v-if="showHeroImage"
             class="rsvp-hero-frame mx-auto mb-6 w-full overflow-hidden rounded-2xl"
           >
             <img
@@ -195,10 +218,11 @@
               :style="rsvpHeroImageStyle"
               alt=""
               class="rsvp-hero-image h-full w-full object-cover"
+              @error="heroImageFailed = true"
             >
           </div>
           <p
-            class="mb-1 wrap-break-word font-accent text-3xl leading-tight rsvp-text sm:text-4xl"
+            class="mb-1 whitespace-pre-line wrap-break-word font-accent text-3xl leading-tight rsvp-text sm:text-4xl"
           >
             {{ rsvpDesign.invitationHeading }}
           </p>
@@ -208,8 +232,8 @@
             {{ guestName }}
           </h1>
           <p
-            v-if="coupleName"
-            class="mx-auto max-w-md text-sm leading-relaxed rsvp-text-secondary sm:text-base"
+            v-if="coupleName || rsvpDesign.welcomeMessage"
+            class="mx-auto max-w-md whitespace-pre-line wrap-break-word text-sm leading-relaxed rsvp-text-secondary sm:text-base"
           >
             {{
               rsvpDesign.welcomeMessage ||
@@ -308,82 +332,12 @@
                 {{ $t("rsvp.mealPreference") }}
               </label>
               <template v-if="menus.length > 0">
-                <div
+                <RsvpMenuOptions
                   id="menuSelect"
-                  class="grid gap-3 sm:grid-cols-2"
-                  role="radiogroup"
-                  aria-labelledby="menuSelectLabel"
-                >
-                  <label
-                    class="rsvp-choice rsvp-menu-choice rsvp-input-panel flex min-h-24 items-center justify-center rounded-xl px-4 text-center cursor-pointer"
-                  >
-                    <input
-                      v-model="selectedMenuId"
-                      type="radio"
-                      name="menuSelect"
-                      :value="null"
-                      class="sr-only"
-                    />
-                    <span class="rsvp-text-secondary text-sm">{{ $t("rsvp.noPreference") }}</span>
-                  </label>
-                  <label
-                    v-for="m in menus"
-                    :key="m.id"
-                    class="rsvp-choice rsvp-menu-choice rsvp-input-panel overflow-hidden rounded-xl cursor-pointer"
-                  >
-                    <input
-                      v-model="selectedMenuId"
-                      type="radio"
-                      name="menuSelect"
-                      :value="m.id"
-                      class="sr-only"
-                    />
-                    <div class="h-28 rsvp-muted-panel">
-                      <img
-                        v-if="m.coverImageUrl"
-                        :src="m.coverImageUrl"
-                        :alt="m.label"
-                        class="h-full w-full object-cover"
-                      />
-                      <div
-                        v-else
-                        class="flex h-full items-center justify-center text-3xl rsvp-text"
-                        aria-hidden="true"
-                      >
-                        🍽️
-                      </div>
-                    </div>
-                    <div class="p-3">
-                      <p class="font-semibold rsvp-text text-sm">
-                        {{ m.label }}
-                      </p>
-                      <p
-                        v-if="m.category"
-                        class="rsvp-text-secondary text-xs mt-0.5"
-                      >
-                        {{ m.category }}
-                      </p>
-                      <div
-                        v-if="hasMenuCourses(m.courses)"
-                        class="mt-3 space-y-1 border-t rsvp-divider pt-3 text-left"
-                      >
-                        <p
-                          v-for="c in m.courses"
-                          :key="c.id"
-                          class="rsvp-text-secondary text-xs"
-                        >
-                          {{ c.label }}
-                        </p>
-                      </div>
-                      <p
-                        v-else
-                        class="mt-3 border-t rsvp-divider pt-3 text-left text-xs italic rsvp-text-secondary"
-                      >
-                        {{ $t("rsvp.noDishes") }}
-                      </p>
-                    </div>
-                  </label>
-                </div>
+                  v-model="selectedMenuId"
+                  labelledby="menuSelectLabel"
+                  :menus="menus"
+                />
               </template>
               <template v-else>
                 <p class="rsvp-text-secondary text-sm italic">
@@ -424,7 +378,7 @@
 
           <!-- +1 Guest sections -->
           <template v-for="(po, idx) in plusOneGuests" :key="po.id">
-            <div class="rsvp-input-panel rounded-3xl border p-4 sm:p-6">
+            <div class="border-t rsvp-divider pt-8">
               <h2 class="font-display text-xl rsvp-text mb-4">
                 {{ po.name }}
               </h2>
@@ -473,83 +427,13 @@
                     {{ $t("rsvp.mealPreference") }}
                   </label>
                   <template v-if="menus.length > 0">
-                    <div
+                    <RsvpMenuOptions
                       :id="`menu_${idx}`"
-                      class="grid gap-3 sm:grid-cols-2"
-                      role="radiogroup"
-                      :aria-labelledby="`meal_${idx}`"
-                    >
-                      <label
-                        class="rsvp-choice rsvp-menu-choice rsvp-surface-panel flex min-h-20 items-center justify-center rounded-xl px-3 text-center cursor-pointer"
-                      >
-                        <input
-                          v-model="po.menuId"
-                          type="radio"
-                          :name="`menu_${idx}`"
-                          :value="null"
-                          class="sr-only"
-                          @change="onPlusOneMenuChange(po)"
-                        />
-                        <span class="rsvp-text-secondary text-sm"
-                          >{{ $t("rsvp.noPreference") }}</span
-                        >
-                      </label>
-                      <label
-                        v-for="m in menus"
-                        :key="m.id"
-                        class="rsvp-choice rsvp-menu-choice rsvp-surface-panel overflow-hidden rounded-xl cursor-pointer"
-                      >
-                        <input
-                          v-model="po.menuId"
-                          type="radio"
-                          :name="`menu_${idx}`"
-                          :value="m.id"
-                          class="sr-only"
-                          @change="onPlusOneMenuChange(po)"
-                        />
-                        <div class="flex min-h-20 items-center gap-3 p-3">
-                          <img
-                            v-if="m.coverImageUrl"
-                            :src="m.coverImageUrl"
-                            :alt="m.label"
-                            class="h-16 w-20 shrink-0 rounded-lg object-cover"
-                          />
-                          <div
-                            v-else
-                            class="flex h-16 w-20 shrink-0 items-center justify-center rounded-lg rsvp-muted-panel text-2xl"
-                            aria-hidden="true"
-                          >
-                            🍽️
-                          </div>
-                          <div class="min-w-0 grow text-left">
-                            <p class="font-semibold rsvp-text text-sm">
-                              {{ m.label }}
-                            </p>
-                            <p v-if="m.category" class="rsvp-text-secondary text-xs">
-                              {{ m.category }}
-                            </p>
-                            <div
-                              v-if="hasMenuCourses(m.courses)"
-                              class="mt-2 space-y-1 border-t rsvp-divider pt-2"
-                            >
-                              <p
-                                v-for="c in m.courses"
-                                :key="c.id"
-                                class="rsvp-text-secondary text-xs"
-                              >
-                                {{ c.label }}
-                              </p>
-                            </div>
-                            <p
-                              v-else
-                              class="mt-2 border-t rsvp-divider pt-2 text-xs italic rsvp-text-secondary"
-                            >
-                              {{ $t("rsvp.noDishes") }}
-                            </p>
-                          </div>
-                        </div>
-                      </label>
-                    </div>
+                      v-model="po.menuId"
+                      :labelledby="`meal_${idx}`"
+                      :menus="menus"
+                      @change="onPlusOneMenuChange(po)"
+                    />
                   </template>
                   <template v-else>
                     <p class="rsvp-text-secondary text-sm italic">
@@ -632,7 +516,7 @@ import { readableTextColor } from "~/utils/colorTheme";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm, useField } from "vee-validate";
-import { hasMenuCourses } from "~/utils/rsvpMenu";
+import { parseRsvpPreview } from "~/utils/rsvpPreview";
 import {
   resolveRsvpColorMode,
   createHeroImageStyle,
@@ -642,7 +526,7 @@ import {
   type RsvpDesign,
 } from "~/utils/rsvpDesign";
 
-definePageMeta({ layout: false });
+definePageMeta({ layout: false, scrollToTop: (to) => to.query.preview !== "1" });
 
 const { t } = useI18n();
 const localePath = useLocalePath();
@@ -662,6 +546,9 @@ useHead({
 
 const route = useRoute();
 const config = useRuntimeConfig();
+// Capture the mode once for this page instance. Removing the query parameter
+// while a preview is open must never turn sample data into a real submission.
+const isPreview = route.query.preview === "1";
 
 const token = computed(() =>
   typeof route.query.token === "string" ? route.query.token : undefined,
@@ -743,6 +630,8 @@ interface Wishlist {
   items: WishlistItem[];
 }
 const rsvpDesign = ref<RsvpDesign>({ ...defaultRsvpDesign });
+const heroImageFailed = ref(false);
+const showHeroImage = computed(() => Boolean(rsvpDesign.value.heroImageUrl) && !heroImageFailed.value);
 const rsvpInverseLogo = computed(() => resolveRsvpColorMode(rsvpDesign.value) === "custom" && readableTextColor(rsvpDesign.value.surfaceColor) === "#FFFFFF");
 const rsvpThemeStyle = computed(() => createRsvpTheme(rsvpDesign.value));
 const rsvpHeroImageStyle = computed(() => createHeroImageStyle(rsvpDesign.value));
@@ -807,6 +696,18 @@ watch(selectedMenuId, (newVal) => {
 
 // Fetch guest data on mount
 onMounted(async () => {
+  if (isPreview) {
+    const design = parseRsvpPreview(window.location.hash);
+    if (design) {
+      rsvpDesign.value = design;
+      guestName.value = t("rsvp.previewGuest");
+      coupleName.value = t("rsvp.previewCouple");
+    } else {
+      errorMessage.value = t("rsvp.previewInvalid");
+    }
+    loading.value = false;
+    return;
+  }
   const rsvpToken = token.value;
   if (!rsvpToken) {
     errorMessage.value = t("rsvp.missingToken");
@@ -911,7 +812,17 @@ onMounted(async () => {
   }
 });
 
+function previewConfirmation(status: "accepted" | "declined") {
+  if (!isPreview) return;
+  submittedStatus.value = status;
+  submitted.value = true;
+}
+
 const onSubmit = handleSubmit(async (values) => {
+  if (isPreview) {
+    previewConfirmation(values.rsvpStatus);
+    return;
+  }
   const rsvpToken = token.value;
   if (!rsvpToken) {
     submitError.value = t("rsvp.missingToken");

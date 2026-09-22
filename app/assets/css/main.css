@@ -308,7 +308,7 @@
   --rsvp-current-text: var(--rsvp-input-text);
   --rsvp-current-secondary: var(--rsvp-input-secondary);
   position: relative; color: var(--rsvp-current-text); background: var(--rsvp-input-surface);
-  border: 2px solid var(--rsvp-input-border);
+  border: 1px solid var(--rsvp-input-border);
   transition: background-color 180ms ease, border-color 180ms ease;
 }
 .rsvp-choice:has(> input:checked) {
@@ -316,14 +316,20 @@
   --rsvp-current-secondary: var(--rsvp-selection-text);
   color: var(--rsvp-selection-text); background: var(--rsvp-selection);
   border-color: var(--rsvp-selection-border);
-  box-shadow: inset 0 0 0 1px var(--rsvp-selection-border);
 }
+.rsvp-selection-mark {
+  display: none;
+  position: absolute; top: .625rem; right: .625rem; z-index: 1;
+  width: 1.75rem; height: 1.75rem; place-items: center;
+  border-radius: 50%; pointer-events: none;
+  color: var(--rsvp-primary-text); background: var(--rsvp-primary);
+}
+.rsvp-menu-choice:has(> input:checked) > .rsvp-selection-mark { display: grid; }
 .rsvp-choice-accept:has(> input:checked) {
   --rsvp-current-text: var(--rsvp-accepted-text);
   --rsvp-current-secondary: var(--rsvp-accepted-text);
   color: var(--rsvp-accepted-text); background: var(--rsvp-accepted-surface);
   border-color: var(--rsvp-accepted-text);
-  box-shadow: inset 0 0 0 1px var(--rsvp-accepted-text);
 }
 .rsvp-theme :focus-visible, .rsvp-choice:has(> input:focus-visible) {
   outline: 3px solid var(--rsvp-focus); outline-offset: 3px;

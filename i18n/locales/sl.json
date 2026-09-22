@@ -304,6 +304,14 @@
     }
   },
   "rsvp": {
+    "previewTitle": "Predogled strani za goste",
+    "previewHint": "Preizkusite vabilo z vzorčnimi podatki gosta. Odgovori se tukaj ne shranijo. Za urejanje ali objavo se vrnite v aplikacijo.",
+    "previewInvitation": "Vabilo",
+    "previewAccepted": "Potrjena udeležba",
+    "previewDeclined": "Zavrnjena udeležba",
+    "previewGuest": "Vaš gost",
+    "previewCouple": "srečni par",
+    "previewInvalid": "Predogleda ni bilo mogoče naložiti. Odprite nov predogled v urejevalniku RSVP.",
     "seoTitle": "RSVP",
     "seoDescription": "Odgovorite na poročno vabilo in paru sporočite, ali se boste udeležili poroke.",
     "opening": "Odpiramo vaše vabilo",
