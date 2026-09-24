@@ -79,7 +79,7 @@ test.describe("marketing, SEO, and navigation", () => {
     await expect(page.locator('link[hreflang="x-default"]')).toHaveCount(1);
     await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
       "content",
-      localized.path === "/" ? /\/og\/home-en-v2\.png$/ : /\/og\/home-sl\.png$/,
+      /\/og\/home-en-v2\.png$/,
     );
     const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents();
     const schemaTypes = jsonLd.filter((value) => value.trim()).flatMap((value) => {
@@ -335,7 +335,11 @@ test.describe("legal and recovery surfaces", () => {
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(page.locator('a[href="/"]').last()).toBeVisible();
     await assertA11y(page);
-    await expect(page).toHaveScreenshot("404.png", { mask: [page.locator("nuxt-error-overlay")] });
+    // The dev overlay host has no box; masking it misses its fixed shadow DOM.
+    // Hide only the development diagnostic surface for the production-page baseline.
+    await expect(page).toHaveScreenshot("404.png", {
+      stylePath: "e2e/screenshot.css",
+    });
   });
 });
 

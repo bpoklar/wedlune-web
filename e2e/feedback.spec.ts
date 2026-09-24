@@ -2,6 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 import en from '../i18n/locales/en.json' with { type: 'json' };
 import sl from '../i18n/locales/sl.json' with { type: 'json' };
+import italian from '../i18n/locales/it.json' with { type: 'json' };
 
 async function hydrated(page: Page) {
   await page.waitForFunction(() => {
@@ -10,8 +11,8 @@ async function hydrated(page: Page) {
   });
 }
 
-for (const [locale, catalog] of [['en', en], ['sl', sl]] as const) {
-  const route = locale === 'en' ? '/feedback' : '/sl/feedback';
+for (const [locale, catalog] of [['en', en], ['sl', sl], ['it', italian]] as const) {
+  const route = locale === 'en' ? '/feedback' : `/${locale}/feedback`;
   const copy = catalog.feedback;
   test(`${locale}: feedback navigation, validation, accessible controls and successful submission`, async ({ page }, testInfo) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -23,7 +24,7 @@ for (const [locale, catalog] of [['en', en], ['sl', sl]] as const) {
       await pending;
       await request.fulfill({ status: 201, contentType: 'application/json', body: JSON.stringify({ success: true }) });
     });
-    await page.goto(locale === 'en' ? '/privacy' : '/sl/privacy');
+    await page.goto(locale === 'en' ? '/privacy' : `/${locale}/privacy`);
     await hydrated(page);
     await page.locator('[data-footer-support]').getByRole('link', { name: catalog.footer.feedback }).click();
     await expect(page).toHaveURL(new RegExp(`${route}$`));

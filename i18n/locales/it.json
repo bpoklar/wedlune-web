@@ -1,0 +1,676 @@
+{
+  "feedback": {
+    "kicker": "Vi ascoltiamo",
+    "title": "Invia feedback",
+    "subtitle": "Segnala un problema, suggerisci un miglioramento o raccontaci come ti trovi con Wedlune.",
+    "seoTitle": "Invia feedback | Wedlune",
+    "seoDescription": "Condividi con Wedlune una segnalazione, una richiesta di funzionalità o un suggerimento. Non serve un account.",
+    "category": "Categoria",
+    "categories": {
+      "bug": "Problema",
+      "feature": "Richiesta di funzionalità",
+      "improvement": "Miglioramento",
+      "general": "Generale"
+    },
+    "message": "Messaggio",
+    "messageHint": "Descrivi il tuo feedback in dettaglio…",
+    "messageCount": "{count} / 2.000 caratteri",
+    "rating": "Come valuti Wedlune? (facoltativo)",
+    "ratingStar": "Valuta Wedlune {count} su 5",
+    "clearRating": "Cancella valutazione",
+    "email": "Email (facoltativa)",
+    "emailHint": "tu{'@'}esempio.com",
+    "emailHelp": "Lascia la tua email se desideri ricevere una risposta.",
+    "privacyBefore": "Il feedback e l'eventuale email vengono conservati privatamente. Leggi la nostra",
+    "privacyLink": "Informativa sulla privacy",
+    "privacyAfter": ".",
+    "website": "Sito web",
+    "submit": "Invia feedback",
+    "submitting": "Invio…",
+    "successTitle": "Grazie per il feedback",
+    "success": "Il feedback è stato inviato. Grazie per aiutarci a migliorare Wedlune.",
+    "sendAnother": "Invia altro feedback",
+    "backHome": "Torna alla home",
+    "errors": {
+      "offline": "Sei offline. Il messaggio è ancora qui: riconnettiti e riprova.",
+      "rateLimited": "Hai inviato diverse richieste di recente. Attendi prima di riprovare.",
+      "unavailable": "Impossibile inviare il feedback. Il messaggio è ancora qui: riprova.",
+      "invalid": "Controlla il feedback e riprova."
+    },
+    "validation": {
+      "category": "Scegli una categoria di feedback.",
+      "messageRequired": "Inserisci un messaggio.",
+      "messageShort": "Il messaggio deve contenere almeno 10 caratteri.",
+      "messageLong": "Il messaggio non può superare i 2.000 caratteri.",
+      "email": "Inserisci un indirizzo email valido di massimo 254 caratteri.",
+      "rating": "Scegli una valutazione intera da 1 a 5."
+    }
+  },
+  "common": {
+    "wedlune": "Wedlune",
+    "poweredBy": "Realizzato con",
+    "goHome": "Vai alla home",
+    "goToWedlune": "Vai a Wedlune →",
+    "lastUpdated": "Ultimo aggiornamento: {date}",
+    "skipToContent": "Vai al contenuto principale"
+  },
+  "nav": {
+    "primary": "Navigazione principale",
+    "features": "Funzionalità",
+    "howItWorks": "Come funziona",
+    "pricing": "Prezzi",
+    "faq": "Domande frequenti",
+    "privacy": "Privacy",
+    "getWedlune": "Scarica Wedlune",
+    "openMenu": "Apri menu",
+    "closeMenu": "Chiudi menu",
+    "language": "Lingua",
+    "english": "English",
+    "slovenian": "Slovenščina",
+    "homeLabel": "Home di Wedlune",
+    "mobile": "Navigazione mobile"
+  },
+  "store": {
+    "groupLabel": "Scarica Wedlune",
+    "downloadOn": "Scarica su",
+    "getItOn": "Disponibile su",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "comingSoon": "In arrivo"
+  },
+  "legal": {
+    "kicker": "Informazioni legali",
+    "contents": "In questa pagina",
+    "geminiTerms": "Termini dell'API Gemini",
+    "googlePrivacy": "Informativa sulla privacy di Google",
+    "exaTerms": "Termini di servizio di Exa",
+    "exaPrivacy": "Informativa sulla privacy di Exa",
+    "orsTerms": "Termini di servizio di openrouteservice",
+    "orsPrivacy": "Informativa sulla privacy di openrouteservice",
+    "openRouterTerms": "Termini di servizio di OpenRouter",
+    "openRouterPrivacy": "Informativa sulla privacy di OpenRouter",
+    "openRouterDpa": "Accordo sul trattamento dei dati di OpenRouter",
+    "openRouterProviderPolicies": "Politiche sui dati dei fornitori di OpenRouter",
+    "anthropicTerms": "Termini commerciali di Anthropic",
+    "anthropicPrivacy": "Informativa sulla privacy di Anthropic",
+    "servicePrivacyNotices": "Informative sulla privacy dei servizi",
+    "supabasePrivacy": "Informativa sulla privacy di Supabase",
+    "revenueCatPrivacy": "Informativa sulla privacy di RevenueCat",
+    "cloudflarePrivacy": "Informativa sulla privacy di Cloudflare",
+    "applePrivacy": "Informativa sulla privacy di Apple"
+  },
+  "footer": {
+    "feedback": "Invia feedback",
+    "kicker": "I vostri piani, uniti con cura",
+    "title": "Pronti a organizzare insieme?",
+    "body": "Ogni dettaglio del matrimonio in un unico spazio condiviso.",
+    "waitlist": "Iscriviti alla lista d'attesa",
+    "explore": "Esplora le funzionalità",
+    "comingSoon": "Presto su iOS e Android",
+    "tagline": "Uno spazio sereno e condiviso per tutto il piano del matrimonio.",
+    "navigation": "Navigazione del piè di pagina",
+    "product": "Organizzate con Wedlune",
+    "legal": "Informazioni",
+    "support": "Assistenza",
+    "noTracking": "Nessun tracciamento comportamentale o cookie di marketing.",
+    "privacyPolicy": "Informativa sulla privacy",
+    "terms": "Termini di servizio",
+    "deleteAccount": "Elimina account",
+    "rights": "© {year} Wedlune. Tutti i diritti riservati."
+  },
+  "home": {
+    "seoTitle": "App per organizzare il matrimonio in coppia",
+    "seoDescription": "Organizzate insieme il matrimonio con checklist condivisa, budget, lista invitati, strumenti RSVP, fornitori e cronologia in un'unica app, senza stress.",
+    "ogImageAlt": "L'app Wedlune per organizzare il matrimonio, con anteprime di cronologia, budget e invitati",
+    "organizationDescription": "Un'app per organizzare il matrimonio che aiuta le coppie a gestire insieme checklist, invitati, RSVP, budget, fornitori e cronologie.",
+    "hero": {
+      "badge": "L'app per organizzare il matrimonio in coppia",
+      "title": "Organizzate il vostro matrimonio senza caos.",
+      "body": "Cronologia, budget, invitati e fornitori: tutto in un unico piano condiviso.",
+      "primary": "Iniziate gratis",
+      "secondary": "Scoprite come funziona",
+      "highlights": "Punti di forza di Wedlune",
+      "photoAlt": "Fedi nuziali adagiate su delicati fiori rosa",
+      "stats": [
+        {
+          "value": "1",
+          "label": "piano del matrimonio condiviso"
+        },
+        {
+          "value": "3",
+          "label": "lingue supportate"
+        },
+        {
+          "value": "Tutti",
+          "label": "strumenti essenziali per organizzare"
+        }
+      ],
+      "suggestion": "Un prossimo passo utile",
+      "nextAction": "Il prossimo passo",
+      "rsvpReminder": "Invia promemoria RSVP",
+      "pendingGuests": "18 invitati in attesa",
+      "floristQuote": "Scegli il preventivo del fiorista",
+      "vendorDecision": "Scelta del fornitore",
+      "budget": "Budget",
+      "rsvps": "Risposte RSVP",
+      "budgetWarning": "Avviso budget",
+      "budgetWarningBody": "Il catering sta superando la previsione. Rivedete il numero degli invitati prima dell'acconto.",
+      "slider": {
+        "label": "Anteprima dell'app Wedlune",
+        "show": "Mostra la schermata {screen}",
+        "slides": {
+          "timeline": {
+            "title": "Cronologia",
+            "alt": "Cronologia di Wedlune con attività del matrimonio, scadenze, priorità e assegnazioni"
+          },
+          "venue": {
+            "title": "Location",
+            "alt": "Gestione location di Wedlune con riepilogo delle decisioni e dettagli della location prenotata"
+          },
+          "budget": {
+            "title": "Budget",
+            "alt": "Budget di Wedlune con costi previsti ed effettivi, pagamenti e prossime spese"
+          },
+          "vendors": {
+            "title": "Fornitori",
+            "alt": "Lista fornitori di Wedlune con stato delle prenotazioni, categorie, valutazioni e recapiti"
+          },
+          "caterers": {
+            "title": "Catering",
+            "alt": "Gestione catering di Wedlune con preferenze alimentari, assegnazioni dei menu e spesa stimata"
+          },
+          "attire": {
+            "title": "Abbigliamento",
+            "alt": "Gestione abbigliamento di Wedlune con le scelte degli abiti di entrambi i partner"
+          },
+          "transport": {
+            "title": "Trasporti",
+            "alt": "Gestione trasporti di Wedlune con copertura degli invitati, veicoli, costi e assegnazioni"
+          }
+        }
+      }
+    },
+    "proof": {
+      "label": "Perché le coppie scelgono Wedlune",
+      "items": [
+        "Organizzate insieme",
+        "Rispettate il budget",
+        "RSVP senza l'app",
+        "Sapete sempre cosa viene dopo"
+      ]
+    },
+    "features": {
+      "kicker": "Un unico spazio, senza stress",
+      "title": "Tutto ciò che serve, in un unico posto.",
+      "items": [
+        {
+          "title": "Cronologia",
+          "description": "Date, attività e promemoria in un piano chiaro."
+        },
+        {
+          "title": "Invitati e RSVP",
+          "description": "RSVP, pasti, accompagnatori e posti a sedere, senza un foglio di calcolo."
+        },
+        {
+          "title": "Budget",
+          "description": "Confrontate preventivi, seguite i pagamenti e individuate subito le spese eccessive."
+        },
+        {
+          "title": "Fornitori",
+          "description": "Contatti, preventivi, prenotazioni e note, tutti insieme."
+        },
+        {
+          "title": "Foto",
+          "description": "Salvate le ispirazioni e condividete la lista scatti con il fotografo."
+        },
+        {
+          "title": "Suggerimenti intelligenti",
+          "description": "Prossimi passi facoltativi, pensati per il vostro matrimonio."
+        }
+      ]
+    },
+    "how": {
+      "kicker": "Dalla confusione all'organizzazione",
+      "title": "Come funziona Wedlune",
+      "steps": [
+        {
+          "title": "Raccontateci il vostro matrimonio",
+          "description": "Data, luogo, budget e priorità."
+        },
+        {
+          "title": "Ricevete il vostro piano",
+          "description": "Una cronologia e una checklist chiare."
+        },
+        {
+          "title": "Organizzate insieme",
+          "description": "Progressi, invitati, costi e decisioni condivisi."
+        }
+      ]
+    },
+    "pricing": {
+      "kicker": "Free o Premium",
+      "title": "Iniziate gratis. Passate a Premium quando serve di più.",
+      "free": "Free",
+      "freeTitle": "Partite con chiarezza",
+      "freeSubtitle": "Tutto ciò che serve per organizzare insieme, senza abbonamento.",
+      "premium": "Premium",
+      "premiumTitle": "Più spazio. Più personalizzazione.",
+      "premiumSubtitle": "Aggiungete esperienze personalizzate per gli invitati, aiuto IA, esportazioni e limiti più alti.",
+      "freeItems": [
+        "Cronologia, budget, invitati e fornitori condivisi",
+        "Sito RSVP per un massimo di 50 persone invitate",
+        "Un partner incluso"
+      ],
+      "premiumItems": [
+        "Liste del piano senza limiti e fino a 100 foto",
+        "RSVP personalizzato, lista desideri condivisa e posti visuali",
+        "Strumenti IA, esportazioni e nessuna pubblicità"
+      ],
+      "feature": "Funzionalità",
+      "tableCaption": "Confronto delle funzionalità incluse nei piani Wedlune Free e Premium",
+      "keyDifferences": "Le differenze principali a colpo d'occhio",
+      "keyDifferencesBody": "I limiti e le funzionalità che contano di più per le coppie nella scelta del piano.",
+      "keyDifferencesCaption": "Differenze principali tra i piani Wedlune Free e Premium",
+      "compareAll": "Confronta tutte le funzionalità",
+      "hideComparison": "Nascondi il confronto completo",
+      "featureCount": "{count} funzionalità",
+      "groupCaption": "Confronto Free e Premium per {group}",
+      "groups": {
+        "core": "Organizzazione di base",
+        "lists": "Liste e dettagli del matrimonio",
+        "guests": "Invitati e condivisione",
+        "collaboration": "Collaborazione ed esportazione",
+        "recommendations": "Suggerimenti facoltativi"
+      },
+      "features": {
+        "profile": "Profilo del matrimonio e questionario",
+        "timeline": "Cronologia e checklist del matrimonio",
+        "budget": "Gestione del budget",
+        "legalDocuments": "Archiviazione dei documenti legali",
+        "basicNotifications": "Notifiche di base",
+        "monthCalendar": "Vista calendario mensile",
+        "advancedNotifications": "Controlli avanzati delle notifiche",
+        "guests": "Invitati",
+        "venues": "Location",
+        "vendors": "Contatti dei fornitori",
+        "caterers": "Catering",
+        "attire": "Capi di abbigliamento",
+        "transport": "Opzioni di trasporto",
+        "gallery": "Caricamenti nella galleria",
+        "rsvpWebsite": "Pubblicazione del sito RSVP",
+        "rsvpDesign": "Personalizzazione del design RSVP",
+        "guestMessages": "Modelli di messaggi per gli invitati",
+        "wishlist": "Creazione e gestione della lista desideri",
+        "wishlistSharing": "Condivisione e prenotazioni della lista desideri per gli invitati",
+        "manualSeating": "Tavoli e assegnazioni manuali degli invitati",
+        "seatingChart": "Editor della disposizione dei posti",
+        "partnerCollaboration": "Collaborazione con il partner e feed delle attività",
+        "shotList": "Lista scatti del matrimonio",
+        "pdfExports": "Esportazioni PDF",
+        "printing": "Stampa delle viste del piano",
+        "advertising": "Pubblicità",
+        "recommendationGenerations": "Generazioni di suggerimenti per sezione del piano",
+        "recommendationResults": "Risultati per suggerimento",
+        "missingTaskScan": "Ricerche di attività mancanti",
+        "venueLookups": "Ricerche online di location",
+        "aiChat": "Chat IA",
+        "moreLikeThis": "Suggerimenti «Altre opzioni simili»",
+        "shortlistComparison": "Confronto dei preferiti",
+        "followupQuestions": "Domande di approfondimento intelligenti"
+      },
+      "values": {
+        "included": "Incluso",
+        "notIncluded": "Non incluso",
+        "unlimited": "Senza limiti",
+        "guests50": "Fino a 50 persone invitate",
+        "venues3": "Fino a 3",
+        "vendors10": "Fino a 10",
+        "caterers5": "Fino a 5",
+        "attire20": "Fino a 20",
+        "transport5": "Fino a 5",
+        "gallery20": "Fino a 20 foto del piano",
+        "gallery100": "Fino a 100 foto del piano",
+        "defaultRsvp50": "Design predefinito, fino a 50 invitati",
+        "bannerAds": "Banner pubblicitari",
+        "adFree": "Senza pubblicità",
+        "recommendations1": "1 generazione per sezione",
+        "recommendations10": "10 generazioni ogni 24 ore mobili",
+        "results2": "Fino a 2 risultati",
+        "results4": "Fino a 4 risultati",
+        "taskScanFree": "1 ricerca, fino a 3 attività",
+        "taskScanPremium": "5 ricerche ogni 24 ore mobili, fino a 5 attività ciascuna",
+        "lookups2": "2 ricerche uniche per matrimonio",
+        "lookups20": "20 ricerche ogni 24 ore mobili",
+        "aiChatLimits": "20 turni/ora e 100/24 ore mobili"
+      },
+      "storeKicker": "Scegliete nell'app",
+      "storeTitle": "Scegliete ciò che fa per voi, nell'app.",
+      "storeNote": "App Store o Google Play mostra prezzi e condizioni di abbonamento aggiornati prima dell'acquisto."
+    },
+    "faq": {
+      "kicker": "Prima di iniziare",
+      "title": "Qualche risposta utile.",
+      "items": [
+        {
+          "question": "Possiamo iniziare a organizzare gratis?",
+          "answer": "Sì, il piano gratuito include cronologia, checklist, budget e liste essenziali del piano."
+        },
+        {
+          "question": "Entrambi i partner possono usare lo stesso piano del matrimonio?",
+          "answer": "Sì, potete invitare un partner con accesso in modifica o sola lettura scelto dal proprietario."
+        },
+        {
+          "question": "Come funzionano i suggerimenti IA?",
+          "answer": "I suggerimenti facoltativi usano i dettagli del matrimonio per proporre prossimi passi che siete sempre voi a valutare."
+        },
+        {
+          "question": "Gli invitati devono avere l'app per rispondere all'RSVP?",
+          "answer": "No, gli invitati rispondono e aggiornano i propri piani tramite un link web privato."
+        },
+        {
+          "question": "Possiamo continuare a organizzare senza connessione?",
+          "answer": "Sì, i dati essenziali restano disponibili localmente e le modifiche supportate si sincronizzano quando vi riconnettete."
+        },
+        {
+          "question": "Le informazioni sul matrimonio sono pubbliche?",
+          "answer": "No, i dati del piano sono protetti dall'account e i link per gli invitati sono privati ed esclusi dai motori di ricerca."
+        }
+      ]
+    },
+    "couples": {
+      "kicker": "Pensato per le coppie",
+      "title": "Quando organizzare sembra più impegnativo del matrimonio stesso.",
+      "items": [
+        {
+          "title": "Il piano è sparso in troppi posti",
+          "initials": "01",
+          "detail": "Note, chat, schede e fogli di calcolo",
+          "description": "Riunite ricerche, costi, invitati, RSVP e scadenze in un'unica vista condivisa, prima che qualche dettaglio sfugga."
+        },
+        {
+          "title": "Nessuno sa quale sia il prossimo passo",
+          "initials": "02",
+          "detail": "Troppe decisioni, poca chiarezza",
+          "description": "Lasciate che Wedlune vi mostri la prossima azione utile, dai contatti con i fornitori ai promemoria RSVP e ai controlli del budget."
+        }
+      ]
+    }
+  },
+  "rsvp": {
+    "invitationHeading": "Siete invitati",
+    "previewTitle": "Anteprima della pagina invitati",
+    "previewHint": "Prova l'invito con dati di esempio. Le risposte qui non vengono salvate. Torna nell'app per modificare o pubblicare il design.",
+    "previewInvitation": "Invito",
+    "previewAccepted": "Risposta di accettazione",
+    "previewDeclined": "Risposta di rifiuto",
+    "previewGuest": "Il vostro invitato",
+    "previewCouple": "la coppia felice",
+    "previewInvalid": "Impossibile caricare questa anteprima. Aprine una nuova dall'editor RSVP.",
+    "seoTitle": "RSVP",
+    "seoDescription": "Rispondi all'invito di matrimonio. Fai sapere alla coppia se potrai partecipare.",
+    "opening": "Apertura del tuo invito",
+    "openingDetail": "Un momento, stiamo raccogliendo i dettagli…",
+    "unavailableTitle": "RSVP al momento non disponibile",
+    "unavailableBody": "Questo invito al momento non può ricevere risposte. La coppia potrebbe dover ridurre la lista degli invitati o ripristinare il proprio piano. Contattala direttamente.",
+    "notFoundTitle": "Invito non trovato",
+    "detailsSaved": "Dettagli salvati",
+    "detailsSavedBody": "I tuoi dettagli sono stati salvati.",
+    "detailsReturnBody": "Conserva questo link privato. Puoi tornare in qualsiasi momento per controllare o aggiornare i dettagli.",
+    "updateDetails": "Aggiorna dettagli",
+    "saveDetails": "Salva dettagli",
+    "coupleDetailsBody": "Aggiungi le tue preferenze e le esigenze alimentari per la giornata.",
+    "confirmed": "RSVP confermato",
+    "acceptedTitle": "Ci vediamo lì!",
+    "declinedTitle": "Grazie",
+    "acceptedBody": "Grazie, {name}! Abbiamo registrato la tua risposta. Non vediamo l'ora di festeggiare insieme a te.",
+    "declinedBody": "Grazie per averci avvisato, {name}. Ci mancherai!",
+    "attending": "Partecipa",
+    "notAttending": "Non partecipa",
+    "withLove": "Con affetto, {name}",
+    "plansChanged": "Sono cambiati i programmi?",
+    "plansChangedBody": "Conserva questo link privato. Puoi tornare in qualsiasi momento per controllare o aggiornare la risposta RSVP.",
+    "updateResponse": "Aggiorna la mia risposta",
+    "coupleWelcome": "{name} desiderano festeggiare insieme a te",
+    "savedResponse": "Qui sotto trovi la risposta salvata. Puoi aggiornarla e inviarla di nuovo ogni volta che cambiano i tuoi programmi.",
+    "willYouAttend": "Parteciperai?",
+    "chooseResponse": "Scegli la risposta più adatta a te.",
+    "accept": "Accetto con gioia",
+    "decline": "Purtroppo non potrò esserci",
+    "detailsTitle": "I tuoi dettagli",
+    "detailsBody": "Fai sapere alla coppia di cosa avrai bisogno quel giorno.",
+    "mealPreference": "Preferenza alimentare",
+    "noPreference": "Nessuna preferenza",
+    "noDishes": "Non sono stati indicati piatti per questo menu.",
+    "noMealOptions": "Non sono state ancora aggiunte opzioni per il pasto.",
+    "previousSelection": "Scelta precedente: {value}",
+    "dietaryRequirements": "Esigenze alimentari",
+    "dietaryPlaceholder": "Allergie, intolleranze o richieste speciali",
+    "willGuestAttend": "{name} parteciperà?",
+    "send": "Invia RSVP",
+    "sending": "Invio...",
+    "validationResponse": "Seleziona la tua risposta",
+    "missingToken": "Questo link RSVP non contiene un token. Controlla il link ricevuto.",
+    "invalidToken": "Questo link RSVP non è valido o è scaduto. Chiedi alla coppia un nuovo link.",
+    "loadError": "Si è verificato un problema nel caricamento dell'invito. Riprova più tardi.",
+    "missingGuestResponse": "Seleziona una risposta per {name}.",
+    "submitError": "Impossibile inviare l'RSVP. Controlla la connessione e riprova."
+  },
+  "wishlist": {
+    "gifts": "Regali",
+    "mostWanted": "I più desiderati",
+    "available": "Disponibili: {remaining} su {desired}",
+    "fullyReserved": "Tutto prenotato",
+    "openShop": "Apri negozio ↗",
+    "reservedByYou": "Hai prenotato {count}",
+    "updating": "Aggiornamento...",
+    "cancel": "Annulla prenotazione",
+    "quantityFor": "Quantità per {title}",
+    "reserving": "Prenotazione...",
+    "reserve": "Prenota regalo",
+    "unavailable": "Non più disponibile",
+    "cancelled": "Prenotazione annullata per {title}.",
+    "success": "{title} prenotato correttamente.",
+    "error": "Impossibile aggiornare questa prenotazione. Riprova."
+  },
+  "gallery": {
+    "seoTitle": "Lista scatti del matrimonio",
+    "seoDescription": "Visualizza una lista scatti del matrimonio condivisa con foto.",
+    "loading": "Caricamento della lista scatti...",
+    "notFoundTitle": "Lista scatti non trovata",
+    "kicker": "Fotografia di matrimonio",
+    "title": "Lista scatti di {name}",
+    "shots": "scatti",
+    "mustHave": "irrinunciabili",
+    "groups": "gruppi",
+    "shotList": "Lista scatti",
+    "shotCount": "{count} scatto | {count} scatti",
+    "noShots": "Non sono ancora stati aggiunti scatti a questa lista.",
+    "mustHaveLabel": "Irrinunciabile",
+    "mustHaveBadge": "Irrinunciabile",
+    "emptyTitle": "Ancora niente qui",
+    "emptyBody": "La lista scatti è vuota. Torna più tardi!",
+    "categories": {
+      "details": "Dettagli",
+      "getting_ready": "Preparativi",
+      "ceremony": "Cerimonia",
+      "family": "Famiglia",
+      "reception": "Ricevimento"
+    },
+    "missingToken": "Questo link alla lista scatti non contiene un token. Controlla il link ricevuto.",
+    "inactive": "Questo link alla lista scatti non è più attivo. La coppia potrebbe aver disattivato la condivisione o rigenerato il link.",
+    "invalid": "Link alla lista scatti non valido.",
+    "loadError": "Si è verificato un problema nel caricamento della lista scatti. Riprova più tardi."
+  },
+  "deleteAccount": {
+    "title": "Elimina il tuo account Wedlune",
+    "date": "2 settembre 2026",
+    "appTitle": "Eliminazione nell'app",
+    "appIntro": "Il modo più rapido per eliminare l'account è dall'app Wedlune:",
+    "steps": [
+      "Apri l'app Wedlune e accedi.",
+      "Vai alle Impostazioni.",
+      "Seleziona Elimina account.",
+      "Conferma la password quando richiesto."
+    ],
+    "emailTitle": "Richiedere l'eliminazione per email",
+    "emailSubject": "Richiesta di eliminazione dell'account Wedlune",
+    "emailBefore": "Se non puoi accedere all'app, scrivi a",
+    "emailAfter": "dall'indirizzo email usato per l'account Wedlune e inserisci «Richiesta di eliminazione account» nell'oggetto. Potremmo chiedere di verificare la titolarità dell'account prima di completare la richiesta.",
+    "deletedTitle": "Cosa viene eliminato",
+    "deletedBody": "L'eliminazione dell'account rimuove account di autenticazione, profilo, dati IA privati e registrazioni del consenso, analisi e archiviazione specifica dell'account ove tecnicamente possibile. Se non rimane un partner, vengono eliminati anche il piano del matrimonio, i relativi dati e i file condivisi. Se rimane un partner, il piano condiviso, i dati del piano, la cronologia delle attività e i file condivisi restano disponibili a quel partner; i dati IA privati non vengono trasferiti. L'eliminazione dei file archiviati può completarsi in modo asincrono dopo la chiusura dell'account.",
+    "retainedTitle": "Cosa può essere conservato",
+    "retainedBody": "Possiamo conservare registrazioni limitate quando necessario per sicurezza, prevenzione delle frodi, fiscalità/contabilità, gestione delle controversie o adempimenti legali. Eliminare l'account Wedlune o disinstallare l'app non annulla un abbonamento attivo Google Play o Apple App Store; occorre gestirlo tramite lo store in cui è stato acquistato.",
+    "privacyTitle": "Informativa sulla privacy",
+    "privacyBefore": "Leggi l'",
+    "privacyLink": "Informativa sulla privacy di Wedlune",
+    "privacyAfter": "per ulteriori dettagli su eliminazione, conservazione e diritti sulla privacy.",
+    "seoTitle": "Elimina il tuo account",
+    "seoDescription": "Come eliminare l'account Wedlune e i dati associati del piano del matrimonio."
+  },
+  "privacy": {
+    "title": "Informativa sulla privacy",
+    "date": "2 settembre 2026",
+    "seoTitle": "Informativa sulla privacy",
+    "seoDescription": "Informativa sulla privacy di Wedlune: come raccogliamo, utilizziamo e proteggiamo i dati del piano del matrimonio.",
+    "s1Title": "1. Titolare del trattamento e contatti",
+    "s1Before": "Wedlune («noi», «nostro») è il titolare del trattamento dei dati dell'account e del servizio descritti in questa informativa e fornisce l'app mobile e il sito web Wedlune. Per richieste sulla privacy, contattarci all'indirizzo",
+    "s1After": "Questo indirizzo viene monitorato per richieste di accesso, rettifica, cancellazione, opposizione, consenso e altre richieste sulla protezione dei dati.",
+    "s2Title": "2. Informazioni raccolte",
+    "s2Intro": "Raccogliamo le informazioni fornite o create nell'app o nelle pagine web destinate agli invitati:",
+    "s2Items": [
+      "Informazioni sull'account: indirizzo email, nome, nome del partner, identificativi di autenticazione, lingua, valuta, tema, stato dell'abbonamento e dettagli degli inviti al partner.",
+      "Dettagli del matrimonio: data, stile della location, luogo, preferenze per la cerimonia, intervallo di budget, numero di invitati, risposte al questionario, note e preferenze dei suggerimenti.",
+      "Dati del piano: invitati e dettagli RSVP, design e immagini della pagina RSVP, liste desideri, immagini delle liste desideri, prenotazioni private dei regali, note su pasti ed esigenze alimentari, posti a sedere, budget, fornitori, location, alloggi, trasporti, abbigliamento, documenti legali, cronologie, checklist, scadenze di pagamento, modelli di messaggi, foto e link alle liste scatti condivise. Le note su alimentazione, accessibilità e simili possono rivelare informazioni sensibili: inserire solo quanto necessario. Per una prenotazione conserviamo l'articolo della lista desideri, la quantità e il riferimento minimo al gruppo RSVP necessario a consentirgli di modificarla o annullarla. Alla coppia e agli altri invitati vengono mostrate le quantità, non l'identità del gruppo che prenota.",
+      "Dati delle funzionalità IA previo consenso: messaggi e risposte accettati, titoli e riepiloghi delle conversazioni, proposte di azioni, criteri e risultati dei suggerimenti, feedback, titoli e URL delle fonti, registrazioni del consenso e metadati operativi come modello utilizzato, utilizzo, costo, cache e dettagli della generazione.",
+      "Dati tecnici: metadati di dispositivo, app e browser; indirizzo IP e dati delle richieste al sito web e alle Edge Functions; stato della sincronizzazione locale; log degli errori con dati sensibili oscurati; log di sicurezza; registrazioni dei limiti di frequenza e marcature temporali necessarie a far funzionare e proteggere il servizio.",
+      "Analisi facoltative: eventi di utilizzo limitati solo se l'utente attiva esplicitamente le analisi nelle Impostazioni dell'app. Il contenuto di prompt e messaggi IA non viene inviato alle analisi dell'app."
+    ],
+    "s3Title": "3. Utilizzo delle informazioni",
+    "s3Paragraphs": [
+      "Utilizziamo i dati personali per fornire e proteggere app e sito web, autenticare gli utenti, sincronizzare i dati del piano, consentire la collaborazione con il partner e le funzionalità pubbliche RSVP/galleria, fornire le funzionalità richieste, elaborare gli abbonamenti, assistere gli utenti, prevenire abusi, adempiere agli obblighi legali e migliorare il servizio quando le analisi sono attivate.",
+      "Le funzionalità essenziali si basano sull'esecuzione del contratto; funzionalità IA facoltative, analisi, pubblicità personalizzata ove offerta e autorizzazioni del dispositivo si basano sul consenso ove applicabile; sicurezza, prevenzione delle frodi, limiti di frequenza, prove del consenso richieste, documenti fiscali, contabili e di conformità si basano su legittimi interessi o obblighi legali. La sezione 6 spiega il consenso IA condiviso. Non vendiamo i dati di pianificazione del matrimonio.",
+      "Le informazioni dell'account sono necessarie per crearlo e proteggerlo; gli altri campi sono facoltativi salvo diversa indicazione della funzionalità. Wedlune non adotta decisioni esclusivamente automatizzate con effetti giuridici o analogamente significativi. I risultati IA sono consultivi e le modifiche al piano richiedono revisione o conferma dell'utente."
+    ],
+    "s4Title": "4. Conservazione, sicurezza e trasferimenti",
+    "s4Paragraphs": [
+      "I dati cloud, inclusi la cronologia privata delle chat IA e dei suggerimenti, sono conservati con Supabase tramite autenticazione, sicurezza a livello di riga (Row-Level Security), controlli di accesso per matrimonio e trasporto cifrato (TLS). Foto caricate, immagini del design RSVP, immagini della lista desideri e documenti sono conservati in Supabase Storage con controlli di accesso. Cloudflare fornisce DNS, distribuzione, sicurezza e hosting per wedlune.com e le relative pagine pubbliche RSVP, galleria e callback di autenticazione, ed elabora metadati di traffico e richieste, come gli indirizzi IP.",
+      "La connessione attuale a OpenRouter usa il suo endpoint globale e OpenRouter, i fornitori dei modelli selezionati, Exa, Cloudflare o altri fornitori di servizi possono trattare dati pertinenti al servizio fuori dallo SEE. Ove richiesto dal GDPR, i trasferimenti si basano su decisioni di adeguatezza, clausole contrattuali standard nell'accordo applicabile sul trattamento dei dati o garanzie equivalenti."
+    ],
+    "s5Title": "5. Dati locali e notifiche",
+    "s5Body": "L'app conserva sul dispositivo token di sessione protetti, stato «Ricordami», preferenze, cache offline, modifiche offline in attesa e programmi delle notifiche locali. Le notifiche sono generate localmente e possono includere titoli delle attività e tempi di scadenza.",
+    "s6Title": "6. Funzionalità IA",
+    "s6Paragraphs": [
+      "Chat IA, suggerimenti e ricerca di attività, ricerca di location e suggerimenti di attività mancanti condividono un unico consenso facoltativo per la versione corrente dell'informativa. Il consenso viene registrato per account, riutilizzato sui dispositivi connessi e resta indipendente per ogni partner. Viene verificato prima dell'accesso a risultati IA salvati, cache, quote, contesto del matrimonio o chiamate ai modelli. Alcune funzionalità richiedono separatamente Premium. Il calcolo dei percorsi e la generazione deterministica della cronologia non rientrano in questo consenso.",
+      "Quando l'utente acconsente e usa una funzionalità IA, le Supabase Edge Functions protette inviano solo i dati necessari alla richiesta ai servizi IA e di ricerca elencati nella sezione 7. Possono essere inclusi la domanda filtrata, la cronologia recente ripulita, riepiloghi del piano privi di dati privati degli invitati, dettagli pubblici pertinenti di attività salvate, località pubbliche e criteri di ricerca e un valore pseudonimo di instradamento. Sono esclusi nomi, contatti e note di invitati e coppia; identificativi di account e piano; file; note interne; etichette private dei percorsi e coordinate dei percorsi. Il rilevamento non è perfetto: non inserire manualmente dati personali di terzi. Le proposte di azioni generate dall'IA non possono apportare modifiche da sole: l'app risolve localmente i campi privati e chiede di confermare la modifica esatta.",
+      "Wedlune conserva privatamente in Supabase messaggi e risposte accettati, titoli e riepiloghi delle conversazioni, proposte e relativo stato, criteri e risultati dei suggerimenti, titoli e URL delle fonti, feedback e metadati operativi. Gli estratti grezzi delle ricerche web e i contenuti delle pagine non vengono conservati. La revoca del consenso blocca tutte le funzionalità IA interessate ed elimina definitivamente conversazioni IA, messaggi, proposte, feedback, suggerimenti, selezioni dei suggerimenti e risposte di approfondimento dell'utente. Le attività commerciali importate, le attività accettate e le altre modifiche confermate al piano rimangono. Possono essere conservate le prove del consenso richieste e registrazioni limitate di sicurezza o dei limiti di frequenza.",
+      "Separatamente, la geocodifica dei percorsi invia a openrouteservice il testo degli estremi del percorso e l'eventuale paese indicato dall'utente, quindi le coordinate selezionate per calcolare distanza e durata. Non riceve identificativi di matrimonio, utente, invitati o schede del piano. Non inserire indirizzi di abitazioni private o altri dati personali di terzi.",
+      "I risultati IA possono essere incompleti o errati. Esaminare e verificare sempre autonomamente disponibilità, prezzi, aspetti legali, tempistiche e altre informazioni importanti prima dell'uso."
+    ],
+    "aiQuotaBody": "Limiti di utilizzo: i suggerimenti Free consentono una generazione riuscita per sezione e per matrimonio con un massimo di due risultati; Premium ne consente 10 ogni 24 ore mobili con un massimo di quattro risultati. Le ricerche Free di attività mancanti consentono una scansione riuscita per matrimonio con un massimo di tre attività; Premium ne consente cinque ogni 24 ore mobili con un massimo di cinque attività. La ricerca Free di location consente due ricerche uniche riuscite per matrimonio; Premium ne consente 20 ogni 24 ore mobili. La chat IA Premium consente 20 turni completati ogni ora mobile e 100 ogni 24 ore mobili per account. Risposte in cache, chiamate ai fornitori non riuscite e prenotazioni di quota rilasciate non consumano quota; aggiornamenti in background e perfezionamenti la consumano. Possono applicarsi limiti separati contro picchi di utilizzo abusivo e vengono conservati metadati operativi delle quote per applicare i limiti e proteggere il servizio.",
+    "s7Title": "7. Servizi di terzi",
+    "s7Intro": "Utilizziamo i seguenti servizi:",
+    "s7Items": [
+      "Supabase: autenticazione, database, archiviazione ed Edge Functions.",
+      "Google Play o Apple App Store e RevenueCat: acquisti, stato degli abbonamenti, identificativi dei prodotti, date di scadenza e metadati delle transazioni. Non riceviamo i dati completi delle carte di pagamento.",
+      "Cloudflare: DNS, distribuzione dei contenuti, sicurezza e hosting del sito pubblico e delle pagine RSVP, galleria e callback di autenticazione; elabora indirizzi IP e metadati di traffico/richieste.",
+      "Google AdMob: banner del piano Free, che possono raccogliere identificativi del dispositivo, posizione approssimativa, interazioni con gli annunci e diagnostica secondo le politiche di Google. Gli utenti Premium non vedono annunci.",
+      "OpenRouter e i fornitori dei modelli selezionati: elaborazione di richieste minimizzate della chat IA e della ricerca verificata di attività. Gli endpoint dei modelli ammessi sono limitati a quelli indicati da OpenRouter come Zero Data Retention e privi di raccolta dati.",
+      "Exa: ricerche sul web pubblico e recupero di prove da pagine pubbliche per la ricerca verificata di attività. Wedlune non conserva le prove grezze.",
+      "openrouteservice: geocodifica del testo degli estremi dei trasporti inserito dall'utente e calcolo dei percorsi da coppie di coordinate selezionate.",
+      "Google Gemini: suggerimenti di attività mancanti senza stato persistente. Le informative dei fornitori spiegano le prassi di trattamento e non sono termini aggiuntivi accettati personalmente dagli utenti tramite Wedlune."
+    ],
+    "s8Title": "8. Collaborazione con il partner e dati degli invitati",
+    "s8Paragraphs": [
+      "Wedlune consente di invitare un partner al piano condiviso del matrimonio. Conserviamo email degli inviti, stato degli inviti, permessi del partner e registrazioni delle attività. A seconda del ruolo scelto, il partner può visualizzare o modificare dati condivisi come invitati, budget, fornitori, cronologia, foto e documenti.",
+      "Non aggiungere dati personali di terzi, inclusi recapiti o informazioni alimentari degli invitati, senza una base lecita e la possibilità di condividere con loro queste informazioni sulla privacy, se necessario.",
+      "Un invitato che apre un link RSVP valido può visualizzare una lista desideri pubblicata e prenotare quantità indipendentemente dalla risposta RSVP. L'associazione al gruppo che prenota serve a evitare duplicati e consentire allo stesso gruppo di modificare o annullare la prenotazione; non viene esposta nelle risposte destinate alla coppia o agli invitati.",
+      "Se un membro elimina l'account mentre rimane un partner, il piano condiviso, i contributi, la cronologia delle attività e i file condivisi restano al partner. I dati specifici dell'account e la cronologia IA privata non vengono trasferiti."
+    ],
+    "rsvpPlanBody": "Un partner con accesso in modifica o sola lettura e la cronologia delle attività sono inclusi in Free. L'abbonamento Premium diretto di uno dei due membri sblocca il matrimonio condiviso; lo scollegamento rimuove solo l'accesso condiviso derivato. Un token RSVP pubblico valido viene verificato prima dello stato del piano. L'RSVP Free usa la presentazione predefinita fino a 50 persone invitate ed esclude i dati della lista desideri. Oltre 50, le risposte vengono sospese senza rivelare dettagli dell'abbonamento. Premium può mostrare il design pubblicato conservato e la lista desideri; la scadenza li conserva e il rinnovo li ripristina.",
+    "s9Title": "9. Analisi di utilizzo",
+    "s9Paragraphs": [
+      "Le analisi di utilizzo sono disattivate per impostazione predefinita. Se attivate nelle Impostazioni, raccogliamo eventi limitati nell'app, come registrazione, accesso, completamento del questionario, generazione di suggerimenti, azioni sulle attività e conteggi aggregati di schermate/sessioni. Gli eventi possono essere collegati all'account per migliorare il prodotto e comprendere l'adozione delle funzionalità. È possibile disattivare le analisi in qualsiasi momento; ciò interrompe la raccolta e cancella le analisi in attesa sul dispositivo.",
+      "Non utilizziamo SDK esterni per la segnalazione degli arresti anomali."
+    ],
+    "s10Title": "10. Conservazione ed eliminazione",
+    "s10Before": "Conserviamo i dati dell'account e del piano finché l'account è attivo. È possibile eliminarlo nell'app da Impostazioni → Elimina account o tramite la nostra",
+    "s10Link": "pagina di eliminazione dell'account",
+    "s10After": "L'eliminazione rimuove account di autenticazione, profilo, dati IA privati e consenso, analisi e archiviazione specifica dell'account ove tecnicamente possibile. Se non rimane un partner, vengono eliminati anche il piano del matrimonio, i relativi dati e i file condivisi. Se rimane un partner, il piano condiviso, i dati del piano, la cronologia delle attività e i file condivisi restano disponibili a quel partner; i dati IA privati non vengono trasferiti. L'eliminazione dei file archiviati può completarsi in modo asincrono dopo la chiusura dell'account. È anche possibile eliminare singole conversazioni IA o tutte le chat senza eliminare l'account.",
+    "s10Retained": "Possiamo conservare registrazioni limitate quando necessario per sicurezza, prevenzione delle frodi, fiscalità/contabilità, gestione delle controversie o adempimenti legali.",
+    "s11Title": "11. Diritti dell'utente",
+    "s11Body": "Se si applica il GDPR, è possibile richiedere accesso, rettifica, cancellazione, limitazione, portabilità, opposizione al trattamento basato su legittimi interessi e revoca del consenso quando il trattamento si basa su di esso. Il consenso IA può essere revocato nelle Impostazioni; la sezione 6 spiega l'eliminazione conseguente e la conservazione delle modifiche confermate al piano. È possibile presentare reclamo all'autorità locale per la protezione dei dati dell'UE/SEE.",
+    "s12Title": "12. Minori",
+    "s12Body": "Wedlune non è destinato a minori di 16 anni. Per creare un account è necessario avere almeno 16 anni; se la legge applicabile richiede un'età o una capacità giuridica superiore, si applica tale requisito.",
+    "s13Title": "13. Contatti",
+    "s13Before": "Per domande o richieste sulla privacy, contattare"
+  },
+  "terms": {
+    "title": "Termini di servizio",
+    "date": "2 settembre 2026",
+    "seoTitle": "Termini di servizio",
+    "seoDescription": "Termini di servizio di Wedlune: regole e indicazioni per l'uso della nostra app di organizzazione del matrimonio.",
+    "s1Title": "1. Accettazione dei termini",
+    "s1Body": "Scaricando, installando o utilizzando Wedlune, l'utente accetta i presenti Termini di servizio. In caso di mancata accettazione, non utilizzare l'app.",
+    "s2Title": "2. Descrizione del servizio",
+    "s2Body": "Wedlune è un'app per organizzare il matrimonio con pianificazione condivisa con il partner, cronologie, promemoria, budget, fornitori, liste invitati, posti manuali, liste desideri, foto e una pagina RSVP pubblica di base. L'RSVP Free usa la presentazione predefinita per matrimoni con non più di 50 persone invitate. Premium aggiunge personalizzazione e immagini RSVP, condivisione e prenotazioni della lista desideri, posti visuali, esportazioni, strumenti IA, viste e notifiche avanzate, limiti più elevati e un'esperienza senza pubblicità. Gli utenti Free possono visualizzare banner pubblicitari di Google AdMob.",
+    "s3Title": "3. Solo strumento di organizzazione",
+    "s3Paragraphs": [
+      "Wedlune è un supporto organizzativo, non un wedding planner professionista, un coordinatore di eventi, un fornitore, un consulente legale o finanziario o un servizio di emergenza. Wedlune non stipula, monitora né esegue gli accordi dell'utente con location, fornitori, invitati o altri terzi. L'utente resta responsabile delle proprie decisioni, dell'esame dei contratti e della verifica autonoma di prenotazioni, date, orari, prezzi, pagamenti, requisiti legali, esigenze di accessibilità e alimentari e istruzioni direttamente con le persone interessate. In caso di conflitto con le informazioni mostrate nell'app, prevalgono gli accordi con terzi e i diritti inderogabili dell'utente.",
+      "Le liste desideri hanno solo funzione organizzativa. Wedlune non vende regali, elabora pagamenti per regali, verifica acquisti, organizza spedizioni né garantisce disponibilità, prezzi, consegna, qualità, resi o rimborsi dei rivenditori. Una prenotazione registra l'intenzione dichiarata di un gruppo RSVP e non costituisce prova dell'acquisto di un regalo. I link ai prodotti rimandano a siti indipendenti di terzi, soggetti ai rispettivi termini e prassi sulla privacy."
+    ],
+    "s4Title": "4. Informazioni urgenti e copie di sicurezza",
+    "s4Body": "Non utilizzare Wedlune come unica registrazione o fonte di informazioni necessarie il giorno del matrimonio o per altre scadenze fisse. Prima dell'evento, verificare autonomamente tutti i dettagli essenziali e conservare copie di sicurezza accessibili di programmi, contatti, indirizzi, contratti, pagamenti, piani di trasporto e informazioni sanitarie, allergiche o alimentari. Promemoria e notifiche dell'app possono arrivare in ritardo o non essere ricevuti a causa di impostazioni del dispositivo, restrizioni della batteria, connettività, comportamento del sistema operativo o errori tecnici. Predisporre un adeguato coordinamento umano e un piano di comunicazione alternativo per l'evento.",
+    "s5Title": "5. Account utente",
+    "s5Items": [
+      "Per creare un account è necessario avere almeno 16 anni; se la legge applicabile richiede un'età o una capacità giuridica superiore, si applica tale requisito.",
+      "È necessario fornire un indirizzo email valido e informazioni accurate.",
+      "L'utente è responsabile della riservatezza delle credenziali e delle attività svolte con il proprio account.",
+      "È possibile invitare il partner a condividere il piano del matrimonio. I dati condivisi sono visibili secondo i permessi scelti per il partner."
+    ],
+    "s6Title": "6. Contenuti dell'utente",
+    "s6Body": "L'utente conserva la proprietà dei contenuti caricati o creati, comprese foto, informazioni sugli invitati, documenti legali e dettagli del matrimonio. Conferma di disporre dei diritti e di una base lecita per fornire tali contenuti, inclusi i dati personali di terzi, e di fornire a tali persone le informazioni sulla privacy richieste. Ci concede una licenza limitata per conservare, trattare, visualizzare e sincronizzare i contenuti esclusivamente per erogare il servizio. In caso di collaborazione con un partner, i contenuti vengono condivisi secondo i permessi selezionati e quelli del piano condiviso possono rimanere al partner se l'utente elimina il proprio account.",
+    "s7Title": "7. Contenuti generati dall'IA",
+    "s7ConsentScope": "Chat IA, suggerimenti e ricerca di attività, ricerca di location e suggerimenti di attività mancanti sono funzionalità online facoltative e richiedono la versione corrente del consenso IA di ogni titolare di account. Un'unica accettazione abilita le funzionalità interessate per quell'account su tutti i dispositivi; il partner acconsente separatamente. Accesso Premium e quote restano separati. Il calcolo dei percorsi e la generazione deterministica della cronologia non sono inclusi. La revoca elimina i risultati IA conservati ma mantiene le attività commerciali importate, le attività accettate e le altre modifiche confermate al piano.",
+    "s7Body": "La chat IA Premium funziona solo online ed è limitata a 20 turni completati ogni ora mobile e 100 ogni 24 ore mobili per account. I suggerimenti consentono una generazione Free riuscita per sezione e per matrimonio con un massimo di due risultati, oppure 10 generazioni Premium ogni 24 ore mobili per matrimonio con un massimo di quattro risultati ciascuna. Le ricerche di attività mancanti consentono una scansione Free riuscita per matrimonio con un massimo di tre attività, oppure cinque scansioni Premium ogni 24 ore mobili con un massimo di cinque attività ciascuna. La ricerca di location consente due ricerche Free uniche riuscite per matrimonio, oppure 20 ricerche Premium ogni 24 ore mobili. Risposte in cache, chiamate ai fornitori non riuscite e prenotazioni di quota rilasciate non consumano queste quote; aggiornamenti in background e perfezionamenti le consumano. Possono applicarsi limiti antiabuso separati. Con consenso alla versione corrente, l'IA usa un contesto del piano minimizzato e privo di dati privati degli invitati e dati pubblici delle attività tramite i responsabili descritti nell'Informativa sulla privacy. L'IA può preparare proposte prive di identificativi, ma nulla cambia finché l'utente non le esamina e conferma. I risultati possono essere incompleti o inesatti; verificare autonomamente le informazioni importanti.",
+    "s8Title": "8. Uso accettabile",
+    "s8Intro": "L'utente si impegna a non:",
+    "s8Items": [
+      "Usare Wedlune per scopi illeciti.",
+      "Caricare contenuti illeciti, lesivi di diritti o dannosi.",
+      "Tentare di accedere ai dati di altri utenti o aggirare i controlli di accesso.",
+      "Interferire con la sicurezza o il funzionamento del servizio.",
+      "Effettuare reverse engineering, decompilare o disassemblare l'app, salvo ove espressamente consentito da norme inderogabili.",
+      "Utilizzare strumenti automatizzati per estrarre dati o usare impropriamente il servizio."
+    ],
+    "s9Title": "9. Abbonamenti",
+    "s9Body": "Premium può essere offerto come abbonamento a rinnovo automatico tramite Google Play o Apple App Store, a seconda della piattaforma, con acquisti e diritti di accesso gestiti tramite RevenueCat. Prima dell'acquisto, la schermata mostra prezzo disponibile, periodo di fatturazione, prova e condizioni di rinnovo. Salvo che lo store indichi un piano senza rinnovo, l'abbonamento si rinnova automaticamente fino all'annullamento tramite lo store pertinente. Annullamento, fatturazione e rimborsi sono disciplinati dai termini dello store e dalle norme inderogabili. Eliminare l'account Wedlune o disinstallare l'app non annulla un abbonamento. L'abbonamento diretto attivo di uno dei due membri può sbloccare Premium per il matrimonio condiviso, ma solo l'acquirente può gestirlo; scollegare un partner non lo annulla.",
+    "s10Title": "10. Disponibilità del servizio",
+    "s10Body": "Ci impegniamo a mantenere un servizio affidabile, ma non garantiamo che Wedlune sia ininterrotto, privo di errori o disponibile in un determinato momento, incluso il giorno del matrimonio. Manutenzione, aggiornamenti, guasti tecnici, problemi di servizi terzi, di rete o del dispositivo ed eventi al di fuori del nostro ragionevole controllo possono interrompere l'app o ritardare sincronizzazione e notifiche. I dati online, sincronizzati, locali o in cache possono talvolta essere in ritardo, incompleti, indisponibili o persi. Queste dichiarazioni non riducono i diritti relativi al servizio o alla conformità che non possono essere esclusi dalla normativa applicabile a tutela dei consumatori.",
+    "s11Title": "11. Cessazione ed eliminazione dell'account",
+    "s11BeforeDelete": "È possibile eliminare l'account in qualsiasi momento da Impostazioni → Elimina account nell'app o richiederne l'eliminazione tramite la nostra",
+    "s11DeleteLink": "pagina di eliminazione dell'account",
+    "s11Middle": "Se il matrimonio è condiviso, eliminare un account non cancella il piano condiviso del partner rimanente. Possiamo sospendere o chiudere account che violano in modo sostanziale questi termini, nel rispetto della legge applicabile. I dati vengono trattati come descritto nella nostra",
+    "s11PrivacyLink": "Informativa sulla privacy",
+    "s12Title": "12. Limitazione di responsabilità",
+    "s12Body": "Nella misura massima consentita dalla legge, Wedlune viene fornito «così com'è» e «come disponibile», senza garanzie che possano essere legittimamente escluse. Non controlliamo e non siamo responsabili di atti, omissioni, disponibilità, prodotti o servizi di location, fornitori, invitati, app store, operatori di rete o altri terzi. Nella misura massima consentita dalla legge, non rispondiamo di perdite indirette, incidentali, speciali o consequenziali derivanti dall'uso o dall'impossibilità di usare Wedlune, inclusi perdita o corruzione di dati, scadenze o appuntamenti mancati, errori di pianificazione, inadempimenti dei fornitori, costi aggiuntivi dell'evento, interruzione o annullamento dell'evento o affidamento su promemoria, notifiche, risultati IA o informazioni di terzi. Nulla in questi termini esclude o limita responsabilità, rimedi, garanzie o diritti dei consumatori che non possano essere legalmente esclusi o limitati, inclusa la responsabilità per frode, dolo, colpa grave o morte o lesioni personali, ove applicabile.",
+    "s13Title": "13. Modifiche ai termini",
+    "s13Body": "Possiamo aggiornare periodicamente i termini o il servizio. Le modifiche sostanziali verranno comunicate tramite l'app o per email, in anticipo ove richiesto. Le modifiche non ridurranno l'accesso a pagamento o i diritti inderogabili relativi ai servizi digitali e dei consumatori, salvo quanto consentito dalla legge. Se non si accettano i termini aggiornati, è possibile interrompere l'uso dell'app ed eliminare l'account.",
+    "s14Title": "14. Contatti",
+    "s14Before": "Per domande sui presenti termini, contattare"
+  },
+  "error": {
+    "notFound": "Pagina non trovata",
+    "notFoundBody": "La pagina cercata non esiste o è stata spostata.",
+    "oops": "Ops",
+    "title": "Qualcosa è andato storto",
+    "body": "Si è verificato un errore imprevisto.",
+    "notFoundSeo": "Pagina non trovata — Wedlune",
+    "seo": "Errore — Wedlune"
+  },
+  "authCallback": {
+    "title": "Apri Wedlune",
+    "body": "Apri questo link nell’app Wedlune per completare la procedura sicura dell’account.",
+    "button": "Apri Wedlune",
+    "invalid": "Questo link di autenticazione non è valido o è scaduto."
+  }
+}

@@ -133,7 +133,7 @@
       "photoAlt": "Wedding rings resting on soft pink flowers",
       "stats": [
         { "value": "1", "label": "shared wedding plan" },
-        { "value": "2", "label": "supported languages" },
+        { "value": "3", "label": "supported languages" },
         { "value": "All", "label": "planning essentials" }
       ],
       "suggestion": "A helpful next step",
@@ -304,6 +304,7 @@
     }
   },
   "rsvp": {
+    "invitationHeading": "You're Invited",
     "previewTitle": "Guest page preview",
     "previewHint": "Try your invitation with sample guest details. Responses here are not saved. Return to the app to edit or publish your design.",
     "previewInvitation": "Invitation",
@@ -516,5 +517,11 @@
     "body": "An unexpected error occurred.",
     "notFoundSeo": "Page Not Found — Wedlune",
     "seo": "Error — Wedlune"
+  },
+  "authCallback": {
+    "title": "Open Wedlune",
+    "body": "Open this link in the Wedlune app to finish the secure account flow.",
+    "button": "Open Wedlune",
+    "invalid": "This authentication link is invalid or has expired."
   }
 }

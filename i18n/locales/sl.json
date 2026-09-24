@@ -133,7 +133,7 @@
       "photoAlt": "Poročna prstana na nežno rožnatih cvetovih",
       "stats": [
         { "value": "1", "label": "skupni poročni načrt" },
-        { "value": "2", "label": "podprta jezika" },
+        { "value": "3", "label": "podprta jezika" },
         { "value": "Vse", "label": "ključne funkcije" }
       ],
       "suggestion": "Koristen naslednji korak",
@@ -304,6 +304,7 @@
     }
   },
   "rsvp": {
+    "invitationHeading": "Vabljeni",
     "previewTitle": "Predogled strani za goste",
     "previewHint": "Preizkusite vabilo z vzorčnimi podatki gosta. Odgovori se tukaj ne shranijo. Za urejanje ali objavo se vrnite v aplikacijo.",
     "previewInvitation": "Vabilo",
@@ -516,5 +517,11 @@
     "body": "Prišlo je do nepričakovane napake.",
     "notFoundSeo": "Strani ni bilo mogoče najti — Wedlune",
     "seo": "Napaka — Wedlune"
+  },
+  "authCallback": {
+    "title": "Odpri Wedlune",
+    "body": "Za dokončanje varnega postopka odpri povezavo v aplikaciji Wedlune.",
+    "button": "Odpri Wedlune",
+    "invalid": "Povezava za prijavo ni veljavna ali je potekla."
   }
 }

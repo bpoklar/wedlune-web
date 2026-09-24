@@ -16,7 +16,7 @@ useLocalizedSeo({
   title: () => t("home.seoTitle"),
   description: () => t("home.seoDescription"),
   path: "/",
-  image: computed(() => locale.value === "sl" ? "/og/home-sl.png" : "/og/home-en-v2.png"),
+  image: "/og/home-en-v2.png",
   imageAlt: () => t("home.ogImageAlt"),
 });
 
@@ -26,7 +26,7 @@ useStructuredData("homepage", () => [
     "@id": "https://wedlune.com/#website",
     name: "Wedlune",
     url: "https://wedlune.com",
-    inLanguage: locale.value === "sl" ? "sl" : "en",
+    inLanguage: locale.value,
   },
   {
     "@type": "SoftwareApplication",

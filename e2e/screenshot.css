@@ -1,0 +1,4 @@
+/* Nuxt's development-only error preview is outside the production page. */
+nuxt-error-overlay {
+  display: none !important;
+}

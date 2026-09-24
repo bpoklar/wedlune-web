@@ -1,5 +1,5 @@
 import type { MaybeRefOrGetter } from "vue";
-import { absoluteSiteUrl, socialLocale, alternateSocialLocale } from "~/utils/seo";
+import { absoluteSiteUrl, socialLocale, alternateSocialLocales } from "~/utils/seo";
 
 interface LocalizedSeoInput {
   title: MaybeRefOrGetter<string>;
@@ -27,7 +27,7 @@ export function useLocalizedSeo(input: LocalizedSeoInput) {
     ogType: input.type || "website",
     ogSiteName: "Wedlune",
     ogLocale: () => socialLocale(locale.value),
-    ogLocaleAlternate: () => alternateSocialLocale(locale.value),
+    ogLocaleAlternate: () => alternateSocialLocales(locale.value),
     ogImage: () => image.value,
     ogImageWidth: 1200,
     ogImageHeight: 630,

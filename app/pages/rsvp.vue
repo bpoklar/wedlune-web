@@ -224,7 +224,7 @@
           <p
             class="mb-1 whitespace-pre-line wrap-break-word font-accent text-3xl leading-tight rsvp-text sm:text-4xl"
           >
-            {{ rsvpDesign.invitationHeading }}
+            {{ hasCustomRsvpDesign ? rsvpDesign.invitationHeading : $t('rsvp.invitationHeading') }}
           </p>
           <h1
             class="mb-2 wrap-break-word font-display text-3xl leading-tight rsvp-text sm:text-4xl"
@@ -630,6 +630,7 @@ interface Wishlist {
   items: WishlistItem[];
 }
 const rsvpDesign = ref<RsvpDesign>({ ...defaultRsvpDesign });
+const hasCustomRsvpDesign = ref(false);
 const heroImageFailed = ref(false);
 const showHeroImage = computed(() => Boolean(rsvpDesign.value.heroImageUrl) && !heroImageFailed.value);
 const rsvpInverseLogo = computed(() => resolveRsvpColorMode(rsvpDesign.value) === "custom" && readableTextColor(rsvpDesign.value.surfaceColor) === "#FFFFFF");
@@ -700,6 +701,7 @@ onMounted(async () => {
     const design = parseRsvpPreview(window.location.hash);
     if (design) {
       rsvpDesign.value = design;
+      hasCustomRsvpDesign.value = true;
       guestName.value = t("rsvp.previewGuest");
       coupleName.value = t("rsvp.previewCouple");
     } else {
@@ -759,6 +761,7 @@ onMounted(async () => {
     coupleName.value = data.coupleName;
     wishlist.value = data.wishlist ?? null;
     rsvpDesign.value = resolveRsvpDesign(data.rsvpDesign);
+    hasCustomRsvpDesign.value = data.rsvpDesign != null;
     menus.value = data.menus ?? [];
     selectedMenuId.value = data.menuId ?? null;
 

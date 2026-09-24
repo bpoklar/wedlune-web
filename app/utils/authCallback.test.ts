@@ -1,11 +1,19 @@
 import { describe, expect, it } from "vitest";
 import {
   authCallbackPath,
+  resolveCallbackLocale,
   buildLegacyAuthCallback,
   parseAuthCallbackFlow,
 } from "./authCallback";
 
 describe("auth callback bridge", () => {
+  it("uses supported browser language variants with an English fallback", () => {
+    expect(resolveCallbackLocale(["it-CH", "en"])).toBe("it");
+    expect(resolveCallbackLocale(["fr", "it-IT"])).toBe("it");
+    expect(resolveCallbackLocale(["sl-SI"])).toBe("sl");
+    expect(resolveCallbackLocale(["de-DE"])).toBe("en");
+    expect(resolveCallbackLocale([])).toBe("en");
+  });
   it("accepts only the three supported callback flows", () => {
     expect(parseAuthCallbackFlow("signup")).toBe("signup");
     expect(parseAuthCallbackFlow("invite")).toBe("invite");

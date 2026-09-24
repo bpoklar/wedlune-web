@@ -1,3 +1,11 @@
+export function resolveCallbackLocale(languages: readonly string[]): "en" | "sl" | "it" {
+  for (const language of languages) {
+    const code = language.toLowerCase().split(/[-_]/)[0];
+    if (code === "en" || code === "sl" || code === "it") return code;
+  }
+  return "en";
+}
+
 export const authCallbackFlows = ["signup", "invite", "recovery"] as const;
 
 export type AuthCallbackFlow = (typeof authCallbackFlows)[number];

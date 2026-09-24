@@ -55,6 +55,11 @@ export default defineNuxtConfig({
   routeRules: {
     "/": { prerender: true },
     "/sl": { prerender: true },
+    "/it": { prerender: true },
+    "/it/privacy": { prerender: true },
+    "/it/terms": { prerender: true },
+    "/it/delete-account": { prerender: true },
+    "/it/feedback": { prerender: true },
     "/privacy": { prerender: true },
     "/terms": { prerender: true },
     "/delete-account": { prerender: true },
@@ -105,6 +110,20 @@ export default defineNuxtConfig({
         "X-Robots-Tag": "noindex, nofollow",
       },
     },
+    "/it/rsvp": {
+      headers: {
+        "Cache-Control": "no-store",
+        "Referrer-Policy": "no-referrer",
+        "X-Robots-Tag": "noindex, nofollow",
+      },
+    },
+    "/it/shared-gallery": {
+      headers: {
+        "Cache-Control": "no-store",
+        "Referrer-Policy": "no-referrer",
+        "X-Robots-Tag": "noindex, nofollow",
+      },
+    },
   },
 
   i18n: {
@@ -115,6 +134,7 @@ export default defineNuxtConfig({
     locales: [
       { code: "en", name: "English", language: "en", file: "en.json" },
       { code: "sl", name: "Slovenščina", language: "sl", file: "sl.json" },
+      { code: "it", name: "Italiano", language: "it", file: "it.json" },
     ],
   },
 
@@ -133,6 +153,8 @@ export default defineNuxtConfig({
       "/shared-gallery",
       "/sl/rsvp",
       "/sl/shared-gallery",
+      "/it/rsvp",
+      "/it/shared-gallery",
       "/auth/callback/**",
     ],
   },

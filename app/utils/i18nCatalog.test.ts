@@ -1,5 +1,8 @@
+import { readFileSync } from "node:fs";
+import { createI18n } from "vue-i18n";
 import { describe, expect, it } from "vitest";
 import en from "../../i18n/locales/en.json";
+import italian from "../../i18n/locales/it.json";
 import sl from "../../i18n/locales/sl.json";
 
 function leafKeys(value: unknown, prefix = ""): string[] {
@@ -15,8 +18,8 @@ function leafKeys(value: unknown, prefix = ""): string[] {
 }
 
 describe("i18n catalogs", () => {
-  it("keeps English and Slovenian message shapes identical", () => {
-    expect(leafKeys(sl).sort()).toEqual(leafKeys(en).sort());
+  it("keeps all three languages’ message shapes identical", () => {
+    for (const catalog of [sl, italian]) expect(leafKeys(catalog).sort()).toEqual(leafKeys(en).sort());
   });
 
   it("contains localized public-link error states", () => {
@@ -42,7 +45,7 @@ describe("i18n catalogs", () => {
   });
 
   it("keeps the homepage compact in both locales", () => {
-    for (const catalog of [en, sl]) {
+    for (const catalog of [en, sl, italian]) {
       expect(catalog.home.proof.items).toHaveLength(4);
       expect(Object.keys(catalog.home.hero.slider.slides)).toHaveLength(7);
       expect(catalog.home.features.items).toHaveLength(6);
@@ -69,4 +72,42 @@ describe("i18n catalogs", () => {
       "Vedno vesta, kaj sledi",
     ]);
   });
+});
+
+function leaves(value: unknown, prefix = ""): Record<string, string> {
+  if (value && typeof value === "object") return Object.assign({}, ...Object.entries(value).map(([key, child]) => leaves(child, `${prefix}.${key}`)));
+  return { [prefix]: String(value) };
+}
+
+it("preserves every interpolation and rejects duplicate JSON properties", () => {
+  const source = leaves(en);
+  for (const [code, catalog] of Object.entries({en, sl, it: italian})) {
+    const counts: Record<string, number> = {};
+    const visit = (value: unknown) => {
+      if (!value || typeof value !== "object") return;
+      for (const [key, child] of Object.entries(value)) {
+        if (!Array.isArray(value)) counts[key] = (counts[key] ?? 0) + 1;
+        visit(child);
+      }
+    };
+    visit(catalog);
+    const raw = readFileSync(new URL(`../../i18n/locales/${code}.json`, import.meta.url), "utf8");
+    const rawCounts: Record<string, number> = {};
+    for (const match of raw.matchAll(/"((?:[^"\\]|\\.)*)"\s*:/g)) {
+      const key = JSON.parse(`"${match[1]}"`);
+      rawCounts[key] = (rawCounts[key] ?? 0) + 1;
+    }
+    expect(rawCounts).toEqual(counts);
+    for (const [key, value] of Object.entries(leaves(catalog))) {
+      expect(value.trim(), `${code}:${key}`).not.toBe("");
+      const params = (text: string) => [...new Set([...text.matchAll(/\{(\w+)\}/g)].map(m => m[1]))].sort();
+      expect(params(value), `${code}:${key}`).toEqual(params(source[key]!));
+    }
+  }
+});
+
+it("renders Italian shot counts in singular and plural", () => {
+  const { t } = createI18n({legacy: false, locale: "it", messages: {it: italian}}).global;
+  expect(t("gallery.shotCount", {count: 1})).toBe("1 scatto");
+  expect(t("gallery.shotCount", {count: 2})).toBe("2 scatti");
 });

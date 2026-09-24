@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   authCallbackPath,
+  resolveCallbackLocale,
   buildLegacyAuthCallback,
   parseAuthCallbackFlow,
 } from "~/utils/authCallback";
@@ -13,31 +14,30 @@ const ready = ref(false);
 const invalid = ref(!flow);
 const appCallback = ref<string | null>(null);
 
-const copy = computed(() => {
-  const slovenian = import.meta.client && navigator.language.toLowerCase().startsWith("sl");
-  if (slovenian) {
-    return {
-      title: "Odpri Wedlune",
-      body: "Za dokončanje varnega postopka odpri povezavo v aplikaciji Wedlune.",
-      button: "Odpri Wedlune",
-      invalid: "Povezava za prijavo ni veljavna ali je potekla.",
-    };
-  }
-  return {
-    title: "Open Wedlune",
-    body: "Open this link in the Wedlune app to finish the secure account flow.",
-    button: "Open Wedlune",
-    invalid: "This authentication link is invalid or has expired.",
-  };
-});
+// Authentication callback URLs remain unprefixed and credential-safe.
+defineI18nRoute(false);
+const { t, locale, loadLocaleMessages } = useI18n();
+const callbackLocale = import.meta.client
+  ? resolveCallbackLocale(navigator.languages)
+  : "en";
+await loadLocaleMessages(callbackLocale);
+locale.value = callbackLocale;
+const copy = computed(() => ({
+  title: t("authCallback.title", {}, { locale: callbackLocale }),
+  body: t("authCallback.body", {}, { locale: callbackLocale }),
+  button: t("authCallback.button", {}, { locale: callbackLocale }),
+  invalid: t("authCallback.invalid", {}, { locale: callbackLocale }),
+}));
 
-useHead({
-  title: "Open Wedlune",
+useHead(() => ({
+  title: copy.value.title,
+  titleTemplate: null,
+  htmlAttrs: { lang: callbackLocale },
   meta: [
     { name: "robots", content: "noindex, nofollow" },
     { name: "referrer", content: "no-referrer" },
   ],
-});
+}));
 
 onMounted(() => {
   if (!flow) {

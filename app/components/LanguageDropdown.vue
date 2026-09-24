@@ -66,7 +66,7 @@ const selectLocale = async (event: Event) => {
 
   emit("change", code);
   await navigateTo({
-    path: destination,
+    path: destination.split(/[?#]/)[0],
     query: route.query,
     hash: route.hash,
   });
