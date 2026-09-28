@@ -1,7 +1,9 @@
 <template>
   <LegalPageShell :title="$t('terms.title')" :date="$t('terms.date')" :toc="toc">
     <section v-for="section in singleSections" :id="section.id" :key="section.key">
-      <h2>{{ $t(`${section.key}Title`) }}</h2><p>{{ $t(`${section.key}Body`) }}</p>
+      <h2>{{ $t(`${section.key}Title`) }}</h2>
+      <p v-if="section.key === 'terms.s1'">{{ $t("terms.operatorBody") }}</p>
+      <p>{{ $t(`${section.key}Body`) }}</p>
     </section>
     <section id="terms-3"><h2>{{ $t("terms.s3Title") }}</h2><p v-for="paragraph in s3Paragraphs" :key="paragraph">{{ paragraph }}</p></section>
     <section id="terms-4"><h2>{{ $t("terms.s4Title") }}</h2><p>{{ $t("terms.s4Body") }}</p></section>
@@ -34,7 +36,7 @@
       <p>{{ $t("terms.s11BeforeDelete") }} <NuxtLink :to="localePath('/delete-account')">{{ $t("terms.s11DeleteLink") }}</NuxtLink>. {{ $t("terms.s11Middle") }} <NuxtLink :to="localePath('/privacy')">{{ $t("terms.s11PrivacyLink") }}</NuxtLink>.</p>
     </section>
     <section v-for="section in finalSections" :id="section.id" :key="section.key"><h2>{{ $t(`${section.key}Title`) }}</h2><p>{{ $t(`${section.key}Body`) }}</p></section>
-    <section id="terms-14"><h2>{{ $t("terms.s14Title") }}</h2><p>{{ $t("terms.s14Before") }} <a href="mailto:support@wedlune.com">support@wedlune.com</a>.</p></section>
+    <section id="terms-14"><h2>{{ $t("terms.s14Title") }}</h2><p>{{ $t("terms.s14Before") }} <a href="mailto:support@wedlune.com">support@wedlune.com</a>.</p><p>{{ $t("terms.complaintsBody") }}</p></section>
   </LegalPageShell>
 </template>
 
@@ -57,6 +59,6 @@ useStructuredData("terms", () => [{
   name: t("terms.seoTitle"),
   description: t("terms.seoDescription"),
   url: `https://wedlune.com${localePath("/terms")}`,
-  dateModified: "2026-09-02",
+  dateModified: "2026-09-28",
 }]);
 </script>

@@ -361,12 +361,14 @@
               </label>
               <textarea
                 id="dietaryNotes"
+                aria-describedby="dietary-privacy"
                 v-model="dietaryNotesField"
                 rows="3"
                 :placeholder="$t('rsvp.dietaryPlaceholder')"
                 maxlength="500"
                 class="rsvp-input-panel w-full rounded-xl border px-4 py-3 text-sm transition-colors resize-none "
               />
+              <RsvpPrivacyNotice id="dietary-privacy" dietary class="mt-2" />
               <p
                 v-if="dietaryNotesError"
                 class="rsvp-error text-xs mt-1"
@@ -456,20 +458,24 @@
                   </label>
                   <textarea
                     :id="`dietary_${idx}`"
+                    :aria-describedby="`dietary-privacy-${idx}`"
                     v-model="po.dietaryNotes"
                     rows="2"
                     :placeholder="$t('rsvp.dietaryPlaceholder')"
                     maxlength="500"
                     class="rsvp-surface-panel w-full rounded-xl border px-4 py-3 text-sm transition-colors resize-none "
                   />
+                  <RsvpPrivacyNotice :id="`dietary-privacy-${idx}`" dietary class="mt-2" />
                 </div>
               </div>
             </div>
           </template>
 
           <!-- Submit -->
+          <RsvpPrivacyNotice id="rsvp-privacy" />
           <button
             id="rsvp-submit"
+            aria-describedby="rsvp-privacy"
             type="submit"
             :disabled="submitting"
             class="rsvp-accent-button min-h-14 w-full rounded-full px-6"

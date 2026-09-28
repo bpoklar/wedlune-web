@@ -79,15 +79,15 @@ describe("AI and discovery legal disclosures", () => {
   });
 
   it("keeps legal dates and account deletion coverage synchronized", () => {
-    expect(italian.privacy.date).toBe("2 settembre 2026");
-    expect(italian.terms.date).toBe("2 settembre 2026");
-    expect(italian.deleteAccount.date).toBe("2 settembre 2026");
-    expect(en.privacy.date).toBe("September 2, 2026");
-    expect(en.terms.date).toBe("September 2, 2026");
-    expect(en.deleteAccount.date).toBe("September 2, 2026");
-    expect(sl.privacy.date).toBe("2. september 2026");
-    expect(sl.terms.date).toBe("2. september 2026");
-    expect(sl.deleteAccount.date).toBe("2. september 2026");
+    expect(italian.privacy.date).toBe("28 settembre 2026");
+    expect(italian.terms.date).toBe("28 settembre 2026");
+    expect(italian.deleteAccount.date).toBe("28 settembre 2026");
+    expect(en.privacy.date).toBe("September 28, 2026");
+    expect(en.terms.date).toBe("September 28, 2026");
+    expect(en.deleteAccount.date).toBe("September 28, 2026");
+    expect(sl.privacy.date).toBe("28. september 2026");
+    expect(sl.terms.date).toBe("28. september 2026");
+    expect(sl.deleteAccount.date).toBe("28. september 2026");
     for (const catalog of [en, sl, italian]) {
       expect(catalog.deleteAccount.deletedBody).toMatch(
         /private AI data|zasebne podatke.*UI|dati IA privati/,

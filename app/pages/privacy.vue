@@ -2,12 +2,14 @@
   <LegalPageShell :title="$t('privacy.title')" :date="$t('privacy.date')" :toc="toc">
     <section id="privacy-1">
       <h2>{{ $t("privacy.s1Title") }}</h2>
+      <p>{{ $t("privacy.operatorBody") }}</p>
       <p>{{ $t("privacy.s1Before") }} <a href="mailto:support@wedlune.com">support@wedlune.com</a>. {{ $t("privacy.s1After") }}</p>
     </section>
     <section id="privacy-2">
       <h2>{{ $t("privacy.s2Title") }}</h2>
       <p>{{ $t("privacy.s2Intro") }}</p>
       <ul><li v-for="item in s2Items" :key="item">{{ item }}</li></ul>
+      <p>{{ $t("privacy.feedbackBody") }}</p>
     </section>
     <section v-for="section in paragraphSections" :id="section.id" :key="section.key">
       <h2>{{ $t(`${section.key}Title`) }}</h2>
@@ -44,6 +46,7 @@
       <h2>{{ $t("privacy.s10Title") }}</h2>
       <p>{{ $t("privacy.s10Before") }} <NuxtLink :to="localePath('/delete-account')">{{ $t("privacy.s10Link") }}</NuxtLink>. {{ $t("privacy.s10After") }}</p>
       <p>{{ $t("privacy.s10Retained") }}</p>
+      <p>{{ $t("privacy.retentionSchedule") }}</p>
     </section>
     <section id="privacy-11"><h2>{{ $t("privacy.s11Title") }}</h2><p>{{ $t("privacy.s11Body") }}</p></section>
     <section id="privacy-12"><h2>{{ $t("privacy.s12Title") }}</h2><p>{{ $t("privacy.s12Body") }}</p></section>
@@ -75,6 +78,6 @@ useStructuredData("privacy", () => [{
   name: t("privacy.seoTitle"),
   description: t("privacy.seoDescription"),
   url: `https://wedlune.com${localePath("/privacy")}`,
-  dateModified: "2026-09-02",
+  dateModified: "2026-09-28",
 }]);
 </script>
