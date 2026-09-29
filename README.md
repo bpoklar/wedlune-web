@@ -117,6 +117,18 @@ redirected Worker configuration, entrypoint, and static-assets binding under
 turns the deployment into a Pages configuration, where the generated `ASSETS`
 binding conflicts with Pages' reserved binding.
 
+### AdMob app verification
+
+`public/app-ads.txt` declares the authorized AdMob publisher and is served at
+`https://wedlune.com/app-ads.txt`. Keep its publisher ID aligned with the
+personalized app-ads.txt snippet in AdMob (not an app ID or ad-unit ID).
+
+After deploying, check that this URL returns HTTP 200 and the declaration as
+plain text. The Google Play listing's developer website must point to
+`https://wedlune.com`. Then select **Check for updates** in AdMob; Google says
+verification can take up to 24 hours. See the
+[AdMob setup instructions](https://support.google.com/admob/answer/9363762).
+
 ## Website feedback
 
 `/feedback` and `/sl/feedback` accept public feedback without an account. The
