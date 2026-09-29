@@ -172,7 +172,9 @@ export default defineNuxtConfig({
       supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL || "",
       supabaseAnonKey: process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY || "",
       appStoreUrl: process.env.NUXT_PUBLIC_APP_STORE_URL || "",
-      googlePlayUrl: process.env.NUXT_PUBLIC_GOOGLE_PLAY_URL || "",
+      googlePlayUrl:
+        process.env.NUXT_PUBLIC_GOOGLE_PLAY_URL ||
+        "https://play.google.com/store/apps/details?id=com.wedlune.app",
     },
   },
 });

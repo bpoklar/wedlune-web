@@ -173,12 +173,24 @@ test.describe("marketing, SEO, and navigation", () => {
     await expect(features).toHaveCSS("transform", "matrix(1, 0, 0, 1, 0, 0)");
   });
 
-  test("store calls to action stay non-interactive when URLs are unavailable", async ({ page }) => {
-    await page.goto("/");
-    await expect(page.locator('[aria-disabled="true"]', { hasText: "App Store" }).first()).toBeVisible();
-    await expect(page.locator('[aria-disabled="true"]', { hasText: "Google Play" }).first()).toBeVisible();
-    await expect(page.locator('a[href=""]')).toHaveCount(0);
-  });
+  for (const path of ["/", "/sl", "/it"]) {
+    test(`Google Play download links are available on ${path}`, async ({ page }) => {
+      await page.goto(path);
+      await waitForNuxtHydration(page);
+
+      const playLinks = page.getByRole("link", { name: /Google Play/ });
+      await expect(playLinks).toHaveCount(3);
+      for (const link of await playLinks.all()) {
+        await expect(link).toHaveAttribute("href", "https://play.google.com/store/apps/details?id=com.wedlune.app");
+        await expect(link).toHaveAttribute("target", "_blank");
+        await expect(link).toHaveAttribute("rel", "noopener noreferrer");
+      }
+      await expect(playLinks.first()).toBeVisible();
+      await expect(page.locator('[aria-disabled="true"]', { hasText: "Google Play" })).toHaveCount(0);
+      await expect(page.locator('[aria-disabled="true"]', { hasText: "App Store" }).first()).toBeVisible();
+      await expect(page.locator('a[href=""]')).toHaveCount(0);
+    });
+  }
 
   test("homepage navigation targets every compact section", async ({ page }) => {
     await page.goto("/");

@@ -98,9 +98,12 @@ After setting it, redeploy this Worker and verify
 `<TEAM_ID>.com.wedlune.app`. Do not use the bundle ID or the numeric App Store
 Connect app ID in place of the 10-character Developer Team ID.
 
-Store URLs are optional. Only complete HTTPS links on `apps.apple.com` and
-`play.google.com` are rendered as interactive badges; a missing or invalid
-platform URL displays localized, non-interactive “Coming soon” content.
+Google Play badges default to the published
+[Wedlune Android app](https://play.google.com/store/apps/details?id=com.wedlune.app).
+`NUXT_PUBLIC_GOOGLE_PLAY_URL` can override that link. The App Store URL is
+optional. Only complete HTTPS links on `apps.apple.com` and `play.google.com`
+are rendered as interactive badges; a missing or invalid platform URL displays
+localized, non-interactive “Coming soon” content.
 
 Auth callbacks use `/auth/callback/signup`, `/auth/callback/invite`, and
 `/auth/callback/recovery`. These routes are private, non-cacheable handoff
