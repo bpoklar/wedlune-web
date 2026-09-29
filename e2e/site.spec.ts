@@ -184,11 +184,18 @@ test.describe("marketing, SEO, and navigation", () => {
         await expect(link).toHaveAttribute("href", "https://play.google.com/store/apps/details?id=com.wedlune.app");
         await expect(link).toHaveAttribute("target", "_blank");
         await expect(link).toHaveAttribute("rel", "noopener noreferrer");
+        const icon = link.locator('img[src="/img/google-play.png"]');
+        await expect(icon).toBeVisible();
+        await expect(icon).toHaveAttribute("alt", "");
+        await expect.poll(() => icon.evaluate((image: HTMLImageElement) =>
+          image.complete && image.naturalWidth > 0,
+        )).toBe(true);
       }
       await expect(playLinks.first()).toBeVisible();
       await expect(page.locator('[aria-disabled="true"]', { hasText: "Google Play" })).toHaveCount(0);
       await expect(page.locator('[aria-disabled="true"]', { hasText: "App Store" }).first()).toBeVisible();
       await expect(page.locator('a[href=""]')).toHaveCount(0);
+      await playLinks.first().screenshot({ path: test.info().outputPath("google-play-badge.png") });
     });
   }
 
