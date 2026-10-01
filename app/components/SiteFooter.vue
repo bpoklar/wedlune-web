@@ -1,18 +1,30 @@
 <template>
   <footer id="download" class="site-footer">
     <div v-if="showCta" class="section-shell footer-cta-wrap">
-      <section v-reveal class="motion-reveal footer-cta" :aria-labelledby="ctaTitleId">
-        <div class="footer-cta-copy">
-          <p class="footer-kicker">{{ $t("footer.kicker") }}</p>
-          <h2 :id="ctaTitleId" class="footer-title">{{ $t("footer.title") }}</h2>
+      <section v-reveal class="motion-reveal footer-cta" :class="{ 'footer-cta-with-photo': showPhoto }" :aria-labelledby="ctaTitleId">
+        <div class="footer-cta-content">
+          <div class="footer-cta-copy">
+            <p class="footer-kicker">{{ $t("footer.kicker") }}</p>
+            <h2 :id="ctaTitleId" class="footer-title">{{ $t("footer.title") }}</h2>
+          </div>
+
+          <div class="footer-cta-action">
+            <p class="footer-body">{{ $t("footer.body") }}</p>
+            <AppStoreCtas />
+          </div>
         </div>
 
-        <div class="footer-cta-action">
-          <p class="footer-body">{{ $t("footer.body") }}</p>
-          <AppStoreCtas />
+        <div v-if="showPhoto" class="footer-cta-photo">
+          <EditorialPicture
+            name="garden-reception"
+            :alt="$t('footer.photoAlt')"
+            :width="1440"
+            :height="1080"
+            sizes="(min-width: 1280px) 458px, (min-width: 1024px) calc(45vw - 118.8px), (min-width: 768px) calc(100vw - 176px), (min-width: 640px) calc(100vw - 112px), calc(100vw - 88px)"
+          />
         </div>
 
-        <span class="footer-ornament" aria-hidden="true">W</span>
+        <span v-else class="footer-ornament" aria-hidden="true">W</span>
       </section>
     </div>
 
@@ -75,7 +87,10 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{ showCta?: boolean }>(), { showCta: true });
+withDefaults(defineProps<{ showCta?: boolean; showPhoto?: boolean }>(), {
+  showCta: true,
+  showPhoto: false,
+});
 
 const localePath = useLocalePath();
 const ctaTitleId = useId();
@@ -120,6 +135,24 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
 .footer-cta-action {
   position: relative;
   z-index: 1;
+}
+
+.footer-cta-content {
+  display: contents;
+}
+
+.footer-cta-with-photo .footer-cta-content {
+  display: grid;
+  min-width: 0;
+  gap: 2rem;
+}
+
+.footer-cta-photo {
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  align-self: center;
+  overflow: hidden;
+  border-radius: 1.5rem;
 }
 
 .footer-kicker {
@@ -317,6 +350,12 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
     grid-template-columns: minmax(0, 1fr) minmax(25rem, 0.78fr);
     gap: 5rem;
     padding: 4.5rem;
+  }
+
+  .footer-cta-with-photo {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: center;
+    gap: 2.5rem;
   }
 
 }

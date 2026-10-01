@@ -100,6 +100,7 @@
     "applePrivacy": "Pravilnik o zasebnosti Apple"
   },
   "footer": {
+    "photoAlt": "Miza za poročno slavje s cvetjem in svečami na zelenem vrtu",
     "feedback": "Pošlji povratno informacijo",
     "kicker": "Vsi vajini načrti, lepo povezani",
     "title": "Sta pripravljena načrtovati skupaj?",
@@ -130,7 +131,7 @@
       "primary": "Začni brezplačno",
       "secondary": "Poglej, kako deluje",
       "highlights": "Prednosti aplikacije Wedlune",
-      "photoAlt": "Poročna prstana na nežno rožnatih cvetovih",
+      "photoAlt": "Bel poročni šopek, poročna prstana in vabila na nežno modri tkanini",
       "stats": [
         { "value": "1", "label": "skupni poročni načrt" },
         { "value": "3", "label": "podprta jezika" },
@@ -182,6 +183,7 @@
       ]
     },
     "how": {
+      "photoAlt": "Miza za načrtovanje poroke z zvezki, kavo in cvetjem ob osončenem oknu",
       "kicker": "Od preobremenjenosti do urejenosti",
       "title": "Kako deluje Wedlune",
       "steps": [

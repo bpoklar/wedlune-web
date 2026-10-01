@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 withDefaults(defineProps<{
-  name: "rings" | "roses";
+  name: "rings" | "roses" | "wedding-details" | "planning-desk" | "garden-reception";
   alt: string;
   width: number;
   height: number;

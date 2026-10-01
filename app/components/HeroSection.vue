@@ -48,7 +48,7 @@
           class="hero-photo absolute inset-x-7 top-0 h-120 overflow-hidden rounded-[2.25rem] shadow-2xl sm:inset-x-12 sm:h-152 sm:rounded-[2.75rem] lg:inset-x-0 lg:left-16"
         >
           <EditorialPicture
-            name="rings"
+            name="wedding-details"
             :alt="$t('home.hero.photoAlt')"
             :width="1440"
             :height="1800"

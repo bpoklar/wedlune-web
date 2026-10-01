@@ -100,6 +100,7 @@
     "applePrivacy": "Apple Privacy Policy"
   },
   "footer": {
+    "photoAlt": "Wedding reception table with flowers and candles in a leafy garden",
     "feedback": "Send feedback",
     "kicker": "Your plans, beautifully connected",
     "title": "Ready to plan together?",
@@ -130,7 +131,7 @@
       "primary": "Get started free",
       "secondary": "See how it works",
       "highlights": "Wedlune highlights",
-      "photoAlt": "Wedding rings resting on soft pink flowers",
+      "photoAlt": "White bridal bouquet, wedding rings and stationery arranged on soft blue fabric",
       "stats": [
         { "value": "1", "label": "shared wedding plan" },
         { "value": "3", "label": "supported languages" },
@@ -182,6 +183,7 @@
       ]
     },
     "how": {
+      "photoAlt": "Wedding planning desk with notebooks, coffee and flowers beside a sunlit window",
       "kicker": "From overwhelmed to organized",
       "title": "How Wedlune Works",
       "steps": [

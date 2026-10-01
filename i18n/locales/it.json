@@ -100,6 +100,7 @@
     "applePrivacy": "Informativa sulla privacy di Apple"
   },
   "footer": {
+    "photoAlt": "Tavola per il ricevimento di nozze con fiori e candele in un giardino verdeggiante",
     "feedback": "Invia feedback",
     "kicker": "I vostri piani, uniti con cura",
     "title": "Pronti a organizzare insieme?",
@@ -130,7 +131,7 @@
       "primary": "Iniziate gratis",
       "secondary": "Scoprite come funziona",
       "highlights": "Punti di forza di Wedlune",
-      "photoAlt": "Fedi nuziali adagiate su delicati fiori rosa",
+      "photoAlt": "Bouquet da sposa bianco, fedi nuziali e partecipazioni su un morbido tessuto azzurro",
       "stats": [
         {
           "value": "1",
@@ -230,6 +231,7 @@
       ]
     },
     "how": {
+      "photoAlt": "Scrivania per organizzare il matrimonio con quaderni, caffè e fiori accanto a una finestra soleggiata",
       "kicker": "Dalla confusione all'organizzazione",
       "title": "Come funziona Wedlune",
       "steps": [

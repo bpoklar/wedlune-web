@@ -5,9 +5,14 @@
       <div class="relative z-10 max-w-xl">
         <p class="how-kicker section-kicker">{{ $t("home.how.kicker") }}</p>
         <h2 class="how-title section-title">{{ $t("home.how.title") }}</h2>
-        <div class="mt-8 hidden items-center gap-3 lg:flex" aria-hidden="true">
-          <span class="h-px w-20 bg-surface/25" />
-          <span class="text-subtle">✦</span>
+        <div class="mt-8 aspect-4/3 overflow-hidden rounded-4xl">
+          <EditorialPicture
+            name="planning-desk"
+            :alt="$t('home.how.photoAlt')"
+            :width="1440"
+            :height="1080"
+            sizes="(min-width: 1280px) 392px, (min-width: 1024px) calc(35vw - 56px), (min-width: 640px) 576px, calc(100vw - 40px)"
+          />
         </div>
       </div>
 

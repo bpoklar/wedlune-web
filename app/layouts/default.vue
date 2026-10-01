@@ -5,6 +5,11 @@
     <main id="main-content" tabindex="-1" class="flex-1">
       <slot />
     </main>
-    <SiteFooter />
+    <SiteFooter :show-photo="getRouteBaseName(route) === 'index'" />
   </div>
 </template>
+
+<script setup lang="ts">
+const getRouteBaseName = useRouteBaseName();
+const route = useRoute();
+</script>

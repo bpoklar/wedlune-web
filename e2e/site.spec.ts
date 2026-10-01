@@ -90,6 +90,12 @@ test.describe("marketing, SEO, and navigation", () => {
     const footerSupport = page.locator("footer [data-footer-support]");
     await expect(footerSupport.getByRole("link", { name: "support@wedlune.com" })).toHaveAttribute("href", "mailto:support@wedlune.com");
     await expect(page.locator("footer [data-language-select]")).toHaveValue(localized.path === "/" ? "en" : "sl");
+    // Load below-the-fold editorial images before taking a full-page baseline.
+    for (const image of await page.locator("picture img").all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect.poll(() => image.evaluate((node: HTMLImageElement) => node.complete && node.naturalWidth > 0)).toBe(true);
+    }
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
     await assertA11y(page);
     await expect(page).toHaveScreenshot(`home-${localized.path === "/" ? "en-desktop" : "sl-mobile"}.png`, { fullPage: true });
   });
