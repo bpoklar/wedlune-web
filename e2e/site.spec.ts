@@ -330,6 +330,8 @@ test.describe("legal and recovery surfaces", () => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/privacy");
     await expect(page.getByRole("heading", { level: 1, name: "Privacy Policy" })).toBeVisible();
+    await expect(page.getByText("Wedlune is operated by Blaz Poklar s.p., a sole proprietor in Slovenia, who is the controller for the account and service data described here. Support and privacy requests: support@wedlune.com.", { exact: true })).toBeVisible();
+    await expect(page.getByText(/\[(DRAFT|OSNUTEK|BOZZA)/)).toHaveCount(0);
     await expect(page.getByRole("navigation", { name: "On this page" })).toBeVisible();
     await expect(page.getByText(/Premium AI chat allows 20 completed turns/i)).toBeVisible();
     await expect(page.getByText(/Free RSVP uses the default presentation/i)).toBeVisible();
@@ -349,6 +351,8 @@ test.describe("legal and recovery surfaces", () => {
     await page.setViewportSize({ width: 320, height: 640 });
     await page.goto("/sl/terms");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.getByText("Wedlune upravlja Blaz Poklar s.p., samostojni podjetnik v Sloveniji, ki je upravljavec tukaj opisanih podatkov o računih in storitvi. Podpora in zahteve glede zasebnosti: support@wedlune.com.", { exact: true })).toBeVisible();
+    await expect(page.getByText(/\[(DRAFT|OSNUTEK|BOZZA)/)).toHaveCount(0);
     await expect(page.getByText(/Premium klepet z UI deluje le s povezavo/i)).toBeVisible();
     await expect(page.getByText(/Brezplačni RSVP uporablja privzeto predstavitev/i)).toBeVisible();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);

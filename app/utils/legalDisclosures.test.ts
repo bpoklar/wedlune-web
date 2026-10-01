@@ -5,6 +5,19 @@ import italian from "../../i18n/locales/it.json";
 import sl from "../../i18n/locales/sl.json";
 
 describe("AI and discovery legal disclosures", () => {
+  it("uses the final operator and support disclosure in every legal locale", () => {
+    const disclosures = [
+      [en, "Wedlune is operated by Blaz Poklar s.p., a sole proprietor in Slovenia, who is the controller for the account and service data described here. Support and privacy requests: support{'@'}wedlune.com."],
+      [sl, "Wedlune upravlja Blaz Poklar s.p., samostojni podjetnik v Sloveniji, ki je upravljavec tukaj opisanih podatkov o računih in storitvi. Podpora in zahteve glede zasebnosti: support{'@'}wedlune.com."],
+      [italian, "Wedlune è gestito da Blaz Poklar s.p., imprenditore individuale in Slovenia, titolare del trattamento dei dati degli account e del servizio qui descritti. Assistenza e richieste sulla privacy: support{'@'}wedlune.com."],
+    ] as const;
+
+    for (const [catalog, expected] of disclosures) {
+      expect(catalog.privacy.operatorBody).toBe(expected);
+      expect(catalog.terms.operatorBody).toBe(expected);
+    }
+  });
+
   it("documents one per-account consent for every covered AI feature", () => {
     for (const catalog of [en, sl, italian]) {
       const privacy = catalog.privacy.s6Paragraphs.join(" ");
