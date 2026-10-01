@@ -172,7 +172,7 @@ async function submitFeedback() {
 .feedback-kicker { color: var(--site-accent-strong); font-size: .75rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
 .feedback-intro h1 { margin: .75rem 0 1rem; font-family: var(--font-display); font-size: clamp(2.25rem, 6vw, 3.5rem); line-height: 1.15; }
 .feedback-intro > p:last-child { color: var(--site-text-muted); line-height: 1.8; }
-.feedback-card { padding: clamp(1.25rem, 4vw, 3rem); border: 1px solid var(--site-border); border-radius: 1.5rem; background: var(--site-surface); box-shadow: var(--site-shadow-soft); }
+.feedback-card { padding: clamp(1.25rem, 4vw, 3rem); border: 1px solid var(--site-border); border-radius: 1.5rem; background: var(--site-surface); }
 .feedback-fields { display: grid; gap: 1.75rem; min-width: 0; }
 .feedback-field { display: grid; gap: .6rem; min-width: 0; }
 .feedback-field > label, legend { font-weight: 800; font-size: .9rem; }

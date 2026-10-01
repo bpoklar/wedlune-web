@@ -46,6 +46,16 @@ bun run dev
 
 ## Production
 
+For a palette or homepage styling change, run `npm run test:palette` for focused
+desktop/mobile checks in English, Slovenian, and Italian. These checks cover
+text contrast, button states, phone preview separation, and the preview icon,
+and save review screenshots under `test-results/`. Reserve the full E2E suite
+for broader changes; update only the affected visual baselines after review.
+
+Website colors are centralized in `app/assets/css/main.css`. Decorative
+champagne roles are separate from action roles. Custom guest RSVP palettes
+remain scoped; historical default palettes resolve to the current brand.
+
 Build the application for production:
 
 ```bash

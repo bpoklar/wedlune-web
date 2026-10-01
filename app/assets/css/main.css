@@ -3,34 +3,30 @@
 /* The website palette lives here. Components consume roles, never palette literals. */
 :root {
   color-scheme: light;
-  --site-bg: #FDF8F2;
-  --site-bg-soft: #FAF3E8;
+  --site-bg: #FAF8F4;
+  --site-bg-soft: #EEE8DE;
   --site-surface: #FFFFFF;
-  --site-surface-strong: #2C2C2C;
-  --site-text: #2C2C2C;
-  --site-text-muted: #68645F;
-  --site-border: #E5DED4;
+  --site-surface-strong: #292724;
+  --site-text: #292724;
+  --site-text-muted: #57534D;
+  --site-border: #D4CEC4;
   --site-control-border: #8D877E;
-  --site-accent: #C9A96E;
-  --site-accent-hover: #BE9B5F;
-  --site-accent-pressed: #B89455;
-  --site-accent-strong: #8B6914;
+  --site-accent: #B89B6A;
+  --site-accent-strong: #80643B;
   --site-on-accent: var(--site-text);
+  --site-action: var(--site-text);
+  --site-action-hover: #3B3731;
+  --site-action-pressed: #1F1D1A;
+  --site-on-action: var(--site-surface);
   --site-selection: var(--site-bg-soft);
   --site-focus: var(--site-accent-strong);
-  --site-blush: #F6E8EA;
   --site-success: #3F6B50;
   --site-success-bg: #EFF6F0;
   --site-error: #B23A48;
   --site-error-bg: #FFF1F2;
-  --site-warning: #855D12;
-  --site-warning-bg: #FFF7E5;
-  --site-info: #35648C;
-  --site-info-bg: #EDF4FA;
   --site-inverse-text: #FFFFFF;
   --site-inverse-muted: #D6D2CC;
   --site-inverse-border: #8D877E;
-  --site-inverse-success: #9BC7A1;
   --site-device-metal-1: #747b80;
   --site-device-metal-2: #e9ecee;
   --site-device-metal-3: #aeb4b8;
@@ -38,9 +34,9 @@
   --site-device-metal-5: #9aa1a6;
   --site-device-metal-6: #dfe3e5;
   --site-device-metal-7: #777e83;
-  --site-disabled-bg: #E5DED4;
-  --site-shadow: 0 28px 80px color-mix(in srgb, var(--site-text) 10%, transparent);
-  --site-shadow-soft: 0 18px 50px color-mix(in srgb, var(--site-text) 8%, transparent);
+  --site-disabled-bg: #E4DFD6;
+  --site-shadow: 0 20px 48px color-mix(in srgb, var(--site-text) 10%, transparent);
+  --site-shadow-soft: 0 14px 36px color-mix(in srgb, var(--site-text) 8%, transparent);
 }
 
 @theme inline {
@@ -57,6 +53,8 @@
   --color-on-inverse: var(--site-inverse-text);
   --color-inverse-muted: var(--site-inverse-muted);
   --color-on-accent: var(--site-on-accent);
+  --color-action: var(--site-action);
+  --color-on-action: var(--site-on-action);
   --color-success: var(--site-success);
   --color-error: var(--site-error);
   --font-display: "Playfair Display", Georgia, serif;
@@ -158,14 +156,14 @@
 
   .card-surface {
     @apply rounded-4xl border border-line bg-surface;
-    box-shadow: var(--site-shadow-soft);
+    box-shadow: none;
   }
 
   .btn-primary {
-    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-accent px-7 py-3 text-sm font-extrabold text-on-accent shadow-lg transition-[background-color,transform,box-shadow] hover:-translate-y-0.5 hover:bg-[var(--site-accent-hover)] hover:shadow-xl;
+    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-action px-7 py-3 text-sm font-extrabold text-on-action transition-[background-color,transform,box-shadow] hover:-translate-y-0.5 hover:bg-[var(--site-action-hover)];
   }
 
-  .btn-primary:active:not(:disabled) { background: var(--site-accent-pressed); }
+  .btn-primary:active:not(:disabled) { background: var(--site-action-pressed); }
   .btn-primary:disabled, .btn-secondary:disabled {
     background: var(--site-disabled-bg);
     color: var(--site-text-muted);
@@ -183,9 +181,7 @@
   }
 
   .soft-page-bg {
-    background:
-      radial-gradient(circle at 8% 10%, var(--site-blush), transparent 26rem),
-      linear-gradient(145deg, var(--site-bg) 0%, var(--site-surface) 56%, var(--site-bg-soft) 100%);
+    background: var(--site-bg);
   }
 
   .editorial-rule {
@@ -352,7 +348,7 @@
 
   .card-surface:hover {
     transform: translateY(-0.15rem);
-    box-shadow: var(--site-shadow);
+    box-shadow: var(--site-shadow-soft);
   }
 
   :where(.btn-primary, .btn-secondary, .store-badge, [data-nav-cta], button):active:not(:disabled) {

@@ -24,7 +24,6 @@
           />
         </div>
 
-        <span v-else class="footer-ornament" aria-hidden="true">W</span>
       </section>
     </div>
 
@@ -111,6 +110,11 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
 }
 
 .footer-cta {
+  --site-action: var(--site-surface);
+  --site-action-hover: var(--site-bg);
+  --site-action-pressed: var(--site-border);
+  --site-on-action: var(--site-text);
+  --site-focus: var(--site-accent);
   position: relative;
   isolation: isolate;
   display: grid;
@@ -121,14 +125,6 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   color: var(--site-inverse-text);
   background: var(--site-surface-strong);
   box-shadow: var(--site-shadow);
-}
-
-.footer-cta::before {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 0.3rem;
-  content: "";
-  background: var(--site-accent);
 }
 
 .footer-cta-copy,
@@ -161,7 +157,7 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-soft-champagne);
+  color: var(--site-accent);
 }
 
 .footer-title {
@@ -184,28 +180,13 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   color: var(--site-inverse-muted);
 }
 
-.footer-ornament {
-  position: absolute;
-  right: -0.03em;
-  bottom: -0.26em;
-  z-index: 0;
-  font-family: var(--font-display);
-  font-size: clamp(12rem, 28vw, 24rem);
-  font-style: italic;
-  line-height: 1;
-  color: color-mix(in srgb, var(--site-surface) 3.5%, transparent);
-  pointer-events: none;
-  user-select: none;
-}
-
 .footer-lower {
+  --site-focus: var(--site-accent);
   position: relative;
   overflow: hidden;
   margin-top: 4rem;
   color: var(--site-inverse-text);
-  background:
-    radial-gradient(circle at 88% -45%, color-mix(in srgb, var(--site-accent) 20%, transparent), transparent 28rem),
-    var(--site-surface-strong);
+  background: var(--site-surface-strong);
 }
 
 .footer-lower-standalone {
@@ -308,7 +289,7 @@ const homeLink = (id: string) => localePath({ path: "/", hash: `#${id}` });
   width: 1rem;
   height: 1rem;
   flex: 0 0 auto;
-  color: var(--site-inverse-success);
+  color: var(--site-accent);
 }
 
 @media (max-width: 23.99rem) {

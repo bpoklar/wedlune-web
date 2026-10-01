@@ -24,10 +24,10 @@
         class="h-7 w-7 shrink-0 object-contain"
       />
       <span class="min-w-0 text-left leading-none">
-        <span class="block text-[0.62rem] font-bold uppercase tracking-[0.08em] text-content">
+        <span class="block text-[0.62rem] font-bold uppercase tracking-[0.08em]">
           {{ store.url ? store.eyebrow : $t('store.comingSoon') }}
         </span>
-        <span class="mt-1 block whitespace-nowrap text-sm font-extrabold text-on-accent sm:text-base">
+        <span class="mt-1 block whitespace-nowrap text-sm font-extrabold sm:text-base">
           {{ store.name }}
         </span>
       </span>
@@ -75,11 +75,11 @@ const externalLinkProps = (url: string) => ({
   min-width: 11.5rem;
   align-items: center;
   gap: 0.7rem;
-  border: 1px solid var(--site-accent-strong);
+  border: 1px solid var(--site-action);
   border-radius: 0.9rem;
   padding: 0.7rem 1rem;
-  color: var(--site-on-accent);
-  background: var(--site-accent);
+  color: var(--site-on-action);
+  background: var(--site-action);
 }
 
 .store-badge-compact {
@@ -89,19 +89,20 @@ const externalLinkProps = (url: string) => ({
 }
 
 .store-badge-active {
-  box-shadow: 0 12px 30px color-mix(in srgb, var(--site-text) 18%, transparent);
+  box-shadow: none;
   transition: transform 180ms ease, background-color 180ms ease;
 }
 
 .store-badge-active:hover {
   transform: translateY(-2px);
-  background: var(--site-accent-hover);
+  background: var(--site-action-hover);
 }
 
-.store-badge-active:active { background: var(--site-accent-pressed); }
+.store-badge-active:active { background: var(--site-action-pressed); }
 
 .store-badge-unavailable {
   cursor: not-allowed;
+  border-color: var(--site-control-border);
   background: var(--site-disabled-bg);
   color: var(--site-text-muted);
 }

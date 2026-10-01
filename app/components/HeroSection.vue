@@ -3,8 +3,6 @@
     v-reveal
     class="hero-section motion-reveal soft-page-bg relative isolate overflow-hidden pb-18 pt-27 sm:pb-24 sm:pt-32 lg:min-h-204 lg:pb-28 lg:pt-36"
   >
-    <RingsMotif size="xl" class="hero-rings hero-rings-large" />
-    <RingsMotif size="medium" class="hero-rings hero-rings-small" />
 
     <div
       class="section-shell grid items-center gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16"
@@ -32,7 +30,9 @@
           class="mt-7 inline-flex min-h-11 items-center gap-2 text-sm font-extrabold text-accent-strong hover:text-content"
         >
           {{ $t("home.hero.secondary") }}
-          <span aria-hidden="true">↓</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 4v16m-6-6 6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
         </a>
       </div>
 
@@ -45,7 +45,7 @@
         @focusout="resumeSlider"
       >
         <div
-          class="hero-photo absolute inset-x-7 top-0 h-120 overflow-hidden rounded-[2.25rem] shadow-2xl sm:inset-x-12 sm:h-152 sm:rounded-[2.75rem] lg:inset-x-0 lg:left-16"
+          class="hero-photo absolute inset-x-7 top-0 h-120 overflow-hidden rounded-[2.25rem] sm:inset-x-12 sm:h-152 sm:rounded-[2.75rem] lg:inset-x-0 lg:left-16"
         >
           <EditorialPicture
             name="wedding-details"
@@ -82,14 +82,16 @@
         </div>
 
         <div class="hero-screen-label absolute bottom-7 right-0 z-20 sm:bottom-11 sm:right-4">
-          <span class="hero-screen-spark" aria-hidden="true">✦</span>
+          <svg class="hero-screen-spark h-4 w-4 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="m12 3 2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4L12 3Z" stroke-linejoin="round" />
+          </svg>
           <Transition name="preview-fade" mode="out-in">
             <span :key="activeSlide.title">{{ activeSlide.title }}</span>
           </Transition>
         </div>
 
         <div
-          class="absolute right-4 top-1/2 flex -translate-y-1/2 flex-col items-center gap-0.5 rounded-full bg-inverse/75 p-1.5 shadow-lg backdrop-blur-sm sm:right-7"
+          class="hero-slider-controls absolute right-4 top-1/2 flex -translate-y-1/2 flex-col items-center gap-0.5 rounded-full bg-inverse/75 p-1.5 shadow-lg backdrop-blur-sm sm:right-7"
           role="group"
           :aria-label="$t('home.hero.slider.label')"
         >
@@ -172,30 +174,13 @@ onBeforeUnmount(pauseSlider);
 </script>
 
 <style scoped>
-.hero-rings {
-  position: absolute;
-  z-index: -1;
-  color: color-mix(in srgb, var(--site-accent) 18%, transparent);
-  pointer-events: none;
-}
-
-.hero-rings-large {
-  right: -9rem;
-  top: -4rem;
-  width: 34rem;
-  height: 22rem;
-  transform: rotate(-7deg);
-}
-
-.hero-rings-small {
-  left: -1.75rem;
-  bottom: 2rem;
-  color: color-mix(in srgb, var(--site-accent) 22%, transparent);
-  transform: rotate(8deg);
-}
 
 .hero-kicker-rings {
   color: var(--site-accent);
+}
+
+.hero-photo {
+  box-shadow: var(--site-shadow);
 }
 
 .hero-photo::after {
@@ -219,8 +204,12 @@ onBeforeUnmount(pauseSlider);
   font-weight: 900;
   color: var(--site-inverse-text);
   background: color-mix(in srgb, var(--site-text) 90%, transparent);
-  box-shadow: 0 14px 34px color-mix(in srgb, var(--site-text) 20%, transparent);
+  box-shadow: var(--site-shadow-soft);
   backdrop-filter: blur(12px);
+}
+
+.hero-slider-controls {
+  --site-focus: var(--site-accent);
 }
 
 .hero-screen-spark {
@@ -239,7 +228,7 @@ onBeforeUnmount(pauseSlider);
     var(--site-device-metal-7) 100%
   );
   box-shadow:
-    0 30px 60px color-mix(in srgb, var(--site-text) 30%, transparent),
+    var(--site-shadow),
     inset 0 0 0 1px color-mix(in srgb, var(--site-surface) 78%, transparent),
     inset 0 0 0 2px color-mix(in srgb, var(--site-text) 50%, transparent);
 }
@@ -273,6 +262,5 @@ onBeforeUnmount(pauseSlider);
     right: -0.25rem;
   }
 
-  .hero-rings-large { right: -14rem; top: 1rem; }
 }
 </style>

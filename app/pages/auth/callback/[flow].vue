@@ -80,7 +80,7 @@ const openApp = () => {
       <p v-if="flow && !invalid">{{ copy.body }}</p>
       <p v-else role="alert">{{ copy.invalid }}</p>
       <p v-if="flow && !invalid && !ready" class="callback-status" role="status" aria-live="polite">
-        {{ copy.button }}…
+        {{ copy.button }}&hellip;
       </p>
       <button
         v-if="flow && !invalid && ready"
@@ -103,7 +103,7 @@ const openApp = () => {
   place-items: center;
   padding: 24px;
   color: var(--site-text);
-  background: radial-gradient(circle at top, var(--site-bg) 0%, var(--site-blush) 100%);
+  background: var(--site-bg);
   font-family: var(--font-body);
 }
 
@@ -113,7 +113,7 @@ const openApp = () => {
   border: 1px solid color-mix(in srgb, var(--site-text) 14%, transparent);
   border-radius: 24px;
   background: color-mix(in srgb, var(--site-bg) 94%, transparent);
-  box-shadow: 0 20px 60px color-mix(in srgb, var(--site-text) 10%, transparent);
+  box-shadow: var(--site-shadow-soft);
   text-align: center;
 }
 
@@ -146,16 +146,16 @@ button {
   padding: 12px 24px;
   border: 0;
   border-radius: 999px;
-  color: var(--site-on-accent);
-  background: var(--site-accent);
+  color: var(--site-on-action);
+  background: var(--site-action);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
 }
 
-button:hover:not(:disabled) { background: var(--site-accent-hover); }
+button:hover:not(:disabled) { background: var(--site-action-hover); }
 
-button:active:not(:disabled) { background: var(--site-accent-pressed); }
+button:active:not(:disabled) { background: var(--site-action-pressed); }
 
 button:focus-visible {
   outline: 3px solid var(--site-focus);

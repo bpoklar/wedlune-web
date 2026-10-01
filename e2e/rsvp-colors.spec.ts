@@ -65,11 +65,11 @@ for (const design of designs) {
     );
     expect(companionCards).toEqual(mainCards);
     if (design.name === "brand") {
-      await expect(save).toHaveCSS("background-color", "rgb(201, 169, 110)");
-      await expect(save).toHaveCSS("color", "rgb(44, 44, 44)");
+      await expect(save).toHaveCSS("background-color", "rgb(41, 39, 36)");
+      await expect(save).toHaveCSS("color", "rgb(255, 255, 255)");
       if (!testInfo.project.name.startsWith("mobile")) {
         await save.hover();
-        await expect(save).toHaveCSS("background-color", "rgb(190, 155, 95)");
+        await expect(save).toHaveCSS("background-color", "rgb(59, 55, 49)");
         await page.mouse.move(0, 0);
       }
     }
@@ -112,6 +112,8 @@ for (const design of designs) {
     const accessibility = await new AxeBuilder({ page }).analyze();
     expect(accessibility.violations).toEqual([]);
     await decline.locator("input").focus();
+    await page.keyboard.press("Tab");
+    await expect(page.locator("#rsvp-privacy a")).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(save).toBeFocused();
     await expect(save).toHaveCSS("outline-style", "solid");

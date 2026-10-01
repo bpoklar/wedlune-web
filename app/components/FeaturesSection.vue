@@ -6,7 +6,6 @@
           <p class="section-kicker">{{ $t("home.features.kicker") }}</p>
           <h2 class="section-title">{{ $t("home.features.title") }}</h2>
         </div>
-        <RingsMotif size="large" class="feature-rings hidden lg:block" />
       </div>
 
       <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-12">
@@ -17,29 +16,27 @@
           :class="featureCardClass(index)"
         >
           <div class="relative z-10" :class="index === 0 ? 'max-w-xs' : index === 1 ? 'max-w-70' : ''">
-            <div class="flex items-center justify-between gap-5">
+            <div class="flex items-center">
               <div class="feature-icon flex h-11 w-11 items-center justify-center rounded-2xl" aria-hidden="true">
                 <component :is="feature.icon" class="h-6 w-6" />
               </div>
-              <p class="feature-number text-[0.67rem] font-extrabold uppercase tracking-[0.18em]">{{ String(index + 1).padStart(2, "0") }}</p>
             </div>
             <h3 class="mt-8 font-display text-2xl leading-tight sm:text-[1.7rem]">{{ feature.title }}</h3>
-            <p class="mt-4 text-sm leading-7">{{ feature.description }}</p>
+            <p class="mt-4 text-base font-medium leading-7">{{ feature.description }}</p>
           </div>
 
           <div v-if="index < 2" class="feature-preview" aria-hidden="true">
-            <div class="feature-preview-halo" />
-            <img
-              :src="featuredImages[index]"
-              alt=""
-              :width="index === 0 ? 1280 : 390"
-              :height="index === 0 ? 2856 : 844"
-              loading="lazy"
-              decoding="async"
-            >
+            <div class="feature-preview-screen">
+              <img
+                :src="featuredImages[index]"
+                alt=""
+                :width="index === 0 ? 1280 : 390"
+                :height="index === 0 ? 2856 : 844"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
           </div>
-
-          <RingsMotif v-else size="medium" class="feature-card-rings" />
         </article>
       </div>
     </div>
@@ -88,62 +85,26 @@ const features = computed(() => (tm("home.features.items") as Array<{ title: str
 
 <style scoped>
 .feature-section {
-  background:
-    radial-gradient(circle at 98% 20%, color-mix(in srgb, var(--site-accent) 10%, transparent), transparent 22rem),
-    var(--site-bg);
-}
-
-.feature-rings {
-  margin-right: 1.5rem;
-  color: color-mix(in srgb, var(--site-accent) 42%, transparent);
-  transform: rotate(-7deg);
+  background: var(--site-bg);
 }
 
 .feature-card {
   color: var(--site-text);
   border-color: var(--site-border);
   background: var(--site-surface);
-  box-shadow: var(--site-shadow-soft);
+  box-shadow: none;
 }
 
-.feature-card-primary {
-  color: var(--site-inverse-text);
-  border-color: color-mix(in srgb, var(--site-surface) 8%, transparent);
-  background:
-    radial-gradient(circle at 92% 10%, color-mix(in srgb, var(--site-accent) 22%, transparent), transparent 18rem),
-    linear-gradient(145deg, var(--site-surface-strong), var(--site-surface-strong));
+.feature-icon {
+  color: var(--site-accent-strong);
+  background: var(--site-bg-soft);
 }
 
 .feature-card-secondary {
-  background:
-    radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--site-accent) 22%, transparent), transparent 18rem),
-    var(--site-blush);
+  background: var(--site-bg-soft);
 }
 
-.feature-card-primary .feature-icon {
-  color: var(--site-accent);
-  background: color-mix(in srgb, var(--site-surface) 8%, transparent);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--site-surface) 10%, transparent);
-}
-
-.feature-card-primary .feature-number,
-.feature-card-primary p {
-  color: var(--site-inverse-muted);
-}
-
-.feature-card-secondary .feature-icon,
-.feature-card-compact .feature-icon {
-  color: var(--site-accent-strong);
-  background: var(--color-soft-champagne);
-}
-
-.feature-card-secondary .feature-number,
-.feature-card-compact .feature-number {
-  color: var(--site-text-muted);
-}
-
-.feature-card-secondary p,
-.feature-card-compact p {
+.feature-card p {
   color: var(--site-text-muted);
 }
 
@@ -153,52 +114,30 @@ const features = computed(() => (tm("home.features.items") as Array<{ title: str
   bottom: -7.5rem;
   z-index: 0;
   width: 14.5rem;
+  padding: 0.42rem;
+  border-radius: 2rem;
+  background: var(--site-surface-strong);
+  box-shadow: var(--site-shadow-soft);
   transform: rotate(5deg);
 }
 
 .feature-card-secondary .feature-preview {
-  right: -0.5rem;
-  bottom: -9.5rem;
+  right: 1.5rem;
+  top: 14rem;
+  bottom: auto;
   width: 13.5rem;
   transform: rotate(-4deg);
 }
 
+.feature-preview-screen {
+  overflow: hidden;
+  border-radius: calc(2rem - 0.42rem);
+  background: var(--site-surface-strong);
+}
+
 .feature-preview img {
-  position: relative;
-  z-index: 1;
   display: block;
   width: 100%;
-  border: 0.42rem solid var(--site-surface-strong);
-  border-radius: 2rem;
-  box-shadow: 0 25px 55px color-mix(in srgb, var(--site-text) 34%, transparent);
-}
-
-.feature-card-secondary .feature-preview img {
-  border-color: var(--site-bg);
-  box-shadow: 0 25px 55px color-mix(in srgb, var(--site-text) 19%, transparent);
-}
-
-.feature-preview-halo {
-  position: absolute;
-  left: -4rem;
-  top: -3rem;
-  width: 17rem;
-  height: 17rem;
-  border: 1px solid color-mix(in srgb, var(--site-surface) 16%, transparent);
-  border-radius: 999px;
-}
-
-.feature-card-secondary .feature-preview-halo {
-  border-color: color-mix(in srgb, var(--site-accent) 20%, transparent);
-}
-
-.feature-card-rings {
-  position: absolute;
-  right: -1.5rem;
-  bottom: -0.75rem;
-  color: color-mix(in srgb, var(--site-accent) 22%, transparent);
-  transform: rotate(-8deg);
-  transition: transform 260ms ease;
 }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
@@ -208,11 +147,7 @@ const features = computed(() => (tm("home.features.items") as Array<{ title: str
 
   .feature-card:hover {
     transform: translateY(-0.2rem);
-    box-shadow: 0 25px 65px color-mix(in srgb, var(--site-text) 12%, transparent);
-  }
-
-  .feature-card:hover .feature-card-rings {
-    transform: translate(-0.25rem, -0.2rem) rotate(-4deg);
+    box-shadow: var(--site-shadow-soft);
   }
 }
 
@@ -233,12 +168,10 @@ const features = computed(() => (tm("home.features.items") as Array<{ title: str
     right: 0.8rem;
     bottom: -8.5rem;
     width: 12rem;
-    opacity: 0.94;
   }
 
   .feature-card-secondary .feature-preview {
-    right: -0.25rem;
-    bottom: -10.5rem;
+    right: 1rem;
     width: 11.5rem;
   }
 }

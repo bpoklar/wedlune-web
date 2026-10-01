@@ -1,6 +1,6 @@
 <template>
   <section id="pricing" v-reveal class="motion-reveal comparison-section relative isolate overflow-hidden py-20 sm:py-28" :aria-labelledby="comparisonTitleId">
-    <RingsMotif size="xl" class="pricing-rings" />
+
     <div class="section-shell">
       <div class="mx-auto max-w-3xl text-center">
         <p class="section-kicker">{{ $t("home.pricing.kicker") }}</p>
@@ -11,7 +11,7 @@
         <article class="plan-summary plan-summary-free">
           <div class="flex items-center justify-between gap-5">
             <p class="plan-eyebrow">{{ $t("home.pricing.free") }}</p>
-            <RingsMotif size="small" class="plan-symbol" />
+
           </div>
           <h3>{{ $t("home.pricing.freeTitle") }}</h3>
           <p>{{ $t("home.pricing.freeSubtitle") }}</p>
@@ -23,7 +23,7 @@
         <article class="plan-summary plan-summary-premium">
           <div class="flex items-center justify-between gap-5">
             <p class="plan-eyebrow">{{ $t("home.pricing.premium") }}</p>
-            <RingsMotif size="small" class="plan-symbol plan-symbol-premium" />
+
           </div>
           <h3>{{ $t("home.pricing.premiumTitle") }}</h3>
           <p>{{ $t("home.pricing.premiumSubtitle") }}</p>
@@ -191,18 +191,7 @@ const onGroupOpened = (id: string, element: Element) => {
 
 <style scoped>
 .comparison-section {
-  background:
-    radial-gradient(circle at 4% 35%, color-mix(in srgb, var(--site-accent) 12%, transparent), transparent 24rem),
-    linear-gradient(180deg, var(--site-bg), var(--site-bg-soft));
-}
-
-.pricing-rings {
-  position: absolute;
-  right: -8rem;
-  top: 2rem;
-  z-index: -1;
-  color: color-mix(in srgb, var(--site-accent) 14%, transparent);
-  transform: rotate(8deg);
+  background: var(--site-bg);
 }
 
 .plan-summary {
@@ -214,35 +203,12 @@ const onGroupOpened = (id: string, element: Element) => {
 }
 
 .plan-summary-free {
-  background: color-mix(in srgb, var(--site-surface) 86%, transparent);
-  backdrop-filter: blur(10px);
+  background: var(--site-surface);
 }
 
 .plan-summary-premium {
   border-color: var(--site-accent);
-  background:
-    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--site-accent) 20%, transparent), transparent 15rem),
-    var(--site-bg-soft);
-  box-shadow: 0 22px 55px color-mix(in srgb, var(--site-text) 10%, transparent);
-}
-
-.plan-summary-premium::after {
-  position: absolute;
-  right: -4.5rem;
-  bottom: -5rem;
-  width: 10rem;
-  height: 10rem;
-  border: 1px solid color-mix(in srgb, var(--site-accent) 14%, transparent);
-  border-radius: 999px;
-  content: "";
-}
-
-.plan-symbol {
-  color: color-mix(in srgb, var(--site-accent) 42%, transparent);
-}
-
-.plan-symbol-premium {
-  color: var(--site-accent-strong);
+  background: var(--site-surface);
 }
 
 .plan-eyebrow {
@@ -282,7 +248,7 @@ const onGroupOpened = (id: string, element: Element) => {
 }
 
 .plan-summary li span {
-  color: var(--site-success);
+  color: var(--site-accent-strong);
 }
 
 .comparison-accordion {
@@ -290,7 +256,7 @@ const onGroupOpened = (id: string, element: Element) => {
   border: 1px solid var(--site-border);
   border-radius: 1.5rem;
   background: var(--site-surface);
-  box-shadow: 0 18px 50px color-mix(in srgb, var(--site-text) 6%, transparent);
+  box-shadow: none;
 }
 
 .comparison-table {

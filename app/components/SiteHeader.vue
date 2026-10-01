@@ -15,7 +15,7 @@
         <NuxtLink v-for="link in navLinks" :key="link.id" :to="homeLink(link.id)" class="inline-flex min-h-11 items-center text-sm font-bold text-muted transition-colors hover:text-accent-strong">
           {{ link.label }}
         </NuxtLink>
-        <NuxtLink data-nav-cta :to="homeLink('download')" class="nav-cta inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-extrabold text-on-inverse">
+        <NuxtLink data-nav-cta :to="homeLink('download')" class="nav-cta inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-extrabold text-on-action">
           <span class="text-accent" aria-hidden="true">✦</span>
           {{ $t("nav.getWedlune") }}
         </NuxtLink>
@@ -51,7 +51,7 @@
             <NuxtLink v-for="link in navLinks" :key="link.id" :to="homeLink(link.id)" class="flex min-h-12 items-center border-b border-line/45 text-sm font-bold text-muted transition-colors hover:text-accent-strong" @click="closeMenu(false)">
               {{ link.label }}
             </NuxtLink>
-            <NuxtLink data-nav-cta :to="homeLink('download')" class="nav-cta mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-extrabold text-on-inverse" @click="closeMenu(false)">
+            <NuxtLink data-nav-cta :to="homeLink('download')" class="nav-cta mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-extrabold text-on-action" @click="closeMenu(false)">
               <span class="text-accent" aria-hidden="true">✦</span>
               {{ $t("nav.getWedlune") }}
             </NuxtLink>
@@ -130,17 +130,18 @@ onBeforeUnmount(() => window.removeEventListener("scroll", handleScroll));
 
 <style scoped>
 .nav-cta {
-  background-color: var(--site-surface-strong);
-  box-shadow: 0 8px 20px color-mix(in srgb, var(--site-text) 18%, transparent);
-  transition: transform 220ms ease, box-shadow 220ms ease;
+  background-color: var(--site-action);
+  box-shadow: none;
+  transition: transform 220ms ease, background-color 220ms ease;
 }
 
 .nav-cta:hover {
-  box-shadow: 0 11px 26px color-mix(in srgb, var(--site-text) 24%, transparent);
+  background-color: var(--site-action-hover);
   transform: translateY(-0.1rem);
 }
 
 .nav-cta:active {
+  background-color: var(--site-action-pressed);
   transform: translateY(0);
 }
 

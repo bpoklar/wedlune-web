@@ -98,7 +98,7 @@ const selectLocale = async (event: Event) => {
 }
 
 .language-dropdown-control:hover {
-  border-color: color-mix(in srgb, var(--site-accent) 55%, transparent);
+  border-color: var(--site-accent-strong);
   color: var(--site-accent-strong);
   background-color: color-mix(in srgb, var(--site-bg-soft) 62%, transparent);
 }
@@ -133,13 +133,13 @@ const selectLocale = async (event: Event) => {
 }
 
 .language-dropdown-dark .language-dropdown-control {
-  border-color: color-mix(in srgb, var(--site-surface) 16%, transparent);
+  border-color: var(--site-control-border);
   color: var(--site-inverse-muted);
   background-color: color-mix(in srgb, var(--site-surface) 6%, transparent);
 }
 
 .language-dropdown-dark .language-dropdown-control:hover {
-  border-color: color-mix(in srgb, var(--site-accent) 50%, transparent);
+  border-color: var(--site-accent);
   color: var(--site-inverse-text);
   background-color: color-mix(in srgb, var(--site-surface) 10%, transparent);
 }

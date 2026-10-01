@@ -156,9 +156,9 @@ describe("RSVP interaction colors", () => {
 
   it("uses the shared site colors for existing default designs", () => {
     const theme = createRsvpTheme(defaultRsvpDesign);
-    expect(theme["--rsvp-primary"]).toBe("var(--site-accent)");
+    expect(theme["--rsvp-primary"]).toBe("var(--site-action)");
     expect(theme["--rsvp-accent"]).toBe("var(--site-accent)");
-    expect(theme["--rsvp-primary-hover"]).toBe("var(--site-accent-hover)");
+    expect(theme["--rsvp-primary-hover"]).toBe("var(--site-action-hover)");
     expect(defaultRsvpDesign.accentColor).toBe("#C9A96E");
   });
 

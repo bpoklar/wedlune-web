@@ -34,7 +34,7 @@ defineProps<{ value: PlanComparisonValue }>();
 }
 
 .plan-value-included {
-  color: var(--site-success);
+  color: var(--site-accent-strong);
 }
 
 .plan-value-premium {

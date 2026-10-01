@@ -134,7 +134,7 @@ test.describe("marketing, SEO, and navigation", () => {
 
     const visibleCta = page.locator("[data-nav-cta]:visible");
     await expect(header).toHaveAttribute("data-visible", "true");
-    await expect(visibleCta).toHaveCSS("background-color", "rgb(44, 44, 44)");
+    await expect(visibleCta).toHaveCSS("background-color", "rgb(41, 39, 36)");
     await expect(visibleCta).toHaveCSS("background-image", "none");
     await expect(visibleCta).toHaveCSS("color", "rgb(255, 255, 255)");
     await visibleCta.screenshot({ path: testInfo.outputPath("get-wedlune-button.png") });
@@ -327,6 +327,7 @@ test.describe("marketing, SEO, and navigation", () => {
 test.describe("legal and recovery surfaces", () => {
   test("privacy page is readable and its table of contents works", async ({ page }, testInfo) => {
     test.skip(testInfo.project.name.startsWith("mobile"), "desktop visual baseline");
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/privacy");
     await expect(page.getByRole("heading", { level: 1, name: "Privacy Policy" })).toBeVisible();
     await expect(page.getByRole("navigation", { name: "On this page" })).toBeVisible();
