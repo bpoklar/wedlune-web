@@ -1,6 +1,9 @@
-# Editorial asset licenses
+# Website asset provenance
 
-Downloaded on 2026-08-12 from Unsplash under the Unsplash License. Local derivatives only change dimensions, crop, quality, and file format.
+The two families below were downloaded on 2026-08-12 from Unsplash under the
+Unsplash License. Their local derivatives only change dimensions, crop,
+quality, and file format. This record does not establish provenance for every
+asset under `public/img/`.
 
 | Local asset | Creator | Source | Notes |
 | --- | --- | --- | --- |
@@ -8,5 +11,22 @@ Downloaded on 2026-08-12 from Unsplash under the Unsplash License. Local derivat
 | `public/img/editorial/roses-*` | Lukas Dienst | https://unsplash.com/photos/FE1SFqUMZKw | Still life of white roses; no people, logos, artwork, or identifiable property visible. |
 
 License reference at download time: https://unsplash.com/license
+
+## Unrecorded families
+
+The 2 October 2026 source review found additional image families without a
+creator/source/license entry in this repository:
+
+| Local assets | Current use | Missing evidence |
+| --- | --- | --- |
+| `public/img/editorial/wedding-details-*` | Homepage hero | Original source, creator or generation record, applicable usage rights and any permissions |
+| `public/img/editorial/planning-desk-*` | How-it-works section | Original source, creator or generation record, applicable usage rights and any permissions |
+| `public/img/editorial/garden-reception-*` | Footer call to action | Original source, creator or generation record, applicable usage rights and any permissions |
+| `public/img/wedding/hf_*.png` | Source image collection; no direct application reference found | Generation/download provenance and applicable usage rights; filenames alone do not prove either |
+
+Do not apply the two recorded Unsplash entries to these other families. Preserve
+source files while collecting their actual provenance. Logo/store artwork and
+app screenshots are separate asset classes; do not describe them as licensed
+Unsplash photography.
 
 Before replacing these files, verify the replacement image's copyright license and any model, property, trademark, or artwork permissions. Record the creator, original source URL, access date, and usage notes here.

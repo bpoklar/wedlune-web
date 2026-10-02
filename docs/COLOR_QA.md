@@ -2,6 +2,13 @@
 
 Date: September 22, 2026
 
+This is historical verification evidence for the revision reviewed on that
+date. Current implementation and focused check guidance are in
+[Website colors](COLOR_SCHEME.md). The 2 October source review found that brand
+primary actions now use charcoal with white labels; champagne is decorative.
+No tests, deployment or device checks were repeated for this documentation
+review, and the recorded counts below are not current-suite counts.
+
 ## Implementation
 
 - Website UI roles come from `app/assets/css/main.css`; custom RSVP contrast
@@ -47,8 +54,9 @@ backend and E2E APK. `Wedlune_QA_API33` disappeared from ADB during the first
 flow, including after a cold boot with software rendering. The subsequent
 offline lane could not select `emulator-5554`. The available screenshots show
 login/home setup, not a completed RSVP editor flow. No Android device pass is
-claimed. Rerun regression and offline coverage on a stable emulator/device
-before releasing the mobile editor.
+claimed. Verify the affected RSVP editor and offline flows on a stable
+emulator/device before releasing the mobile editor. The historical blocker
+does not require Android checks for website-only work.
 
 ## Release state
 

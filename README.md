@@ -1,50 +1,63 @@
 # Wedlune Web
 
-Nuxt 4 website for Wedlune marketing pages, public legal pages, account
-deletion instructions, token-gated guest RSVP, and wedding wishlists.
+Nuxt 4 / Vue 3 website for Wedlune marketing pages, public legal pages, account
+deletion instructions, feedback, token-gated guest RSVP/wishlists, shared
+galleries, and private mobile-auth callbacks. English, Slovenian and Italian
+use unprefixed, `/sl`, and `/it` routes respectively.
 
 The RSVP route accepts the guest token from the shared URL. Free weddings with
 up to 50 invited people use the default presentation; Premium may load the
 published design and wishlist and lets that RSVP party reserve, change, and
-cancel gift quantities. Design and wishlist payloads remain additive.
+cancel gift quantities. Design and wishlist payloads remain additive. App and
+backend source lives in the sibling `../wedlune` repository; website-only work
+uses the checks below and does not require Flutter/Android setup.
+
+See the [documentation index](docs/README.md) for palette contracts, asset
+provenance, the remaining backlog and dated QA/privacy evidence. Historical
+reports describe their recorded revision, not current production verification.
 
 ## Setup
 
-Make sure to install dependencies:
+Use the committed npm lockfile when dependencies need installation:
 
 ```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+npm ci
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+Start development on `http://localhost:3000`:
 
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+## Change-specific checks
+
+Always run the relevant unit tests for website code changes. Use affected
+Vitest files while iterating; use `npm test` for broad shared/config/dependency
+changes, release verification or an explicitly requested full-suite review.
+Do not repeat passed checks without new edits, failures or unresolved concerns.
+Documentation-only changes need source/link and diff checks, not builds or
+test/device setup.
+
+```bash
+# Example: feedback schema change
+npm test -- app/utils/feedback.test.ts
+# Example: store-link behavior
+npm test -- app/utils/storeLinks.test.ts
+```
+
+Select browser coverage for changed rendering, interactions or browser-only
+behavior. Multiple affected spec files can share one Playwright invocation:
+
+```bash
+npm run test:e2e -- e2e/feedback.spec.ts
+npm run test:e2e -- e2e/rsvp-access.spec.ts e2e/rsvp-colors.spec.ts
+```
+
+The default Playwright configuration runs Chromium desktop and Pixel 7
+viewports with one worker against port 3200, and can reuse an existing local
+server. Inspect affected screenshots and failures under `test-results/`.
+Keep production secrets and real guest data out of browser fixtures.
 
 For a palette or homepage styling change, run `npm run test:palette` for focused
 desktop/mobile checks in English, Slovenian, and Italian. These checks cover
@@ -54,38 +67,26 @@ for broader changes; update only the affected visual baselines after review.
 
 Website colors are centralized in `app/assets/css/main.css`. Decorative
 champagne roles are separate from action roles. Custom guest RSVP palettes
-remain scoped; historical default palettes resolve to the current brand.
+remain scoped; historical default palettes resolve to the current brand. See
+[Website colors](docs/COLOR_SCHEME.md) for unit/browser selection.
+
+Run `npm run build` when route/configuration, SSR/prerendering, deployment or
+bundling behavior needs verification, and for release checks. Before a broad
+release, run `npm test`, `npm run build`, and `npm run test:e2e` once against
+the final patch. Review only affected visual baselines before updating them.
+
+## Production
 
 Build the application for production:
 
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
 Locally preview production build:
 
 ```bash
-# npm
 npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
 ### Cloudflare Workers environment
@@ -144,10 +145,11 @@ verification can take up to 24 hours. See the
 
 ## Website feedback
 
-`/feedback` and `/sl/feedback` accept public feedback without an account. The
+`/feedback`, `/sl/feedback`, and `/it/feedback` accept public feedback without an account. The
 footer links to the localized page. Category, a trimmed 10–2,000-character
 message, an optional 1–5 rating, and optional reply email are validated with
-Zod 4.4.3 and sent to the `submit-feedback` Supabase Edge Function using the
+the Zod schema in `app/utils/feedback.ts` and sent to the `submit-feedback`
+Supabase Edge Function using the
 existing public runtime configuration.
 
 The function lives in the Flutter repository and writes to the same
@@ -158,9 +160,13 @@ database-backed network rate limits (5 attempts per 10 minutes, 25 per day).
 Contact emails are optional, unverified, and private. The form retains values
 after network errors for manual retry and does not persist an offline queue.
 
-Keep `app/utils/feedback.ts` aligned with the function's `schema.ts`. Run
-`npm test`, `npm run build`, and `npm run test:e2e`; feedback browser tests
-cover English/Slovenian on desktop/mobile and save form/success screenshots.
+Keep `app/utils/feedback.ts` aligned with the function's `schema.ts`; the website
+and Edge Function have separate dependency versions. For feedback changes,
+run `npm test -- app/utils/feedback.test.ts` and select
+`e2e/feedback.spec.ts` when browser behavior is affected. Its original browser
+coverage is English/Slovenian on desktop/mobile; Italian catalog consistency
+also has unit coverage. Form/success screenshots are saved for review. The
+[10 September QA report](docs/FEEDBACK_QA.md) preserves original release evidence.
 Release the `website_feedback` database migration and `submit-feedback`
 function before deploying the website. Do not log messages or contact emails.
 
@@ -172,7 +178,7 @@ describe guest-safe planning summaries and the exact allowlist of saved
 business details sent through OpenRouter. Verified venue lookup and section
 recommendations use the separate OpenRouter/Exa source-bound discovery flow;
 transport geocoding and route calculation use openrouteservice. Material
-processing changes require matching English and Slovenian updates,
+processing changes require matching English, Slovenian and Italian updates,
 synchronized policy dates, review of whether the Flutter/Edge consent version
 must change, and updates to `app/utils/legalDisclosures.test.ts`.
 
@@ -182,7 +188,9 @@ Clauses, describe ZDR as a provider-retention control rather than
 anonymization, and explain that Wedlune separately stores private chat history
 until the user deletes it. Do not publish or enable AI chat until the provider,
 transfer, store-declaration, and legal checks in the app repository release
-checklist are complete.
+checklist are complete. The [website privacy report](docs/PRIVACY_ALIGNMENT_2026_09_28.md)
+records the 28 September wording change and later source-review limits; it
+does not certify legal or operational readiness.
 
 ## RSVP and wishlist safety
 
@@ -204,7 +212,9 @@ checklist are complete.
 - Guest-facing wishlist image URLs are also short-lived signed URLs from private storage.
 - Reservation responses contain counts only and never reveal another giver's identity.
 
-Before release, run `npm test`, `npm run build`, and `npm run test:e2e`, then manually verify all
+Use relevant `rsvpDesign`, `rsvpMenu`, and `rsvpPreview` unit tests plus affected
+RSVP browser specs during development. The broad release checks above are
+followed by manual verification of all
 three layouts on mobile/desktop, default and custom designs, Premium-unavailable,
 accepted/declined/confirmation states, reservation cancellation, external-link
 safety, keyboard use, accessible status announcements, and expired/missing

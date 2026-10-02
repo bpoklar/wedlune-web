@@ -2,14 +2,15 @@
 
 The palette in `app/assets/css/main.css` is the website source of truth.
 Use semantic Tailwind roles (`page`, `surface`, `content`, `muted`, `accent`,
-`on-accent`, `control`, `line`, `inverse`) or the corresponding `--site-*`
+`on-accent`, `action`, `on-action`, `control`, `line`, `inverse`) or the corresponding `--site-*`
 variables. Do not add palette literals or color-name utilities to components.
 Photography, app screenshots, and logo artwork retain their original colors.
 
-Ivory and white carry the content. Champagne marks primary actions with charcoal
-labels (6.24:1 contrast); strong gold provides visible focus/selection details.
-Headings stay charcoal. Blush is decorative. Success, error, warning, and
-information roles are reserved for actual status. Keep links underlined and
+Ivory and white carry the content. Primary actions use charcoal with white
+labels through `--site-action` and `--site-on-action`; their hover and pressed
+states have separate roles. Champagne provides decorative accents, and strong
+gold provides visible focus/selection details. Headings stay charcoal. Success
+and error roles are reserved for actual status. Keep links underlined and
 provide labels, borders, or icons alongside color. Dark marketing sections use
 charcoal with inverse text. Necessary control boundaries must contrast by 3:1;
 normal text by 4.5:1. Check blended backgrounds, hover, and selected states too.
@@ -41,9 +42,22 @@ Resetting colors preserves template, text, image, and framing settings.
 
 ## Checks
 
-Run `npm test`, `npm run build`, and `npm run test:e2e`. The Playwright suite
-checks English/Slovenian routes, mobile/desktop, axe, custom light/dark themes,
-legacy defaults, explicit custom brown, selection/focus, wishlist errors,
-confirmation, and navigation cleanup. Review screenshots before updating
-visual baselines. Unit tests verify contrast over all gray luminances and
-mixed custom surfaces, plus the ban on component CSS palette literals.
+For palette logic, run the affected unit files:
+
+```bash
+npm test -- app/utils/colorTheme.test.ts app/utils/rsvpDesign.test.ts
+```
+
+For marketing palette/action changes, `npm run test:palette` runs focused
+desktop/mobile homepage checks in English, Slovenian and Italian. For shared
+public-page roles or custom RSVP themes, select the affected tests from
+`e2e/theme.spec.ts` and `e2e/rsvp-colors.spec.ts` rather than every browser test.
+The broader theme checks include axe, custom palettes, legacy defaults,
+selection/focus, confirmation, wishlist failures and navigation cleanup.
+Review affected screenshots before updating visual baselines. Unit tests verify
+contrast across gray luminances and mixed custom surfaces, and prohibit palette
+literals in component CSS. Build and full-suite guidance is in the
+[repository README](../README.md).
+
+The [22 September verification report](COLOR_QA.md) records earlier results;
+its champagne-action description and test counts are historical.

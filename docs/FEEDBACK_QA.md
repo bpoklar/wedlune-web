@@ -1,5 +1,12 @@
 # Website feedback verification — 10 September 2026
 
+This report preserves the release evidence recorded on 10 September. Versions,
+counts and deployment IDs below are historical, not a fresh production check.
+Current feedback implementation and focused check guidance are in the
+[repository README](../README.md). Italian feedback is also present in the
+current locale catalog/routes; the original browser evidence below covers
+English and Slovenian only.
+
 The public English and Slovenian feedback pages are deployed at `/feedback`
 and `/sl/feedback`. They use the Flutter app's `public.feedback` table through
 the public `submit-feedback` Edge Function, with Zod 4.4.3 validation on both
@@ -54,9 +61,11 @@ fixed error codes, never feedback contents or email addresses.
 
 ## Android device coverage
 
-The required Maestro regression lane is running on the authorized connected
-device with the isolated E2E APK and disposable local backend. The offline
-lane will follow it; final results are pending.
+The original session recorded a running Maestro regression lane and intended
+offline follow-up, but this report contains no final result for either lane.
+Treat those Android checks as unverified historical evidence. Website-only
+feedback changes do not require Android device checks; changes to Flutter
+feedback/offline behavior use the app repository's affected-flow guidance.
 
 Local logs and screenshots are under `node_modules/.cache/feedback-*.log`,
 `test-results/`, and the Flutter repository's `build/feedback-*.log` and
