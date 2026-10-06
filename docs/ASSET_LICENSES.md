@@ -12,6 +12,28 @@ asset under `public/img/`.
 
 License reference at download time: https://unsplash.com/license
 
+## App screenshots
+
+The homepage hero and feature phone previews use the dark-theme English
+captures from `../wedlune/Marketing/screenshots/en/premium-en-20261002/dark/`,
+captured on 2 October 2026 from the Flutter Android app with synthetic wedding
+data. The original 1280 × 2856 PNGs were copied without image edits.
+
+| Website file under `public/img/app-screens/real/` | Marketing source file |
+| --- | --- |
+| `timeline.png` | `timeline.png` |
+| `venue.png` | `venues.png` |
+| `budget.png` | `budget-dashboard.png` |
+| `vendors.png` | `vendors.png` |
+| `caterers.png` | `catering.png` |
+| `attire.png` | `attire.png` |
+| `transport.png` | `transport.png` |
+| `guests.png` | `guests-list.png` |
+
+All three website languages share these English screenshots. Capture setup and
+verification are recorded in the source collection's
+[README](../../wedlune/Marketing/screenshots/en/premium-en-20261002/README.md).
+
 ## Unrecorded families
 
 The 2 October 2026 source review found additional image families without a

@@ -30,8 +30,8 @@
               <img
                 :src="featuredImages[index]"
                 alt=""
-                :width="index === 0 ? 1280 : 390"
-                :height="index === 0 ? 2856 : 844"
+                width="1280"
+                height="2856"
                 loading="lazy"
                 decoding="async"
               >
@@ -66,7 +66,7 @@ const definitions = [
 
 const featuredImages = [
   "/img/app-screens/real/timeline.png",
-  "/img/app-screens/guests-390.png",
+  "/img/app-screens/real/guests.png",
 ] as const;
 
 const featureCardClass = (index: number) => {
