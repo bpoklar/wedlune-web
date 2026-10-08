@@ -41,6 +41,7 @@
           </button>
         </div>
       </section>
+      <RsvpWeddingInformation v-if="!loading && !errorMessage && !premiumUnavailable && !submitted && weddingInformation" :information="weddingInformation" />
       <!-- Loading state -->
       <div
         v-if="loading"
@@ -495,6 +496,8 @@
         </form>
       </div>
 
+      <RsvpWeddingInformation v-if="submitted && !errorMessage && !premiumUnavailable && weddingInformation" :information="weddingInformation" />
+
       <WishlistSection
         v-if="!loading && !errorMessage && !submitted && wishlist && token"
         :token="token"
@@ -518,6 +521,7 @@
 </template>
 
 <script setup lang="ts">
+import { parseRsvpInformation, type RsvpInformationConfig } from "~/utils/rsvpInformation";
 import { readableTextColor } from "~/utils/colorTheme";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
@@ -561,6 +565,7 @@ const token = computed(() =>
 );
 
 // UI state
+const weddingInformation = ref<RsvpInformationConfig | null>(null);
 const loading = ref(true);
 const errorMessage = ref<string | null>(null);
 const submitted = ref(false);
@@ -754,6 +759,7 @@ onMounted(async () => {
       }>;
       wishlist?: Wishlist | null;
       rsvpDesign?: RsvpDesign | null;
+      weddingInformation?: unknown;
     }>(edgeFunctionUrl.value, {
       cache: "no-store",
       headers: {
@@ -762,6 +768,7 @@ onMounted(async () => {
       },
     });
 
+    weddingInformation.value = parseRsvpInformation(data.weddingInformation);
     guestName.value = data.name;
     isCouple.value = data.isCouple;
     coupleName.value = data.coupleName;

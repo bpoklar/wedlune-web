@@ -133,9 +133,18 @@
       "highlights": "Prednosti aplikacije Wedlune",
       "photoAlt": "Bel poročni šopek, poročna prstana in vabila na nežno modri tkanini",
       "stats": [
-        { "value": "1", "label": "skupni poročni načrt" },
-        { "value": "3", "label": "podprta jezika" },
-        { "value": "Vse", "label": "ključne funkcije" }
+        {
+          "value": "1",
+          "label": "skupni poročni načrt"
+        },
+        {
+          "value": "3",
+          "label": "podprta jezika"
+        },
+        {
+          "value": "Vse",
+          "label": "ključne funkcije"
+        }
       ],
       "suggestion": "Koristen naslednji korak",
       "nextAction": "Najboljši naslednji korak",
@@ -151,13 +160,34 @@
         "label": "Predogled aplikacije Wedlune",
         "show": "Prikaži zaslon {screen}",
         "slides": {
-          "timeline": { "title": "Časovnica", "alt": "Časovnica Wedlune s poročnimi opravili, roki, prednostmi in zadolžitvami" },
-          "venue": { "title": "Lokacija", "alt": "Načrtovanje lokacije v aplikaciji Wedlune z nadzorno ploščo odločitev in podatki rezervirane lokacije" },
-          "budget": { "title": "Proračun", "alt": "Proračun Wedlune z načrtovanimi in dejanskimi stroški, plačili ter prihajajočimi izdatki" },
-          "vendors": { "title": "Ponudniki", "alt": "Seznam ponudnikov Wedlune z napredkom rezervacij, kategorijami, ocenami in kontakti" },
-          "caterers": { "title": "Catering", "alt": "Načrtovanje cateringa v aplikaciji Wedlune s prehranskimi željami, meniji in oceno stroškov" },
-          "attire": { "title": "Obleke", "alt": "Načrtovanje poročnih oblek v aplikaciji Wedlune z odločitvami obeh partnerjev" },
-          "transport": { "title": "Prevoz", "alt": "Načrtovanje prevoza v aplikaciji Wedlune s pokritostjo gostov, vozili, stroški in razporeditvami" }
+          "timeline": {
+            "title": "Časovnica",
+            "alt": "Časovnica Wedlune s poročnimi opravili, roki, prednostmi in zadolžitvami"
+          },
+          "venue": {
+            "title": "Lokacija",
+            "alt": "Načrtovanje lokacije v aplikaciji Wedlune z nadzorno ploščo odločitev in podatki rezervirane lokacije"
+          },
+          "budget": {
+            "title": "Proračun",
+            "alt": "Proračun Wedlune z načrtovanimi in dejanskimi stroški, plačili ter prihajajočimi izdatki"
+          },
+          "vendors": {
+            "title": "Ponudniki",
+            "alt": "Seznam ponudnikov Wedlune z napredkom rezervacij, kategorijami, ocenami in kontakti"
+          },
+          "caterers": {
+            "title": "Catering",
+            "alt": "Načrtovanje cateringa v aplikaciji Wedlune s prehranskimi željami, meniji in oceno stroškov"
+          },
+          "attire": {
+            "title": "Obleke",
+            "alt": "Načrtovanje poročnih oblek v aplikaciji Wedlune z odločitvami obeh partnerjev"
+          },
+          "transport": {
+            "title": "Prevoz",
+            "alt": "Načrtovanje prevoza v aplikaciji Wedlune s pokritostjo gostov, vozili, stroški in razporeditvami"
+          }
         }
       }
     },
@@ -174,12 +204,30 @@
       "kicker": "En miren prostor za načrtovanje",
       "title": "Vse, kar potrebujeta, na enem mestu.",
       "items": [
-        { "title": "Časovnica", "description": "Datume, opravila in opomnike uredita v jasen načrt." },
-        { "title": "Gostje in RSVP", "description": "RSVP, meniji, spremljevalci in sedežni red — brez preglednic." },
-        { "title": "Proračun", "description": "Primerjajta ponudbe, sledita plačilom in hitro opazita prekoračitve." },
-        { "title": "Ponudniki", "description": "Kontakti, ponudbe, rezervacije in zapiski na enem mestu." },
-        { "title": "Fotografije", "description": "Shranita navdih in delita seznam posnetkov za fotografa." },
-        { "title": "Pametni predlogi", "description": "Izbirni naslednji koraki, prilagojeni vajini poroki." }
+        {
+          "title": "Časovnica",
+          "description": "Datume, opravila in opomnike uredita v jasen načrt."
+        },
+        {
+          "title": "Gostje in RSVP",
+          "description": "RSVP, meniji, spremljevalci in sedežni red — brez preglednic."
+        },
+        {
+          "title": "Proračun",
+          "description": "Primerjajta ponudbe, sledita plačilom in hitro opazita prekoračitve."
+        },
+        {
+          "title": "Ponudniki",
+          "description": "Kontakti, ponudbe, rezervacije in zapiski na enem mestu."
+        },
+        {
+          "title": "Fotografije",
+          "description": "Shranita navdih in delita seznam posnetkov za fotografa."
+        },
+        {
+          "title": "Pametni predlogi",
+          "description": "Izbirni naslednji koraki, prilagojeni vajini poroki."
+        }
       ]
     },
     "how": {
@@ -187,9 +235,18 @@
       "kicker": "Od preobremenjenosti do urejenosti",
       "title": "Kako deluje Wedlune",
       "steps": [
-        { "title": "Povejta nam o svoji poroki", "description": "Datum, lokacija, proračun in prednostne naloge." },
-        { "title": "Prejmeta svoj načrt", "description": "Jasna časovnica in seznam opravil." },
-        { "title": "Načrtujta skupaj", "description": "Skupni napredek, gostje, stroški in odločitve." }
+        {
+          "title": "Povejta nam o svoji poroki",
+          "description": "Datum, lokacija, proračun in prednostne naloge."
+        },
+        {
+          "title": "Prejmeta svoj načrt",
+          "description": "Jasna časovnica in seznam opravil."
+        },
+        {
+          "title": "Načrtujta skupaj",
+          "description": "Skupni napredek, gostje, stroški in odločitve."
+        }
       ]
     },
     "pricing": {
@@ -201,8 +258,16 @@
       "premium": "Premium",
       "premiumTitle": "Več možnosti. Več dovršenosti.",
       "premiumSubtitle": "Dodajta prilagojene izkušnje za goste, pomoč UI, izvoze in višje omejitve.",
-      "freeItems": ["Skupna časovnica, proračun, gostje in ponudniki", "Spletna stran RSVP za do 50 povabljenih oseb", "En partner je vključen"],
-      "premiumItems": ["Neomejeni načrtovalni seznami in do 100 fotografij", "Prilagojen RSVP, deljenje seznama želja in vizualni sedežni red", "Orodja UI, izvozi in izkušnja brez oglasov"],
+      "freeItems": [
+        "Skupna časovnica, proračun, gostje in ponudniki",
+        "Spletna stran RSVP za do 50 povabljenih oseb",
+        "En partner je vključen"
+      ],
+      "premiumItems": [
+        "Neomejeni načrtovalni seznami in do 100 fotografij",
+        "Prilagojen RSVP, deljenje seznama želja in vizualni sedežni red",
+        "Orodja UI, izvozi in izkušnja brez oglasov"
+      ],
       "feature": "Funkcija",
       "tableCaption": "Primerjava funkcij v brezplačnem paketu in paketu Premium aplikacije Wedlune",
       "keyDifferences": "Ključne razlike na enem mestu",
@@ -288,20 +353,48 @@
       "kicker": "Preden začneta",
       "title": "Nekaj koristnih odgovorov.",
       "items": [
-        { "question": "Ali lahko začneta brezplačno?", "answer": "Da, brezplačni paket vključuje časovnico, seznam opravil, proračun in osnovne sezname." },
-        { "question": "Ali lahko oba partnerja uporabljata isti poročni načrt?", "answer": "Da, lastnik lahko partnerja povabi z dovoljenjem za urejanje ali ogled." },
-        { "question": "Kako delujejo predlogi z umetno inteligenco?", "answer": "Izbirni predlogi glede na vajine podatke priporočijo naslednje korake, ki jih vedno pregledata." },
-        { "question": "Ali gostje za RSVP potrebujejo aplikacijo?", "answer": "Ne, gostje odgovorijo in posodobijo svoje načrte prek zasebne spletne povezave." },
-        { "question": "Ali lahko načrtujeta brez internetne povezave?", "answer": "Da, osnovni podatki ostanejo lokalno, podprte spremembe pa se sinhronizirajo ob ponovni povezavi." },
-        { "question": "Ali so podatki o poroki javni?", "answer": "Ne, podatki so zaščiteni z računom, povezave za goste pa so zasebne in izključene iz iskalnikov." }
+        {
+          "question": "Ali lahko začneta brezplačno?",
+          "answer": "Da, brezplačni paket vključuje časovnico, seznam opravil, proračun in osnovne sezname."
+        },
+        {
+          "question": "Ali lahko oba partnerja uporabljata isti poročni načrt?",
+          "answer": "Da, lastnik lahko partnerja povabi z dovoljenjem za urejanje ali ogled."
+        },
+        {
+          "question": "Kako delujejo predlogi z umetno inteligenco?",
+          "answer": "Izbirni predlogi glede na vajine podatke priporočijo naslednje korake, ki jih vedno pregledata."
+        },
+        {
+          "question": "Ali gostje za RSVP potrebujejo aplikacijo?",
+          "answer": "Ne, gostje odgovorijo in posodobijo svoje načrte prek zasebne spletne povezave."
+        },
+        {
+          "question": "Ali lahko načrtujeta brez internetne povezave?",
+          "answer": "Da, osnovni podatki ostanejo lokalno, podprte spremembe pa se sinhronizirajo ob ponovni povezavi."
+        },
+        {
+          "question": "Ali so podatki o poroki javni?",
+          "answer": "Ne, podatki so zaščiteni z računom, povezave za goste pa so zasebne in izključene iz iskalnikov."
+        }
       ]
     },
     "couples": {
       "kicker": "Zasnovano za pare",
       "title": "Ko načrtovanje postane večje od same poroke.",
       "items": [
-        { "title": "Načrt je razpršen na preveč mestih", "initials": "01", "detail": "Zapiski, klepeti, zavihki in preglednice", "description": "Združita raziskovanje, stroške, goste, odgovore RSVP in roke v en skupni pogled, preden se podrobnosti izgubijo." },
-        { "title": "Nihče ne ve, kaj sledi", "initials": "02", "detail": "Preveč odločitev in premalo jasnosti", "description": "Wedlune izpostavi naslednji koristen korak, od ponovnega stika s ponudniki do opomnikov RSVP in pregleda proračuna." }
+        {
+          "title": "Načrt je razpršen na preveč mestih",
+          "initials": "01",
+          "detail": "Zapiski, klepeti, zavihki in preglednice",
+          "description": "Združita raziskovanje, stroške, goste, odgovore RSVP in roke v en skupni pogled, preden se podrobnosti izgubijo."
+        },
+        {
+          "title": "Nihče ne ve, kaj sledi",
+          "initials": "02",
+          "detail": "Preveč odločitev in premalo jasnosti",
+          "description": "Wedlune izpostavi naslednji koristen korak, od ponovnega stika s ponudniki do opomnikov RSVP in pregleda proračuna."
+        }
       ]
     }
   },
@@ -365,7 +458,22 @@
     "submitError": "Odgovora RSVP ni bilo mogoče poslati. Preverite povezavo in poskusite znova.",
     "privacyNoticeBefore": "Vaš odgovor, izbire obrokov in prehranske opombe prejmeta par in njegov pooblaščeni partner za načrtovanje, podatke pa gosti Wedlune. Kako zahtevati popravek ali izbris, preberite v naši",
     "dietaryPrivacyBefore": "Neobvezno: delite le prehranske podatke, potrebne za dogodek. Prebereta jih lahko par in njegov pooblaščeni partner za načrtovanje. Alergije lahko razkrivajo zdravstvene podatke; občutljivih podatkov drugih ne posredujte brez njihovega dovoljenja. Več v naši",
-    "privacyLink": "politiki zasebnosti"
+    "privacyLink": "politiki zasebnosti",
+    "information": {
+      "title": "Informacije o poroki",
+      "localTime": "Vsi datumi in ure veljajo za kraj poroke.",
+      "faq": "Pogosta vprašanja",
+      "weddingDate": "Datum poroke",
+      "ceremonyTime": "Ura obreda",
+      "ceremonyAddress": "Kraj in naslov obreda",
+      "receptionTime": "Ura slavja",
+      "receptionAddress": "Kraj in naslov slavja",
+      "dressCode": "Pravila oblačenja",
+      "parking": "Navodila za parkiranje",
+      "transport": "Navodila za prevoz",
+      "accommodation": "Navodila za nastanitev",
+      "travelLink": "Povezava za potovanje"
+    }
   },
   "wishlist": {
     "gifts": "Darila",
@@ -401,7 +509,13 @@
     "mustHaveBadge": "Nujno",
     "emptyTitle": "Tukaj še ni ničesar",
     "emptyBody": "Seznam posnetkov je prazen. Oglejte si ga znova pozneje.",
-    "categories": { "details": "Detajli", "getting_ready": "Priprave", "ceremony": "Obred", "family": "Družina", "reception": "Sprejem" },
+    "categories": {
+      "details": "Detajli",
+      "getting_ready": "Priprave",
+      "ceremony": "Obred",
+      "family": "Družina",
+      "reception": "Sprejem"
+    },
     "missingToken": "V povezavi do seznama posnetkov manjka žeton. Preverite prejeto povezavo.",
     "inactive": "Ta povezava do seznama posnetkov ni več aktivna. Par je morda izklopil deljenje ali ustvaril novo povezavo.",
     "invalid": "Neveljavna povezava do seznama posnetkov.",

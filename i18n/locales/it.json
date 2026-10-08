@@ -458,7 +458,22 @@
     "submitError": "Impossibile inviare l'RSVP. Controlla la connessione e riprova.",
     "privacyNoticeBefore": "La risposta, le scelte dei pasti e le note alimentari sono condivise con la coppia e il suo partner di pianificazione autorizzato e ospitate da Wedlune. Per richiedere rettifica o cancellazione, leggere la nostra",
     "dietaryPrivacyBefore": "Facoltativo: condividere solo i dettagli alimentari necessari per l’evento. La coppia e il suo partner di pianificazione autorizzato possono leggerli. Le allergie possono rivelare dati sanitari; non inviare dettagli sensibili su altre persone senza il loro permesso. Maggiori informazioni nella nostra",
-    "privacyLink": "Informativa sulla privacy"
+    "privacyLink": "Informativa sulla privacy",
+    "information": {
+      "title": "Informazioni sul matrimonio",
+      "localTime": "Tutte le date e gli orari si riferiscono al luogo del matrimonio.",
+      "faq": "Domande frequenti",
+      "weddingDate": "Data del matrimonio",
+      "ceremonyTime": "Orario della cerimonia",
+      "ceremonyAddress": "Luogo e indirizzo della cerimonia",
+      "receptionTime": "Orario del ricevimento",
+      "receptionAddress": "Luogo e indirizzo del ricevimento",
+      "dressCode": "Codice di abbigliamento",
+      "parking": "Indicazioni per il parcheggio",
+      "transport": "Indicazioni per il trasporto",
+      "accommodation": "Indicazioni per l’alloggio",
+      "travelLink": "Link per il viaggio"
+    }
   },
   "wishlist": {
     "gifts": "Regali",

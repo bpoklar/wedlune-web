@@ -8,7 +8,13 @@ use unprefixed, `/sl`, and `/it` routes respectively.
 The RSVP route accepts the guest token from the shared URL. Free weddings with
 up to 50 invited people use the default presentation; Premium may load the
 published design and wishlist and lets that RSVP party reserve, change, and
-cancel gift quantities. Design and wishlist payloads remain additive. App and
+cancel gift quantities. Design and wishlist payloads remain additive. The
+backend also returns optional published `weddingInformation` on eligible Free and
+Premium RSVP links. The website renders bounded plain text, wedding-local dates
+and times, validated travel links and FAQ before RSVP and after confirmation.
+Older responses without this field remain supported. Information publication is
+independent of Premium design publication. The complete contract is in
+[RSVP access and presentation](../wedlune/docs/RSVP_DESIGN.md). App and
 backend source lives in the sibling `../wedlune` repository; website-only work
 uses the checks below and does not require Flutter/Android setup.
 

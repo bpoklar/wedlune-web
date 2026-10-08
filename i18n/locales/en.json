@@ -133,9 +133,18 @@
       "highlights": "Wedlune highlights",
       "photoAlt": "White bridal bouquet, wedding rings and stationery arranged on soft blue fabric",
       "stats": [
-        { "value": "1", "label": "shared wedding plan" },
-        { "value": "3", "label": "supported languages" },
-        { "value": "All", "label": "planning essentials" }
+        {
+          "value": "1",
+          "label": "shared wedding plan"
+        },
+        {
+          "value": "3",
+          "label": "supported languages"
+        },
+        {
+          "value": "All",
+          "label": "planning essentials"
+        }
       ],
       "suggestion": "A helpful next step",
       "nextAction": "Next best action",
@@ -151,13 +160,34 @@
         "label": "Wedlune app preview",
         "show": "Show {screen} screen",
         "slides": {
-          "timeline": { "title": "Timeline", "alt": "Wedlune timeline showing wedding tasks, due dates, priorities, and assignments" },
-          "venue": { "title": "Venue", "alt": "Wedlune venue planner showing the venue decision dashboard and booked venue details" },
-          "budget": { "title": "Budget", "alt": "Wedlune budget showing planned and actual costs, payments, and upcoming expenses" },
-          "vendors": { "title": "Vendors", "alt": "Wedlune vendor list showing booking progress, categories, ratings, and contact details" },
-          "caterers": { "title": "Caterers", "alt": "Wedlune caterer planner showing food preferences, menu assignments, and estimated spend" },
-          "attire": { "title": "Attire", "alt": "Wedlune attire planner showing outfit decisions for both partners" },
-          "transport": { "title": "Transport", "alt": "Wedlune transport planner showing guest coverage, vehicles, costs, and assignments" }
+          "timeline": {
+            "title": "Timeline",
+            "alt": "Wedlune timeline showing wedding tasks, due dates, priorities, and assignments"
+          },
+          "venue": {
+            "title": "Venue",
+            "alt": "Wedlune venue planner showing the venue decision dashboard and booked venue details"
+          },
+          "budget": {
+            "title": "Budget",
+            "alt": "Wedlune budget showing planned and actual costs, payments, and upcoming expenses"
+          },
+          "vendors": {
+            "title": "Vendors",
+            "alt": "Wedlune vendor list showing booking progress, categories, ratings, and contact details"
+          },
+          "caterers": {
+            "title": "Caterers",
+            "alt": "Wedlune caterer planner showing food preferences, menu assignments, and estimated spend"
+          },
+          "attire": {
+            "title": "Attire",
+            "alt": "Wedlune attire planner showing outfit decisions for both partners"
+          },
+          "transport": {
+            "title": "Transport",
+            "alt": "Wedlune transport planner showing guest coverage, vehicles, costs, and assignments"
+          }
         }
       }
     },
@@ -174,12 +204,30 @@
       "kicker": "One calm planning space",
       "title": "Everything you need, in one place.",
       "items": [
-        { "title": "Timeline", "description": "Dates, tasks, and reminders in one clear plan." },
-        { "title": "Guests & RSVPs", "description": "RSVPs, meals, plus-ones, and seating—without a spreadsheet." },
-        { "title": "Budget", "description": "Compare quotes, track payments, and spot overspending early." },
-        { "title": "Vendors", "description": "Contacts, quotes, booking status, and notes, together." },
-        { "title": "Photos", "description": "Save inspiration and share a photographer shot list." },
-        { "title": "Smart suggestions", "description": "Optional next steps, shaped by your wedding." }
+        {
+          "title": "Timeline",
+          "description": "Dates, tasks, and reminders in one clear plan."
+        },
+        {
+          "title": "Guests & RSVPs",
+          "description": "RSVPs, meals, plus-ones, and seating—without a spreadsheet."
+        },
+        {
+          "title": "Budget",
+          "description": "Compare quotes, track payments, and spot overspending early."
+        },
+        {
+          "title": "Vendors",
+          "description": "Contacts, quotes, booking status, and notes, together."
+        },
+        {
+          "title": "Photos",
+          "description": "Save inspiration and share a photographer shot list."
+        },
+        {
+          "title": "Smart suggestions",
+          "description": "Optional next steps, shaped by your wedding."
+        }
       ]
     },
     "how": {
@@ -187,9 +235,18 @@
       "kicker": "From overwhelmed to organized",
       "title": "How Wedlune Works",
       "steps": [
-        { "title": "Tell us about your wedding", "description": "Date, location, budget, and priorities." },
-        { "title": "Get your plan", "description": "A clear timeline and checklist." },
-        { "title": "Plan together", "description": "Shared progress, guests, costs, and decisions." }
+        {
+          "title": "Tell us about your wedding",
+          "description": "Date, location, budget, and priorities."
+        },
+        {
+          "title": "Get your plan",
+          "description": "A clear timeline and checklist."
+        },
+        {
+          "title": "Plan together",
+          "description": "Shared progress, guests, costs, and decisions."
+        }
       ]
     },
     "pricing": {
@@ -201,8 +258,16 @@
       "premium": "Premium",
       "premiumTitle": "More room. More polish.",
       "premiumSubtitle": "Add custom guest experiences, AI help, exports, and higher limits.",
-      "freeItems": ["Shared timeline, budget, guests, and vendors", "RSVP website for up to 50 invited people", "One partner included"],
-      "premiumItems": ["Unlimited planning lists and up to 100 photos", "Custom RSVP, wishlist sharing, and visual seating", "AI tools, exports, and an ad-free experience"],
+      "freeItems": [
+        "Shared timeline, budget, guests, and vendors",
+        "RSVP website for up to 50 invited people",
+        "One partner included"
+      ],
+      "premiumItems": [
+        "Unlimited planning lists and up to 100 photos",
+        "Custom RSVP, wishlist sharing, and visual seating",
+        "AI tools, exports, and an ad-free experience"
+      ],
       "feature": "Feature",
       "tableCaption": "Comparison of features included in the Wedlune Free and Premium plans",
       "keyDifferences": "Key differences at a glance",
@@ -288,20 +353,48 @@
       "kicker": "Before you begin",
       "title": "A few useful answers.",
       "items": [
-        { "question": "Can we start planning for free?", "answer": "Yes, the free plan includes a timeline, checklist, budget, and core planning lists." },
-        { "question": "Can both partners use the same wedding plan?", "answer": "Yes, invite a partner with editing or viewing access chosen by the owner." },
-        { "question": "How do AI suggestions work?", "answer": "Optional suggestions use your wedding details to recommend next steps that you always review." },
-        { "question": "Do guests need the app to RSVP?", "answer": "No, guests respond and update their plans through a private web link." },
-        { "question": "Can we keep planning without a connection?", "answer": "Yes, core data stays available locally and supported changes sync when you reconnect." },
-        { "question": "Is wedding information public?", "answer": "No, planning data is account-protected and guest links are private and excluded from search engines." }
+        {
+          "question": "Can we start planning for free?",
+          "answer": "Yes, the free plan includes a timeline, checklist, budget, and core planning lists."
+        },
+        {
+          "question": "Can both partners use the same wedding plan?",
+          "answer": "Yes, invite a partner with editing or viewing access chosen by the owner."
+        },
+        {
+          "question": "How do AI suggestions work?",
+          "answer": "Optional suggestions use your wedding details to recommend next steps that you always review."
+        },
+        {
+          "question": "Do guests need the app to RSVP?",
+          "answer": "No, guests respond and update their plans through a private web link."
+        },
+        {
+          "question": "Can we keep planning without a connection?",
+          "answer": "Yes, core data stays available locally and supported changes sync when you reconnect."
+        },
+        {
+          "question": "Is wedding information public?",
+          "answer": "No, planning data is account-protected and guest links are private and excluded from search engines."
+        }
       ]
     },
     "couples": {
       "kicker": "Designed for couples",
       "title": "When planning starts to feel bigger than the wedding.",
       "items": [
-        { "title": "The plan lives in too many places", "initials": "01", "detail": "Notes, chats, tabs, and spreadsheets", "description": "Bring scattered research, costs, guests, RSVPs, and deadlines into one shared view before details start slipping." },
-        { "title": "Nobody knows what to do next", "initials": "02", "detail": "Too many decisions, not enough clarity", "description": "Let Wedlune surface the next useful action, from vendor follow-ups to RSVP reminders and budget checks." }
+        {
+          "title": "The plan lives in too many places",
+          "initials": "01",
+          "detail": "Notes, chats, tabs, and spreadsheets",
+          "description": "Bring scattered research, costs, guests, RSVPs, and deadlines into one shared view before details start slipping."
+        },
+        {
+          "title": "Nobody knows what to do next",
+          "initials": "02",
+          "detail": "Too many decisions, not enough clarity",
+          "description": "Let Wedlune surface the next useful action, from vendor follow-ups to RSVP reminders and budget checks."
+        }
       ]
     }
   },
@@ -365,7 +458,22 @@
     "submitError": "Failed to send your RSVP. Please check your connection and try again.",
     "privacyNoticeBefore": "Your response, meal choices and dietary notes are shared with the couple and their authorized planning partner and hosted by Wedlune. Read how to request correction or deletion in our",
     "dietaryPrivacyBefore": "Optional: share only dietary details needed for the event. The couple and their authorized planning partner can read them. Allergies may reveal health information; do not submit sensitive details about someone else without their permission. More in our",
-    "privacyLink": "Privacy Policy"
+    "privacyLink": "Privacy Policy",
+    "information": {
+      "title": "Wedding information",
+      "localTime": "All dates and times are local to the wedding location.",
+      "faq": "Frequently asked questions",
+      "weddingDate": "Wedding date",
+      "ceremonyTime": "Ceremony time",
+      "ceremonyAddress": "Ceremony location and address",
+      "receptionTime": "Reception time",
+      "receptionAddress": "Reception location and address",
+      "dressCode": "Dress code",
+      "parking": "Parking instructions",
+      "transport": "Transport instructions",
+      "accommodation": "Accommodation instructions",
+      "travelLink": "Travel information link"
+    }
   },
   "wishlist": {
     "gifts": "Gifts",
@@ -401,7 +509,13 @@
     "mustHaveBadge": "Must-have",
     "emptyTitle": "Nothing here yet",
     "emptyBody": "The shot list is empty. Check back later!",
-    "categories": { "details": "Details", "getting_ready": "Getting Ready", "ceremony": "Ceremony", "family": "Family", "reception": "Reception" },
+    "categories": {
+      "details": "Details",
+      "getting_ready": "Getting Ready",
+      "ceremony": "Ceremony",
+      "family": "Family",
+      "reception": "Reception"
+    },
     "missingToken": "This shot list link is missing a token. Please check the link you received.",
     "inactive": "This shot list link is no longer active. The couple may have disabled sharing or regenerated the link.",
     "invalid": "Invalid shot list link.",
